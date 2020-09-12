@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "rootDir": ".",
+        "target": "esnext",
+        "lib": ["esnext"],
+        "types": ["dota-lua-types"],
+        "plugins": [{ "transform": "dota-lua-types/transformer" }],
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "strict": true
+    },
+    "tstl": {
+        "luaTarget": "JIT",
+        "sourceMapTraceback": true
+    }
+}
