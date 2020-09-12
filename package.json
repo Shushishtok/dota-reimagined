@@ -1,5 +1,5 @@
 {
-    "name": "",
+    "name": "dota_reimagined",
     "private": true,
     "scripts": {
         "postinstall": "node scripts/install.js",
@@ -12,12 +12,12 @@
         "dev:vscripts": "tstl --project game/scripts/vscripts/tsconfig.json --watch"
     },
     "devDependencies": {
-        "dota-lua-types": "^4.3.1",
+        "dota-lua-types": "^4.5.0",
         "find-steam-app": "^1.0.2",
-        "fs-extra": "^9.0.0",
+        "fs-extra": "^9.0.1",
         "npm-run-all": "^4.1.5",
-        "panorama-types": "^1.5.0",
-        "typescript": "^3.9.3",
+        "panorama-types": "^1.5.2",
+        "typescript": "^3.9.7",
         "typescript-to-lua": "^0.34.0"
     }
 }
