@@ -1,0 +1,6 @@
+#base heroes/anti_mage/hero.kv
+
+"DOTAHeroes"
+{
+	
+}
