@@ -193,24 +193,13 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
                 mana_burn = enemy.GetMana();
             }
 
-            // Burn mana
+            // Burn mana. This will not deal damage to the enemy.
             enemy.ReduceMana(mana_burn);
 
             // Play mana cleave burn particle
             this.particle_mana_cleave_burn_fx = ParticleManager.CreateParticle(this.particle_mana_cleave_burn, ParticleAttachment.ABSORIGIN, enemy);
             ParticleManager.SetParticleControl(this.particle_mana_cleave_burn_fx, 0, enemy.GetAbsOrigin());
             ParticleManager.ReleaseParticleIndex(this.particle_mana_cleave_burn_fx);
-
-            // Deal physical damage based on the mana burn            
-            ApplyDamage(
-            {
-                attacker: this.caster!,
-                damage: mana_burn * this.percent_damage_per_burn! * 0.01,
-                damage_type: this.ability?.GetAbilityDamageType()!,
-                victim: enemy,
-                ability: this.ability!,
-                damage_flags: DamageFlag.NONE
-            });
         }
     }
 

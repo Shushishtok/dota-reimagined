@@ -1,5 +1,8 @@
 "DOTAAbilities"
 {
+	//=================================================================================================================
+	// Anti Mage's Reimagined Mana Break
+	//=================================================================================================================
     "reimagined_antimage_mana_break"
 	{
 		// General
@@ -109,5 +112,130 @@
 				"energy_blast_passive_disable_duration"	"3"
 			}			
 		}		
+	}
+
+	//=================================================================================================================
+	// Anti Mage's Reimagined Blink
+	//=================================================================================================================
+	"reimagined_antimage_blink"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"		
+        "AbilityTextureName"			"antimage_blink"
+        "ScriptFile"				    "abilities/heroes/antimage/reimagined_antimage_blink"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"				
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+        "AbilityCooldown"				"15 12 9 6"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityCastPoint"				"0.4"
+		"AbilityManaCost"				"60"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"blink_range"			"925 1000 1075 1150"				
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"reaction_radius"		"300"				
+			}
+
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"interference_radius"	"300"				
+			}
+
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"interference_curr_mana_rdct_pct"	"10 15 20 25"				
+			}
+
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"magic_nullity_magic_res"	"8 16 24 32"				
+			}
+
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"magic_nullity_duration"	"2"				
+			}
+		}		
+	}
+
+	//=================================================================================================================
+	// Anti Mage's Reimagined Counterspell
+	//=================================================================================================================
+	"reimagined_antimage_counterspell"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"		
+        "AbilityTextureName"			"antimage_counterspell"
+        "ScriptFile"				    "abilities/heroes/antimage/reimagined_antimage_counterspell"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+	
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0 0 0 0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"15 11 7 3"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"45 50 55 60"		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"magic_resistance"			"15 25 35 45"				
+			}
+
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"duration"					"1.2"
+			}
+
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"magic_ends_mana_burn"		"100 175 250 325"
+			}
+
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"anti_magic_duration_inc"	"1"
+			}
+
+			"05"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"instinctive_counter_trigger_multiplier"	"3"
+			}
+		}
+
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+		"AbilityCastGestureSlot"	"DEFAULT"		
 	}
 }

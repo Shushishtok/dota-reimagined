@@ -1,0 +1,79 @@
+"lang" {
+	"Language" "English"
+	"Tokens" 
+	{
+		"addon_game_name" "Dota Reimagined"
+		
+		// Anti Mage
+		// Anti Mage's Mana Break
+		"DOTA_Tooltip_ability_reimagined_antimage_mana_break"
+		"Mana Break"
+
+		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Description"		
+		"Burns an opponent's mana on each attack based on a flat amount and the target's max mana. Mana Break deals %percent_damage_per_burn%%% of the mana burned as damage to the target.
+		<font color='#B25266'><b>Mana Cleave:</b> Also burns %mana_cleave_mana_burn% mana for all enemy units in %mana_cleave_distance% radius in a cone in front of Anti Mage, but does not deal damage.</font>
+		<font color='#B25266'><b>Mana Convergence:</b> when an enemy unit is hit %mana_convergence_hit_threshold% times with Mana Break, Mana Convergence triggers for %mana_convergence_debuff_duration% seconds, reducing the target's manaloss reduction by %mana_convergence_manaloss_reduction_pct%%.</font>
+		<font color='#B25266'><b>Energy Blast:</b> Mana Break can be activated to trigger an Energy Blast, burning up to %energy_blast_max_mana_burn% mana to all enemies in %energy_blast_radius% range and dealing %percent_damage_per_burn%%% it as magical damage. Disables Mana Break's passive effects for %energy_blast_passive_disable_duration% seconds after use.</font>"
+
+		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Lore"
+		"A modified technique of the Turstarkuri monks' peaceful ways is to turn magical energies on their owner."
+
+		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Note0"
+		"Illusions can trigger Mana Break, but burn %illusion_percentage%%% less mana on each attack."
+		
+		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Note1"
+		"Mana Cleave has a starting width of %mana_cleave_starting_width% and an ending width of %mana_cleave_end_width%. It also excludes the main target."
+
+		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Note2"
+		"Mana Convergence's stacking debuff lasts %mana_convergence_hit_duration% seconds."
+
+		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_mana_per_hit"
+		"FLAT MANA BURNED:"
+
+		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_mana_per_hit_pct"
+		"%TARGET MAX MANA AS MANA BURNED:"
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_mana_break_mana_convergence_counter"
+		"Mana Convergence Counter"
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_mana_break_mana_convergence_counter_Description"
+		"Mana Convergence will be applied on you when the threshold is reached."
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_mana_convergence_debuff"
+		"Mana Convergence"
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_mana_convergence_debuff_Description"
+		"Manaloss Reduction reduced by %dMODIFIER_PROPERTY_MANACOST_PERCENTAGE_STACKING%%%."
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_mana_break_disable"
+		"Mana Break Disabled"
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_mana_break_disable_Description"
+		"Energy Blast was triggered, disabling Mana Break for the duration of this modifier."
+
+		// Anti Mage's Blink
+		"DOTA_Tooltip_Ability_reimagined_antimage_blink"
+		"Blink"
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_blink_Description"
+		"Short distance teleportation that allows Anti-Mage to move in and out of combat.
+		<font color='#B25266'><b>Reaction:</b> Causes nearby enemies to trigger a stop command upon blinking %reaction_radius% radius near them.
+		<font color='#B25266'><b>Interference:</b> Removes %interference_curr_mana_rdct_pct%%% of the target's current mana in %interference_radius% radius around the start and end positions. Deals the amount of mana burned as physical damage to affected enemies.
+		<font color='#B25266'><b>Magic Nullity:</b> Increases the caster's magic resistance by %magic_nullity_magic_res%%% for %magic_nullity_duration% seconds after blinking."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_blink_Lore"
+		"In his encounter with the Dead Gods, Anti-Mage learned the value of being elusive."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_blink_Note0"
+		"Using Blink disjoints incoming projectiles."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_blink_blink_range"
+		"BLINK RANGE:"
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_blink_magic_nullity"
+		"Magic Nullity"
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_blink_magic_nullity_Description"
+		"Magic resistance increased by %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%%."
+	}
+}
