@@ -5,6 +5,24 @@ export interface ReimaginedModifier extends BaseModifier
     GetModifierLifeStealStacking(): number;
 }
 
+export interface ReflectedAbility
+{
+    spell_shield_reflect: boolean;
+}
+
+// Type guard - to check if an ability has ReflectAbility stuff
+export function IsReflectedAbility(ability: CDOTABaseAbility): ability is CDOTABaseAbility & ReflectedAbility 
+{
+    return (ability as any).spell_shield_reflect !== undefined;
+}
+
+// Add the Reflect Ability tag to an existing ability
+export function MakeReflectAbility(ability: CDOTABaseAbility): CDOTABaseAbility & ReflectedAbility 
+{
+    (ability as unknown as ReflectedAbility).spell_shield_reflect = true;
+    return ability as CDOTABaseAbility & ReflectedAbility;
+}
+
 export function CalculateDistanceBetweenEntities(entity1: CBaseEntity, entity2: CBaseEntity) : number
 {
     let distance = (entity1.GetAbsOrigin() as Vector - entity2.GetAbsOrigin() as Vector).Length2D();

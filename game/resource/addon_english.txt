@@ -75,5 +75,39 @@
 
 		"DOTA_Tooltip_modifier_reimagined_antimage_blink_magic_nullity_Description"
 		"Magic resistance increased by %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%%."
+
+		// Anti Mage's Counterspell
+		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell"
+		"Counterspell"
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell_Description"
+		"Passively grants you magic resistance. Can be activated to create an anti-magic shell around you that sends any targeted spells back towards enemies instead of affecting you.
+		<font color='#B25266'><b>The Magic Ends Here:</b> Burns %magic_ends_mana_burn% mana of the original casters of reflected spells.
+		<font color='#B25266'><b>Anti Magic Shell:</b> Increases Counterspell's current duration by %anti_magic_duration_inc% second for every reflected spell.
+		<font color='#B25266'><b>Instinctive Counter:</b> Counterspell can be set to auto cast, allowing it to trigger automatically whenever an ability is fired towards the caster. However, automatic triggers consumes %instinctive_counter_trigger_multiplier% times the cooldown and the mana cost of Counterspell."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell_Lore"
+		"With the proper focus, Anti-Mage turns innate resistance into calculated retaliation."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell_Note0"
+		"Instinctive Counter's triggers automatically when an ability is targeted on Anti Mage is fully cast, which might allow instant effects to still affect the caster."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell_Note1"
+		"Instinctive Counter will not trigger if the expected amount of mana to be consumed is higher than your current mana."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell_Note2"
+		"Even when the auto cast is on, manually activating Counterspell will consume the original mana cost and cooldown."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell_magic_resistance"
+		"%MAGIC RESISTANCE:"
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell_duration"
+		"DURATION:"
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_counterspell_active"
+		"Counterspell Shield"
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_counterspell_active_Description"
+		"Causes all spells that target you to be blocked and reflected onto the enemy."
 	}
 }
