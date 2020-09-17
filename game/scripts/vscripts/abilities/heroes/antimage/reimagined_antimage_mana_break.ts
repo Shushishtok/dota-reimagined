@@ -26,6 +26,18 @@ export class reimagined_antimage_mana_break extends BaseAbility
         return modifier_reimagined_antimage_mana_break.name;
     }
 
+    OnAbilityPhaseStart(): boolean
+    {
+        // Play sound 
+        EmitSoundOn(this.sound_blast, this.caster);
+        return true;
+    }
+
+    OnAbilityPhaseInterrupted(): void
+    {
+        StopSoundOn(this.sound_blast, this.caster);
+    }
+
     OnSpellStart(): void
     {
         // Reimagined: Energy Blast. Can be cast to apply a blast that burns mana for all enemies in radius and deals it as damage. Disables Mana Break for a few seconds afterwards
@@ -44,8 +56,7 @@ export class reimagined_antimage_mana_break extends BaseAbility
         this.energy_blast_max_mana_burn = this.GetSpecialValueFor("energy_blast_max_mana_burn");
         this.energy_blast_passive_disable_duration = this.GetSpecialValueFor("energy_blast_passive_disable_duration");
 
-        // Play sound 
-        EmitSoundOn(this.sound_blast, this.caster);
+        
 
         // Play particle
         this.particle_blast_fx = ParticleManager.CreateParticle(this.particle_blast, ParticleAttachment.ABSORIGIN, this.caster);
