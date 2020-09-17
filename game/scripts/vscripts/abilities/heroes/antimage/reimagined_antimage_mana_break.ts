@@ -10,6 +10,7 @@ export class reimagined_antimage_mana_break extends BaseAbility
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();    
     sound_blast: string = "AntiMage.ManaBreak.EnergyBlast.Cast";
+    sound_blast_hit: string = "AntiMage.ManaBreak.EnergyBlast.Hit";
     particle_blast: string = "particles/heroes/anti_mage/antimage_energy_blast.vpcf";
     particle_blast_fx?: ParticleID;
     particle_blast_mana_burn: string = "particles/heroes/anti_mage/antimage_mana_burn_hit_energy_blast.vpcf";
@@ -56,7 +57,12 @@ export class reimagined_antimage_mana_break extends BaseAbility
                                             this.energy_blast_radius!,
                                             UnitTargetTeam.ENEMY,
                                             UnitTargetType.HERO + UnitTargetType.BASIC,
-                                            UnitTargetFlags.MANA_ONLY);                                            
+                                            UnitTargetFlags.MANA_ONLY);        
+                                            
+        if (enemies.length >= 1)
+        {
+            EmitSoundOn(this.sound_blast_hit, this.caster);
+        }
 
         // Cycle through all enemies
         for (const enemy of enemies)

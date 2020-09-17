@@ -20,13 +20,13 @@
 	HeroGuidesSupported = true
 	ForceDefaultGuide = false
 	MinimalPrecache = false
-	MinPlayers = 10
+	MinPlayers = 1
 	MaxPlayers = 10
 	map_options = 
 	[
 		{
 			map = "dota_reimagined"
-			MinPlayers = 10
+			MinPlayers = 1
 		},
 	]
 	PenaltiesEnabled = false

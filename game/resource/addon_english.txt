@@ -109,5 +109,48 @@
 
 		"DOTA_Tooltip_modifier_reimagined_antimage_counterspell_active_Description"
 		"Causes all spells that target you to be blocked and reflected onto the enemy."
+
+		// Anti Mage's Mana Void
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void"
+		"Mana Void"
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_Description"
+		"For each point of mana missing by the target unit, damage is dealt to it and surrounding enemies. The main target is also mini-stunned.
+		<font color='#B25266'><b>Void Feedback:</b> If the main target has less than %void_feedback_mana_threshold_pct%%% of its max mana, the damage per mana point is multiplied by %void_feedback_damage_multiplier%.
+		<font color='#B25266'><b>Calculated Combustion:</b> Calculates the damage based on the enemy unit missing the most mana in the radius.
+		<font color='#B25266'><b>Purity of Will:</b> Can be set to auto cast. Doing so causes the spell to only deal damage on the main target, but also to increase the stun it receives by %purity_of_will_stun_per_instance% for every %purity_of_will_missing_mana_for_instance% points of missing mana, up to a limit of %purity_of_will_max_stun_increased% additional seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_Lore"
+		"After bringing enemies to their knees, Anti-Mage punishes them for their use of the arcane arts."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_Note0"
+		"The stun passes through spell immunity."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_Note1"
+		"Purity of Will's stun duration slightly increases by each point of missing mana, even if it doesn't reach an instance of %purity_of_will_missing_mana_for_instance% mana."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_aghanim_description"
+		"Increases stun duration. Mana Void kills cause the enemy's highest cooldown ability to take longer to cool down upon respawning."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_mana_void_damage_per_mana"
+		"DAMAGE:"
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_mana_void_ministun"
+		"STUN DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_mana_void_aoe_radius"
+		"RADIUS:"
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_scepter_cooldown_increase"
+		"SCEPTER COOLDOWN INCREASE:"
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_scepter_ministun"
+		"SCEPTER STUN DURATION:"
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_mana_void_kill_debuff"
+		"Cooldown Increased"
+
+		"DOTA_Tooltip_modifier_reimagined_antimage_mana_void_kill_debuff_Description"
+		"Ability cooldown increased due to scepter Mana Void."
 	}
 }
