@@ -1,4 +1,5 @@
 #base heroes/anti_mage/hero.kv
+#base heroes/night_stalker/hero.kv
 
 "DOTAHeroes"
 {

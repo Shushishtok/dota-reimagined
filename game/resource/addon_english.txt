@@ -149,5 +149,64 @@
 
 		"DOTA_Tooltip_modifier_reimagined_antimage_mana_void_kill_debuff_Description"
 		"Ability cooldown increased due to scepter Mana Void."
+
+
+		// Night Stalker
+		// Night Stalker's Void
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void"
+		"Void"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_Description"
+		"Creates a damaging void that slows an enemy unit and deals damage. Void also mini-stuns, interrupting channeling abilities. The slowing effect lasts longer at night.
+		<font color='#B25266'><b>Darkness Hungers:</b> Void sets targets' vision to %vision_day% if cast during the day or to %vision_night% if cast during the night.
+		<font color='#B25266'><b>Stalking:</b> Night Stalker gains a bonus of %stalking_ms_bonus%%% move speed while facing towards enemies affected by Void. Stalked enemies are visible through the fog of war."		
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_Lore"
+		"Balanar creates a vortex of infinite night, tearing opponents violently into the eternal darkness that once was."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_Note0"
+		"Void does not ministun enemies during the day."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_Note1"
+		"Stalking requires the caster to face towards an enemy unit afflicted by Void in up to %stalking_distance% distance and %stalking_width% width. Stalking lasts %stalk_interval% seconds and refreshes continually while facing towards the target; during this time, the enemy is revealed through the fog."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_Note2"
+		"While stalking, the caster will have a visible modifier."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_aghanim_description"
+		"Causes Void to be an AoE ability. Increases ministun duration."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_damage"
+		"DAMAGE:"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_duration_day"
+		"DAY DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_duration_night"
+		"NIGHT DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_movespeed_slow"
+		"%MOVE SLOW:"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_attackspeed_slow"
+		"ATTACK SLOW:"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_radius_scepter"
+		"SCEPTER AOE:"
+		
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_scepter_ministun"
+		"SCPETER STUN:"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_void_stalking"
+		"Stalking"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_void_stalking_Description"
+		"Stalking an enemy. Grants %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% bonus move speed."
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_void_debuff"
+		"Void"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_void_debuff_Description"
+		"Slows move speed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and attack speed by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%. Vision is drastically reduced."
 	}
 }
