@@ -83,6 +83,9 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
         // Do nothing if the target is a building
         if (event.target.IsBuilding()) return 0;
 
+        // Do nothing if the target has no mana
+        if (event.target.GetMaxMana() == 0) return 0;
+
         let damage: number;
 
         // Calculate the mana burn amount for that target
@@ -142,6 +145,12 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
             // Reimagined: Mana Cleave. Causes Anti Mage's attacks to burn mana in a cleave-like pattern
             this.ReimaginedManaCleave(event);
 
+            // Do nothing if the target is a building
+            if (event.target.IsBuilding()) return;
+
+            // Do nothing if the target has no mana
+            if (event.target.GetMaxMana() == 0) return;            
+
             // Reimagined: Mana Convergence. After a few attacks on an enemy unit, trigger Mana Convergence on the enemy for a few seconds, which reduces mana loss reduction
             this.ReimaginedManaConvergence(event);
         }        
@@ -159,7 +168,7 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
         undefined,
         UnitTargetTeam.ENEMY,
         UnitTargetType.HERO + UnitTargetType.BASIC, 
-        UnitTargetFlags.MANA_ONLY,
+        UnitTargetFlags.NONE,
         FindOrder.ANY,
         false);
 
@@ -180,6 +189,12 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
 
             // Ignore main target of the attack
             if (enemy == event.target)
+            {
+                continue;
+            }
+
+            // Ignore targets that have no mana
+            if (enemy.GetMaxMana() == 0)
             {
                 continue;
             }
