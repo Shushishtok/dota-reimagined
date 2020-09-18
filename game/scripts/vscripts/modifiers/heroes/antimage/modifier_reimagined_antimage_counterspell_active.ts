@@ -1,7 +1,5 @@
 import { BaseModifier, registerModifier} from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
-import { modifier_reimagined_antimage_counterspell_passive } from "./modifier_reimagined_antimage_counterspell_passive";
-import { modifier_reimagined_antimage_mana_convergence_debuff } from "./modifier_reimagined_antimage_mana_convergence_debuff";
 
 @registerModifier()
 export class modifier_reimagined_antimage_counterspell_active extends BaseModifier
@@ -69,78 +67,17 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
     {
         if (!IsServer()) return 0;
 
-        // List of unreflectable abilities
-        const exceptionAbilities: String[] = 
-        ["rubick_spell_steal",
-         "dark_seer_ion_shell",
-         "morphling_morph",
-         "grimstroke_soul_chain",
-         "spectre_spectral_dagger",
-         "item_solar_crest",
-         "item_urn_of_shadows",
-         "item_medallion_of_courage",
-         "item_spirit_vessel"]
-
-        const original_caster = event.ability.GetCaster();
-        
-        // Do not reflect towards allies
-        if (original_caster.GetTeamNumber() == this.parent.GetTeamNumber()) return 0;
-
-        // Do not reflect back at reflectors to prevent infinite loops
-        if (original_caster.HasModifier("modifier_item_lotus_orb_active") || original_caster.HasModifier(this.GetName()) || original_caster.HasModifier("modifier_mirror_shield_delay")) return 0;
-
-        // Do not reflect abilities inside the exception table
-        if (exceptionAbilities.includes(event.ability.GetAbilityName())) return 0;
-
-        // Do not reflect abilities that have the reflect tag 
-        if (util.IsReflectedAbility(event.ability)) return 0;
-        
-        // If the parent already knows the ability, reference it, otherwise add it
-        let reflected_ability_handle;
-        if (this.parent.HasAbility(event.ability.GetAbilityName()))
+        // If spell reflection returned false we'll stop here
+        if (!util.SpellReflect(event, this.parent, "modifier_reimagined_antimage_counterspell_passive"))
         {
-            reflected_ability_handle = this.parent.FindAbilityByName(event.ability.GetAbilityName())
+            return 0;
         }
-        else
-        {
-            reflected_ability_handle = this.parent.AddAbility(event.ability.GetAbilityName());
-
-            // Set properties of the new ability
-            reflected_ability_handle!.SetStolen(true);
-            reflected_ability_handle!.SetHidden(true);            
-            util.MakeReflectAbility(reflected_ability_handle)
-
-            reflected_ability_handle.SetRefCountsModifiers(true);
-        }
-
-        // Update level to match the original's
-        reflected_ability_handle!.SetLevel(event.ability.GetLevel());
-        
-        // Set cursor on original target and cast the ability
-        this.parent.SetCursorCastTarget(original_caster);
-        reflected_ability_handle!.OnSpellStart();
 
         // Play reflect sound
-        EmitSoundOn(this.sound_reflect, original_caster);
-
-        // Remove channeling effects
-        if (reflected_ability_handle!.OnChannelFinish!)
-        {
-            reflected_ability_handle!.OnChannelFinish(false);
-        }
-
-        // Add ability to the reflected table on the passive modifier
-        if (this.parent.HasModifier(modifier_reimagined_antimage_counterspell_passive.name))
-        {
-            const passive_modifier = this.parent.FindModifierByName(modifier_reimagined_antimage_counterspell_passive.name);
-            if (passive_modifier)
-            {
-                ((passive_modifier) as modifier_reimagined_antimage_counterspell_passive).reflected_abilities!.push(reflected_ability_handle!);
-            }
-        }
+        EmitSoundOn(this.sound_reflect, event.ability.GetCaster());
 
         // Reimagined: The Magic Ends Here: Burns a flat amount of mana of the original casters of reflected spells.
-        this.ReimaginedTheMagicEndsHere(original_caster);
+        this.ReimaginedTheMagicEndsHere(event.ability.GetCaster());
 
         // Reimagined: Anti Magic Shell: Increases Counterspell's current duration by x seconds for every spell reflected.
         this.ReimaginedAntiMagicShell();

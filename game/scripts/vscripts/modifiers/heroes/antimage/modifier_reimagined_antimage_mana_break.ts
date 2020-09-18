@@ -80,6 +80,9 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
         // Do nothing if the passive Mana Break is disabled by Energy Blast
         if (this.parent.HasModifier(modifier_reimagined_antimage_mana_break_disable.name)) return 0;        
 
+        // Do nothing if the target is a building
+        if (event.target.IsBuilding()) return 0;
+
         let damage: number;
 
         // Calculate the mana burn amount for that target
