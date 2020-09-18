@@ -19,13 +19,13 @@
 		"A modified technique of the Turstarkuri monks' peaceful ways is to turn magical energies on their owner."
 
 		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Note0"
-		"Illusions can trigger Mana Break, but burn %illusion_percentage%%% less mana on each attack."
+		"Illusions can trigger Mana Break and its additional effects, but burn %illusion_percentage%%% less mana on each attack."
 		
 		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Note1"
 		"Mana Cleave has a starting width of %mana_cleave_starting_width% and an ending width of %mana_cleave_end_width%. It also excludes the main target."
 
 		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Note2"
-		"Mana Convergence's stacking debuff lasts %mana_convergence_hit_duration% seconds."
+		"Mana Convergence's stacking debuff lasts %mana_convergence_hit_duration% seconds. While the target already has the triggered debuff, the stacking debuff will not increase stacks."
 
 		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_mana_per_hit"
 		"FLAT MANA BURNED:"

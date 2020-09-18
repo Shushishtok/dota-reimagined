@@ -1,6 +1,7 @@
 import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_antimage_mana_break_mana_convergence_counter } from "./modifier_reimagined_antimage_mana_break_mana_convergence_counter";
 import { modifier_reimagined_antimage_mana_break_disable } from "./modifier_reimagined_antimage_mana_break_disable"
+import { modifier_reimagined_antimage_mana_convergence_debuff } from "./modifier_reimagined_antimage_mana_convergence_debuff"
 import * as util  from "../../../lib/util"
 
 @registerModifier()
@@ -225,6 +226,9 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
     {
         let modifier_mana_convergence;
         
+        // If the target alreayd has the mana convergence *debuff* modifier, do nothing
+        if (event.target.HasModifier(modifier_reimagined_antimage_mana_convergence_debuff.name)) return;        
+
         // If target already has the mana convergence modifier, fetch it
         if (event.target.HasModifier(modifier_reimagined_antimage_mana_break_mana_convergence_counter.name))
         {

@@ -33,11 +33,11 @@ export class modifier_reimagined_antimage_mana_break_mana_convergence_counter ex
         // Check if stacks are currently on the threshold
         if (this.GetStackCount() >= this.mana_convergence_hit_threshold!)
         {
-            // Reset stacks
-            this.SetStackCount(0);
-
             // Apply Mana Convergence debuff on the enemy
             this.parent.AddNewModifier(this.caster!, this.ability!, modifier_reimagined_antimage_mana_convergence_debuff.name, {duration: this.mana_convergence_debuff_duration});
+
+            // Destroy self
+            this.Destroy();
         }
     }
 }
