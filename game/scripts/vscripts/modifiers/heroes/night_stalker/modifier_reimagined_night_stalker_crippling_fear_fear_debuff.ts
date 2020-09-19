@@ -8,7 +8,7 @@ export class modifier_reimagined_night_stalker_crippling_fear_fear_debuff extend
     caster?: CDOTA_BaseNPC;
     ability?: CDOTABaseAbility; 
     parent: CDOTA_BaseNPC = this.GetParent();
-    particle_effect: string = "particles/units/heroes/hero_night_stalker/nightstalker_crippling_fear.vpcf";
+    particle_effect: string = "particles/heroes/night_stalker/reimagined_nightstalker_crippling_fear_feared.vpcf";
 
     IsHidden() {return false}
     IsDebuff() {return true}

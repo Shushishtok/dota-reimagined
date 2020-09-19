@@ -223,10 +223,10 @@
 		"A vision of the twisted maw of Balanar etches itself into the minds of the poor souls unlucky enough to cross his path."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_Note0"
-		"Night Terror's fear effect does not affects AI controlled creeps as they have command overriding logic. It will work on player controlled creeps, however."
+		"Night Terror's fear effect does not affect AI controlled creeps as they have command overriding logic. It will work on player controlled creeps, however."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_Note1"
-		"Night Terror replaces the silence and the miss change from Crippling Crippling Fear with the fear."
+		"Night Terror replaces the silence and the miss chance from Crippling Crippling Fear with the fear."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_Note2"
 		"Roll Back The Light's radius increase scales every %roll_back_light_interval% seconds."
@@ -253,7 +253,7 @@
 		"Silenced by Crippling Fear and missing %dMODIFIER_PROPERTY_MISS_PERCENTAGE%%% of attacks."
 
 		"DOTA_Tooltip_modifier_reimagined_night_stalker_crippling_fear_fear_debuff"
-		"Crippling Fear Fear"
+		"Night Terror"
 
 		"DOTA_Tooltip_modifier_reimagined_night_stalker_crippling_fear_fear_debuff_Description"
 		"Running away from the caster in terror due to Crippling Fear."
