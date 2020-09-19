@@ -28,10 +28,10 @@
 		"Mana Convergence's stacking debuff lasts %mana_convergence_hit_duration% seconds. While the target already has the triggered debuff, the stacking debuff will not increase stacks."
 
 		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_mana_per_hit"
-		"FLAT MANA BURNED:"
+		"MANA BURNED PER HIT:"
 
 		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_mana_per_hit_pct"
-		"%TARGET MAX MANA AS MANA BURNED:"
+		"%MAX MANA BURNED PER HIT:"
 
 		"DOTA_Tooltip_modifier_reimagined_antimage_mana_break_mana_convergence_counter"
 		"Mana Convergence Counter"
@@ -208,5 +208,54 @@
 
 		"DOTA_Tooltip_modifier_reimagined_night_stalker_void_debuff_Description"
 		"Slows move speed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and attack speed by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%. Vision is drastically reduced."
+
+		// Night Stalker's Crippling Fear
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear"
+		"Crippling Fear"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_Description"
+		"Night Stalker horrifies all nearby enemies, causing them to become silenced while near him. The effect lasts longer at night.
+		<font color='#B25266'><b>Roll Back The Light:</b> The aura's radius increases over time at a rate of %roll_back_light_radius_inc_sec% additional units per second.
+		<font color='#B25266'><b>Crippling Crippling Fear:</b> Causes enemies afflicted by the silence debuff to miss %crippling_crippling_fear_miss_rate%%% of their attacks.
+		<font color='#B25266'><b>Night Terror:</b> May be set to autocast to fear enemies inside the aura, causing them to run away from you."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_Lore"
+		"A vision of the twisted maw of Balanar etches itself into the minds of the poor souls unlucky enough to cross his path."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_Note0"
+		"Night Terror's fear effect does not affects AI controlled creeps as they have command overriding logic. It will work on player controlled creeps, however."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_Note1"
+		"Night Terror replaces the silence and the miss change from Crippling Crippling Fear with the fear."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_Note2"
+		"Roll Back The Light's radius increase scales every %roll_back_light_interval% seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_duration_day"
+		"DAY DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_duration_night"
+		"NIGHT DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_radius"
+		"AURA RADIUS:"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_crippling_fear_aura"
+		"Crippling Fear"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_crippling_fear_aura_Description"
+		"Silencing or fearing nearby enemies. The aura's radius constantly increases."
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_crippling_fear_silence_debuff"
+		"Crippling Fear Silence"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_crippling_fear_silence_debuff_Description"
+		"Silenced by Crippling Fear and missing %dMODIFIER_PROPERTY_MISS_PERCENTAGE%%% of attacks."
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_crippling_fear_fear_debuff"
+		"Crippling Fear Fear"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_crippling_fear_fear_debuff_Description"
+		"Running away from the caster in terror due to Crippling Fear."
 	}
 }

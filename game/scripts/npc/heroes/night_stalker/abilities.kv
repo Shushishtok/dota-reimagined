@@ -1,7 +1,7 @@
 "DOTAAbilities"
 {
 	//=================================================================================================================
-	// Night Stalker: Void
+	// Reimagined Night Stalker: Void
 	//=================================================================================================================
 	"reimagined_night_stalker_void"
 	{
@@ -124,5 +124,73 @@
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+    //=================================================================================================================
+	// Reimagined Night Stalker: Crippling Fear
+	//=================================================================================================================
+	"reimagined_night_stalker_crippling_fear"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"		
+        "AbilityTextureName"			"night_stalker_crippling_fear"
+        "ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_crippling_fear"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
+		"FightRecapLevel"				"1"		
+
+		// Unit Targeting
+		//-------------------------------------------------------------------------------------------------------------
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"375"
+		"AbilityCastPoint"				"0.2"
+		"AbilityCooldown"				"30 25 20 15"
+		"AbilityManaCost"				"50"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration_day"			"3.0 3.0 3.0 3.0"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration_night"		"4.0 5.0 6.0 7.0"
+			}
+
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"	            "375"
+			}
+
+            "04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"roll_back_light_radius_inc_sec" "50"
+			}
+
+            "05"
+			{
+				"var_type"				    "FIELD_FLOAT"
+				"roll_back_light_interval" "0.1"
+			}
+
+            "06"
+			{
+				"var_type"				    "FIELD_INTEGER"
+				"crippling_crippling_fear_miss_rate" "10 15 20 25"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
 }

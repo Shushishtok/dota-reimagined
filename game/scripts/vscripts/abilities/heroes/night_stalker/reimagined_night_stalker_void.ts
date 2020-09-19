@@ -59,7 +59,7 @@ export class reimagined_night_stalker_void extends BaseAbility
         // Roll for standard response
         else if (RollPercentage(25))
         {
-            EmitSoundOn(this.cast_response[math.random(0, this.cast_response.length -1)], this.caster);
+            EmitSoundOn(this.cast_response[RandomInt(0, this.cast_response.length -1)], this.caster);
         }
 
         // Play cast sound
