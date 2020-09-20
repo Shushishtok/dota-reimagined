@@ -37,20 +37,7 @@ export class GameMode
 
     public OnStateChange(): void 
     {
-        const state = GameRules.State_Get();
-
-        // Add 4 bots to lobby in tools
-        // if (IsInToolsMode() && state == GameState.CUSTOM_GAME_SETUP) 
-        // {
-        //     for (let i = 0; i < 4; i++) {
-        //         Tutorial.AddBot("npc_dota_hero_lina", "", "", false);
-        //     }
-        // }
-
-        // // Start game once pregame hits
-        // if (state == DOTA_GameState.DOTA_GAMERULES_STATE_PRE_GAME) {
-        //     Timers.CreateTimer(0.2, () => this.StartGame());
-        // }
+        const state = GameRules.State_Get();     
     }
 
     private StartGame(): void 
@@ -66,7 +53,7 @@ export class GameMode
         print("Script reloaded!");
 
         // Do some stuff here
-    }
+    }    
 
     private OnNpcSpawned(event: NpcSpawnedEvent) 
     {
