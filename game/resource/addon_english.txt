@@ -257,5 +257,77 @@
 
 		"DOTA_Tooltip_modifier_reimagined_night_stalker_crippling_fear_fear_debuff_Description"
 		"Running away from the caster in terror due to Crippling Fear."
+
+		// Night Stalker's Hunter in the Night
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night"
+		"Hunter in the Night"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_Description"
+		"Night Stalker is in his element at night, attacking and moving with great swiftness.
+		<font color='#B25266'><b>Dead of Night:</b> Grants a bonus to Night Stalker's stats and abilities for every %dead_of_night_interval% second interval that the current night has lasted. The bonus reaches its peak in the middle of the night and then begins to decay at the same rate. For every %dead_of_night_interval% seconds, increases strength, agility and intelligence by %dead_of_night_stats_per_stack%, movement speed, attack speed and damage by %dead_of_night_bonuses_per_stack%, and Void's and Crippling Fear's durations by %dead_of_night_durations_per_stack% seconds.
+		<font color='#B25266'><b>As Quick As a Shadow:</b> Unlocks movespeed limit during the night.
+		<font color='#B25266'><b>Everlasting Night:</b> Each natural night lasts %everlasting_night_duration% seconds longer than the one before it."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_Note0"
+		"Dead of Night only triggers during natural nights. Nights caused by abilities such as Dark Ascension do not trigger Dead of Night."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_Note1"
+		"Dead of Night's modifier stacks show how close it is to the peak of the night, with 100 stacks signaling the peak of it."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_Note2"
+		"Dead of Night's duration scales with Everlasting Nights longer nights, matching the peak accordingly."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_Lore"
+		"The hunting prowess of Balanar improves as the night beckons."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_bonus_movement_speed_pct_night"
+		"%MOVE SPEED:"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_bonus_attack_speed_night"
+		"ATTACK SPEED:"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night"
+		"Dead of Night"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night_Description"
+		"Increases strength, agility and intelligence by %dMODIFIER_PROPERTY_STATS_STRENGTH_BONUS%, move speed, damage and attack speed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT%, and Void's and Crippling Fear's durations by %fMODIFIER_PROPERTY_TOOLTIP% seconds."
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights"
+		"Everlasting Nights"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights_Description"
+		"Increases the duration of the next natural night by %dMODIFIER_PROPERTY_TOOLTIP% seconds."
+
+		// Night Stalker's Dark Ascension
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_dark_ascension"
+		"Dark Ascension"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_dark_ascension_Description"
+		"Night Stalker smothers the sun and summons instant darkness, so that he might use his powers at their fullest. Nightstalker gains flight and bonus damage during this time. Has unobstructed vision.
+		<font color='#B25266'><b>Wings Out:</b> Passively applies Dark Ascension's bonuses when Dead of Night's power scale is at least %wings_out_stack_threshold% stacks. The bonus damage granted by Wings Out is %wings_out_damage_pct%%% of Dark Ascension's damage."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_dark_ascension_Note0"
+		"Wings Out is disabled when Dark Ascension is active."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_dark_ascension_Lore"
+		"It is a humbling sight to see when the mightiest of warriors become afraid of the dark."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_dark_ascension_duration"
+		"DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_dark_ascension_bonus_damage"
+		"BONUS DAMAGE:"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_dark_ascension_wings_out"
+		"Wings Out"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_dark_ascension_wings_out_Description"
+		"Grants unobstructed vision, flying movement and %dMODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE% bonus damage."
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_dark_ascension_active"
+		"Dark Ascension"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_dark_ascension_active_Description"
+		"Grants unobstructed vision, flying movement and %dMODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE% bonus damage."
 	}
 }

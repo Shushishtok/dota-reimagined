@@ -243,15 +243,68 @@
             "06"
 			{
 				"var_type"							"FIELD_FLOAT"
-				"dead_of_night_durations_per_stack" "0.1"		
+				"dead_of_night_durations_per_stack" "0.03"		
 			}
 
             "07"
 			{
 				"var_type"							"FIELD_INTEGER"
-				"everlasting_night_duration"        "15"		
+				"everlasting_night_duration"        "20"		
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+
+    //=================================================================================================================
+	// Night Stalker's Dark Ascension
+	//=================================================================================================================
+	"reimagined_night_stalker_dark_ascension"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"		
+        "AbilityTextureName"			"night_stalker_darkness"
+        "ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_dark_ascension"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"		
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3 0.3 0.3"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		"AbilityCooldown"				"140 130 120"
+		"AbilityManaCost"				"125 175 225"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"30.0"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_damage"			"50 100 150"
+			}
+
+            "03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"wings_out_stack_threshold"	"75"
+			}
+
+            "04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"wings_out_damage_pct"	"50"
+			}
+		}
 	}
 }

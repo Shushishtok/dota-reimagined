@@ -1,6 +1,7 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_night_stalker_void_stalking } from "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_void_stalking"
 import { modifier_reimagined_night_stalker_void_debuff } from "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_void_debuff";
+import { modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night } from "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night";
 
 @registerAbility()
 export class reimagined_night_stalker_void extends BaseAbility
@@ -130,6 +131,9 @@ export class reimagined_night_stalker_void extends BaseAbility
             }
         }
 
+        // Reimagination: Dead of Night: Increases Void's duration (among other things) during natural nights, based on distance from nighttime peak
+        slow_duration = slow_duration + this.ReimaginationDeadOfNightVoid();
+
         // Deal damage to the target
         ApplyDamage(
         {
@@ -149,5 +153,26 @@ export class reimagined_night_stalker_void extends BaseAbility
 
         // Apply Void on target
         enemy.AddNewModifier(this.caster, this, modifier_reimagined_night_stalker_void_debuff.name, {duration: slow_duration});
+    }
+
+    ReimaginationDeadOfNightVoid(): number
+    {
+        let bonus = 0;        
+        // Check if the caster has any Dead of Night modifier
+        if (this.caster.HasModifier(modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night.name))
+        {
+            const modifier = this.caster.FindModifierByName(modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night.name)
+            if (modifier)
+            {
+                // Calculate bonuses from the modifier
+                const supposed_bonus = (modifier as modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night).CalculateDurationBonuses();
+                if (supposed_bonus && supposed_bonus > 0)
+                {
+                    bonus = supposed_bonus;
+                }
+            }
+        }
+
+        return bonus;
     }
 }

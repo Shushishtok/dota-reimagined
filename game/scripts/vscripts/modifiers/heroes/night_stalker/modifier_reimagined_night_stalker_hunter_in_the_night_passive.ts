@@ -1,5 +1,6 @@
 import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night } from "./modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night";
+import { modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights} from "./modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights";
 
 @registerModifier()
 export class modifier_reimagined_night_stalker_hunter_in_the_night_passive extends BaseModifier
@@ -30,9 +31,13 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
     bonus_movement_speed_pct_night?: number;
     bonus_attack_speed_night?: number;    
 
+    // Reimagined specials
+    everlasting_night_duration?: number;
+
     IsHidden() {return true}
     IsDebuff() {return false}
     IsPurgable() {return false}
+    RemoveOnDeath() {return false}
 
     OnCreated(): void
     {        
@@ -43,6 +48,9 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
         // Modifier specials
         this.bonus_movement_speed_pct_night = this.ability!.GetSpecialValueFor("bonus_movement_speed_pct_night");
         this.bonus_attack_speed_night = this.ability!.GetSpecialValueFor("bonus_attack_speed_night");
+
+        // Reimagined specials
+        this.everlasting_night_duration = this.ability!.GetSpecialValueFor("everlasting_night_duration");
 
         // Start thinking
         if (IsServer()) this.StartIntervalThink(0.5);
@@ -63,7 +71,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
         // Check if natural night time has been triggered
         if (!this.natural_night)
         {
-            if (GameRules.GetTimeOfDay() >= 0.75 || GameRules.GetTimeOfDay() <= 0.25)
+            if (GameRules.GetTimeOfDay() >= 0.75 || GameRules.GetTimeOfDay() <= 0.249)
             {
                 this.natural_night = true;
 
@@ -73,9 +81,12 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
         }
         else
         {
-            if (GameRules.GetTimeOfDay() >= 0.25 && GameRules.GetTimeOfDay() <= 0.75)
+            if (GameRules.GetTimeOfDay() >= 0.249 && GameRules.GetTimeOfDay() <= 0.75)
             {
                 this.natural_night = false;
+
+                // Reimagination: Everlasting Nights: Each natural night lasts 15 seconds longer than the one before
+                this.ReimaginationEverlastingNights();
             }
         }
 
@@ -269,4 +280,34 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
 
         return 0;
     }    
+
+    ReimaginationEverlastingNights(): void
+    {
+        // Check if the parent has the Everlasting Nights modifier
+        let modifier_everlasting;
+        if (this.parent.HasModifier(modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name))
+        {
+            modifier_everlasting = this.parent.FindModifierByName(modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name);                        
+        }
+        else
+        {
+            modifier_everlasting = this.parent.AddNewModifier(this.parent, this.ability!, modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name, {});
+        }
+
+        // Trigger temporary night and increment stack for the next occassion
+        if (modifier_everlasting)
+        {            
+            // Get current stacks and calculate length
+            const extra_night_duration = modifier_everlasting.GetStackCount() * this.everlasting_night_duration!;
+            
+            // Begin a temporary night to extend the night
+            if (extra_night_duration > 0)
+            {
+                GameRules.BeginTemporaryNight(extra_night_duration);
+            }
+
+            // Increment stacks
+            modifier_everlasting.IncrementStackCount();
+        }
+    }
 }

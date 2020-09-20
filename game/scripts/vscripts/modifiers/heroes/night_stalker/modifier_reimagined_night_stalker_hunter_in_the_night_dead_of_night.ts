@@ -1,4 +1,5 @@
-import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_ts_adapter";
+import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
+import { modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights } from "./modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights"
 
 @registerModifier()
 export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night extends BaseModifier
@@ -19,6 +20,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night
     dead_of_night_stats_per_stack?: number;
     dead_of_night_bonuses_per_stack?: number;
     dead_of_night_durations_per_stack?: number;
+    everlasting_night_duration?: number;
 
     IsHidden() {return false}
     IsDebuff() {return false}
@@ -34,18 +36,21 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night
         // Reimagined specials
         this.dead_of_night_interval = this.ability!.GetSpecialValueFor("dead_of_night_interval");
         this.dead_of_night_stats_per_stack = this.ability!.GetSpecialValueFor("dead_of_night_stats_per_stack");
-        this.dead_of_night_bonuses_per_stack = this.ability!.GetSpecialValueFor("dead_of_night_bonuses_per_stack");        
+        this.dead_of_night_bonuses_per_stack = this.ability!.GetSpecialValueFor("dead_of_night_bonuses_per_stack");
+        this.dead_of_night_durations_per_stack = this.ability!.GetSpecialValueFor("dead_of_night_durations_per_stack");
+        this.everlasting_night_duration = this.ability!.GetSpecialValueFor("everlasting_night_duration");
 
-        // TODO: Get amount of Everlasting Nights stacks
+        // Get amount of Everlasting Nights stacks and calculate extra
+        this.everlasting_night_stacks = this.parent.GetModifierStackCount(modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name, this.parent);        
 
         // Calculate actual night duration by using Everlasting Nights stacks
-        this.actual_night_duration = this.base_night_duration + this.everlasting_night_stacks;
+        this.actual_night_duration = this.base_night_duration + this.everlasting_night_stacks * this.everlasting_night_duration;        
 
         // Set duration of the buff to match the duration of the night
         this.SetDuration(this.actual_night_duration!, true);
 
         // Calculate "peak" of the night
-        this.peak_of_the_night_time = this.actual_night_duration / 2;        
+        this.peak_of_the_night_time = this.actual_night_duration / 2;                
 
         // Start thinking
         this.StartIntervalThink(this.dead_of_night_interval);
@@ -83,6 +88,84 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night
         }
     }
 
+    CalculateStatBonuses(): number
+    {
+        // Does nothing when broken
+        if (this.parent.PassivesDisabled()) return 0;
+
+        // Does nothing if this is currently a day (e.g. Phoenix' Supernova)
+        if (this.parent.GetModifierStackCount("modifier_reimagined_night_stalker_hunter_in_the_night_passive", this.parent) == 0)
+        {
+            return 0;
+        }
+
+        let actual_bonus;
+        if (this.elapsed_time <= this.peak_of_the_night_time!)
+        {
+            actual_bonus = this.elapsed_time / this.dead_of_night_interval! * this.dead_of_night_stats_per_stack!;
+        }
+        else
+        {
+            actual_bonus = ((this.peak_of_the_night_time! - this.elapsed_time) + this.peak_of_the_night_time!) / this.dead_of_night_interval! * this.dead_of_night_stats_per_stack!;
+        }
+
+        return actual_bonus;
+    }
+
+    CalculateParamBonuses(): number
+    {
+        // Does nothing when broken
+        if (this.parent.PassivesDisabled()) return 0;
+
+        // Does nothing if this is currently a day (e.g. Phoenix' Supernova)
+        if (this.parent.GetModifierStackCount("modifier_reimagined_night_stalker_hunter_in_the_night_passive", this.parent) == 0)
+        {
+            return 0;
+        }
+
+        let actual_bonus;
+        if (this.elapsed_time <= this.peak_of_the_night_time!)
+        {
+            actual_bonus = this.elapsed_time / this.dead_of_night_interval! * this.dead_of_night_bonuses_per_stack!;
+        }
+        else
+        {
+            actual_bonus = ((this.peak_of_the_night_time! - this.elapsed_time) + this.peak_of_the_night_time!) / this.dead_of_night_interval! * this.dead_of_night_bonuses_per_stack!;
+        }
+
+        return actual_bonus;
+    }
+
+    CalculateDurationBonuses(): number
+    {
+        // Does nothing when broken
+        if (this.parent.PassivesDisabled()) return 0;        
+
+        // Does nothing if this is currently a day (e.g. Phoenix' Supernova)
+        if (this.parent.GetModifierStackCount("modifier_reimagined_night_stalker_hunter_in_the_night_passive", this.parent) == 0)
+        {
+            return 0;
+        }        
+
+        // If one of the parameters are not defined yet, return 0
+        if (!this.elapsed_time || !this.peak_of_the_night_time || !this.dead_of_night_interval || !this.dead_of_night_durations_per_stack)
+        {            
+            return 0;
+        }
+
+        let actual_bonus: number = 0;
+        if (this.elapsed_time <= this.peak_of_the_night_time!)
+        {
+            actual_bonus = this.elapsed_time / this.dead_of_night_interval! * this.dead_of_night_durations_per_stack!;
+        }
+        else
+        {
+            actual_bonus = ((this.peak_of_the_night_time! - this.elapsed_time) + this.peak_of_the_night_time!) / this.dead_of_night_interval! * this.dead_of_night_durations_per_stack!;
+        }
+
+        return actual_bonus;
+    }
+
     DeclareFunctions(): ModifierFunction[]
     {
         return [ModifierFunction.STATS_STRENGTH_BONUS,
@@ -90,150 +173,42 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night
                 ModifierFunction.STATS_INTELLECT_BONUS,
                 ModifierFunction.MOVESPEED_BONUS_CONSTANT,
                 ModifierFunction.PREATTACK_BONUS_DAMAGE,
-                ModifierFunction.ATTACKSPEED_BONUS_CONSTANT]
+                ModifierFunction.ATTACKSPEED_BONUS_CONSTANT,
+                ModifierFunction.TOOLTIP]
+    }
+
+    OnTooltip(): number
+    {
+        return this.CalculateDurationBonuses();
     }
 
     GetModifierBonusStats_Strength(): number
     {
-        // Does nothing when broken
-        if (this.parent.PassivesDisabled()) return 0;
-
-        // Does nothing if this is currently a day (e.g. Phoenix' Supernova)
-        if (this.parent.GetModifierStackCount("modifier_reimagined_night_stalker_hunter_in_the_night_passive", this.parent) == 0)
-        {
-            return 0;
-        }
-
-        let actual_bonus;
-        if (this.elapsed_time <= this.peak_of_the_night_time!)
-        {
-            actual_bonus = this.elapsed_time / this.dead_of_night_interval! * this.dead_of_night_stats_per_stack!;
-        }
-        else
-        {
-            actual_bonus = ((this.peak_of_the_night_time! - this.elapsed_time) + this.peak_of_the_night_time!) / this.dead_of_night_interval! * this.dead_of_night_stats_per_stack!;
-        }
-
-        return actual_bonus;
+        return this.CalculateStatBonuses();
     }
 
     GetModifierBonusStats_Agility(): number
     {
-        // Does nothing when broken
-        if (this.parent.PassivesDisabled()) return 0;
-
-        // Does nothing if this is currently a day (e.g. Phoenix' Supernova)
-        if (this.parent.GetModifierStackCount("modifier_reimagined_night_stalker_hunter_in_the_night_passive", this.parent) == 0)
-        {
-            return 0;
-        }
-
-        let actual_bonus;
-        if (this.elapsed_time <= this.peak_of_the_night_time!)
-        {
-            actual_bonus = this.elapsed_time / this.dead_of_night_interval! * this.dead_of_night_stats_per_stack!;
-        }
-        else
-        {
-            actual_bonus = ((this.peak_of_the_night_time! - this.elapsed_time) + this.peak_of_the_night_time!) / this.dead_of_night_interval! * this.dead_of_night_stats_per_stack!;
-        }
-
-        return actual_bonus;
+        return this.CalculateStatBonuses();
     }
 
     GetModifierBonusStats_Intellect(): number
     {
-        // Does nothing when broken
-        if (this.parent.PassivesDisabled()) return 0;
-
-        // Does nothing if this is currently a day (e.g. Phoenix' Supernova)
-        if (this.parent.GetModifierStackCount("modifier_reimagined_night_stalker_hunter_in_the_night_passive", this.parent) == 0)
-        {
-            return 0;
-        }
-
-        let actual_bonus;
-        if (this.elapsed_time <= this.peak_of_the_night_time!)
-        {
-            actual_bonus = this.elapsed_time / this.dead_of_night_interval! * this.dead_of_night_stats_per_stack!;
-        }
-        else
-        {
-            actual_bonus = ((this.peak_of_the_night_time! - this.elapsed_time) + this.peak_of_the_night_time!) / this.dead_of_night_interval! * this.dead_of_night_stats_per_stack!;
-        }
-
-        return actual_bonus;
+        return this.CalculateStatBonuses();
     }
 
     GetModifierMoveSpeedBonus_Constant(): number
     {
-        // Does nothing when broken
-        if (this.parent.PassivesDisabled()) return 0;
-
-        // Does nothing if this is currently a day (e.g. Phoenix' Supernova)
-        if (this.parent.GetModifierStackCount("modifier_reimagined_night_stalker_hunter_in_the_night_passive", this.parent) == 0)
-        {
-            return 0;
-        }
-
-        let actual_bonus;
-        if (this.elapsed_time <= this.peak_of_the_night_time!)
-        {
-            actual_bonus = this.elapsed_time / this.dead_of_night_interval! * this.dead_of_night_bonuses_per_stack!;
-        }
-        else
-        {
-            actual_bonus = ((this.peak_of_the_night_time! - this.elapsed_time) + this.peak_of_the_night_time!) / this.dead_of_night_interval! * this.dead_of_night_bonuses_per_stack!;
-        }
-
-        return actual_bonus;
+        return this.CalculateParamBonuses();
     }
 
     GetModifierPreAttack_BonusDamage(): number
     {
-        // Does nothing when broken
-        if (this.parent.PassivesDisabled()) return 0;
-
-        // Does nothing if this is currently a day (e.g. Phoenix' Supernova)
-        if (this.parent.GetModifierStackCount("modifier_reimagined_night_stalker_hunter_in_the_night_passive", this.parent) == 0)
-        {
-            return 0;
-        }
-
-        let actual_bonus;
-        if (this.elapsed_time <= this.peak_of_the_night_time!)
-        {
-            actual_bonus = this.elapsed_time / this.dead_of_night_interval! * this.dead_of_night_bonuses_per_stack!;
-        }
-        else
-        {
-            actual_bonus = ((this.peak_of_the_night_time! - this.elapsed_time) + this.peak_of_the_night_time!) / this.dead_of_night_interval! * this.dead_of_night_bonuses_per_stack!;
-        }
-
-        return actual_bonus;
+        return this.CalculateParamBonuses();
     }
 
     GetModifierAttackSpeedBonus_Constant()
     {
-        // Does nothing when broken
-        if (this.parent.PassivesDisabled()) return 0;
-
-        // Does nothing if this is currently a day (e.g. Phoenix' Supernova)
-        if (this.parent.GetModifierStackCount("modifier_reimagined_night_stalker_hunter_in_the_night_passive", this.parent) == 0)
-        {
-            return 0;
-        }
-
-        let actual_bonus;
-        if (this.elapsed_time <= this.peak_of_the_night_time!)
-        {
-            actual_bonus = this.elapsed_time / this.dead_of_night_interval! * this.dead_of_night_bonuses_per_stack!;
-        }
-        else
-        {
-            actual_bonus = ((this.peak_of_the_night_time! - this.elapsed_time) + this.peak_of_the_night_time!) / this.dead_of_night_interval! * this.dead_of_night_bonuses_per_stack!;
-        }
-
-        return actual_bonus;
+        return this.CalculateParamBonuses();
     }
 }

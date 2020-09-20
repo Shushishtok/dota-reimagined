@@ -1,5 +1,6 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_night_stalker_crippling_fear_aura } from "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_crippling_fear_aura";
+import { modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night } from "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night";
 
 @registerAbility()
 export class reimagined_night_stalker_crippling_fear extends BaseAbility
@@ -41,8 +42,31 @@ export class reimagined_night_stalker_crippling_fear extends BaseAbility
             duration = this.duration_night;
         }
 
+        // Reimagination: Dead of Night: Increases Crippling Fear's duration (among other things) during natural nights, based on distance from nighttime peak
+        duration = duration + this.ReimaginationDeadOfNightCripplingFear();        
+
         // Apply aura modifier to self
-        const modifier = this.caster.AddNewModifier(this.caster, this, modifier_reimagined_night_stalker_crippling_fear_aura.name, {duration: duration});
+        this.caster.AddNewModifier(this.caster, this, modifier_reimagined_night_stalker_crippling_fear_aura.name, {duration: duration});
     }
 
+    ReimaginationDeadOfNightCripplingFear(): number
+    {
+        let bonus = 0;        
+        // Check if the caster has any Dead of Night modifier
+        if (this.caster.HasModifier(modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night.name))
+        {
+            const modifier = this.caster.FindModifierByName(modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night.name)
+            if (modifier)
+            {
+                // Calculate bonuses from the modifier
+                const supposed_bonus = (modifier as modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night).CalculateDurationBonuses();
+                if (supposed_bonus && supposed_bonus > 0)
+                {
+                    bonus = supposed_bonus;
+                }
+            }
+        }
+
+        return bonus;
+    }
 }
