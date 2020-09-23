@@ -329,5 +329,40 @@
 
 		"DOTA_Tooltip_modifier_reimagined_night_stalker_dark_ascension_active_Description"
 		"Grants unobstructed vision, flying movement and %dMODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE% bonus damage."
+
+		// Sven
+		// Sven's Storm Hammer
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt"
+		"Storm Hammer"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_Description"
+		"Sven unleashes his magical gauntlet that deals damage and stuns enemy units in a small area around the target.
+		<font color='#B25266'><b>Strong Right:</b> The main projectile goes through all units in the projectile's path, dealing %strong_right_damage% damage.
+		<font color='#B25266'><b>Momentum Punch:</b> For every %momentum_punch_units_travel% units the main projectile traveled until it hit the target or was disjointed, increases the impact's AoE by %momentum_punch_aoe_increase%.
+		<font color='#B25266'><b>Gomu Gomu No Gatling Gun:</b> Fires additional %gatling_gun_count% mini-Storm Hammer projectiles in random positions next to Sven which travel forward in the direction of his target, mini-stunning and dealing %gatling_gun_damage% damage to enemies it comes in contact with."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_aghanim_description"
+		"Increases cast range and transports you along the Storm Hammer, attacking every enemy on impact. Strong Right instant attacks enemies you go through, and Gomu Gomu No Gatling Gun triggers after reaching the destination."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_Lore"
+		"The Rogue Knight's iron gauntlet, taken from the school of his father, strikes his foes to their core."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_Note0"
+		"Strong Right has a search radius of %strong_right_radius% units. It can only hit each enemy once, and it ignores the main target."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_Note1"
+		"Gatling Gun projectiles spawn randomly to the right and to the left of the caster evenly on random positions between %gatling_gun_spawn_min_distance% and %gatling_gun_spawn_max_distance% units to the caster's side. Each projectile spawns after a %gatling_gun_spawn_delay% seconds delay."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_Note2
+		"Dissipates after traveling %gatling_gun_max_distance% units without hitting anything."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_bolt_stun_duration"
+		"DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_bolt_aoe"
+		"RADIUS:"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_cast_range_bonus_scepter"
+		"SCEPTER BONUS CAST RANGE:"
 	}
 }

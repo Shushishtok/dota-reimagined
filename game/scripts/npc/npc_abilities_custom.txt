@@ -1,5 +1,7 @@
-#base "heroes/anti_mage/abilities.kv"
+#base heroes/anti_mage/abilities.kv
 #base heroes/night_stalker/abilities.kv
+#base heroes/sven/abilities.kv
+
 
 "DOTAAbilities"
 {
