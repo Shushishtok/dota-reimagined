@@ -1,5 +1,5 @@
 import { BaseAbility, BaseModifier } from "./dota_ts_adapter";
-
+import { modifier_reimagined_no_outgoing_damage } from "../modifiers/general_mechanics/modifier_reimagined_no_outgoing_damage"
 
 export interface ReimaginedModifier extends BaseModifier
 {
@@ -28,7 +28,6 @@ export function MakeReflectAbility(ability: CDOTABaseAbility): CDOTABaseAbility 
     (ability as unknown as ReflectedAbility).spell_shield_reflect = true;
     return ability as CDOTABaseAbility & ReflectedAbility;
 }
-
 
 export function SpellReflect(event: ModifierAbilityEvent, parent: CDOTA_BaseNPC, passive_modifier_name: string): boolean
 {
@@ -372,4 +371,69 @@ export class AbilityPerk extends BaseAbility
 {
     IsPerk: boolean = true;   
 }
+
+// Custom cleave attack to prevent inconsistencies and forced behaviors
+export function CustomCleaveAttack(attacker: CDOTA_BaseNPC, start_position: Vector, start_width: number, end_width: number, distance: number, targetTeam: UnitTargetTeam, targetType: UnitTargetType, targetFlags: UnitTargetFlags, target: CDOTA_BaseNPC, damage_percent: number, ability: CDOTABaseAbility): number
+{
+    // Find enemies
+    const enemies = FindUnitsInCone(attacker.GetTeamNumber(),
+                                    attacker.GetForwardVector(),
+                                    start_position,
+                                    start_width,
+                                    end_width,
+                                    distance,
+                                    undefined,
+                                    targetTeam,
+                                    targetType,
+                                    targetFlags,
+                                    FindOrder.CLOSEST,
+                                    false);
+
+    // Calculate damage
+    const damage = attacker.GetAverageTrueAttackDamage(target) * damage_percent * 0.01;    
+
+    // Deal damage to enemies
+    for (const enemy of enemies)
+    {
+        // Ignore main enemy
+        if (enemy == target) continue;
+           
+        // Deal physical damage to enemies        
+        ApplyDamage(
+        {
+            attacker: attacker,
+            damage: damage,
+            damage_type: DamageTypes.PHYSICAL,
+            victim: enemy,
+            ability: ability,
+            damage_flags: DamageFlag.NONE
+        });
+    }      
+    
+    return enemies.length;
+}
+
+export function PerformAttackNoCleave(attacker: CDOTA_BaseNPC, target: CDOTA_BaseNPC, useCastAttackOrb: boolean, processProcs: boolean, skipCooldown: boolean, ignoreInvis: boolean, useProjectile: boolean, fakeAttack: boolean, neverMiss: boolean)
+{
+    // If this is a fake attack, do things as usual
+    if (fakeAttack)
+    {
+        attacker.PerformAttack(target, useCastAttackOrb, processProcs, skipCooldown, ignoreInvis, useProjectile, fakeAttack, neverMiss)
+    }
+    else
+    {
+        // Make a real attack without proccing any on hit effects
+        attacker.PerformAttack(target, useCastAttackOrb, false, skipCooldown, ignoreInvis, useProjectile, fakeAttack, neverMiss)
+
+        // Add no-damage modifier to the attacker
+        const modifier = attacker.AddNewModifier(undefined, undefined, modifier_reimagined_no_outgoing_damage.name, {duration: 1});
+
+        // And then a fake attack with proccing hit effects, no projectiles
+        attacker.PerformAttack(target, useCastAttackOrb, true, skipCooldown, ignoreInvis, false, true, neverMiss);
+
+        // Remove no-damage modifier
+        modifier.Destroy();
+    }
+}
+
 

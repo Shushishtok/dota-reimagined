@@ -1,7 +1,7 @@
 "DOTAAbilities"
 {
     //=================================================================================================================
-	// Sven's Storm Hammer
+	// Sven's Reimagined Storm Hammer
 	//=================================================================================================================
 	"reimagined_sven_storm_bolt"
 	{
@@ -88,24 +88,24 @@
 			{
 				"var_type"			"FIELD_INTEGER"
 				"gatling_gun_count"	"12"						
-			}
+			}           
 
-            "09"
+			"09"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"gatling_gun_max_distance"	"1000"						
+				"gatling_gun_behind_max_distance"	"350"						
 			}
 
             "10"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"gatling_gun_spawn_min_distance" "80"
+				"gatling_gun_spawn_min_distance" "30"
 			}
 
             "11"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"gatling_gun_spawn_max_distance" "500"
+				"gatling_gun_spawn_max_distance" "180"
 			}
 
 			"12"
@@ -139,5 +139,92 @@
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+
+	//=================================================================================================================
+	// Sven's Reimagined Great Cleave
+	//=================================================================================================================
+	"reimagined_sven_great_cleave"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"		
+        "AbilityTextureName"			"sven_great_cleave"
+        "ScriptFile"				    "abilities/heroes/sven/reimagined_sven_great_cleave"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+				
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{						
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"cleave_starting_width"	"150"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"cleave_ending_width"	"360"
+			}		
+
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"cleave_distance"		"700"
+			}
+
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"great_cleave_damage"	"30 50 70 90"
+			}
+
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"epic_cleave_attacks"	"5"
+			}
+
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"epic_cleave_bonus_damage"	"20 35 50 65"
+			}
+
+			"07"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"epic_cleave_damage_pct"	"100"
+			}
+
+			"08"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"epic_cleave_counter_duration"	"8"
+			}
+
+			"09"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"overhead_slam_max_distance"	"2000"
+			}
+
+			"10"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"overhead_slam_speed"	"800"
+			}
+
+			"11"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"adjudicator_armor_ignore_pct"	"38 46 54 62"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
 }

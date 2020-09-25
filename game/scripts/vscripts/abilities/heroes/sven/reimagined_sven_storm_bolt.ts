@@ -53,8 +53,8 @@ export class reimagined_sven_storm_bolt extends BaseAbility
     // Reimagined specials
     strong_right_damage?: number;
     strong_right_radius?: number;
-    gatling_gun_count?: number;
-    gatling_gun_max_distance?: number;
+    gatling_gun_count?: number;    
+    gatling_gun_behind_max_distance?: number;
     gatling_gun_spawn_min_distance?: number;
     gatling_gun_spawn_max_distance?: number;
     gatling_gun_spawn_delay?: number;
@@ -100,8 +100,8 @@ export class reimagined_sven_storm_bolt extends BaseAbility
         // Reimagined specials
         this.strong_right_damage = this.GetSpecialValueFor("strong_right_damage");
         this.strong_right_radius = this.GetSpecialValueFor("strong_right_radius");
-        this.gatling_gun_count = this.GetSpecialValueFor("gatling_gun_count");
-        this.gatling_gun_max_distance = this.GetSpecialValueFor("gatling_gun_max_distance");
+        this.gatling_gun_count = this.GetSpecialValueFor("gatling_gun_count");        
+        this.gatling_gun_behind_max_distance = this.GetSpecialValueFor("gatling_gun_behind_max_distance");
         this.gatling_gun_spawn_min_distance = this.GetSpecialValueFor("gatling_gun_spawn_min_distance");
         this.gatling_gun_spawn_max_distance = this.GetSpecialValueFor("gatling_gun_spawn_max_distance");
         this.gatling_gun_spawn_delay = this.GetSpecialValueFor("gatling_gun_spawn_delay");
@@ -341,7 +341,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
                 // Scepter: Instant attacks all enemies the projectile goes through
                 if (this.caster.HasScepter())
                 {
-                    this.caster.PerformAttack(enemy, false, true, true, false, false, false, false);
+                    util.PerformAttackNoCleave(this.caster, enemy, false, true, true, false, false, false, true);
                 }
             }
         }                                          
@@ -358,7 +358,8 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             count++;
 
             // Create position in front of the caster
-            const behind_position: Vector = (this.caster.GetAbsOrigin() - direction * 200) as Vector;
+            const distance_behind = RandomInt(0, this.gatling_gun_behind_max_distance!);
+            const behind_position: Vector = (this.caster.GetAbsOrigin() - direction * distance_behind) as Vector;
             const front_cast_position: Vector = (behind_position + direction * RandomInt(this.gatling_gun_spawn_min_distance!, this.gatling_gun_spawn_max_distance!)) as Vector;
 
             // Define QAngle
@@ -385,7 +386,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
                 bIgnoreSource: false,
                 bProvidesVision: false,
                 bVisibleToEnemies: true,
-                fDistance: this.gatling_gun_max_distance,
+                fDistance: this.GetCastRange(this.caster.GetAbsOrigin(), undefined),
                 fEndRadius: 80,
                 fExpireTime: GameRules.GetGameTime() + 10,
                 fMaxSpeed: this.bolt_speed,
