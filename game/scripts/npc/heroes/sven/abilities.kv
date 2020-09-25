@@ -152,8 +152,11 @@
 		"BaseClass"             		"ability_lua"		
         "AbilityTextureName"			"sven_great_cleave"
         "ScriptFile"				    "abilities/heroes/sven/reimagined_sven_great_cleave"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityCastPoint"				"0.35"
+		"AbilityCooldown"				"25 22 19 16"
+		"AbilityManaCost"				"90"
 				
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -192,13 +195,13 @@
 			"06"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"epic_cleave_bonus_damage"	"20 35 50 65"
+				"epic_cleave_distance_multiplier"	"2"
 			}
 
 			"07"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"epic_cleave_damage_pct"	"100"
+				"epic_cleave_damage_pct"	"125"
 			}
 
 			"08"
@@ -222,9 +225,14 @@
 			"11"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"adjudicator_armor_ignore_pct"	"38 46 54 62"
+				"overhead_slam_radius"	"180"
 			}
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+
+			"12"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"epic_cleave_armor_ignore_pct"	"38 46 54 62"
+			}
+		}		
 	}
 }

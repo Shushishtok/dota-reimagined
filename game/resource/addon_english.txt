@@ -353,7 +353,7 @@
 		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_Note1"
 		"Gatling Gun projectiles spawn randomly to the right and to the left of the caster evenly on random positions between %gatling_gun_spawn_min_distance% and %gatling_gun_spawn_max_distance% units to the caster's side. Each projectile spawns after a %gatling_gun_spawn_delay% seconds delay."
 
-		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_Note2
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_Note2"
 		"Dissipates after traveling %gatling_gun_max_distance% units without hitting anything."
 
 		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_bolt_stun_duration"
@@ -364,5 +364,35 @@
 
 		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_cast_range_bonus_scepter"
 		"SCEPTER BONUS CAST RANGE:"
+
+		// Sven's Great Cleave
+		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave"
+		"Great Cleave"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_Description"
+		"Sven strikes with great force, cleaving all nearby enemy units with his attack.
+		<font color='#B25266'><b>Epic Cleave:</b> Every %epic_cleave_attacks% attacks, Sven's next attack becomes an Epic Cleave which multiplies the cleave's radius and distance by %epic_cleave_distance_multiplier%, deals %epic_cleave_damage_pct%%% cleave damage, and ignores %epic_cleave_armor_ignore_pct%%% of the main target's armor. The counter resets after %epic_cleave_counter_duration% seconds.
+		<font color='#B25266'><b>Overhead Slam:</b> Can be cast on a target position to strike the Outcast Blade, firing a fast moving shockwave that travels up to %overhead_slam_max_distance% units. Instant attacks all targets hit by the shockwave."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_Lore"
+		"The Vigil Knights still seek to reclaim the stolen Outcast Blade from Sven, a weapon capable of cutting wide swaths through lesser warriors."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_Note0"
+		"Great Cleave will not cleave from Storm Hammer's and Overhead Slam's instant attacks."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_Note1"
+		"Epic Cleave generates stacks from hitting enemies with instant attacks. However, only a real attack can trigger Epic Cleave's attack."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_Note2"
+		"Overhead Slam's projectile moves at %overhead_slam_speed% speed, hitting enemies in %overhead_slam_radius% radius around it."				
+
+		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_great_cleave_damage"
+		"%CLEAVE DAMAGE:"
+
+		"DOTA_Tooltip_modifier_reimagined_sven_great_cleave_epic_cleave"
+		"Epic Cleave"
+
+		"DOTA_Tooltip_modifier_reimagined_sven_great_cleave_epic_cleave_Description"
+		"After attacking %dMODIFIER_PROPERTY_TOOLTIP% times, your next attack will fire a devastating Epic Cleave."
 	}
 }

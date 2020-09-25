@@ -1,0 +1,135 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf27:version{36c3961f-02a4-4c52-bf8f-6e3147d7d142} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 48
+	m_flConstantRadius = 1.0
+	m_ConstantColor = [ 255, 225, 160, 255 ]
+	m_nConstantSequenceNumber = 7
+	m_bShouldSort = false
+	m_Renderers = 
+	[
+		{
+			_class = "C_OP_RenderTrails"
+			m_nSequenceCombineMode = "SEQUENCE_COMBINE_MODE_USE_SEQUENCE_0"
+			m_flOverbrightFactor = 6.0
+			m_flAddSelfAmount = 2.0
+			m_bSaturateColorPreAlphaBlend = false
+			m_hTexture = resource:"materials/particle/sparks/sparks.vtex"
+			m_bIgnoreDT = true
+			m_flFinalTextureScaleV = -1.0
+			m_flFinalTextureOffsetV = 1.0
+			m_flRadiusScale = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 0.5
+			}
+			m_flTailAlphaScale = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 0.0
+			}
+		},
+	]
+	m_Operators = 
+	[
+		{
+			_class = "C_OP_FadeOutSimple"
+			m_flFadeOutTime = 1.0
+		},
+		{
+			_class = "C_OP_Decay"
+		},
+		{
+			_class = "C_OP_LerpScalar"
+			m_flOutput = 0.0
+			m_nFieldOutput = "10"
+		},
+		{
+			_class = "C_OP_InterpolateRadius"
+			m_flBias = 0.75
+			m_flStartScale = 0.0
+		},
+	]
+	m_Initializers = 
+	[
+		{
+			_class = "C_INIT_RandomRadius"
+			m_flRadiusMax = 360.0
+			m_flRadiusMin = 180.0
+		},
+		{
+			_class = "C_INIT_RandomAlpha"
+			m_nAlphaMin = 64
+		},
+		{
+			_class = "C_INIT_RandomLifeTime"
+			m_fLifetimeMin = 0.125
+			m_fLifetimeMax = 0.15
+		},
+		{
+			_class = "C_INIT_CreateWithinSphere"
+			m_vecDistanceBias = [ 1.0, 1.0, -1.0 ]
+			m_vecDistanceBiasAbs = [ 0.0, 0.0, 1.0 ]
+			m_fSpeedMin = 5000.0
+			m_fSpeedMax = 5000.0
+		},
+		{
+			_class = "C_INIT_RandomTrailLength"
+			m_flMaxLength = 0.5
+		},
+		{
+			_class = "C_INIT_InitialVelocityNoise"
+			m_vecOutputMin = [ 0.0, 0.0, -10000.0 ]
+			m_vecOutputMax = [ 0.0, 0.0, -10000.0 ]
+		},
+	]
+	m_Emitters = 
+	[
+		{
+			_class = "C_OP_InstantaneousEmitter"
+			m_nParticlesToEmit = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 8.0
+			}
+		},
+		{
+			_class = "C_OP_ContinuousEmitter"
+			m_flEmissionDuration = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 0.2
+			}
+		},
+	]
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/heroes/sven/overhead_slam_hit_warp.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/heroes/sven/overhead_slam_hit_sparks.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/heroes/sven/overhead_slam_hit_sparks_b.vpcf"
+		},
+	]
+	m_nBehaviorVersion = 10
+	m_nFirstMultipleOverride_BackwardCompat = 5
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+			m_drivers = 
+			[
+				{
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ null, null, null ]
+					m_entityName = "self"
+				},
+			]
+		},
+	]
+}
