@@ -23,7 +23,7 @@ export class reimagined_sven_gods_strength extends BaseAbility
 
         // Play particle effect
         this.particle_cast_fx = ParticleManager.CreateParticle(this.particle_cast, ParticleAttachment.ABSORIGIN_FOLLOW, this.caster);
-        ParticleManager.SetParticleControlEnt(this.particle_cast_fx, 1, this.caster, ParticleAttachment.ABSORIGIN_FOLLOW, "", this.caster.GetAbsOrigin(), true)
+        ParticleManager.SetParticleControlEnt(this.particle_cast_fx, 1, this.caster, ParticleAttachment.ABSORIGIN_FOLLOW, undefined, this.caster.GetAbsOrigin(), true)
         ParticleManager.ReleaseParticleIndex(this.particle_cast_fx);
 
         // Add modifier to self

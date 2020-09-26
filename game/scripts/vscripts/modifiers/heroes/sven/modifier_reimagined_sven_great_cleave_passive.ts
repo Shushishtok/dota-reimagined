@@ -2,6 +2,7 @@ import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util"
 import { modifier_reimagined_sven_great_cleave_epic_cleave } from "./modifier_reimagined_sven_great_cleave_epic_cleave_counter";
 import { modifier_reimagined_sven_great_cleave_epic_cleave_armor_reduction } from "./modifier_reimagined_sven_great_cleave_epic_cleave_armor_reduction";
+import { modifier_reimagined_sven_gods_strength } from "./modifier_reimagined_sven_gods_strength"
 
 @registerModifier()
 export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
@@ -184,7 +185,7 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
                                         this.ability!);
 
                 // Play sound effects based on God's Strength modifier presence
-                if (this.parent.HasModifier("modifier_reimagined_sven_gods_strength")) 
+                if (this.parent.HasModifier(modifier_reimagined_sven_gods_strength.name)) 
                 {
                     EmitSoundOn(this.sound_epic_cleave_gods_strength, this.parent);
                 } 

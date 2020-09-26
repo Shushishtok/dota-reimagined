@@ -78,7 +78,7 @@
                         {
                             "value"
                             {
-                                "value0"        "great_cleave_overhead_slam_pre_cast.vsnd"
+                                "value0"        "sounds/great_cleave_overhead_slam_pre_cast.vsnd"
                             }
                         }
                         "volume"            {   "value"     "1.00000"  }
@@ -110,7 +110,7 @@
                         {
                             "value"
                             {
-                                "value0"        "great_cleave_overhead_slam_cast.vsnd"
+                                "value0"        "sounds/great_cleave_overhead_slam_cast.vsnd"
                             }
                         }
                         "volume"            {   "value"     "1.00000"  }
@@ -142,7 +142,7 @@
                         {
                             "value"
                             {
-                                "value0"        "great_cleave_overhead_slam_hit.vsnd"
+                                "value0"        "sounds/great_cleave_overhead_slam_hit.vsnd"
                             }
                         }
                         "volume"            {   "value"     "0.35000"  }
@@ -174,7 +174,7 @@
                         {
                             "value"
                             {
-                                "value0"        "great_cleave_epic_cleave_normal.vsnd"
+                                "value0"        "sounds/great_cleave_epic_cleave_normal.vsnd"
                             }
                         }
                         "volume"            {   "value"     "0.70000"  }
@@ -206,7 +206,7 @@
                         {
                             "value"
                             {
-                                "value0"        "great_cleave_epic_cleave_gods_strength.vsnd"
+                                "value0"        "sounds/great_cleave_epic_cleave_gods_strength.vsnd"
                             }
                         }
                         "volume"            {   "value"     "0.70000"  }
