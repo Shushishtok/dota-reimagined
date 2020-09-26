@@ -7,8 +7,9 @@ export class reimagined_sven_great_cleave extends BaseAbility
 {
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
-    sound_cast: string = "";
-    sound_hit: string = "";
+    sound_pre_cast: string = "Sven.GreatCleave.OverheadSlam.PreCast";
+    sound_cast: string = "Sven.GreatCleave.OverheadSlam.Cast";
+    sound_hit: string = "Sven.GreatCleave.OverheadSlam.Hit";
     particle: string = "particles/heroes/sven/overhead_slam.vpcf";
     particle_hit: string = "particles/heroes/sven/overhead_slam_hit.vpcf";
     particle_hit_fx?: ParticleID;
@@ -29,8 +30,17 @@ export class reimagined_sven_great_cleave extends BaseAbility
         return GameActivity.DOTA_SPAWN;
     }
 
+    OnAbilityPhaseStart()
+    {
+        // Play pre-cast sound
+        EmitSoundOn(this.sound_pre_cast, this.caster);
+        return true;
+    }
+
     OnAbilityPhaseInterrupted()
     {
+        // Stop pre-cast sound
+        StopSoundOn(this.sound_pre_cast, this.caster);
         this.caster.ClearActivityModifiers();
     }
 
