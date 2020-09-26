@@ -79,5 +79,13 @@ export class modifier_reimagind_sven_storm_hammer_scepter extends BaseModifier
 
         FindClearSpaceForUnit(this.parent, this.parent.GetAbsOrigin(), false);
         ResolveNPCPositions(this.parent.GetAbsOrigin(), this.parent.GetHullRadius());
+
+        ExecuteOrderFromTable(
+            {
+                OrderType: UnitOrder.ATTACK_TARGET,
+                UnitIndex: this.parent.entindex(),
+                TargetIndex: this.target!.entindex()
+            }
+        );
     }
 }

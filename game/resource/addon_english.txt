@@ -371,7 +371,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_Description"
 		"Sven strikes with great force, cleaving all nearby enemy units with his attack.
-		<font color='#B25266'><b>Epic Cleave:</b> Every %epic_cleave_attacks% attacks, Sven's next attack becomes an Epic Cleave which multiplies the cleave's radius and distance by %epic_cleave_distance_multiplier%, deals %epic_cleave_damage_pct%%% cleave damage, and ignores %epic_cleave_armor_ignore_pct%%% of the main target's armor. The counter resets after %epic_cleave_counter_duration% seconds.
+		<font color='#B25266'><b>Epic Cleave:</b> Every %epic_cleave_attacks% attacks, Sven's attack becomes an Epic Cleave which multiplies the cleave's radius and distance by %epic_cleave_distance_multiplier%, deals %epic_cleave_damage_pct%%% cleave damage, and ignores %epic_cleave_armor_ignore_pct%%% of the main target's armor. The counter resets after %epic_cleave_counter_duration% seconds.
 		<font color='#B25266'><b>Overhead Slam:</b> Can be cast on a target position to strike the Outcast Blade, firing a fast moving shockwave that travels up to %overhead_slam_max_distance% units. Instant attacks all targets hit by the shockwave."
 
 		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_Lore"
@@ -394,5 +394,78 @@
 
 		"DOTA_Tooltip_modifier_reimagined_sven_great_cleave_epic_cleave_Description"
 		"After attacking %dMODIFIER_PROPERTY_TOOLTIP% times, your next attack will fire a devastating Epic Cleave."
+
+		// Sven's Warcry
+		"DOTA_Tooltip_Ability_reimagined_sven_warcry"
+		"Warcry"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_warcry_Description"
+		"Sven's Warcry heartens his allied heroes for battle, increasing their armor and movement speed. Lasts %duration% seconds.
+		<font color='#B25266'><b>Heart of Valor:</b> Grants Sven and his allies a shield that absorbs up to %heart_valor_current_hp_shield_pct%%% of Sven's current health. Lasts until the shield is depleted or until Warcry's duration ends.
+		<font color='#B25266'><b>Chaaaaarge:</b> Warcry's duration is increased by %chaaarge_duration_increase% seconds for every allied hero in the radius on cast.
+		<font color='#B25266'><b>Power Overwhelming:</b> When God's Strength is active, Sven and all allies affected by Warcry gain %power_overwhelming_damage_pct%%% attack damage bonus."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_warcry_Lore"
+		"Calling a few lines from the Vigil Codex fortifies Sven's obedience to his rogue code. So poetic!"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_warcry_Note0"
+		"Chaaaaarge doesn't count illusions, clones, tempest doubles or creep heroes. Only real heroes are eligible for the duration increase."
+		
+		"DOTA_Tooltip_Ability_reimagined_sven_warcry_Note1"
+		"Power Overwhelming's attack bonus adapts dynamically based on whether the caster's God's Strength is currently active."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_warcry_Note2"
+		"Only the base attack damage is increased by Power Overwhelming."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_warcry_radius"
+		"RADIUS:"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_warcry_movespeed"
+		"%BONUS SPEED:"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_warcry_bonus_armor"
+		"BONUS ARMOR:"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_warcry_duration"
+		"DURATION:"
+
+		"DOTA_Tooltip_modifier_reimagined_sven_warcry_buff"
+		"Warcry"
+
+		"DOTA_Tooltip_modifier_reimagined_sven_warcry_buff_Description"
+		"Armor increased by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS% and movement speed increased by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%. Blocks %dMODIFIER_PROPERTY_TOOLTIP% damage, and if the caster has God's Strength active, increases your damage output by %dMODIFIER_PROPERTY_TOOLTIP2%%%."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_gods_strength"
+		"God's Strength"
+		
+		"DOTA_Tooltip_Ability_reimagined_sven_gods_strength_Description"
+		"Sven channels his rogue strength, granting bonus damage for %duration% seconds.
+		<font color='#B25266'><b>Shattering Strength:</b> Increases Sven's strength by %shattering_strength_str_bonus_pct%%%.
+		<font color='#B25266'><b>Buff Fish:</b> Passively increases Sven's next attack's damage by %buff_fish_bonus_damage_pct%%%. Has an internal cooldown of %buff_fish_cooldown% seconds.
+		<font color='#B25266'><b>Rogue Knight:</b> Killing an enemy unit while in God's Strength improves the current God's Strength bonus damage percentage by %rough_knight_unit_kill_damage_bonus%%%. Hero kills grant %rough_knight_hero_kill_damage_bonus%%% instead."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_gods_strength_Lore"
+		"With the strength that shattered the Sacred Helm, the Rogue Knight stands unopposed in melee combat."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_gods_strength_Note0"
+		"Shattering Strength adapts automatically to any change in Sven's Strength."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_gods_strength_Note1"
+		"Rough Knight represent the bonus in stacks. Does not count kills of buildings, wards, allies, illusions or clones."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_gods_strength_gods_strength_damage"
+		"%BONUS DAMAGE:"
+
+		"DOTA_Tooltip_modifier_reimagined_sven_gods_strength"
+		"God's Strength"
+
+		"DOTA_Tooltip_modifier_reimagined_sven_gods_strength_Description"
+		"Base damage increased by %dMODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE%%%, strength increased by %dMODIFIER_PROPERTY_STATS_STRENGTH_BONUS%, and adds %dMODIFIER_PROPERTY_TOOLTIP%%% bonus damage when attacking every %dMODIFIER_PROPERTY_TOOLTIP2% seconds. Gains additional bonus damage when killing enemy units."
+
+		"DOTA_Tooltip_modifier_reimagined_sven_gods_Strength_buff_fish_counter"
+		"Buff Fish Cooldown"
+
+		"DOTA_Tooltip_modifier_reimagined_sven_gods_Strength_buff_fish_counter_Description"
+		"Buff Fish cannot be used while in cooldown."
 	}
 }

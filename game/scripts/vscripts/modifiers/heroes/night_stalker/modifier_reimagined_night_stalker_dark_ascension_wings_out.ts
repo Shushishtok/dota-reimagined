@@ -85,14 +85,13 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
         return 0;
     }
 
-    GetActivityTranslationModifiers(): string
+    GetActivityTranslationModifiers(): string | void
     {
         if (this.ShouldModifierBeActive())
         {
             return "hunter_night";
         }
-
-        //@ts-ignore
+        
         return;
     }
 

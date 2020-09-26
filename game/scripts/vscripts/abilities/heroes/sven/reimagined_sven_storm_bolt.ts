@@ -352,14 +352,15 @@ export class reimagined_sven_storm_bolt extends BaseAbility
         // We'll do one punch to the right and one to the left of the caster each time        
         let right_side = true;
         let count = 0;
-        
+        const caster_pos = this.caster.GetAbsOrigin();
+
         Timers.CreateTimer(this.gatling_gun_spawn_delay! * (count+1), () => 
         {
             count++;
 
             // Create position in front of the caster
             const distance_behind = RandomInt(0, this.gatling_gun_behind_max_distance!);
-            const behind_position: Vector = (this.caster.GetAbsOrigin() - direction * distance_behind) as Vector;
+            const behind_position: Vector = (caster_pos - direction * distance_behind) as Vector;
             const front_cast_position: Vector = (behind_position + direction * RandomInt(this.gatling_gun_spawn_min_distance!, this.gatling_gun_spawn_max_distance!)) as Vector;
 
             // Define QAngle
@@ -386,7 +387,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
                 bIgnoreSource: false,
                 bProvidesVision: false,
                 bVisibleToEnemies: true,
-                fDistance: this.GetCastRange(this.caster.GetAbsOrigin(), undefined),
+                fDistance: this.GetCastRange(caster_pos, undefined),
                 fEndRadius: 80,
                 fExpireTime: GameRules.GetGameTime() + 10,
                 fMaxSpeed: this.bolt_speed,
