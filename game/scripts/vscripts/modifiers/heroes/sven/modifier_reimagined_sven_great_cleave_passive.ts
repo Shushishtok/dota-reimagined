@@ -14,6 +14,8 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
     particle_cleave_fx?: ParticleID;
     particle_epic_cleave: string = "particles/heroes/sven/great_cleave_epic_cleave.vpcf";
     particle_epic_cleave_fx?: ParticleID;
+    sound_epic_cleave_normal: string = "Sven.GreatCleave.EpicCleave.Normal";
+    sound_epic_cleave_gods_strength: string = "Sven.GreatCleave.EpicCleave.GodsStrength";
 
     // Modifier specials
     cleave_starting_width?: number;
@@ -180,6 +182,16 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
                                         event.target,
                                         this.epic_cleave_damage_pct!,
                                         this.ability!);
+
+                // Play sound effects based on God's Strength modifier presence
+                if (this.parent.HasModifier("modifier_reimagined_sven_gods_strength")) 
+                {
+                    EmitSoundOn(this.sound_epic_cleave_gods_strength, this.parent);
+                } 
+                else 
+                {
+                    EmitSoundOn(this.sound_epic_cleave_normal, this.parent);
+                }
 
                 // Play particle effect
                 this.particle_epic_cleave_fx = ParticleManager.CreateParticle(this.particle_epic_cleave, ParticleAttachment.CUSTOMORIGIN, this.parent);
