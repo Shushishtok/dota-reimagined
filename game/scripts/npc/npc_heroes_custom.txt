@@ -1,6 +1,7 @@
 #base heroes/anti_mage/hero.kv
 #base heroes/night_stalker/hero.kv
 #base heroes/sven/hero.kv
+#base heroes/crystal_maiden/hero.kv
 
 "DOTAHeroes"
 {

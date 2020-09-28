@@ -467,5 +467,211 @@
 
 		"DOTA_Tooltip_modifier_reimagined_sven_gods_Strength_buff_fish_counter_Description"
 		"Buff Fish cannot be used while in cooldown."
+
+		// Crystal Maiden
+		// Crystal Maiden's Crystal Nova
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova"
+		"Crystal Nova"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_Description"
+		"A burst of damaging frost slows enemy movement and attack rate in the targeted area.
+		<font color='#B25266'><b>Snowstorm Field:</b> Leaves a field on the ground where Crystal Nova was cast for %snowstorm_duration% seconds. Allies standing on the field are granted %snowstorm_damage_reduction%%% damage reduction and %snowstorm_status_reduction%%% status resistance.
+		<font color='#B25266'><b>Snowbite:</b> When an enemy is under both Frostbite's debuff and standing on the Snowstorm Field, Crystal Nova's slow modifier's timer refreshes itself.
+		<font color='#B25266'><b>Hail Winds:</b> While Snowstorm Field is up, frozen shards are released with extreme force from the center of the field, dealing %hailwind_damage% to all enemies in %hailwind_radius% range and slowing them by %hailwind_slow_pct%%% for %hailwind_duration% second. Repeats every %hailwind_interval% seconds until Snowstorm Field dissipates."		
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_Lore"
+		"The air temperature around Rylai drops rapidly, chilling all around her to the core."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_Note0"
+		"Grants a %vision_radius% AoE vision for %vision_duration% seconds centered on the position of Crystal Nova."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_Note1"
+		"Snowbite's effect persists as long as the target is afflicted with both Frostbite's and the Snowstorm Field's modifier; when one of them wears off, the effect no longer occurs."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_Note2"
+		"Despite Hail Winds' particle effect, Hail Winds hits all enemies in Hail Wind AoE immediately, and it cannot be dodged."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_radius"
+		"RADIUS:"
+		
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_movespeed_slow"
+		"%MOVEMENT SLOW:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_attackspeed_slow"
+		"ATTACK SLOW:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_duration"
+		"DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_nova_damage"
+		"DAMAGE:"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_crystal_nova_slow"
+		"Crystal Nova"		
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_crystal_nova_slow_Description"
+		"Move speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and attack speed reduced by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%. Refreshes itself when you are afflicted by both Snowstorm Field and Frostbite."
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow"
+		"Hail Winds"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow_Description"
+		"Move speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%."
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff"
+		"Snowstorm"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff_Description"
+		"Damage reduction increased by %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%% and status resistance increased by %dMODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING%%%."
+
+		// Crystal Maiden's Frostbite
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite"
+		"Frostbite"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_Description"
+		"Encases an enemy unit in ice, prohibiting movement and attack, while dealing damage over time.
+		<font color='#B25266'><b>Eternal Cold:</b> Lasts infinitely on creeps, dealing %eternal_cold_fixed_damage% damage per tick. Can still be dispellable.
+		<font color='#B25266'><b>Frost Emanation:</b> While a unit is afflicted with Frostbite, on every tick, the closest enemy in %frost_emanation_search_radius% radius will also be afflicted with a %frost_emanation_duration% seconds Frostbite.
+		<font color='#B25266'><b>Igloo Frosting:</b> Can be cast on an ally, rooting and disarming it and increasing Arcane Aura's effect on that ally by %igloo_frosting_arcane_aura_multiplier% times. Does not deals damage to the target ally."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_Lore"
+		"Rylai channels winds from the Blueheart Glacier, imprisoning attackers in thick blocks of ice."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_Note0"
+		"Creep heroes, Roshan and ancient creeps are considered heroes and do not count for Eternal Cold."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_Note1"
+		"Frost Emanation does not trigger on Frostbites that were created from it."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_Note2"
+		"Igloo Frosting multiplies all bonuses of the Arcane Aura, including Focused Arcane's bonuses."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_Note3"
+		"Igloo Frosting can be help disabled."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_total_damage"
+		"HERO TOTAL DAMAGE:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_duration"
+		"HERO DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_tick_interval"
+		"DAMAGE INTERVAL:"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_frostbite_debuff"
+		"Frostbite"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_frostbite_debuff_Description"
+		"Cannot move or attack. Taking %dMODIFIER_PROPERTY_TOOLTIP% damage every %fMODIFIER_PROPERTY_TOOLTIP2% seconds. Spreading Frostbite to nearby allies."
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_frostbite_buff"
+		"Igloo Frosting"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_frostbite_buff_Description"
+		"Cannot move or attack. Arcane Aura's effects on you are multiplied by %dMODIFIER_PROPERTY_TOOLTIP%. Spreading Frosbite to nearby enemies."
+
+		// Crystal Maiden's Arcane Aura
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura"
+		"Arcane Aura"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_Description"
+		"Gives additional mana regeneration to all friendly units on the map. This bonus is increased for Crystal Maiden.
+		<font color='#B25266'><b>Focused Arcane:</b> Can be cast as a no target spell to reduce the aura range from global to %focused_arcane_radius% but also increase allies' magical resistance by %focused_arcane_magic_res%%% and spell amp by %focused_arcane_spell_amp%%%. Those bonuses does not increase for Crystal Maiden's self bonus. Lasts %focused_arcane_duration% seconds.
+		<font color='#B25266'><b>Ice Never Dies:</b> Aura persists even when Crystal Maiden is dead or hidden.
+		<font color='#B25266'><b>Blueheart Mastery:</b> Dealing damage to enemy units improves Arcane Aura's mana regeneration by %blueheart_mastery_mana_regen% for all allies for each damage instance she inflicts. Stacks infinitely and has independent stack durations. Each stack lasts %blueheart_mastery_duration% seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_Lore"
+		"Cold temperatures promote the essence of magic, causing Rylai's presence to allow spell usage in abundance."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_Note0"
+		"Blueheart Mastery's mana regen bonus applies after the self factor is taken into account. However, this bonus is multiplied by Frostbite's Igloo Frosting multiplier."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_mana_regen"
+		"MANA REGEN:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_self_factor"
+		"SELF BONUS FACTOR:"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery"
+		"Blueheart Mastery"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery_Description"
+		"Increases Arcane's Aura mana regeneration bonus by %fMODIFIER_PROPERTY_TOOLTIP%."
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_arcane_aura_buff"
+		"Arcane Aura"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_arcane_aura_buff_Description"
+		"Adds %fMODIFIER_PROPERTY_MANA_REGEN_CONSTANT% mana regeneration. When Focused Arcane is active, magic resistance and spell amp are also increased by %dMODIFIER_PROPERTY_TOOLTIP%%%."
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane"
+		"Focused Arcane"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane_Description"
+		"Limits Arcane Aura's radius to %dMODIFIER_PROPERTY_TOOLTIP% and increases magic resistance and spell amp for affected allies."
+
+		// Crystal Maiden's Freezing Field
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field"
+		"Freezing Field"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_Description"
+		"CHANNELED - Surrounds Crystal Maiden with random icy explosions that slow enemies and deal massive damage. Grants bonus armor while channeling. Lasts %abilitychanneltime% seconds.
+		<font color='#B25266'><b>Arcane Glacier:</b> For every %arcane_glacier_interval% seconds that Freezing Field is still channeling, Crystal Maiden's damage resistance increases by %arcane_glacier_damage_res_per_tick%%%. Lasts %arcane_glacier_linger_duration% seconds after the channeling of Freezing Field ends.
+		<font color='#B25266'><b>Subzero Crystal:</b> Freezing Field's explosions have a %subzero_crystal_chance%%% chance to leave a Snowstorm Field on the impact location for %subzero_crystal_duration% seconds, applying the reimaginations of Crystal Nova.
+		<font color='#B25266'><b>Numbing Cold:</b> Frostbitten enemies take %numbing_cold_bonus_dmg_pct%%% increased damage from Freezing Field explosions and become ministunned."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_aghanim_description"
+		"Applies Frostbite to any unit that has been standing in the Freezing Field for over %scepter_delay% seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_Lore"
+		"Once the place of her exile, Icewrack has become an anchor for Rylai's frigid onslaught."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_Note0"
+		"The slow is applied on all enemies in the radius, even if they aren't hit by an explosion. The slow lingers for %slow_duration% seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_Note1"
+		"Explosions occur every %explosion_interval% seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_Note2"
+		"Subzero Crystal uses psuedo random calaulation."		
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_radius"
+		"RADIUS:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_explosion_radius"
+		"EXPLOSION RADIUS:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_bonus_armor"
+		"BONUS ARMOR:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_movespeed_slow"
+		"%MOVEMENT SLOW:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_attack_slow"
+		"ATTACK SLOW:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_damage"
+		"DAMAGE:"
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_scepter_delay"
+		"SCEPTER FROSTBITE DELAY:"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier"
+		"Arcane Glacier"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier_Description"
+		"Damage resistance is increased by %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%%."
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_freezing_field_aura"
+		"Freezing Field"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_freezing_field_aura_Description"
+		"Armor increased by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%."
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_freezing_field_slow"
+		"Freezing Field Slow"
+
+		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_freezing_field_slow_Description"
+		"Movement speed slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%, attack speed reduced by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%."
 	}
 }

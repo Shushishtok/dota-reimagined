@@ -28,6 +28,8 @@ export class modifier_reimagined_sven_warcry_buff extends BaseModifier
 
     OnCreated(keys: {shield_stacks: number}): void
     {
+        print(this.parent.GetUnitName(), this.parent.GetModelRadius());
+
         // Modifier properties
         this.caster = this.GetCaster();
         this.ability = this.GetAbility();
