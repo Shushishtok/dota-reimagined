@@ -6,8 +6,8 @@ import { modifier_reimagined_crystal_maiden_frostbite_debuff } from "./modifier_
 export class modifier_reimagined_crystal_maiden_crystal_nova_slow extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_slowed = "particles/generic_gameplay/generic_slowed_cold.vpcf";
 
@@ -25,15 +25,15 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_slow extends BaseMo
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.movespeed_slow = this.ability!.GetSpecialValueFor("movespeed_slow");
-        this.attackspeed_slow = this.ability!.GetSpecialValueFor("attackspeed_slow");
+        this.movespeed_slow = this.ability.GetSpecialValueFor("movespeed_slow");
+        this.attackspeed_slow = this.ability.GetSpecialValueFor("attackspeed_slow");
 
         // Reimagined specials
-        this.snowbite_interval = this.ability!.GetSpecialValueFor("snowbite_interval");
+        this.snowbite_interval = this.ability.GetSpecialValueFor("snowbite_interval");
 
         // Snowbite: When an enemy is under Frostbite's effect while on a Snowstorm Field, Crystal Nova's slow modifier's refreshes itself.
         this.ReimaginedSnowbite();

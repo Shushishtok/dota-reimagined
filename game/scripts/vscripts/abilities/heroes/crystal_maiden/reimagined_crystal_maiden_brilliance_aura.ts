@@ -1,5 +1,7 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_crystal_maiden_arcane_aura_aura } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_aura";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery"
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery"
 import { modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane"
 
 @registerAbility()

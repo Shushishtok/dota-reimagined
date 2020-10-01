@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_sven_great_cleave_epic_cleave extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Reimagined specials
@@ -18,11 +18,11 @@ export class modifier_reimagined_sven_great_cleave_epic_cleave extends BaseModif
 
     OnCreated()
     {
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Reimagined specials
-        this.epic_cleave_attacks = this.ability!.GetSpecialValueFor("epic_cleave_attacks");        
+        this.epic_cleave_attacks = this.ability.GetSpecialValueFor("epic_cleave_attacks");        
     }
 
     DeclareFunctions(): ModifierFunction[]

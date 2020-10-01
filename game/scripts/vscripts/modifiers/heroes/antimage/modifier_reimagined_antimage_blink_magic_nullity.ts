@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_t
 export class modifier_reimagined_antimage_blink_magic_nullity extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_shield: string = "particles/heroes/anti_mage/antimage_magic_nullity_shield.vpcf";
     particle_shield_fx?: ParticleID;
@@ -20,8 +20,8 @@ export class modifier_reimagined_antimage_blink_magic_nullity extends BaseModifi
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
         this.magic_nullity_magic_res = this.ability?.GetSpecialValueFor("magic_nullity_magic_res");

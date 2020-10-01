@@ -6,8 +6,8 @@ import { modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow } from ".
 export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();    
     particle_snowstorm: string = "particles/heroes/crystal_maiden/snowstorm_field.vpcf";
     particle_snowstorm_fx?: ParticleID;
@@ -30,17 +30,17 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura exte
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.radius = this.ability!.GetSpecialValueFor("radius");
+        this.radius = this.ability.GetSpecialValueFor("radius");
 
         // Reimagined specials
-        this.hailwind_radius = this.ability!.GetSpecialValueFor("hailwind_radius");
-        this.hailwind_interval = this.ability!.GetSpecialValueFor("hailwind_interval");
-        this.hailwind_damage = this.ability!.GetSpecialValueFor("hailwind_damage");
-        this.hailwind_duration = this.ability!.GetSpecialValueFor("hailwind_duration");
+        this.hailwind_radius = this.ability.GetSpecialValueFor("hailwind_radius");
+        this.hailwind_interval = this.ability.GetSpecialValueFor("hailwind_interval");
+        this.hailwind_damage = this.ability.GetSpecialValueFor("hailwind_damage");
+        this.hailwind_duration = this.ability.GetSpecialValueFor("hailwind_duration");
 
         // Play particle effect
         if (IsServer())
@@ -94,14 +94,14 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura exte
             {
                 attacker: this.caster!,
                 damage: this.hailwind_damage!,
-                damage_type: this.ability!.GetAbilityDamageType(),
+                damage_type: this.ability.GetAbilityDamageType(),
                 victim: enemy,
-                ability: this.ability!,
+                ability: this.ability,
                 damage_flags: DamageFlag.NONE
             });
 
             // Apply Hailwind slow modifier
-            enemy.AddNewModifier(this.caster!, this.ability!, modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow.name, {duration: this.hailwind_duration!});
+            enemy.AddNewModifier(this.caster!, this.ability, modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow.name, {duration: this.hailwind_duration!});
         }
     }
 

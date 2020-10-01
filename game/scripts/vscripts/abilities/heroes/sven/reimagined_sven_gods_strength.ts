@@ -1,5 +1,6 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_sven_gods_strength } from "../../../modifiers/heroes/sven/modifier_reimagined_sven_gods_strength"
+import "../../../modifiers/heroes/sven/modifier_reimagined_sven_gods_Strength_buff_fish_counter"
 
 @registerAbility()
 export class reimagined_sven_gods_strength extends BaseAbility

@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_t
 export class modifier_reimagined_antimage_mana_void_kill_debuff extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     parent_died = false;
     selected_ability_cooldown?: CDOTABaseAbility;
@@ -21,11 +21,11 @@ export class modifier_reimagined_antimage_mana_void_kill_debuff extends BaseModi
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.scepter_cooldown_increase = this.ability!.GetSpecialValueFor("scepter_cooldown_increase");        
+        this.scepter_cooldown_increase = this.ability.GetSpecialValueFor("scepter_cooldown_increase");        
     }
 
     DeclareFunctions(): ModifierFunction[]

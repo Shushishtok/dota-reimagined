@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_slowed = "particles/generic_gameplay/generic_slowed_cold.vpcf";
 
@@ -19,11 +19,11 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow exten
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Reimagined specials
-        this.hailwind_slow_pct = this.ability!.GetSpecialValueFor("hailwind_slow_pct");
+        this.hailwind_slow_pct = this.ability.GetSpecialValueFor("hailwind_slow_pct");
     }
 
     DeclareFunctions(): ModifierFunction[]

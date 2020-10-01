@@ -8,7 +8,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_n
     IsPurgable() {return false}
     RemoveOnDeath() {return false}
 
-    ability?: CDOTABaseAbility
+    ability: CDOTABaseAbility = this.GetAbility()!
 
     // Modifier specials
     everlasting_night_duration?: number
@@ -22,10 +22,10 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_n
     OnCreated()
     {
         // Modifier properties
-        this.ability = this.GetAbility();
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.everlasting_night_duration = this.ability!.GetSpecialValueFor("everlasting_night_duration");
+        this.everlasting_night_duration = this.ability.GetSpecialValueFor("everlasting_night_duration");
     }
 
     DeclareFunctions(): ModifierFunction[]

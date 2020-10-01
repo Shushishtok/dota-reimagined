@@ -5,8 +5,8 @@ import { modifier_reimagined_sven_gods_Strength_buff_fish_counter } from "./modi
 export class modifier_reimagined_sven_gods_strength extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_buff: string = "particles/units/heroes/hero_sven/sven_spell_gods_strength_ambient.vpcf"
     particle_buff_fx?: ParticleID;
@@ -32,18 +32,18 @@ export class modifier_reimagined_sven_gods_strength extends BaseModifier
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.gods_strength_damage = this.ability!.GetSpecialValueFor("gods_strength_damage");
+        this.gods_strength_damage = this.ability.GetSpecialValueFor("gods_strength_damage");
 
         // Reimagined specials
-        this.shattering_strength_str_bonus_pct = this.ability!.GetSpecialValueFor("shattering_strength_str_bonus_pct");
-        this.buff_fish_bonus_damage_pct = this.ability!.GetSpecialValueFor("buff_fish_bonus_damage_pct");
-        this.buff_fish_cooldown = this.ability!.GetSpecialValueFor("buff_fish_cooldown");
-        this.rough_knight_unit_kill_damage_bonus = this.ability!.GetSpecialValueFor("rough_knight_unit_kill_damage_bonus");
-        this.rough_knight_hero_kill_damage_bonus = this.ability!.GetSpecialValueFor("rough_knight_hero_kill_damage_bonus");
+        this.shattering_strength_str_bonus_pct = this.ability.GetSpecialValueFor("shattering_strength_str_bonus_pct");
+        this.buff_fish_bonus_damage_pct = this.ability.GetSpecialValueFor("buff_fish_bonus_damage_pct");
+        this.buff_fish_cooldown = this.ability.GetSpecialValueFor("buff_fish_cooldown");
+        this.rough_knight_unit_kill_damage_bonus = this.ability.GetSpecialValueFor("rough_knight_unit_kill_damage_bonus");
+        this.rough_knight_hero_kill_damage_bonus = this.ability.GetSpecialValueFor("rough_knight_hero_kill_damage_bonus");
 
         this.particle_buff_fx = ParticleManager.CreateParticle(this.particle_buff, ParticleAttachment.ABSORIGIN_FOLLOW, this.parent);
         ParticleManager.SetParticleControlEnt(this.particle_buff_fx, 0, this.parent, ParticleAttachment.POINT_FOLLOW, "attach_weapon", this.parent.GetAbsOrigin(), true);
@@ -115,7 +115,7 @@ export class modifier_reimagined_sven_gods_strength extends BaseModifier
         if (!this.parent.HasModifier(modifier_reimagined_sven_gods_Strength_buff_fish_counter.name))
         {            
             // Set buff fish cooldown modifier
-            this.parent.AddNewModifier(this.caster, this.ability!, modifier_reimagined_sven_gods_Strength_buff_fish_counter.name, {duration: this.buff_fish_cooldown!});
+            this.parent.AddNewModifier(this.caster, this.ability, modifier_reimagined_sven_gods_Strength_buff_fish_counter.name, {duration: this.buff_fish_cooldown!});
             
             const parentdamage = this.parent.GetAverageTrueAttackDamage(event.target);
             const damage = parentdamage * this.buff_fish_bonus_damage_pct! * 0.01;

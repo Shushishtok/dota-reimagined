@@ -8,8 +8,8 @@ import * as util  from "../../../lib/util"
 export class modifier_reimagined_antimage_mana_break extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     sound_mana_break: string = "Hero_Antimage.ManaBreak";
     particle_mana_break: string = "particles/generic_gameplay/generic_manaburn.vpcf";
@@ -39,8 +39,8 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
         this.percent_damage_per_burn = this.ability?.GetSpecialValueFor("percent_damage_per_burn");
@@ -236,7 +236,7 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
         }
         else
         {
-            modifier_mana_convergence = event.target.AddNewModifier(this.parent, this.ability!, modifier_reimagined_antimage_mana_break_mana_convergence_counter.name, {duration: this.mana_convergence_hit_duration})
+            modifier_mana_convergence = event.target.AddNewModifier(this.parent, this.ability, modifier_reimagined_antimage_mana_break_mana_convergence_counter.name, {duration: this.mana_convergence_hit_duration})
         }
 
         // Verify modifier

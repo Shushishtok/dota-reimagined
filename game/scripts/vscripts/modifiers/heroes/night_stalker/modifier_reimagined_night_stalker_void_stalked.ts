@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_t
 export class modifier_reimagined_night_stalker_void_stalked extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
 
     IsHidden() {return true}
@@ -15,8 +15,8 @@ export class modifier_reimagined_night_stalker_void_stalked extends BaseModifier
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
     }
 
     DeclareFunctions(): ModifierFunction[]  

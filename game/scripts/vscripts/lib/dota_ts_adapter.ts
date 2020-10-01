@@ -9,7 +9,7 @@ export class BaseModifier {
     public static apply<T extends typeof BaseModifier>(
         this: T,
         target: CDOTA_BaseNPC,
-        caster?: CDOTA_BaseNPC,
+        caster: CDOTA_BaseNPC,
         ability?: CDOTABaseAbility,
         modifierTable?: object,
     ): InstanceType<T> {

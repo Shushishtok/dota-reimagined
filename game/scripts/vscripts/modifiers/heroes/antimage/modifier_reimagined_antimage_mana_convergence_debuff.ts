@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier} from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_antimage_mana_convergence_debuff extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_debuff: string = "particles/heroes/anti_mage/antimage_mana_convergence_debuff.vpcf";
 
@@ -19,8 +19,8 @@ export class modifier_reimagined_antimage_mana_convergence_debuff extends BaseMo
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
         this.mana_convergence_manaloss_reduction_pct = this.ability?.GetSpecialValueFor("mana_convergence_manaloss_reduction_pct");        

@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Modifier specials
@@ -18,11 +18,11 @@ export class modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier ex
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.arcane_glacier_damage_res_per_tick = this.ability!.GetSpecialValueFor("arcane_glacier_damage_res_per_tick");
+        this.arcane_glacier_damage_res_per_tick = this.ability.GetSpecialValueFor("arcane_glacier_damage_res_per_tick");
     }
 
     DeclareFunctions(): ModifierFunction[]

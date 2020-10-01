@@ -6,8 +6,8 @@ import { modifier_reimagined_crystal_maiden_frostbite_debuff } from "./modifier_
 export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_frostbite: string = "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf";        
 
@@ -26,16 +26,16 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials        
-        this.tick_interval = this.ability!.GetSpecialValueFor("tick_interval");
+        this.tick_interval = this.ability.GetSpecialValueFor("tick_interval");
 
         // Reimagined specials
-        this.frost_emanation_search_radius = this.ability!.GetSpecialValueFor("frost_emanation_search_radius");
-        this.frost_emanation_duration = this.ability!.GetSpecialValueFor("frost_emanation_duration");                
-        this.igloo_frosting_arcane_aura_multiplier = this.ability!.GetSpecialValueFor("igloo_frosting_arcane_aura_multiplier");
+        this.frost_emanation_search_radius = this.ability.GetSpecialValueFor("frost_emanation_search_radius");
+        this.frost_emanation_duration = this.ability.GetSpecialValueFor("frost_emanation_duration");                
+        this.igloo_frosting_arcane_aura_multiplier = this.ability.GetSpecialValueFor("igloo_frosting_arcane_aura_multiplier");
 
         if (IsServer())
         {
@@ -67,7 +67,7 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
         for (const enemy of enemies)
         {
             // Only apply on the first (closest) enemy
-            enemy.AddNewModifier(this.caster!, this.ability!, modifier_reimagined_crystal_maiden_frostbite_debuff.name , {duration: this.frost_emanation_duration!});
+            enemy.AddNewModifier(this.caster!, this.ability, modifier_reimagined_crystal_maiden_frostbite_debuff.name , {duration: this.frost_emanation_duration!});
             break;
         }
     }

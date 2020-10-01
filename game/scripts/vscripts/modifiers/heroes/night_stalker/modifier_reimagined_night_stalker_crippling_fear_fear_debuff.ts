@@ -5,8 +5,8 @@ import * as util from "../../../lib/util"
 export class modifier_reimagined_night_stalker_crippling_fear_fear_debuff extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_effect: string = "particles/heroes/night_stalker/reimagined_nightstalker_crippling_fear_feared.vpcf";
 
@@ -17,8 +17,8 @@ export class modifier_reimagined_night_stalker_crippling_fear_fear_debuff extend
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
         
         if (IsServer())
         {

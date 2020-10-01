@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier} from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_night_stalker_crippling_fear_silence_debuff extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_effect: string = "particles/units/heroes/hero_night_stalker/nightstalker_crippling_fear.vpcf";
 
@@ -19,11 +19,11 @@ export class modifier_reimagined_night_stalker_crippling_fear_silence_debuff ext
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Reimagined specials
-        this.crippling_crippling_fear_miss_rate = this.ability!.GetSpecialValueFor("crippling_crippling_fear_miss_rate");        
+        this.crippling_crippling_fear_miss_rate = this.ability.GetSpecialValueFor("crippling_crippling_fear_miss_rate");        
     }
 
     DeclareFunctions(): ModifierFunction[]

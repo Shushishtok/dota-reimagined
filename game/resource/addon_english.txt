@@ -673,5 +673,34 @@
 
 		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_freezing_field_slow_Description"
 		"Movement speed slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%, attack speed reduced by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%."
+
+		// Phantom Assassin
+		// Phantom Assassin's Coup De Grace
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace"
+		"Coup de Grace"
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_Description"
+		"Phantom Assassin refines her combat abilities, gaining a chance of delivering a devastating critical strike to enemy units. Stifling Dagger shares the same critical strike chance.
+		<font color='#B25266'><b>Kiss of Death:</b> When Phantom Assassin delivers a critical strike from Coup de Grace to a target with less than %kiss_of_death_health_threshold%%% health, there is a %kiss_of_death_kill_chance%%% chance that the critical damage will deal extremely massive damage. 
+		<font color='#B25266'><b>Marked For Death:</b> Each attack that doesn't proc Coup De Grace increases its crit damage by %marked_for_death_damage_increase%%%. Resets when Coup de Grace is triggered.
+		<font color='#B25266'><b>Decisive Strike:</b> Coup de Grace can be cast as a no target ability. Doing so reduces Phantom Assassin's attack speed by %decisive_strike_as_reduction%, but increases the chance to proc Coup de Grace by %decisive_strike_crit_chance_increase%%%. Lasts for %decisive_strike_duration% seconds, or until Phantom Assassin crits %decisive_strike_crits_to_remove% times."
+		
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_Lore"
+		"A divine strike, Mortred honors her opponent by choosing them for death."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_Note0"
+		"Kiss of Death procs a critical strike with the highest possible crit damage. As such, it simply deals extremely high damage, but does not guarantees killing the target."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_crit_chance"
+		"%CRITICAL CHANCE:"
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_crit_bonus"
+		"%CRITICAL DAMAGE:"
+
+		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike"
+		"Decisive Strike"
+
+		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike_Description"
+		"Slows attack speed by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%, but increases the critical hit chance by %dMODIFIER_PROPERTY_TOOLTIP%%%."
 	}
 }

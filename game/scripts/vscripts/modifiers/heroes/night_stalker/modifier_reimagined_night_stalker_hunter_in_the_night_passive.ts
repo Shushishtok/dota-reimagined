@@ -6,8 +6,8 @@ import { modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_night
 export class modifier_reimagined_night_stalker_hunter_in_the_night_passive extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     night_transform_response: string[] = ["night_stalker_nstalk_ability_dark_01", "night_stalker_nstalk_ability_dark_02", "night_stalker_nstalk_ability_dark_04", "night_stalker_nstalk_ability_dark_05", "night_stalker_nstalk_ability_dark_06"]
 	night_rare_transform_response: string = "night_stalker_nstalk_ability_dark_03"
@@ -42,15 +42,15 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
     OnCreated(): void
     {        
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.bonus_movement_speed_pct_night = this.ability!.GetSpecialValueFor("bonus_movement_speed_pct_night");
-        this.bonus_attack_speed_night = this.ability!.GetSpecialValueFor("bonus_attack_speed_night");
+        this.bonus_movement_speed_pct_night = this.ability.GetSpecialValueFor("bonus_movement_speed_pct_night");
+        this.bonus_attack_speed_night = this.ability.GetSpecialValueFor("bonus_attack_speed_night");
 
         // Reimagined specials
-        this.everlasting_night_duration = this.ability!.GetSpecialValueFor("everlasting_night_duration");
+        this.everlasting_night_duration = this.ability.GetSpecialValueFor("everlasting_night_duration");
 
         // Start thinking
         if (IsServer()) this.StartIntervalThink(0.5);
@@ -59,8 +59,8 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
     OnRefresh(): void
     {
         // Update specials
-        this.bonus_movement_speed_pct_night = this.ability!.GetSpecialValueFor("bonus_movement_speed_pct_night");
-        this.bonus_attack_speed_night = this.ability!.GetSpecialValueFor("bonus_attack_speed_night");
+        this.bonus_movement_speed_pct_night = this.ability.GetSpecialValueFor("bonus_movement_speed_pct_night");
+        this.bonus_attack_speed_night = this.ability.GetSpecialValueFor("bonus_attack_speed_night");
     }
 
     OnIntervalThink(): void
@@ -227,7 +227,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
         if (!this.parent.HasModifier(modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night.name))
         {
             // Add the Dead of Night modifier to Night Stalker
-            this.parent.AddNewModifier(this.caster!, this.ability!, modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night.name, {});
+            this.parent.AddNewModifier(this.caster!, this.ability, modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night.name, {});
         }
     }
 
@@ -291,7 +291,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
         }
         else
         {
-            modifier_everlasting = this.parent.AddNewModifier(this.parent, this.ability!, modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name, {});
+            modifier_everlasting = this.parent.AddNewModifier(this.parent, this.ability, modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name, {});
         }
 
         // Trigger temporary night and increment stack for the next occassion

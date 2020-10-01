@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     stack_set: number[] = [];
 
@@ -20,12 +20,12 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery ex
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.blueheart_mastery_duration = this.ability!.GetSpecialValueFor("blueheart_mastery_duration");               
-        this.blueheart_mastery_mana_regen = this.ability!.GetSpecialValueFor("blueheart_mastery_mana_regen");
+        this.blueheart_mastery_duration = this.ability.GetSpecialValueFor("blueheart_mastery_duration");               
+        this.blueheart_mastery_mana_regen = this.ability.GetSpecialValueFor("blueheart_mastery_mana_regen");
     }
 
     OnStackCountChanged(previous_stacks: number): void

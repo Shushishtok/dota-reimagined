@@ -5,8 +5,8 @@ import { modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_night
 export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     base_night_duration: number = 300;
     everlasting_night_stacks: number = 0;
@@ -30,15 +30,15 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Reimagined specials
-        this.dead_of_night_interval = this.ability!.GetSpecialValueFor("dead_of_night_interval");
-        this.dead_of_night_stats_per_stack = this.ability!.GetSpecialValueFor("dead_of_night_stats_per_stack");
-        this.dead_of_night_bonuses_per_stack = this.ability!.GetSpecialValueFor("dead_of_night_bonuses_per_stack");
-        this.dead_of_night_durations_per_stack = this.ability!.GetSpecialValueFor("dead_of_night_durations_per_stack");
-        this.everlasting_night_duration = this.ability!.GetSpecialValueFor("everlasting_night_duration");
+        this.dead_of_night_interval = this.ability.GetSpecialValueFor("dead_of_night_interval");
+        this.dead_of_night_stats_per_stack = this.ability.GetSpecialValueFor("dead_of_night_stats_per_stack");
+        this.dead_of_night_bonuses_per_stack = this.ability.GetSpecialValueFor("dead_of_night_bonuses_per_stack");
+        this.dead_of_night_durations_per_stack = this.ability.GetSpecialValueFor("dead_of_night_durations_per_stack");
+        this.everlasting_night_duration = this.ability.GetSpecialValueFor("everlasting_night_duration");
 
         // Get amount of Everlasting Nights stacks and calculate extra
         this.everlasting_night_stacks = this.parent.GetModifierStackCount(modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name, this.parent);        

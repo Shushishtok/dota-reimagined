@@ -6,8 +6,8 @@ import { modifier_reimagined_sven_gods_strength } from "./modifier_reimagined_sv
 export class modifier_reimagined_sven_warcry_buff extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     gods_strength_active: boolean = false;    
     particle_buff: string = "particles/units/heroes/hero_sven/sven_warcry_buff.vpcf";
@@ -28,18 +28,16 @@ export class modifier_reimagined_sven_warcry_buff extends BaseModifier
 
     OnCreated(keys: {shield_stacks: number}): void
     {
-        print(this.parent.GetUnitName(), this.parent.GetModelRadius());
-
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.movespeed = this.ability!.GetSpecialValueFor("movespeed");
-        this.bonus_armor = this.ability!.GetSpecialValueFor("bonus_armor");        
+        this.movespeed = this.ability.GetSpecialValueFor("movespeed");
+        this.bonus_armor = this.ability.GetSpecialValueFor("bonus_armor");        
 
         // Reimagined specials
-        this.power_overwhelming_damage_pct = this.ability!.GetSpecialValueFor("power_overwhelming_damage_pct");
+        this.power_overwhelming_damage_pct = this.ability.GetSpecialValueFor("power_overwhelming_damage_pct");
 
         // Play particle buff effect        
         this.particle_buff_fx = ParticleManager.CreateParticle(this.particle_buff, ParticleAttachment.ABSORIGIN_FOLLOW, this.parent);                

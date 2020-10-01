@@ -25,7 +25,7 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
         }
     }
 
-    OnSpellStart(): void
+    OnSpellStart(scepter?: boolean): void
     {
         // Ability properties
         const target = this.GetCursorTarget()!;
@@ -39,8 +39,12 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
         // Apply Frostbite on target according to enemy or ally
         if (target.GetTeamNumber() != this.caster.GetTeamNumber())
         {
-            // Check for Linken's Sphere; do nothing else if triggered
-            if (target.TriggerSpellAbsorb(this)) return;            
+            // Only check for Linken's if this wasn't a scepter cast
+            if (!scepter)
+            {
+                // Check for Linken's Sphere; do nothing else if triggered
+                if (target.TriggerSpellAbsorb(this)) return;
+            }
 
             // Ancients, Roshan, Creep Heroes or Real Heroes are assigned the regular duration            
             if (target.IsAncient() || target.IsConsideredHero() || target.IsHero())

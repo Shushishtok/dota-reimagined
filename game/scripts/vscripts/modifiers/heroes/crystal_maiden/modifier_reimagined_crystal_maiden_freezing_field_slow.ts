@@ -6,8 +6,8 @@ import { reimagined_crystal_maiden_frostbite } from "../../../abilities/heroes/c
 export class modifier_reimagined_crystal_maiden_freezing_field_slow extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Modifier specials
@@ -23,13 +23,13 @@ export class modifier_reimagined_crystal_maiden_freezing_field_slow extends Base
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.movespeed_slow = this.ability!.GetSpecialValueFor("movespeed_slow");
-        this.attack_slow = this.ability!.GetSpecialValueFor("attack_slow");
-        this.scepter_delay = this.ability!.GetSpecialValueFor("scepter_delay");        
+        this.movespeed_slow = this.ability.GetSpecialValueFor("movespeed_slow");
+        this.attack_slow = this.ability.GetSpecialValueFor("attack_slow");
+        this.scepter_delay = this.ability.GetSpecialValueFor("scepter_delay");        
 
         if (IsServer() && this.caster!.HasScepter()) {this.StartIntervalThink(0.05)}        
     }
@@ -58,7 +58,7 @@ export class modifier_reimagined_crystal_maiden_freezing_field_slow extends Base
                             {
                                 // Cast Frostbite on this enemy
                                 this.caster!.SetCursorCastTarget(this.parent);
-                                frostbite_ability_handle.OnSpellStart();
+                                (frostbite_ability_handle as reimagined_crystal_maiden_frostbite).OnSpellStart(true);
 
                                 // Add the enemy to the set
                                 modifier.scepter_enemy_list.add(this.parent);

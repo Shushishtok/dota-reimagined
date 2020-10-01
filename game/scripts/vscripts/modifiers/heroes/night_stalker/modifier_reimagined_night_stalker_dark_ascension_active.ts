@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_night_stalker_dark_ascension_active extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Modifier specials
@@ -18,11 +18,11 @@ export class modifier_reimagined_night_stalker_dark_ascension_active extends Bas
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.bonus_damage = this.ability!.GetSpecialValueFor("bonus_damage");
+        this.bonus_damage = this.ability.GetSpecialValueFor("bonus_damage");
 
         if (IsServer()) this.StartIntervalThink(FrameTime());
     }

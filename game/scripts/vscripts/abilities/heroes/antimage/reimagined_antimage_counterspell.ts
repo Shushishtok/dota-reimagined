@@ -1,5 +1,4 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
-import * as util from "../../../lib/util";
 import { modifier_reimagined_antimage_counterspell_passive } from "../../../modifiers/heroes/antimage/modifier_reimagined_antimage_counterspell_passive";
 import { modifier_reimagined_antimage_counterspell_active } from "../../../modifiers/heroes/antimage/modifier_reimagined_antimage_counterspell_active";
 

@@ -2,6 +2,7 @@
 #base heroes/night_stalker/abilities.kv
 #base heroes/sven/abilities.kv
 #base heroes/crystal_maiden/abilities.kv
+#base heroes/phantom_assassin/abilities.kv
 
 "DOTAAbilities"
 {

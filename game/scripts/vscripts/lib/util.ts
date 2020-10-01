@@ -437,3 +437,13 @@ export function PerformAttackNoCleave(attacker: CDOTA_BaseNPC, target: CDOTA_Bas
 }
 
 
+export function PrintEventTable(event: any)
+{
+    for (const key in event)
+    {
+        print(key, event[key])
+    }
+}
+
+
+

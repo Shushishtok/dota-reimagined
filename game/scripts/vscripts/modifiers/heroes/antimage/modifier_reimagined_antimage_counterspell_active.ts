@@ -5,8 +5,8 @@ import * as util from "../../../lib/util";
 export class modifier_reimagined_antimage_counterspell_active extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     sound_reflect: string = "Hero_Antimage.Counterspell.Target";
     particle_shield: string = "particles/units/heroes/hero_antimage/antimage_counter.vpcf";
@@ -26,8 +26,8 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Reimagined specials
         this.magic_ends_mana_burn = this.ability?.GetSpecialValueFor("magic_ends_mana_burn");

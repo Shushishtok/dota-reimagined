@@ -1,0 +1,81 @@
+"DOTAAbilities"
+{
+	
+
+	//=================================================================================================================
+	// Reimagined Phantom Assassin's Coup de Grace
+	//=================================================================================================================
+	"reimagined_phantom_assassin_coup_de_grace"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"		
+    	"AbilityTextureName"			"phantom_assassin_coup_de_grace"
+    	"ScriptFile"				    "abilities/heroes/phantom_assassin/reimagined_phantom_assassin_coup_de_grace"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"		
+		"AbilityCooldown"				"50 45 45"
+		"AbilityManaCost"				"75 90 115"
+		"AbilityCastPoint"				"0.35"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"crit_chance"				"15"				
+			}
+
+			"02"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"crit_bonus"				"200 325 450"				
+			}
+
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"kiss_of_death_health_threshold"	"40"				
+			}
+
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"kiss_of_death_kill_chance"		"20"				
+			}
+
+			"05"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"marked_for_death_damage_increase"		"5"				
+			}
+
+			"06"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"decisive_strike_as_reduction"		"125 150 175"				
+			}
+
+			"07"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"decisive_strike_crit_chance_increase"		"50 55 60"				
+			}
+
+			"08"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"decisive_strike_duration"		"8"				
+			}
+
+			"09"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"decisive_strike_crits_to_remove"		"1"				
+			}
+		}
+	}	
+}

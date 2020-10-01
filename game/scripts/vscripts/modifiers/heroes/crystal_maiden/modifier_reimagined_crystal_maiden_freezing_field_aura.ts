@@ -8,8 +8,8 @@ import { reimagined_crystal_maiden_crystal_nova } from "../../../abilities/heroe
 export class modifier_reimagined_crystal_maiden_freezing_field_aura extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     sound_explosion: string = "hero_Crystal.freezingField.explosion"
     particle_snow_aura: string = "particles/units/heroes/hero_crystalmaiden/maiden_freezing_field_snow.vpcf";
@@ -44,25 +44,25 @@ export class modifier_reimagined_crystal_maiden_freezing_field_aura extends Base
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.radius = this.ability!.GetSpecialValueFor("radius");
-        this.explosion_radius = this.ability!.GetSpecialValueFor("explosion_radius");
-        this.bonus_armor = this.ability!.GetSpecialValueFor("bonus_armor");
-        this.explosion_interval = this.ability!.GetSpecialValueFor("explosion_interval");
-        this.slow_duration = this.ability!.GetSpecialValueFor("slow_duration");
-        this.explosion_min_dist = this.ability!.GetSpecialValueFor("explosion_min_dist");
-        this.explosion_max_dist = this.ability!.GetSpecialValueFor("explosion_max_dist");
-        this.damage = this.ability!.GetSpecialValueFor("damage");
+        this.radius = this.ability.GetSpecialValueFor("radius");
+        this.explosion_radius = this.ability.GetSpecialValueFor("explosion_radius");
+        this.bonus_armor = this.ability.GetSpecialValueFor("bonus_armor");
+        this.explosion_interval = this.ability.GetSpecialValueFor("explosion_interval");
+        this.slow_duration = this.ability.GetSpecialValueFor("slow_duration");
+        this.explosion_min_dist = this.ability.GetSpecialValueFor("explosion_min_dist");
+        this.explosion_max_dist = this.ability.GetSpecialValueFor("explosion_max_dist");
+        this.damage = this.ability.GetSpecialValueFor("damage");
 
         // Reimagined specials        
-        this.arcane_glacier_interval = this.ability!.GetSpecialValueFor("arcane_glacier_interval");
-        this.arcane_glacier_linger_duration = this.ability!.GetSpecialValueFor("arcane_glacier_linger_duration");
-        this.subzero_crystal_chance = this.ability!.GetSpecialValueFor("subzero_crystal_chance");
-        this.subzero_crystal_duration = this.ability!.GetSpecialValueFor("subzero_crystal_duration");
-        this.numbing_cold_bonus_dmg_pct = this.ability!.GetSpecialValueFor("numbing_cold_bonus_dmg_pct");        
+        this.arcane_glacier_interval = this.ability.GetSpecialValueFor("arcane_glacier_interval");
+        this.arcane_glacier_linger_duration = this.ability.GetSpecialValueFor("arcane_glacier_linger_duration");
+        this.subzero_crystal_chance = this.ability.GetSpecialValueFor("subzero_crystal_chance");
+        this.subzero_crystal_duration = this.ability.GetSpecialValueFor("subzero_crystal_duration");
+        this.numbing_cold_bonus_dmg_pct = this.ability.GetSpecialValueFor("numbing_cold_bonus_dmg_pct");        
         
         // Play snow particle
         this.particle_snow_aura_fx = ParticleManager.CreateParticle(this.particle_snow_aura, ParticleAttachment.ABSORIGIN_FOLLOW, this.parent);
@@ -129,9 +129,9 @@ export class modifier_reimagined_crystal_maiden_freezing_field_aura extends Base
             {
                 attacker: this.caster!,
                 damage: damage,
-                damage_type: this.ability!.GetAbilityDamageType(),
+                damage_type: this.ability.GetAbilityDamageType(),
                 victim: enemy,
-                ability: this.ability!,
+                ability: this.ability,
                 damage_flags: DamageFlag.NONE
             });
         }                                        
@@ -142,7 +142,7 @@ export class modifier_reimagined_crystal_maiden_freezing_field_aura extends Base
         if (enemy.HasModifier(modifier_reimagined_crystal_maiden_frostbite_debuff.name))
         {
             // Apply stun modifier to the target
-            enemy.AddNewModifier(this.caster, this.ability!, "modifier_stunned", {duration: 0.1});
+            enemy.AddNewModifier(this.caster, this.ability, "modifier_stunned", {duration: 0.1});
 
             // Return increased damage
             return damage + damage * this.numbing_cold_bonus_dmg_pct! * 0.01
@@ -164,7 +164,7 @@ export class modifier_reimagined_crystal_maiden_freezing_field_aura extends Base
             // Add the damage resistance modifier if caster doesn't have it already
             if (!this.parent.HasModifier(modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier.name))
             {
-                this.parent.AddNewModifier(this.parent, this.ability!, modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier.name, {duration: this.arcane_glacier_linger_duration!});
+                this.parent.AddNewModifier(this.parent, this.ability, modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier.name, {duration: this.arcane_glacier_linger_duration!});
             }
             
             const modifier = this.parent.FindModifierByName(modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier.name);

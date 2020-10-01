@@ -2,7 +2,8 @@ import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { FindUnitsAroundUnit } from "../../../lib/util";
 import { modifier_reimagined_antimage_mana_break } from "../../../modifiers/heroes/antimage/modifier_reimagined_antimage_mana_break";
 import { modifier_reimagined_antimage_mana_break_disable } from "../../../modifiers/heroes/antimage/modifier_reimagined_antimage_mana_break_disable";
-
+import "../../../modifiers/heroes/antimage/modifier_reimagined_antimage_mana_break_mana_convergence_counter"
+import "../../../modifiers/heroes/antimage/modifier_reimagined_antimage_mana_convergence_debuff"
 
 @registerAbility()
 export class reimagined_antimage_mana_break extends BaseAbility

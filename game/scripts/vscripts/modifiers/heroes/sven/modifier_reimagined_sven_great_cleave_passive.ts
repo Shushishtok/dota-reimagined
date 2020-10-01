@@ -8,8 +8,8 @@ import { modifier_reimagined_sven_gods_strength } from "./modifier_reimagined_sv
 export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!
+    ability: CDOTABaseAbility = this.GetAbility()! 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_cleave: string = "particles/units/heroes/hero_sven/sven_spell_great_cleave.vpcf";    
     particle_cleave_fx?: ParticleID;
@@ -37,21 +37,17 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
 
     OnCreated(): void
     {
-        // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
-
         // Modifier specials
-        this.cleave_starting_width = this.ability!.GetSpecialValueFor("cleave_starting_width");
-        this.cleave_ending_width = this.ability!.GetSpecialValueFor("cleave_ending_width");
-        this.cleave_distance = this.ability!.GetSpecialValueFor("cleave_distance");
-        this.great_cleave_damage = this.ability!.GetSpecialValueFor("great_cleave_damage");        
+        this.cleave_starting_width = this.ability.GetSpecialValueFor("cleave_starting_width");
+        this.cleave_ending_width = this.ability.GetSpecialValueFor("cleave_ending_width");
+        this.cleave_distance = this.ability.GetSpecialValueFor("cleave_distance");
+        this.great_cleave_damage = this.ability.GetSpecialValueFor("great_cleave_damage");        
 
         // Reimagined specials
-        this.epic_cleave_counter_duration = this.ability!.GetSpecialValueFor("epic_cleave_counter_duration");
-        this.epic_cleave_attacks = this.ability!.GetSpecialValueFor("epic_cleave_attacks");
-        this.epic_cleave_distance_multiplier = this.ability!.GetSpecialValueFor("epic_cleave_distance_multiplier");
-        this.epic_cleave_damage_pct = this.ability!.GetSpecialValueFor("epic_cleave_damage_pct");
+        this.epic_cleave_counter_duration = this.ability.GetSpecialValueFor("epic_cleave_counter_duration");
+        this.epic_cleave_attacks = this.ability.GetSpecialValueFor("epic_cleave_attacks");
+        this.epic_cleave_distance_multiplier = this.ability.GetSpecialValueFor("epic_cleave_distance_multiplier");
+        this.epic_cleave_damage_pct = this.ability.GetSpecialValueFor("epic_cleave_damage_pct");
     }
 
     OnRefresh()
@@ -96,7 +92,7 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
                                 UnitTargetFlags.MAGIC_IMMUNE_ENEMIES + UnitTargetFlags.NOT_ATTACK_IMMUNE,
                                 event.target,
                                 this.great_cleave_damage!,                                
-                                this.ability!);
+                                this.ability);
 
                                 
         // Play Cleave particle if damage is > 0 and amount of enemies is > 1
@@ -132,7 +128,7 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
         let modifier: CDOTA_Buff;
         if (!this.parent.HasModifier(modifier_reimagined_sven_great_cleave_epic_cleave.name))
         {
-            modifier = this.parent.AddNewModifier(this.parent, this.ability!, modifier_reimagined_sven_great_cleave_epic_cleave.name, {duration: this.epic_cleave_counter_duration});
+            modifier = this.parent.AddNewModifier(this.parent, this.ability, modifier_reimagined_sven_great_cleave_epic_cleave.name, {duration: this.epic_cleave_counter_duration});
         }
         else
         {
@@ -169,7 +165,7 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
                 const cleave_distance = this.cleave_distance! * this.epic_cleave_distance_multiplier!;
 
                 // Reduce the main target's armor!
-                event.target.AddNewModifier(this.parent, this.ability!, modifier_reimagined_sven_great_cleave_epic_cleave_armor_reduction.name, {duration: 0.1});
+                event.target.AddNewModifier(this.parent, this.ability, modifier_reimagined_sven_great_cleave_epic_cleave_armor_reduction.name, {duration: 0.1});
 
                 // Epic Cleave!
                 util.CustomCleaveAttack(this.parent,
@@ -182,7 +178,7 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
                                         UnitTargetFlags.MAGIC_IMMUNE_ENEMIES + UnitTargetFlags.NOT_ATTACK_IMMUNE,
                                         event.target,
                                         this.epic_cleave_damage_pct!,
-                                        this.ability!);
+                                        this.ability);
 
                 // Play sound effects based on God's Strength modifier presence
                 if (this.parent.HasModifier(modifier_reimagined_sven_gods_strength.name)) 

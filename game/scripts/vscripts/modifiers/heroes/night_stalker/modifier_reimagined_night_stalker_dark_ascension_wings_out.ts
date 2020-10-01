@@ -7,8 +7,8 @@ import { modifier_reimagined_night_stalker_hunter_in_the_night_passive } from ".
 export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Modifier specials
@@ -34,13 +34,13 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.bonus_damage = this.ability!.GetSpecialValueFor("bonus_damage");
-        this.wings_out_stack_threshold = this.ability!.GetSpecialValueFor("wings_out_stack_threshold");
-        this.wings_out_damage_pct = this.ability!.GetSpecialValueFor("wings_out_damage_pct");
+        this.bonus_damage = this.ability.GetSpecialValueFor("bonus_damage");
+        this.wings_out_stack_threshold = this.ability.GetSpecialValueFor("wings_out_stack_threshold");
+        this.wings_out_damage_pct = this.ability.GetSpecialValueFor("wings_out_damage_pct");
         
         if (IsServer()) this.StartIntervalThink(FrameTime());
     }

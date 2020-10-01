@@ -7,8 +7,8 @@ import { modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery } from
 export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     radius: number = 25000;
     
@@ -24,12 +24,12 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseMod
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Reimagined specials
-        this.focused_arcane_radius = this.ability!.GetSpecialValueFor("focused_arcane_radius");
-        this.blueheart_mastery_duration = this.ability!.GetSpecialValueFor("blueheart_mastery_duration");
+        this.focused_arcane_radius = this.ability.GetSpecialValueFor("focused_arcane_radius");
+        this.blueheart_mastery_duration = this.ability.GetSpecialValueFor("blueheart_mastery_duration");
     }
 
     OnRefresh()
@@ -92,7 +92,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseMod
         // Add and increment a stack for Blueheart Mastery        
         if (!this.parent.HasModifier(modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name))
         {
-            this.parent.AddNewModifier(this.caster!, this.ability!, modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name, {duration: this.blueheart_mastery_duration!});
+            this.parent.AddNewModifier(this.caster!, this.ability, modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name, {duration: this.blueheart_mastery_duration!});
         }        
 
         const modifier = this.parent.FindModifierByName(modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name)

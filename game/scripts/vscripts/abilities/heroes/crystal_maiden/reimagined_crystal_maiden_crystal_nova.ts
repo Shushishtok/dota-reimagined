@@ -1,6 +1,8 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_crystal_maiden_crystal_nova_slow } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_slow";
 import { modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura"
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow"
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff"
  
 @registerAbility()
 export class reimagined_crystal_maiden_crystal_nova extends BaseAbility

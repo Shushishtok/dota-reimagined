@@ -6,8 +6,8 @@ import { modifier_reimagined_night_stalker_crippling_fear_fear_debuff} from "./m
 export class modifier_reimagined_night_stalker_crippling_fear_aura extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();    
     sound_end: string = "Hero_Nightstalker.Trickling_Fear_end";
     particle_aura: string = "particles/units/heroes/hero_night_stalker/nightstalker_crippling_fear_aura.vpcf";
@@ -29,15 +29,15 @@ export class modifier_reimagined_night_stalker_crippling_fear_aura extends BaseM
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.radius = this.ability!.GetSpecialValueFor("radius");
+        this.radius = this.ability.GetSpecialValueFor("radius");
 
         // Reimagined specials
-        this.roll_back_light_radius_inc_sec = this.ability!.GetSpecialValueFor("roll_back_light_radius_inc_sec");
-        this.roll_back_light_interval = this.ability!.GetSpecialValueFor("roll_back_light_interval");
+        this.roll_back_light_radius_inc_sec = this.ability.GetSpecialValueFor("roll_back_light_radius_inc_sec");
+        this.roll_back_light_interval = this.ability.GetSpecialValueFor("roll_back_light_interval");
 
         // Set debuff modifier name
         this.debuff_modifier_name = modifier_reimagined_night_stalker_crippling_fear_silence_debuff.name;
@@ -70,7 +70,7 @@ export class modifier_reimagined_night_stalker_crippling_fear_aura extends BaseM
         if (IsServer())
         {
             // If auto cast is set to true, then the modifier should be changed to the fear modifier
-            if (this.ability!.GetAutoCastState())
+            if (this.ability.GetAutoCastState())
             {
                 this.debuff_modifier_name = modifier_reimagined_night_stalker_crippling_fear_fear_debuff.name;
             }

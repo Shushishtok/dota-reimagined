@@ -1,5 +1,7 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_sven_great_cleave_passive } from "../../../modifiers/heroes/sven/modifier_reimagined_sven_great_cleave_passive"
+import "../../../modifiers/heroes/sven/modifier_reimagined_sven_great_cleave_epic_cleave_armor_reduction"
+import "../../../modifiers/heroes/sven/modifier_reimagined_sven_great_cleave_epic_cleave_counter"
 import * as util from "../../../lib/util";
 
 @registerAbility()

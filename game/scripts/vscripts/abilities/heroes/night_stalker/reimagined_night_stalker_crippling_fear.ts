@@ -1,6 +1,8 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_night_stalker_crippling_fear_aura } from "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_crippling_fear_aura";
 import { modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night } from "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night";
+import "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_crippling_fear_fear_debuff"
+import "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_crippling_fear_silence_debuff"
 
 @registerAbility()
 export class reimagined_night_stalker_crippling_fear extends BaseAbility

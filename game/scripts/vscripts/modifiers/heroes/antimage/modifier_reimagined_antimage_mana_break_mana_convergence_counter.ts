@@ -5,8 +5,8 @@ import { modifier_reimagined_antimage_mana_convergence_debuff } from "./modifier
 export class modifier_reimagined_antimage_mana_break_mana_convergence_counter extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Modifier specials
@@ -20,8 +20,8 @@ export class modifier_reimagined_antimage_mana_break_mana_convergence_counter ex
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
         this.mana_convergence_hit_threshold = this.ability?.GetSpecialValueFor("mana_convergence_hit_threshold");
@@ -34,7 +34,7 @@ export class modifier_reimagined_antimage_mana_break_mana_convergence_counter ex
         if (this.GetStackCount() >= this.mana_convergence_hit_threshold!)
         {
             // Apply Mana Convergence debuff on the enemy
-            this.parent.AddNewModifier(this.caster!, this.ability!, modifier_reimagined_antimage_mana_convergence_debuff.name, {duration: this.mana_convergence_debuff_duration});
+            this.parent.AddNewModifier(this.caster!, this.ability, modifier_reimagined_antimage_mana_convergence_debuff.name, {duration: this.mana_convergence_debuff_duration});
 
             // Destroy self
             this.Destroy();

@@ -6,8 +6,8 @@ import { modifier_reimagined_antimage_counterspell_active } from "./modifier_rei
 export class modifier_reimagined_antimage_counterspell_passive extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();    
     reflected_abilities?: CDOTABaseAbility[];    
     currently_reflecting: boolean = false;
@@ -25,14 +25,14 @@ export class modifier_reimagined_antimage_counterspell_passive extends BaseModif
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.magic_resistance = this.ability!.GetSpecialValueFor("magic_resistance");
+        this.magic_resistance = this.ability.GetSpecialValueFor("magic_resistance");
 
         // Reimagined specials
-        this.instinctive_counter_trigger_multiplier = this.ability!.GetSpecialValueFor("instinctive_counter_trigger_multiplier");
+        this.instinctive_counter_trigger_multiplier = this.ability.GetSpecialValueFor("instinctive_counter_trigger_multiplier");
 
         // Initialize reflection table for Counterspell's active        
         this.reflected_abilities = [];
@@ -46,10 +46,10 @@ export class modifier_reimagined_antimage_counterspell_passive extends BaseModif
     OnRefresh(): void
     {
         // Modifier specials
-        this.magic_resistance = this.ability!.GetSpecialValueFor("magic_resistance");
+        this.magic_resistance = this.ability.GetSpecialValueFor("magic_resistance");
 
         // Reimagined specials
-        this.instinctive_counter_trigger_multiplier = this.ability!.GetSpecialValueFor("instinctive_counter_trigger_multiplier");
+        this.instinctive_counter_trigger_multiplier = this.ability.GetSpecialValueFor("instinctive_counter_trigger_multiplier");
     }
 
     OnIntervalThink(): void
@@ -104,11 +104,11 @@ export class modifier_reimagined_antimage_counterspell_passive extends BaseModif
         // Does not trigger if the active portion is currently working
         if (this.parent.HasModifier(modifier_reimagined_antimage_counterspell_active.name)) return false;        
 
-        const manacost: number = this.ability!.GetManaCost((this.ability!.GetLevel()) -1) * this.instinctive_counter_trigger_multiplier!
-        const cooldown: number = this.ability!.GetCooldown(this.ability!.GetLevel() -1) * this.instinctive_counter_trigger_multiplier!;    
+        const manacost: number = this.ability.GetManaCost((this.ability.GetLevel()) -1) * this.instinctive_counter_trigger_multiplier!
+        const cooldown: number = this.ability.GetCooldown(this.ability.GetLevel() -1) * this.instinctive_counter_trigger_multiplier!;    
             
         // Check if the ability is set to auto cast and it is ready to be used        
-        if (this.ability!.GetAutoCastState() && this.ability!.IsCooldownReady() && manacost <= this.parent.GetMana())
+        if (this.ability.GetAutoCastState() && this.ability.IsCooldownReady() && manacost <= this.parent.GetMana())
         {            
             if (reflect)
             {                   
@@ -116,14 +116,14 @@ export class modifier_reimagined_antimage_counterspell_passive extends BaseModif
                 if (util.SpellReflect(event, this.parent, this.GetName()))
                 {     
                     // Activate the ability manually
-                    this.ability!.OnSpellStart();
+                    this.ability.OnSpellStart();
                     
                     // Wait for a frame to allow both absorb and reflect to trigger before going into cooldown
                     Timers.CreateTimer(FrameTime(), () => 
                     {
                         // Spend mana and cooldown with multiplier                                
-                        this.parent.SpendMana(manacost, this.ability!);                                
-                        this.ability!.StartCooldown(cooldown);
+                        this.parent.SpendMana(manacost, this.ability);                                
+                        this.ability.StartCooldown(cooldown);
                     })
 
                     return true;

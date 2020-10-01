@@ -5,8 +5,8 @@ import * as util from "../../../lib/util"
 export class modifier_reimagind_sven_storm_hammer_scepter extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();    
     projectileID?: ProjectileID;
     target?: CDOTA_BaseNPC;
@@ -21,11 +21,11 @@ export class modifier_reimagind_sven_storm_hammer_scepter extends BaseModifier
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.bolt_speed = this.ability!.GetSpecialValueFor("bolt_speed");
+        this.bolt_speed = this.ability.GetSpecialValueFor("bolt_speed");
 
         if (IsServer())
         {

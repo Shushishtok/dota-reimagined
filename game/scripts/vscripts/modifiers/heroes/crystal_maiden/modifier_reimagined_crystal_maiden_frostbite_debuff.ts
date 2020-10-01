@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_crystal_maiden_frostbite_debuff extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_frostbite: string = "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf";
     damage_per_tick: number = 0;
@@ -28,18 +28,18 @@ export class modifier_reimagined_crystal_maiden_frostbite_debuff extends BaseMod
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.total_damage = this.ability!.GetSpecialValueFor("total_damage");
-        this.tick_interval = this.ability!.GetSpecialValueFor("tick_interval");
-        this.duration = this.ability!.GetSpecialValueFor("duration")
+        this.total_damage = this.ability.GetSpecialValueFor("total_damage");
+        this.tick_interval = this.ability.GetSpecialValueFor("tick_interval");
+        this.duration = this.ability.GetSpecialValueFor("duration")
 
         // Reimagined specials
-        this.frost_emanation_search_radius = this.ability!.GetSpecialValueFor("frost_emanation_search_radius");
-        this.frost_emanation_duration = this.ability!.GetSpecialValueFor("frost_emanation_duration");
-        this.eternal_cold_fixed_damage = this.ability!.GetSpecialValueFor("eternal_cold_fixed_damage");
+        this.frost_emanation_search_radius = this.ability.GetSpecialValueFor("frost_emanation_search_radius");
+        this.frost_emanation_duration = this.ability.GetSpecialValueFor("frost_emanation_duration");
+        this.eternal_cold_fixed_damage = this.ability.GetSpecialValueFor("eternal_cold_fixed_damage");
 
         // If duration is infinite due to Eternal Cold, use fixed damage
         if (this.GetDuration() == -1)
@@ -70,9 +70,9 @@ export class modifier_reimagined_crystal_maiden_frostbite_debuff extends BaseMod
         {
             attacker: this.caster!,
             damage: this.damage_per_tick!,
-            damage_type: this.ability!.GetAbilityDamageType(),
+            damage_type: this.ability.GetAbilityDamageType(),
             victim: this.parent,
-            ability: this.ability!,
+            ability: this.ability,
             damage_flags: DamageFlag.NONE
         });
 
@@ -106,7 +106,7 @@ export class modifier_reimagined_crystal_maiden_frostbite_debuff extends BaseMod
             if (enemy != this.parent)
             {
                 // Only apply on the first (closest) enemy
-                enemy.AddNewModifier(this.caster!, this.ability!, this.GetName(), {duration: this.frost_emanation_duration!});
+                enemy.AddNewModifier(this.caster!, this.ability, this.GetName(), {duration: this.frost_emanation_duration!});
                 break;
             }            
         }

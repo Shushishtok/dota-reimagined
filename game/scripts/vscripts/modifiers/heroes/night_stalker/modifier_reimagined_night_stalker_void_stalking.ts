@@ -6,8 +6,8 @@ import { modifier_reimagined_night_stalker_void_stalked } from "./modifier_reima
 export class modifier_reimagined_night_stalker_void_stalking extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Modifier specials
@@ -36,14 +36,14 @@ export class modifier_reimagined_night_stalker_void_stalking extends BaseModifie
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.stalking_ms_bonus = this.ability!.GetSpecialValueFor("stalking_ms_bonus");
-        this.stalking_width = this.ability!.GetSpecialValueFor("stalking_width");
-        this.stalking_distance = this.ability!.GetSpecialValueFor("stalking_distance");
-        this.stalk_interval = this.ability!.GetSpecialValueFor("stalk_interval");
+        this.stalking_ms_bonus = this.ability.GetSpecialValueFor("stalking_ms_bonus");
+        this.stalking_width = this.ability.GetSpecialValueFor("stalking_width");
+        this.stalking_distance = this.ability.GetSpecialValueFor("stalking_distance");
+        this.stalk_interval = this.ability.GetSpecialValueFor("stalk_interval");
 
         // Start thinking
         this.StartIntervalThink(this.stalk_interval!);
@@ -84,7 +84,7 @@ export class modifier_reimagined_night_stalker_void_stalking extends BaseModifie
                 }
                 
                 // Apply stalk debuff
-                enemy.AddNewModifier(this.caster!, this.ability!, modifier_reimagined_night_stalker_void_stalked.name, {duration: this.stalk_interval!});
+                enemy.AddNewModifier(this.caster!, this.ability, modifier_reimagined_night_stalker_void_stalked.name, {duration: this.stalk_interval!});
             }   
         }
 

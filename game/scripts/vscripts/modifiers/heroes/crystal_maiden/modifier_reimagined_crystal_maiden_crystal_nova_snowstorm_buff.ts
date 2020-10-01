@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Modifier specials
@@ -29,12 +29,12 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff exte
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.snowstorm_damage_reduction = this.ability!.GetSpecialValueFor("snowstorm_damage_reduction");
-        this.snowstorm_status_reduction = this.ability!.GetSpecialValueFor("snowstorm_status_reduction");
+        this.snowstorm_damage_reduction = this.ability.GetSpecialValueFor("snowstorm_damage_reduction");
+        this.snowstorm_status_reduction = this.ability.GetSpecialValueFor("snowstorm_status_reduction");
     }
 
     DeclareFunctions(): ModifierFunction[]

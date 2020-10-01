@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_sven_great_cleave_epic_cleave_armor_reduction extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     lock: boolean = false;
     parents_armor: number = 0;
@@ -20,11 +20,11 @@ export class modifier_reimagined_sven_great_cleave_epic_cleave_armor_reduction e
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.epic_cleave_armor_ignore_pct = this.ability!.GetSpecialValueFor("epic_cleave_armor_ignore_pct");        
+        this.epic_cleave_armor_ignore_pct = this.ability.GetSpecialValueFor("epic_cleave_armor_ignore_pct");        
     }
 
     DeclareFunctions(): ModifierFunction[]

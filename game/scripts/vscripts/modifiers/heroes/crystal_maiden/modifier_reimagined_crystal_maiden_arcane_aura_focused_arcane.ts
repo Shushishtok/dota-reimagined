@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_effect: string = "particles/heroes/crystal_maiden/arcane_aura_focused_arcane_effect.vpcf";
 
@@ -30,6 +30,6 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane exten
 
     OnTooltip(): number
     {
-        return this.GetAbility()!.GetSpecialValueFor("focused_arcane_radius");
+        return this.GetAbility()!!.GetSpecialValueFor("focused_arcane_radius");
     }
 }

@@ -2,6 +2,7 @@ import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_night_stalker_void_stalking } from "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_void_stalking"
 import { modifier_reimagined_night_stalker_void_debuff } from "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_void_debuff";
 import { modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night } from "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night";
+import "../../../modifiers/heroes/night_stalker/modifier_reimagined_night_stalker_void_stalked"
 
 @registerAbility()
 export class reimagined_night_stalker_void extends BaseAbility

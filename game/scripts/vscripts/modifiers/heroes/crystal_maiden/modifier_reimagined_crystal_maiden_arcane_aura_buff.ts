@@ -7,8 +7,8 @@ import { modifier_reimagined_crystal_maiden_frostbite_buff } from "./modifier_re
 export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Modifier specials
@@ -28,18 +28,18 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.mana_regen = this.ability!.GetSpecialValueFor("mana_regen");
-        this.self_factor = this.ability!.GetSpecialValueFor("self_factor");
+        this.mana_regen = this.ability.GetSpecialValueFor("mana_regen");
+        this.self_factor = this.ability.GetSpecialValueFor("self_factor");
 
         // Reimagined specials
-        this.igloo_frosting_arcane_aura_multiplier = this.ability!.GetSpecialValueFor("igloo_frosting_arcane_aura_multiplier");
-        this.focused_arcane_magic_res = this.ability!.GetSpecialValueFor("focused_arcane_magic_res");
-        this.focused_arcane_spell_amp = this.ability!.GetSpecialValueFor("focused_arcane_spell_amp");
-        this.blueheart_mastery_mana_regen = this.ability!.GetSpecialValueFor("blueheart_mastery_mana_regen");        
+        this.igloo_frosting_arcane_aura_multiplier = this.ability.GetSpecialValueFor("igloo_frosting_arcane_aura_multiplier");
+        this.focused_arcane_magic_res = this.ability.GetSpecialValueFor("focused_arcane_magic_res");
+        this.focused_arcane_spell_amp = this.ability.GetSpecialValueFor("focused_arcane_spell_amp");
+        this.blueheart_mastery_mana_regen = this.ability.GetSpecialValueFor("blueheart_mastery_mana_regen");        
     }
 
     OnRefresh(): void

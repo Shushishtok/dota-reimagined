@@ -4,8 +4,8 @@ import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_t
 export class modifier_reimagined_night_stalker_void_debuff extends BaseModifier
 {
     // Modifier properties
-    caster?: CDOTA_BaseNPC;
-    ability?: CDOTABaseAbility; 
+    caster: CDOTA_BaseNPC = this.GetCaster()!;
+    ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_void: string = "particles/units/heroes/hero_night_stalker/nightstalker_void.vpcf";
 
@@ -22,14 +22,14 @@ export class modifier_reimagined_night_stalker_void_debuff extends BaseModifier
     OnCreated(): void
     {
         // Modifier properties
-        this.caster = this.GetCaster();
-        this.ability = this.GetAbility();
+        
+        this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.movespeed_slow = this.ability!.GetSpecialValueFor("movespeed_slow");
-        this.attackspeed_slow = this.ability!.GetSpecialValueFor("attackspeed_slow");
-        this.vision_day = this.ability!.GetSpecialValueFor("vision_day");
-        this.vision_night = this.ability!.GetSpecialValueFor("vision_night");
+        this.movespeed_slow = this.ability.GetSpecialValueFor("movespeed_slow");
+        this.attackspeed_slow = this.ability.GetSpecialValueFor("attackspeed_slow");
+        this.vision_day = this.ability.GetSpecialValueFor("vision_day");
+        this.vision_night = this.ability.GetSpecialValueFor("vision_night");
     }
 
     DeclareFunctions(): ModifierFunction[]
