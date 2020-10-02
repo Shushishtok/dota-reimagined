@@ -7,6 +7,7 @@ export class modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike 
     caster: CDOTA_BaseNPC = this.GetCaster()!;
     ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
+    sound_cast: string = "PhantomAssassin.DecisiveStrike.Cast";
 
     // Reimagined properties
     decisive_strike_attacks_remaining: number = 0;
@@ -45,5 +46,10 @@ export class modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike 
     GetModifierAttackSpeedBonus_Constant(): number
     {
         return this.decisive_strike_as_reduction! * (-1);
+    }
+
+    OnDestroy()
+    {
+        StopSoundOn(this.sound_cast, this.parent);
     }
 }

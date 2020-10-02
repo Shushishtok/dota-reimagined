@@ -1,5 +1,4 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
-import * as util from "../../../lib/util";
 import { modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike } from "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike";
 import { modifier_reimagined_phantom_assassin_coup_de_grace_passive } from "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_coup_de_grace_passive"
 
@@ -23,7 +22,7 @@ export class reimagined_phantom_assassin_coup_de_grace extends BaseAbility
         return modifier_reimagined_phantom_assassin_coup_de_grace_passive.name;
     }
 
-    OnAbilityPhaseStart()
+    OnAbilityPhaseStart(): boolean
     {
         // Play sound
         EmitSoundOn(this.sound_cast, this.caster);

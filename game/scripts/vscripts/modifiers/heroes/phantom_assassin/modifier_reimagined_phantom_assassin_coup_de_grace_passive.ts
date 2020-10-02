@@ -1,6 +1,9 @@
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike } from "./modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike"
-import * as util from "../../../lib/util"
+import { modifier_reimagined_phantom_assassin_stifling_dagger_caster } from "./modifier_reimagined_phantom_assassin_stifling_dagger_caster"
+import { reimagined_phantom_assassin_stifling_dagger } from "../../../abilities/heroes/phantom_assassin/reimagined_phantom_assassin_stifling_dagger"
+
+import "../../../abilities/heroes/phantom_assassin/reimagined_phantom_assassin_stifling_dagger"
 
 @registerModifier()
 export class modifier_reimagined_phantom_assassin_coup_de_grace_passive extends BaseModifier
@@ -75,6 +78,9 @@ export class modifier_reimagined_phantom_assassin_coup_de_grace_passive extends 
 
         // Reimagined: Decisive Strike: Coup de Grace can be no-target cast. Doing so reduces Phantom Assassin's attack speed by x, but increases the chance to proc Coup de Grace by y%. Lasts for z seconds, or until Phantom Assassin crits v times.
         crit_chance += this.ReimaginedDecisiveStrike(false);
+
+        // Reimagined: Sharp and Quiet: Stifling Dagger's chance to proc Coup de Grace's increases by x% chance for every y% health that the enemy unit has. Does not include 100% health.
+        crit_chance += this.ReimaginedStiflingDagger_SharpAndQuiet(event);
 
         // Roll for a standard crit
         if (RollPseudoRandomPercentage(crit_chance, PseudoRandom.CUSTOM_GAME_1, this.parent))
@@ -201,5 +207,35 @@ export class modifier_reimagined_phantom_assassin_coup_de_grace_passive extends 
         {
             return this.decisive_strike_crit_chance_increase!;
         }
+    }
+
+    ReimaginedStiflingDagger_SharpAndQuiet(event: ModifierAttackEvent): number
+    {
+        let bonus_crit = 0;
+
+        if (this.caster.HasModifier(modifier_reimagined_phantom_assassin_stifling_dagger_caster.name))
+        {
+            if (this.caster.HasAbility(reimagined_phantom_assassin_stifling_dagger.name))
+            {
+                const stifling_dagger_ability = this.caster.FindAbilityByName(reimagined_phantom_assassin_stifling_dagger.name);
+                if (stifling_dagger_ability)
+                {
+                    // Ability properties
+                    const sharp_and_quite_crit_per_stack = stifling_dagger_ability.GetSpecialValueFor("sharp_and_quite_crit_per_stack");
+                    const sharp_and_quite_hp_threshold_per_stack = stifling_dagger_ability.GetSpecialValueFor("sharp_and_quite_hp_threshold_per_stack");
+
+                    // Get health percentage
+                    let health_percentage = event.target.GetHealthPercent();                    
+    
+                    // Find how many instances of bonus damage needs to be given
+                    const instances = Math.floor(health_percentage / sharp_and_quite_hp_threshold_per_stack);
+                    if (instances > 0)
+                    {
+                        bonus_crit += (instances * sharp_and_quite_crit_per_stack); 
+                    }
+                }
+            }
+        }        
+        return bonus_crit
     }
 }
