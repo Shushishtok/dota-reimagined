@@ -5,7 +5,8 @@ import { modifier_reimagined_phantom_assassin_blur_active } from "../../../modif
 import "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_blur_quick_and_quiet"
 
 @registerAbility()
-export class reimagined_phantom_assassin_blur extends BaseAbility {
+export class reimagined_phantom_assassin_blur extends BaseAbility 
+{
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
     particle_blur_active: string = "particles/units/heroes/hero_phantom_assassin/phantom_assassin_active_start.vpcf";
@@ -14,29 +15,35 @@ export class reimagined_phantom_assassin_blur extends BaseAbility {
     // Ability specials
     duration?: number;
 
-    GetCastPoint(): number {
+    GetCastPoint(): number 
+    {
         // Scepter: instant cast time
-        if (this.caster.HasScepter()) {
+        if (this.caster.HasScepter()) 
+        {
             return 0;
         }
 
         return super.GetCastPoint();
     }
 
-    GetCooldown(): number {
+    GetCooldown(): number
+    {
         // Scepter: cooldown decrease
-        if (this.caster.HasScepter()) {
+        if (this.caster.HasScepter()) 
+        {
             return this.GetSpecialValueFor("scepter_cooldown");
         }
 
         return super.GetCooldown(this.GetLevel());
     }
 
-    GetIntrinsicModifierName(): string {
+    GetIntrinsicModifierName(): string 
+    {
         return modifier_reimagined_phantom_assassin_blur_passive.name;
     }
 
-    OnSpellStart(): void {
+    OnSpellStart(): void 
+    {
         // Ability properties
         const original_caster_position = this.caster.GetAbsOrigin();
 
@@ -48,7 +55,8 @@ export class reimagined_phantom_assassin_blur extends BaseAbility {
         this.caster.AddNewModifier(this.caster, this, modifier_reimagined_phantom_assassin_blur_active.name, { duration: this.duration });
 
         // Scepter: Basic dispel self from debuffs
-        if (this.caster.HasScepter()) {
+        if (this.caster.HasScepter()) 
+        {
             this.caster.Purge(false, true, false, false, false);
         }
 
