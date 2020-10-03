@@ -436,7 +436,6 @@ export function PerformAttackNoCleave(attacker: CDOTA_BaseNPC, target: CDOTA_Bas
     }
 }
 
-
 export function PrintEventTable(event: any)
 {
     for (const key in event)
@@ -444,6 +443,20 @@ export function PrintEventTable(event: any)
         print(key, event[key])
     }
 }
+
+export function IsRoshan(unit: CDOTA_BaseNPC): boolean
+{
+    if (unit.GetName() == "npc_dota_roshan")
+    {
+        return true
+    }
+    else
+    {        
+        return false
+    }
+}
+	
+
 
 
 

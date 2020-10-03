@@ -1,7 +1,7 @@
 "DOTAAbilities"
 {
 	//=================================================================================================================
-	// Ability: Phantom Assassin's Stifling Dagger
+	// Reimagined: Phantom Assassin's Stifling Dagger
 	//=================================================================================================================
 	"reimagined_phantom_assassin_stifling_dagger"
 	{
@@ -104,6 +104,173 @@
 
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	//=================================================================================================================
+	// Reimagined: Phantom Assassin's Phantom Strike
+	//=================================================================================================================
+	"reimagined_phantom_assassin_phantom_strike"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"		
+    	"AbilityTextureName"			"phantom_assassin_phantom_strike"
+    	"ScriptFile"				    "abilities/heroes/phantom_assassin/reimagined_phantom_assassin_phantom_strike"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_PhantomAssassin.Strike.Start"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------		
+		"AbilityCastPoint"				"0.25"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"11 9 7 5"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"35 40 45 50"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_attack_speed"	"100 125 150 175"
+			}
+			
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"2.0"
+			}
+
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"cast_range"				"1000"				
+			}
+
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"escape_plan_blur_duration"	"2"				
+			}
+
+			"05"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"escape_plan_ms_bonus_pct"	"10 15 20 25"				
+			}
+			
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+
+	//=================================================================================================================
+	// Reimagined: Phantom Assassin's Blur
+	//=================================================================================================================
+	"reimagined_phantom_assassin_blur"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"		
+    	"AbilityTextureName"			"phantom_assassin_blur"
+    	"ScriptFile"				    "abilities/heroes/phantom_assassin/reimagined_phantom_assassin_blur"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"HasScepterUpgrade"				"1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60 55 50 45"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.4"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+	
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"bonus_evasion"				"20 30 40 50"				
+			}
+
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"duration"					"25"
+			}
+
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"radius"					"600"
+			}
+
+			"04"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"fade_duration"				"0.75"
+			}
+
+			"05"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"scepter_cooldown"			"10"
+				"RequiresScepter"			"1"
+			}
+
+			"06"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"turned_blade_internal_cooldown" "3 2.5 2 1.5"
+			}
+
+			"07"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"quick_quiet_ms_per_interval" "2 2.5 3 3.5"
+			}
+
+			"08"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"quick_quiet_interval" 		"1"
+			}
+
+			"09"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"quick_quiet_linger_duration"	"2"
+			}
+
+			"10"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"from_veils_pure_damage_pct"	"5"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
 
 	//=================================================================================================================

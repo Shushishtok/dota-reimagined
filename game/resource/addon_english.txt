@@ -681,7 +681,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_Description"
 		"Throws a dagger slowing the enemy unit's movement speed, dealing %base_damage% + %attack_factor_tooltip%%% of Phantom Assassin's attack damage as physical damage and applying attack effects from items and abilities.
-		<font color='#B25266'><b>Fan of Knives::</b> Throws %fan_of_knives_add_daggers% additional daggers on random targets in Stifling Dagger's cast range. Each target can only have one dagger thrown to it, unless no more viable targets were found, in which case the list of viable targets resets.
+		<font color='#B25266'><b>Fan of Knives:</b> Throws %fan_of_knives_add_daggers% additional daggers on random targets in Stifling Dagger's cast range. Each target can only have one dagger thrown to it, unless no more viable targets were found, in which case the list of viable targets resets.
 		<font color='#B25266'><b>Sharp and Quiet:</b> Stifling Dagger's chance to proc Coup de Grace's increases by %sharp_and_quite_crit_per_stack%%% chance for every %sharp_and_quite_hp_threshold_per_stack%%% health that the enemy unit has.
 		<font color='#B25266'><b>Stifling Blade:</b> The slow debuff also reduces the outgoing damage of the target by %stifling_blade_outgoing_damage%%% for the duration of the debuff."
 		
@@ -715,10 +715,104 @@
 		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_stifling_dagger_slow"
 		"Stifling Dagger"
 
-
 		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_stifling_dagger_slow_Description"
 		"Movement speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and outgoing damage reduced by %dMODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE%%%."
 		
+		// Phantom Assassin's Phantom Strike
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike"
+		"Phantom Strike"
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_Description"
+		"Teleports to a unit, friendly or enemy, and grants bonus attack speed while attacking if it's an enemy unit.
+		<font color='#B25266'><b>Nothin Personalle:</b> Applies instant attacks on all enemies between the caster and her target.
+		<font color='#B25266'><b>Relentless Assassin:</b> The attack speed buff refreshes itself when Phantom Assassin lands an attack on Phantom Strike's target.
+		<font color='#B25266'><b>Escape Plan:</b> After blinking to an ally, Phantom Assassin gains Blur's invisibility for %escape_plan_blur_duration% seconds, and gets a %escape_plan_ms_bonus_pct%%% move speed bonus as well for the same duration."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_Lore"
+		"Mortred's silken veil is the last thing her unfortunate target sees."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_Note0"
+		"Nothin Personalle's search width is based on the caster's hull radius plus its current attack range."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_Note1"
+		"Nothin Personalle does not apply an instant attack on the main target."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_Note2"
+		"Escape Plan only procs the Blur's active modifier if Blur is learned and is not currently active. The move speed modifier is independent and will always proc when blinking to an ally."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_bonus_attack_speed"
+		"BONUS ATTACK SPEED:"
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_duration"
+		"DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_cast_range"
+		"CAST RANGE:"
+
+		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_phantom_strike_buff"
+		"Phantom Strike"
+
+		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_phantom_strike_buff_Description"
+		"Attack speed increased by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%. Refreshes itself when attacking the main target."
+
+		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_phantom_strike_escape_plan"
+		"Escape Plan"
+
+		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_phantom_strike_escape_plan_Description"
+		"Move speed increased by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%."
+
+		// Phantom Assassin's Blur
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur"
+		"Blur"
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_Description"
+		"Phantom Assassin focuses inward, increasing her ability to evade enemy attacks. Can be activated to blur her body, causing her to be impossible to see until near enemy heroes.
+		<font color='#B25266'><b>Turned Your Blade:</b> Phantom Assassin instantly attacks any enemy within range that misses her with an attack. Has an internal cooldown of %turned_blade_internal_cooldown% seconds.
+		<font color='#B25266'><b>Quick and Quiet:</b> While Blur is active, grants %quick_quiet_ms_per_interval%%% move speed for every %quick_quiet_interval% second it is on. Lingers for %quick_quiet_linger_duration% additional seconds after Blur is dispelled or expires.
+		<font color='#B25266'><b>From the Veils:</b> Attacking while Blur is active grants Phantom Assassin an additional %from_veils_pure_damage_pct%%% of her base damage as bonus pure damage."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_aghanim_description"
+		"Causes Blur to have instant cast time and applies a dispel. Anytime you get a hero kill, your abilities are refreshed. Reduces Blur cooldown."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_Lore"
+		"Meditation allows a Veiled Sister to carefully anticipate her opponents in combat."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_Note0"
+		"Quick and Quiet's stacks no longer increase during the linger time of the modifier."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_Note1"
+		"Quick and Quiet's stacks are reset when Blur is refreshed while already being active."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_Note2"
+		"From the Veils constantly procs the added pure damage until Blur is completely dispelled."
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_bonus_evasion"
+		"%EVASION:"
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_duration"
+		"DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_radius"
+		"VANISH RADIUS:"
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_fade_duration"
+		"VANISH BUFFER:"
+
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_scepter_cooldown"
+		"SCEPTER COOLDOWN:"		
+
+		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_blur_active"
+		"Blur"
+
+		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_blur_active_Description"
+		"Blurring out to disappear from the enemy's sight. Procs bonus pure damage while active."
+
+		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_blur_quick_and_quiet"
+		"Quiet and Quiet"
+
+		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_blur_quick_and_quiet_Description"
+		"Increases move speed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%. Lingers for %dMODIFIER_PROPERTY_TOOLTIP% seconds after Blur is dispelled."
+
 		// Phantom Assassin's Coup De Grace
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace"
 		"Coup de Grace"
