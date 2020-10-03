@@ -65,7 +65,8 @@ export class modifier_reimagined_sven_gods_strength extends BaseModifier
                 ModifierFunction.PROCATTACK_BONUS_DAMAGE_PHYSICAL, // Reimagined: Buff Fish
                 ModifierFunction.ON_DEATH, // Reimagined: Rough Knight
                 ModifierFunction.TOOLTIP,
-                ModifierFunction.TOOLTIP2
+                ModifierFunction.TOOLTIP2,
+                ModifierFunction.TRANSLATE_ATTACK_SOUND
             ];
     }
 
@@ -167,6 +168,11 @@ export class modifier_reimagined_sven_gods_strength extends BaseModifier
         const actual_bonus = gods_strength_damage + this.GetStackCount()!;
         return actual_bonus;
     }    
+
+    GetAttackSound(): string
+    {
+        return "Hero_Sven.GodsStrength.Attack";
+    }
 
     GetHeroEffectName(): string
     {
