@@ -12,7 +12,7 @@ export class modifier_reimagined_phantom_assassin_blur_active extends BaseModifi
     sound_start: string = "Hero_PhantomAssassin.Blur";
     sound_end: string = "Hero_PhantomAssassin.Blur.Break";
     particle_effect: string = "particles/units/heroes/hero_phantom_assassin/phantom_assassin_active_blur.vpcf";
-    particle_status_fx: string = "particles/status_fx/status_effect_phantom_assassin_active_blur.vpcf";    
+    particle_status_fx: string = "particles/status_fx/status_effect_phantom_assassin_active_blur.vpcf";
 
     // Modifier specials
     radius?: number;
