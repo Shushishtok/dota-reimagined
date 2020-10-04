@@ -3,6 +3,7 @@ import * as util from "../../../lib/util";
 import { modifier_reimagined_phantom_assassin_blur_passive } from "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_blur_passive"
 import { modifier_reimagined_phantom_assassin_blur_active } from "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_blur_active"
 import "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_blur_quick_and_quiet"
+import "../../../modifiers/heroes/phantom_assassin/modifier_reimagind_phantom_assassin_blur_turned_blade_cd"
 
 @registerAbility()
 export class reimagined_phantom_assassin_blur extends BaseAbility 

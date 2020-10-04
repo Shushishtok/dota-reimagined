@@ -149,7 +149,7 @@ export class modifier_reimagined_phantom_assassin_blur_active extends BaseModifi
 
     ReimaginedFromTheVeils(event: ModifierAttackEvent): number
     {
-        const damage = this.parent.GetAttackDamage() * this.from_veils_pure_damage_pct! * 0.01;
+        const damage = this.parent.GetAverageTrueAttackDamage(event.target) * this.from_veils_pure_damage_pct! * 0.01;
         SendOverheadEventMessage(undefined, OverheadAlert.DAMAGE, event.target, damage, undefined);
         return damage;
     }

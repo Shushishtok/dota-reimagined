@@ -681,8 +681,8 @@
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_Description"
 		"Throws a dagger slowing the enemy unit's movement speed, dealing %base_damage% + %attack_factor_tooltip%%% of Phantom Assassin's attack damage as physical damage and applying attack effects from items and abilities.
-		<font color='#B25266'><b>Fan of Knives:</b> Throws %fan_of_knives_add_daggers% additional daggers on random targets in Stifling Dagger's cast range. Each target can only have one dagger thrown to it, unless no more viable targets were found, in which case the list of viable targets resets.
-		<font color='#B25266'><b>Sharp and Quiet:</b> Stifling Dagger's chance to proc Coup de Grace's increases by %sharp_and_quite_crit_per_stack%%% chance for every %sharp_and_quite_hp_threshold_per_stack%%% health that the enemy unit has.
+		<font color='#B25266'><b>Fan of Knives:</b> Throws %fan_of_knives_add_daggers% additional daggers on random targets in Stifling Dagger's cast range that are not the main target that deal %fan_of_knives_fixed_damage% physical damage and do not proc on-hit effects. If there is at least one dagger that was not used, one additional dagger is thrown at the main target. Additional daggers still apply the slow debuff."
+		<font color='#B25266'><b>Sharp and Quiet:</b> Stifling Dagger's chance to proc Coup de Grace increases by %sharp_and_quite_crit_per_stack%%% chance for every %sharp_and_quite_hp_threshold_per_stack%%% health that the enemy unit has.
 		<font color='#B25266'><b>Stifling Blade:</b> The slow debuff also reduces the outgoing damage of the target by %stifling_blade_outgoing_damage%%% for the duration of the debuff."
 		
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_Lore"
@@ -716,7 +716,7 @@
 		"Stifling Dagger"
 
 		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_stifling_dagger_slow_Description"
-		"Movement speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and outgoing damage reduced by %dMODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE%%%."
+		"Movement speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and total outgoing damage reduced by %dMODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE%%%."
 		
 		// Phantom Assassin's Phantom Strike
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike"
@@ -767,9 +767,9 @@
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_Description"
 		"Phantom Assassin focuses inward, increasing her ability to evade enemy attacks. Can be activated to blur her body, causing her to be impossible to see until near enemy heroes.
-		<font color='#B25266'><b>Turned Your Blade:</b> Phantom Assassin instantly attacks any enemy within range that misses her with an attack. Has an internal cooldown of %turned_blade_internal_cooldown% seconds.
+		<font color='#B25266'><b>Turned Your Blade:</b> Phantom Assassin instantly attacks any enemy within her attack range that misses her with an auto attack. Each enemy that procs this effect has its own independent cooldown of %turned_blade_internal_cooldown% seconds.
 		<font color='#B25266'><b>Quick and Quiet:</b> While Blur is active, grants %quick_quiet_ms_per_interval%%% move speed for every %quick_quiet_interval% second it is on. Lingers for %quick_quiet_linger_duration% additional seconds after Blur is dispelled or expires.
-		<font color='#B25266'><b>From the Veils:</b> Attacking while Blur is active grants Phantom Assassin an additional %from_veils_pure_damage_pct%%% of her base damage as bonus pure damage."
+		<font color='#B25266'><b>From the Veils:</b> Attacking while Blur is active grants Phantom Assassin an additional %from_veils_pure_damage_pct%%% of her total damage as bonus pure damage."
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_aghanim_description"
 		"Causes Blur to have instant cast time and applies a dispel. Anytime you get a hero kill, your abilities are refreshed. Reduces Blur cooldown."

@@ -1,5 +1,6 @@
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util"
+import { modifier_reimagind_phantom_assassin_blur_turned_blade_cd } from "./modifier_reimagind_phantom_assassin_blur_turned_blade_cd"
 
 @registerModifier()
 export class modifier_reimagined_phantom_assassin_blur_passive extends BaseModifier
@@ -10,10 +11,7 @@ export class modifier_reimagined_phantom_assassin_blur_passive extends BaseModif
     parent: CDOTA_BaseNPC = this.GetParent();
     sound_turned_blade: string = "PhantomAssassin.TurnedBlade.Counter";
     particle_turned_blade: string = "particles/heroes/phantom_assassin/blur_turned_your_blade.vpcf";
-    particle_turned_blade_fx?: ParticleID;
-
-    // Reimagined properties
-    turned_blade_ready: boolean = true;    
+    particle_turned_blade_fx?: ParticleID;    
 
     // Modifier specials
     bonus_evasion?: number;
@@ -104,11 +102,8 @@ export class modifier_reimagined_phantom_assassin_blur_passive extends BaseModif
         if (distance > (this.parent.GetHullRadius() + this.parent.Script_GetAttackRange() + event.attacker.GetHullRadius())) return;
 
         // Check if the flag is set
-        if (this.turned_blade_ready)
+        if (!event.attacker.HasModifier(modifier_reimagind_phantom_assassin_blur_turned_blade_cd.name))
         {
-            // Unset flag
-            this.turned_blade_ready = false;
-
             // Perform instant attack against the attacker
             this.parent.PerformAttack(event.attacker, true, true, true, false, false, false, false);
 
@@ -119,17 +114,9 @@ export class modifier_reimagined_phantom_assassin_blur_passive extends BaseModif
             this.particle_turned_blade_fx = ParticleManager.CreateParticle(this.particle_turned_blade, ParticleAttachment.ABSORIGIN_FOLLOW, event.attacker);
             ParticleManager.SetParticleControl(this.particle_turned_blade_fx, 0, event.attacker.GetAbsOrigin());
             ParticleManager.ReleaseParticleIndex(this.particle_turned_blade_fx);
-
-            // Apply a timer to reset the modifier
-            Timers.CreateTimer(this.turned_blade_internal_cooldown!, () =>
-            {
-                // Validate modifier is still alive and valid
-                if (IsValidEntity(this.caster) && IsValidEntity(this.parent) && !CBaseEntity.IsNull.call(this as any))
-                {
-                    // Set flag
-                    this.turned_blade_ready = true;
-                }
-            });
+            
+            // Give CD modifier to attacker
+            event.attacker.AddNewModifier(this.parent, this.ability, modifier_reimagind_phantom_assassin_blur_turned_blade_cd.name, {duration: this.turned_blade_internal_cooldown});
         }
     }
 }
