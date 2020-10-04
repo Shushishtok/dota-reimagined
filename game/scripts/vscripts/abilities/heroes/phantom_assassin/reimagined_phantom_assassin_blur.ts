@@ -1,22 +1,24 @@
-import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
+import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
 import { modifier_reimagined_phantom_assassin_blur_passive } from "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_blur_passive"
 import { modifier_reimagined_phantom_assassin_blur_active } from "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_blur_active"
 import "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_blur_quick_and_quiet"
 
 @registerAbility()
-export class reimagined_phantom_assassin_blur extends BaseAbility
+export class reimagined_phantom_assassin_blur extends BaseAbility 
 {
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
+    particle_blur_active: string = "particles/units/heroes/hero_phantom_assassin/phantom_assassin_active_start.vpcf";
+    particle_blur_active_fx?: ParticleID;
 
     // Ability specials
     duration?: number;
 
-    GetCastPoint(): number
+    GetCastPoint(): number 
     {
         // Scepter: instant cast time
-        if (this.caster.HasScepter())
+        if (this.caster.HasScepter()) 
         {
             return 0;
         }
@@ -27,7 +29,7 @@ export class reimagined_phantom_assassin_blur extends BaseAbility
     GetCooldown(): number
     {
         // Scepter: cooldown decrease
-        if (this.caster.HasScepter())
+        if (this.caster.HasScepter()) 
         {
             return this.GetSpecialValueFor("scepter_cooldown");
         }
@@ -35,23 +37,33 @@ export class reimagined_phantom_assassin_blur extends BaseAbility
         return super.GetCooldown(this.GetLevel());
     }
 
-    GetIntrinsicModifierName(): string
+    GetIntrinsicModifierName(): string 
     {
         return modifier_reimagined_phantom_assassin_blur_passive.name;
     }
 
-    OnSpellStart(): void
+    OnSpellStart(): void 
     {
+        // Ability properties
+        const original_caster_position = this.caster.GetAbsOrigin();
+
+
         // Ability specials
         this.duration = this.GetSpecialValueFor("duration");
 
         // Apply Blur on self
-        this.caster.AddNewModifier(this.caster, this, modifier_reimagined_phantom_assassin_blur_active.name, {duration: this.duration});
+        this.caster.AddNewModifier(this.caster, this, modifier_reimagined_phantom_assassin_blur_active.name, { duration: this.duration });
 
         // Scepter: Basic dispel self from debuffs
-        if (this.caster.HasScepter())
+        if (this.caster.HasScepter()) 
         {
             this.caster.Purge(false, true, false, false, false);
         }
+
+        // Create particle system
+        this.particle_blur_active_fx = ParticleManager.CreateParticle(this.particle_blur_active, ParticleAttachment.WORLDORIGIN, undefined);
+        ParticleManager.SetParticleControl(this.particle_blur_active_fx, 0, original_caster_position);
+        ParticleManager.ReleaseParticleIndex(this.particle_blur_active_fx);
     }
+
 }
