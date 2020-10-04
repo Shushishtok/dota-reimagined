@@ -681,7 +681,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_Description"
 		"Throws a dagger slowing the enemy unit's movement speed, dealing %base_damage% + %attack_factor_tooltip%%% of Phantom Assassin's attack damage as physical damage and applying attack effects from items and abilities.
-		<font color='#B25266'><b>Fan of Knives:</b> Throws %fan_of_knives_add_daggers% additional daggers on random targets in Stifling Dagger's cast range that are not the main target that deal %fan_of_knives_fixed_damage% physical damage and do not proc on-hit effects. If there is at least one dagger that was not used, one additional dagger is thrown at the main target. Additional daggers still apply the slow debuff."
+		<font color='#B25266'><b>Fan of Knives:</b> Throws %fan_of_knives_add_daggers% additional daggers on random targets in Stifling Dagger's cast range that are not the main target that deal %fan_of_knives_fixed_damage% physical damage and do not proc on-hit effects. If there is at least one dagger that was not used, one additional dagger is thrown at the main target. Additional daggers still apply the slow debuff.
 		<font color='#B25266'><b>Sharp and Quiet:</b> Stifling Dagger's chance to proc Coup de Grace increases by %sharp_and_quite_crit_per_stack%%% chance for every %sharp_and_quite_hp_threshold_per_stack%%% health that the enemy unit has.
 		<font color='#B25266'><b>Stifling Blade:</b> The slow debuff also reduces the outgoing damage of the target by %stifling_blade_outgoing_damage%%% for the duration of the debuff."
 		
