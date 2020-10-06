@@ -456,6 +456,57 @@ export function IsRoshan(unit: CDOTA_BaseNPC): boolean
     }
 }
 	
+export function CanOrbEffectBeCast(event: ModifierAttackEvent, ability: CDOTABaseAbility): boolean
+{
+    // Assume it's an orb attack unless otherwise stated
+    let orb_attack = true;    
+
+    orb_attack = CanUserCastOrb(event.attacker, ability, false, false);
+    orb_attack = CanOrbBeCastOnTarget(event.target, true, true, true);
+
+    return orb_attack;
+}
+
+export function CanUserCastOrb(user: CDOTA_BaseNPC, ability: CDOTABaseAbility, can_proc_from_illusions: boolean, can_proc_while_silenced: boolean): boolean
+{
+    // Illusions cannot proc the orb attacks
+    if (!can_proc_from_illusions)
+    {
+        if (user.IsIllusion()) return false;
+    }
+
+    // If the parent is silenced, can't proc the orb attacks
+    if (!can_proc_while_silenced)
+    {
+        if (user.IsSilenced()) return false;
+    }
+
+    // If the ability can't be cast due to mana or other limitations, can't proc the orb attacks
+    if (!ability.IsFullyCastable()) return false;
+
+    return true;
+}
+
+export function CanOrbBeCastOnTarget(target: CDOTA_BaseNPC, can_proc_on_building: boolean, can_proc_on_wards: boolean, can_proc_on_magic_immune: boolean): boolean
+{
+    // Check conditions on whether it can proc on the enemy
+    if (!can_proc_on_building)
+    {
+        if (target.IsBuilding()) return false;
+    }
+
+    if (!can_proc_on_wards)
+    {
+        if (target.IsOther()) return false;
+    }
+
+    if (!can_proc_on_magic_immune)
+    {
+        if (target.IsMagicImmune()) return false;
+    }
+
+    return true;
+}
 
 
 

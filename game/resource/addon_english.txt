@@ -840,5 +840,43 @@
 
 		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike_Description"
 		"Slows attack speed by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%, but increases the critical hit chance by %dMODIFIER_PROPERTY_TOOLTIP%%%."
+
+		// Drow Ranger
+		// Drow Ranger's Frost Arrows
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows"
+		"Frost Arrows"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_Description"
+		"Adds a freezing effect to Drow's attacks, slowing enemy movement and dealing bonus damage. Slow lasts %duration% seconds.
+		<font color='#B25266'><b>Brittle as the Cold:</b> Frost Arrows causes the target to lose %brittle_cold_armor_loss_pct%%% of its total armor and %brittle_cold_aspd_loss% attack speed for %brittle_cold_duration% seconds. Stacks indefinitely. Stacks have independent duration.
+		<font color='#B25266'><b>Freezing Offensive:</b> Each Frost Arrow extends the current slow debuff timer by %duration% seconds, instead of refreshing it. The timer can only be extended up to a maximum of %freezing_offensive_max_duration% seconds.		
+		<font color='#B25266'><b>Cryo Arrowhead:</b> While Marksmanship is active, grants a %cryo_arrowhead_chance%%% chance to have Frost Arrows explode on impact, dealing bonus %cryo_arrowhead_damage% magical damage to all enemies in %cryo_arrowhead_radius% radius of the target. All enemies hit are afflicted with Frost Arrow's slow debuff for %cryo_arrowhead_duration% seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_Lore"
+		"Ice-encased arrows pierce the silence, chilling their victims to the core."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_Note0"
+		"Cryo Arrowhead effect fully stacks with Freezing Offensive, extending the Frost Arrow slow debuff if the target is already affected by it."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_Note1"
+		"Cryo Arrowhead cannot proc when Marksmanship was not yet learned, or when it's disabled due to nearby enemies."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_frost_arrows_movement_speed"
+		"%MOVEMENT SLOW:"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_damage"
+		"BONUS DAMAGE:"
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_frost_arrows_slow"
+		"Frost Arrow Slow"
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_frost_arrows_slow_Description"
+		"Movement speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%."
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_frost_arrows_brittle"
+		"Brittle as the Cold"
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_frost_arrows_brittle_Description"
+		"Attack speed reduced by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and armor reduced by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%."
 	}
 }
