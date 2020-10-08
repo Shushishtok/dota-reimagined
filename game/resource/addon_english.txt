@@ -930,5 +930,23 @@
 
 		"DOTA_Tooltip_modifier_reimagined_drow_ranger_gust_tailwind_Description"
 		"Being pushed forward. Enemies around you become silenced."
-	}
+
+
+
+
+
+		// ITEMS
+		// Reimagined Enchanted Mango
+		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango"
+		"Enchanted Mango"
+
+		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango_Description"
+		"<h1>Use: Eat Mango</h1> Instantly restores %replenish_amount% mana.<br><br>Range: %abilitycastrange%"
+
+		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango_hp_regen"
+		"+$hp_regen"
+
+		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango_Lore"
+		"The bittersweet flavors of Jidi Isle are irresistible to amphibians."
+	}	
 }

@@ -1,0 +1,27 @@
+{
+	"Creates a new standard item file": {
+		"prefix": "StandardItem",
+		"body": [
+		  "import { BaseItem , registerAbility } from \"../lib/dota_ts_adapter\";",		  
+		  "import * as util from \"../lib/util\";",
+		  "",
+		  "@registerAbility()",
+		  "export class dotm_general_red_battle_taunt extends BaseItem",
+		  "{",
+		  "\t// Ability properties",
+		  "\tcaster: CDOTA_BaseNPC = this.GetCaster();",
+		  "\tsound: string = \"\";",
+		  "\tparticle: string = \"\";",
+		  "\tparticle_fx?: ParticleID;",
+		  "",
+		  "\t// Ability specials",
+		  "",
+		  "\tOnSpellStart(): void",
+		  "\t{",
+		  "\t\t",
+		  "\t}",
+		  "}",		  
+		],
+		"description": "Creates a new standard item file"
+	  }
+}

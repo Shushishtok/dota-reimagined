@@ -1,0 +1,8 @@
+"DOTAAbilities"
+{
+	"Version"		"1"
+
+    // Default item removal 
+	// -----------------------------------------------------------
+    "item_enchanted_mango"							"REMOVE"
+}
