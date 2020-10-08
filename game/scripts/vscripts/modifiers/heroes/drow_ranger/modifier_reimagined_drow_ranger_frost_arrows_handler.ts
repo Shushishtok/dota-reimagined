@@ -20,7 +20,7 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
     damage?: number;
     
     // Reimagined properties
-    sound_cryo: string = "Hero_Winter_Wyvern.SplinterBlast.Target";
+    sound_cryo: string = "DrowRanger.FrostArrow.CryoArrowhead";
     particle_cryo: string = "particles/heroes/drow_ranger/frost_arrows_cryo_arrowhead.vpcf";
     particle_cryo_fx?: ParticleID;    
 

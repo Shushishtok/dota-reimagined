@@ -7,6 +7,7 @@ export class modifier_reimagined_crystal_maiden_frostbite_debuff extends BaseMod
     caster: CDOTA_BaseNPC = this.GetCaster()!;
     ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
+    sound_cast: string = "Hero_Crystal.Frostbite";
     particle_frostbite: string = "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf";
     damage_per_tick: number = 0;
     first_tick: boolean = true;
@@ -149,5 +150,10 @@ export class modifier_reimagined_crystal_maiden_frostbite_debuff extends BaseMod
     GetPriority(): ModifierPriority
     {
         return ModifierPriority.NORMAL;
+    }
+
+    OnDestroy(): void
+    {
+        StopSoundOn(this.sound_cast, this.parent)
     }
 }

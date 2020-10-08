@@ -9,6 +9,7 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
     caster: CDOTA_BaseNPC = this.GetCaster()!;
     ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
+    sound_cast: string = "Hero_Crystal.Frostbite";
     particle_frostbite: string = "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf";        
 
     // Modifier specials    
@@ -97,4 +98,9 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
         return {[ModifierState.ROOTED]: true,                
                 [ModifierState.DISARMED]: true}
     }    
+
+    OnDestroy(): void
+    {
+        StopSoundOn(this.sound_cast, this.parent)
+    }
 }

@@ -878,5 +878,57 @@
 
 		"DOTA_Tooltip_modifier_reimagined_drow_ranger_frost_arrows_brittle_Description"
 		"Attack speed reduced by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and armor reduced by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%."
+
+		// Drow Ranger's Gust (Wave of Silence)
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence"
+		"Gust"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_Description"
+		"Releases a wave that silences and knocks back enemy units. Knockback distance is relative to how close they are to you.
+		<font color='#B25266'><b>X Gust:</b> Launches %xgust_projectiles% Gust projectiles in every %xgust_angle% degrees of Drow Ranger, pushing all enemies away from her.
+		<font color='#B25266'><b>Wave Chill:</b> Enemies that are in %wave_chill_range% range of Drow Ranger are also frozen, becoming stunned during the Gust's knockback plus %wave_chill_freeze_duration% additional seconds.
+		<font color='#B25266'><b>Tailwind:</b> Gust may be cast on self to constantly push the caster on the direction she's currently facing, silencing enemies in %tailwind_silence_radius% radius around her. The caster can rotate itself to change the direction the gust pushes it. Last %tailwind_duration% seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_Lore"
+		"Traxex is rather fond of the tranquility of physical combat, calling on her Drow heritage to end the incantations of opposing magi."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_Note0"
+		"Tailwind's effect does not knockbacks enemies."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_Note1"
+		"Tailwind's effect will stop prematurely if Drow Ranger is interrupted by being afflicted with status effects or is being affected by forced movement."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_Note2"
+		"While Tailwind is active, Drow Ranger is disarmed and have free pathing through units and obstacles."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_Note3"
+		"Issuing a Stop command or a Hold Position command will immediately stop Tailwind."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_wave_width"
+		"WIDTH:"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_silence_duration"
+		"SILENCE DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_knockback_distance_max"
+		"KNOCKBACK MAX:"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_knockback_duration"
+		"KNOCKBACK DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_abilitycastrange"
+		"CAST RANGE:"
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_gust_freeze"
+		"Wave Chill"
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_gust_freeze_Description"
+		"Frozen and cannot act."
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_gust_tailwind"
+		"Tailwind"
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_gust_tailwind_Description"
+		"Being pushed forward. Enemies around you become silenced."
 	}
 }

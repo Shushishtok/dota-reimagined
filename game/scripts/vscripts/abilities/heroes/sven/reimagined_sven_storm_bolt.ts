@@ -227,7 +227,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             });
 
             // Stun them!
-            enemy.AddNewModifier(this.caster, this, "modifier_stunned", {duration: this.bolt_stun_duration});
+            enemy.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: this.bolt_stun_duration});
         }
     }
 
@@ -450,7 +450,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
                 });
 
                 // Mini stun it!                
-                target.AddNewModifier(this.caster, this, "modifier_stunned", {duration: 0.1});
+                target.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: 0.1});
             }
 
             return true;

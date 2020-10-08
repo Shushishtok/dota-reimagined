@@ -507,7 +507,3 @@ export function CanOrbBeCastOnTarget(target: CDOTA_BaseNPC, can_proc_on_building
 
     return true;
 }
-
-
-
-

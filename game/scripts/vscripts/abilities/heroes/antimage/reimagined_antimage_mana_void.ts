@@ -187,7 +187,7 @@ export class reimagined_antimage_mana_void extends BaseAbility
     ApplyStunAndDebuff(target: CDOTA_BaseNPC, stun_duration: number, trigger_scepter_debuff: boolean)
     {
         // Apply a stun on the main target
-        target!.AddNewModifier(this.caster, this, "modifier_stunned", {duration: stun_duration});
+        target!.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: stun_duration});
 
         // If viable, add the kill debuff on the target
         if (trigger_scepter_debuff)

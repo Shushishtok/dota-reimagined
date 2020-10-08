@@ -12,16 +12,23 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
     // Ability specials
     duration?: number;    
 
-    CastFilterResultTarget(target: CDOTA_BaseNPC): UnitFilterResult
+    CastFilterResultTarget(target: CDOTA_BaseNPC): UnitFilterResult | undefined
     {
+        if (!IsServer()) return;
+
         // Always apply on enemies according to the unit filter
         if (target.GetTeamNumber() != this.caster.GetTeamNumber())
         {
-            return UnitFilter(target, UnitTargetTeam.BOTH, UnitTargetType.HERO + UnitTargetType.BASIC, UnitTargetFlags.NONE, this.caster.GetTeamNumber());
+            return UnitFilter(target, this.GetAbilityTargetTeam(), this.GetAbilityTargetType(), this.GetAbilityTargetFlags(), this.caster.GetTeamNumber());
         }
         else // Check on allies for disable help
         {
-            return UnitFilter(target, UnitTargetTeam.BOTH, UnitTargetType.HERO + UnitTargetType.BASIC, UnitTargetFlags.CHECK_DISABLE_HELP, this.caster.GetTeamNumber());            
+            if (PlayerResource.IsDisableHelpSetForPlayerID(target.GetPlayerOwnerID(), this.caster.GetPlayerOwnerID()))
+            {
+                return UnitFilterResult.FAIL_DISABLE_HELP;
+            }            
+
+            return UnitFilter(target, this.GetAbilityTargetTeam(), this.GetAbilityTargetType(), this.GetAbilityTargetFlags(), this.caster.GetTeamNumber());            
         }
     }
 

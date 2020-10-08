@@ -149,7 +149,7 @@ export class reimagined_night_stalker_void extends BaseAbility
         // Apply stun, if feasible
         if (should_ministun)
         {
-            enemy.AddNewModifier(this.caster, this, "modifier_stunned", {duration: stun_duration});            
+            enemy.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: stun_duration});            
         }
 
         // Apply Void on target

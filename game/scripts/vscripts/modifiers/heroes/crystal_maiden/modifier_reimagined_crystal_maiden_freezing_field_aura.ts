@@ -142,7 +142,7 @@ export class modifier_reimagined_crystal_maiden_freezing_field_aura extends Base
         if (enemy.HasModifier(modifier_reimagined_crystal_maiden_frostbite_debuff.name))
         {
             // Apply stun modifier to the target
-            enemy.AddNewModifier(this.caster, this.ability, "modifier_stunned", {duration: 0.1});
+            enemy.AddNewModifier(this.caster, this.ability, BuiltInModifier.STUN, {duration: 0.1});
 
             // Return increased damage
             return damage + damage * this.numbing_cold_bonus_dmg_pct! * 0.01
