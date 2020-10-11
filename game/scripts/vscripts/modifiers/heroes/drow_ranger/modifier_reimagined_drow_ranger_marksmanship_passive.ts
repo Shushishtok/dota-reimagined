@@ -1,7 +1,9 @@
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import { FindUnitsAroundUnit } from "../../../lib/util";
+import * as util from "../../../lib/util";
 import { modifier_reimagined_drow_ranger_marksmanship_agility_buff } from "./modifier_reimagined_drow_ranger_marksmanship_agility_buff"
+import { modifier_reimagined_drow_ranger_frost_arrows_handler } from "./modifier_reimagined_drow_ranger_frost_arrows_handler"
 import "../../general_mechanics/modifier_reimagined_negate_armor"
+
 
 @registerModifier()
 export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseModifier
@@ -15,6 +17,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
     particle_start_fx?: ParticleID;
     particle_marksmanship: string = "particles/units/heroes/hero_drow/drow_marksmanship.vpcf"
     particle_marksmanship_fx?: ParticleID;    
+    projectile_frost: string = "particles/units/heroes/hero_drow/drow_frost_arrow.vpcf";
     marksmanship_enabled: boolean = true;
     proc_attack = false;
     first_time: boolean = true;
@@ -71,7 +74,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
     OnIntervalThink(): void
     {
         // Check for nearby enemies
-        const enemies = FindUnitsAroundUnit(this.parent,
+        const enemies = util.FindUnitsAroundUnit(this.parent,
                                             this.disable_range!,
                                             UnitTargetTeam.ENEMY,
                                             UnitTargetType.HERO,
@@ -198,20 +201,66 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         }
 
         // TODO: Scepter effect: Splinter: Check if caster has scepter
+        if (this.parent.HasScepter())
+        {
+            let enemies_found = 0;
+            // Find two enemies that aren't the main target
+            const enemies = FindUnitsInRadius(this.parent.GetTeamNumber(),
+                                             event.target.GetAbsOrigin(),
+                                             undefined,
+                                             this.scepter_range!,
+                                             UnitTargetTeam.ENEMY,
+                                             UnitTargetType.HERO + UnitTargetType.BASIC,
+                                             UnitTargetFlags.MAGIC_IMMUNE_ENEMIES + UnitTargetFlags.FOW_VISIBLE + UnitTargetFlags.NO_INVIS,
+                                             FindOrder.ANY, // CHECK IF THIS IS CORRECT OR IT SHOULD BE CLOSEST
+                                             false);
 
-                // Find two enemies that aren't the main target
+            // If Drow has Frost Arrows set to auto cast, change projectile to Frost Arrows and spend mana
+            let projectile_name = this.parent.GetRangedProjectileName();
+            if (this.parent.HasModifier("modifier_reimagined_drow_ranger_frost_arrows_handler"))
+            {
+                const modifier_frost_arrows = this.parent.FindModifierByName("modifier_reimagined_drow_ranger_frost_arrows_handler") as modifier_reimagined_drow_ranger_frost_arrows_handler;
+                if (modifier_frost_arrows)
+                {
+                    if (modifier_frost_arrows.FiresFrostProjectiles())
+                    {
+                        projectile_name = this.projectile_frost;
+                    }
+                }
+            }
 
-                // If Drow has Frost Arrows set to auto cast, change projectile to Frost Arrows and spend mana
+            for (const enemy of enemies)
+            {
+                // Ignore the main target
+                if (enemy == event.target) continue;    
 
-                // Create linear projectile using Drow's base projectile
+                // If we already found two enemies to fire at, stop
+                if (enemies_found >= this.split_count_scepter!)
 
-                // On attack landed, give Drow a damage reduction penalty modifier for a frame
+                // Create tracking projectile using Drow's base/frost projectile
+                ProjectileManager.CreateTrackingProjectile(
+                    {
+                        Ability: this.ability,
+                        EffectName: projectile_name,
+                        ExtraData: {},
+                        Source: event.target,
+                        Target: enemy,
+                        bDodgeable: true,
+                        bDrawsOnMinimap: false,
+                        bIsAttack: false,
+                        bProvidesVision: false,
+                        bReplaceExisting: false,
+                        bVisibleToEnemies: true,
+                        flExpireTime: GameRules.GetGameTime() + 10,
+                        iMoveSpeed: this.parent.GetProjectileSpeed(),
+                        iSourceAttachment: event.target.ScriptLookupAttachment(AttachLocation.HITLOC),
+                        vSourceLoc: event.target.GetAbsOrigin()
+                    }
+                );
 
-                // If she had Frost Arrows set, apply Frost Arrows slow
-
-                // Instant attack the targets
-
-                // Remove damage reduction penalty modifier
+                enemies_found++;
+            }                            
+        }                
     }
 
     OnAttackRecordDestroy(event: ModifierAttackEvent): void

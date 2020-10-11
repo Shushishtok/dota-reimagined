@@ -20,5 +20,6 @@ declare const enum GenericModifier
 {
     NO_OUTGOING_DAMAGE = "modifier_reimagined_no_outgoing_damage",
     IGNORE_ARMOR = "modifier_reimagined_negate_armor",
-    CANNOT_MISS = "modifier_reimagined_cannot_miss"
+    CANNOT_MISS = "modifier_reimagined_cannot_miss",
+    DAMAGE_REDUCTION = "modifier_reimagined_damage_penalty"
 }
