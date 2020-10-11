@@ -9,8 +9,6 @@ export class reimagined_drow_ranger_frost_arrows extends BaseAbility
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();        
 
-    // Ability specials    
-
     GetCastRange(): number
     {
         // Scales with the attack range of the parent

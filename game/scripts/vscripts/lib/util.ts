@@ -1,5 +1,5 @@
 import { BaseAbility, BaseModifier } from "./dota_ts_adapter";
-import { modifier_reimagined_no_outgoing_damage } from "../modifiers/general_mechanics/modifier_reimagined_no_outgoing_damage"
+import "../modifiers/general_mechanics/modifier_reimagined_no_outgoing_damage"
 
 export interface ReimaginedModifier extends BaseModifier
 {
@@ -426,7 +426,7 @@ export function PerformAttackNoCleave(attacker: CDOTA_BaseNPC, target: CDOTA_Bas
         attacker.PerformAttack(target, useCastAttackOrb, false, skipCooldown, ignoreInvis, useProjectile, fakeAttack, neverMiss)
 
         // Add no-damage modifier to the attacker
-        const modifier = attacker.AddNewModifier(undefined, undefined, modifier_reimagined_no_outgoing_damage.name, {duration: 1});
+        const modifier = attacker.AddNewModifier(undefined, undefined, GenericModifier.NO_OUTGOING_DAMAGE, {duration: 1});
 
         // And then a fake attack with proccing hit effects, no projectiles
         attacker.PerformAttack(target, useCastAttackOrb, true, skipCooldown, ignoreInvis, false, true, neverMiss);

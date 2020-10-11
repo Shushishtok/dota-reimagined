@@ -10,9 +10,9 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
     caster: CDOTA_BaseNPC = this.GetCaster()!;
     ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
-    sound_frost: string = "Hero_DrowRanger.FrostArrows";    
-    projectile_frost: string = "particles/units/heroes/hero_drow/drow_frost_arrow.vpcf";
+    sound_frost: string = "Hero_DrowRanger.FrostArrows";        
     firing_frost_arrows: boolean = false;    
+    cast_command: boolean = false;
     projectile_map: Map<number, boolean> = new Map();           
 
     // Modifier specials
@@ -50,6 +50,15 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
         this.cryo_arrowhead_damage = this.ability.GetSpecialValueFor("cryo_arrowhead_damage");
         this.cryo_arrowhead_duration = this.ability.GetSpecialValueFor("cryo_arrowhead_duration");
         this.freezing_offensive_max_duration = this.ability.GetSpecialValueFor("freezing_offensive_max_duration");
+
+        if (IsServer())
+        {
+            // Check if the caster has the projectile handler modifier: if not, add it
+            if (!this.parent.HasModifier("modifier_reimagined_drow_ranger_projectile_handler"))
+            {
+                this.parent.AddNewModifier(this.caster, this.ability, "modifier_reimagined_drow_ranger_projectile_handler", {});
+            }
+        }
     }
 
     DeclareFunctions(): ModifierFunction[]
@@ -59,8 +68,7 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
                 ModifierFunction.ON_ATTACK_LANDED,
                 ModifierFunction.ON_ATTACK_RECORD_DESTROY,
                 ModifierFunction.PROCATTACK_BONUS_DAMAGE_PHYSICAL,
-                ModifierFunction.ON_ORDER,
-                ModifierFunction.PROJECTILE_NAME,
+                ModifierFunction.ON_ORDER,                
                 ModifierFunction.ON_ABILITY_FULLY_CAST]
     }    
 
@@ -76,6 +84,17 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
 
         // Check if the orb effect can be cast, returns whether the arrow is an orb attack or not
         const frost_arrow = util.CanOrbEffectBeCast(event, this.ability);
+
+        // If this was a "cast" command, turn firing arrows state off to prevent continues attacks
+        if (this.cast_command)
+        {
+            if (!this.ability.GetAutoCastState())
+            {
+                this.firing_frost_arrows = false;
+            }
+            
+            this.cast_command = false;
+        }
 
         // Record the attack in the map        
         this.projectile_map.set(event.record, frost_arrow);
@@ -116,34 +135,38 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
         if (this.projectile_map.has(event.record))
         {            
             if (this.projectile_map.get(event.record))
-            {                
-                // If the target doesn't have the slow debuff, add it to him
-                if (!event.target.HasModifier(modifier_reimagined_drow_ranger_frost_arrows_slow.name))
-                {
-                    event.target.AddNewModifier(this.parent, this.ability, modifier_reimagined_drow_ranger_frost_arrows_slow.name, {duration: this.duration});                    
-                }
-                else
-                {
-                    // Reimagined: Freezing Offensive: Each Frost Arrow hitting the enemy extends the current debuff timer instead of refreshing it.
-                    const modifier = event.target.FindModifierByName(modifier_reimagined_drow_ranger_frost_arrows_slow.name)!;
-                    if (modifier)
-                    {
-                        // Reimagined: Freezing Offensive: Each Frost Arrow hitting the enemy extends the current debuff timer instead of refreshing it, up to a maximum of x seconds.
-                        this.ReimaginedFreezingOffensive(modifier, this.duration!);
-
-                        // Refresh modifier timer
-                        modifier.ForceRefresh();
-                    }
-                }
-                
-                // Reimagined: Cryo Arrowhead: While Marksmanship is active, grants a 25% chance to have Frost Arrows explode on impact, dealing bonus 20/40/60/80 magical damage to all enemies in 300 radius of the target and extending Frost Arrow's debuff by 0.6/0.8/1/1.2 additional seconds to all targets hit. Stacks with Freezing Offensive.
-                this.ReimaginedCryoArrowhead(event.target)
-
-                // Reimagined: Brittle as the Cold: Frost Arrows causes the target to lose x% of its armor and y attack speed for z seconds. Stacks indefinitely. Stacks have independent duration.
-                this.ReimaginedBrittleAsTheCold(event.target);
-
+            {                                
+                this.ApplyFrostArrows(event.target, this.duration!);
             }
         }
+    }
+
+    ApplyFrostArrows(target: CDOTA_BaseNPC, duration: number)
+    {
+        // If the target doesn't have the slow debuff, add it to him
+        if (!target.HasModifier(modifier_reimagined_drow_ranger_frost_arrows_slow.name))
+        {
+            target.AddNewModifier(this.parent, this.ability, modifier_reimagined_drow_ranger_frost_arrows_slow.name, {duration: duration});                    
+        }
+        else
+        {
+            // Reimagined: Freezing Offensive: Each Frost Arrow hitting the enemy extends the current debuff timer instead of refreshing it.
+            const modifier = target.FindModifierByName(modifier_reimagined_drow_ranger_frost_arrows_slow.name)!;
+            if (modifier)
+            {
+                // Reimagined: Freezing Offensive: Each Frost Arrow hitting the enemy extends the current debuff timer instead of refreshing it, up to a maximum of x seconds.
+                this.ReimaginedFreezingOffensive(modifier, duration);
+
+                // Refresh modifier timer
+                modifier.ForceRefresh();
+            }
+        }
+        
+        // Reimagined: Cryo Arrowhead: While Marksmanship is active, grants a 25% chance to have Frost Arrows explode on impact, dealing bonus 20/40/60/80 magical damage to all enemies in 300 radius of the target and extending Frost Arrow's debuff by 0.6/0.8/1/1.2 additional seconds to all targets hit. Stacks with Freezing Offensive.
+        this.ReimaginedCryoArrowhead(target)
+
+        // Reimagined: Brittle as the Cold: Frost Arrows causes the target to lose x% of its armor and y attack speed for z seconds. Stacks indefinitely. Stacks have independent duration.
+        this.ReimaginedBrittleAsTheCold(target);
     }
 
     OnAttackRecordDestroy(event: ModifierAttackEvent): void
@@ -220,6 +243,8 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
                     TargetIndex: event.target.entindex()
                 }
             );
+
+            this.cast_command = true;
         }
         // Every other order turns the frost arrows off
         else
@@ -228,17 +253,19 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
         }
     }
 
-    GetModifierProjectileName(event: ModifierAttackEvent): string | void
+    FiresFrostProjectiles(): boolean
     {
         if (this.firing_frost_arrows) 
         {
             const target = this.parent.GetAttackTarget();
             if (target && util.CanOrbBeCastOnTarget(target, false, false, false) && util.CanUserCastOrb(this.parent, this.ability, false, false))
             {
-                return this.projectile_frost;
+                return true;
             }
         }
-    }    
+
+        return false
+    }
 
     OnAbilityFullyCast(event: ModifierAbilityEvent)
     {
@@ -292,58 +319,60 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
 
     ReimaginedCryoArrowhead(target: CDOTA_BaseNPC): void
     {
-        // TODO: Check if Marksmanship is active
-
-        // Roll for chance to proc the Cryo Arrowhead
-        if (RollPseudoRandomPercentage(this.cryo_arrowhead_chance!, PseudoRandom.CUSTOM_GAME_1, this.parent))
+        // Check if Marksmanship is active
+        if (this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_agility_buff"))
         {
-            // Find all enemies in the AoE
-            const enemies = FindUnitsInRadius(this.parent.GetTeamNumber(),
-                                              target.GetAbsOrigin(),
-                                              undefined,
-                                              this.cryo_arrowhead_radius!,
-                                              UnitTargetTeam.ENEMY,
-                                              UnitTargetType.HERO + UnitTargetType.BASIC,
-                                              UnitTargetFlags.NONE,
-                                              FindOrder.ANY,
-                                              false);
-
-            for (const enemy of enemies)
+            // Roll for chance to proc the Cryo Arrowhead
+            if (RollPseudoRandomPercentage(this.cryo_arrowhead_chance!, PseudoRandom.CUSTOM_GAME_1, this.parent))
             {
-                // Deal damage to the target
-                ApplyDamage(
+                // Find all enemies in the AoE
+                const enemies = FindUnitsInRadius(this.parent.GetTeamNumber(),
+                                                  target.GetAbsOrigin(),
+                                                  undefined,
+                                                  this.cryo_arrowhead_radius!,
+                                                  UnitTargetTeam.ENEMY,
+                                                  UnitTargetType.HERO + UnitTargetType.BASIC,
+                                                  UnitTargetFlags.NONE,
+                                                  FindOrder.ANY,
+                                                  false);
+    
+                for (const enemy of enemies)
                 {
-                    attacker: this.parent,
-                    damage: this.cryo_arrowhead_damage!,
-                    damage_type: DamageTypes.MAGICAL,
-                    victim: enemy,
-                    ability: this.ability,
-                    damage_flags: DamageFlag.NONE
-                });
-
-                // Apply or extend Frost Arrows slow modifier
-                if (!enemy.HasModifier(modifier_reimagined_drow_ranger_frost_arrows_slow.name))
-                {
-                    enemy.AddNewModifier(this.parent, this.ability, modifier_reimagined_drow_ranger_frost_arrows_slow.name, {duration: this.cryo_arrowhead_duration});
-                }
-                else
-                {
-                    const modifier = enemy.FindModifierByName(modifier_reimagined_drow_ranger_frost_arrows_slow.name);
-                    if (modifier)
-                    {   
-                        this.ReimaginedFreezingOffensive(modifier, this.cryo_arrowhead_duration!);
+                    // Deal damage to the target
+                    ApplyDamage(
+                    {
+                        attacker: this.parent,
+                        damage: this.cryo_arrowhead_damage!,
+                        damage_type: DamageTypes.MAGICAL,
+                        victim: enemy,
+                        ability: this.ability,
+                        damage_flags: DamageFlag.NONE
+                    });
+    
+                    // Apply or extend Frost Arrows slow modifier
+                    if (!enemy.HasModifier(modifier_reimagined_drow_ranger_frost_arrows_slow.name))
+                    {
+                        enemy.AddNewModifier(this.parent, this.ability, modifier_reimagined_drow_ranger_frost_arrows_slow.name, {duration: this.cryo_arrowhead_duration});
+                    }
+                    else
+                    {
+                        const modifier = enemy.FindModifierByName(modifier_reimagined_drow_ranger_frost_arrows_slow.name);
+                        if (modifier)
+                        {   
+                            this.ReimaginedFreezingOffensive(modifier, this.cryo_arrowhead_duration!);
+                        }
                     }
                 }
+    
+                // Play sound
+                EmitSoundOn(this.sound_cryo, target);
+    
+                // Play particle effect
+                this.particle_cryo_fx = ParticleManager.CreateParticle(this.particle_cryo, ParticleAttachment.WORLDORIGIN, undefined);
+                ParticleManager.SetParticleControl(this.particle_cryo_fx, 0, target.GetAbsOrigin());
+                ParticleManager.SetParticleControl(this.particle_cryo_fx, 1, target.GetAbsOrigin());
+                ParticleManager.ReleaseParticleIndex(this.particle_cryo_fx);
             }
-
-            // Play sound
-            EmitSoundOn(this.sound_cryo, target);
-
-            // Play particle effect
-            this.particle_cryo_fx = ParticleManager.CreateParticle(this.particle_cryo, ParticleAttachment.WORLDORIGIN, undefined);
-            ParticleManager.SetParticleControl(this.particle_cryo_fx, 0, target.GetAbsOrigin());
-            ParticleManager.SetParticleControl(this.particle_cryo_fx, 1, target.GetAbsOrigin());
-            ParticleManager.ReleaseParticleIndex(this.particle_cryo_fx);
         }
     }
 }
