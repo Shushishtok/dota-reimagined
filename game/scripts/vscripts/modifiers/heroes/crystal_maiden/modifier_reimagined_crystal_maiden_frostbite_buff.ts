@@ -78,7 +78,7 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
         return [ModifierFunction.TOOLTIP]
     }
 
-    OnTooltip(event: ModifierTooltip): number
+    OnTooltip(): number
     {
         return this.igloo_frosting_arcane_aura_multiplier!
     }

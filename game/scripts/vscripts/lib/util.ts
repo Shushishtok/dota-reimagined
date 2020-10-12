@@ -4,6 +4,7 @@ import "../modifiers/general_mechanics/modifier_reimagined_no_outgoing_damage"
 export interface ReimaginedModifier extends BaseModifier
 {
     GetModifierLifeStealStacking(): number;
+    GetModifierStatusAmp(): number;
 }
 
 export interface ReflecteableModifier extends BaseModifier
@@ -506,4 +507,51 @@ export function CanOrbBeCastOnTarget(target: CDOTA_BaseNPC, can_proc_on_building
     }
 
     return true;
+}
+
+/**
+ * Returns the duration after calculating the target's status resistance and the caster's status amp.
+ * @param caster the unit that is responsible for the modifier. Checks for its status amp.
+ * @param target the unit that has the modifier apply on. Checks for its status resistance.
+ * @param duration the initial duration of a modifier.
+
+ * @returns The duration of a modifier that should be applied, taking into account status resistance and status amp.
+ */
+export function GetAppliedDuration(caster: CDOTA_BaseNPC, target: CDOTA_BaseNPC, duration: number)
+{
+    // Does nothing if caster and target are on the same team
+    if (caster.GetTeamNumber() == target.GetTeamNumber()) return duration;
+    
+    // Get target's status resistance
+    const status_resistance = target.GetStatusResistance(); // Returns a number between 0 and 1
+
+    // Get caster's status amp
+    const modifiers = caster.FindAllModifiers() as ReimaginedModifier[];
+    let total_status_amp = 0;
+    let status_amp: number[] = [];
+    for (const modifier of modifiers)
+    {        
+        if (modifier.GetModifierStatusAmp)
+        {
+            status_amp.push(modifier.GetModifierStatusAmp());            
+        }
+    }    
+
+    // Calculate total status amp
+    for (let index = 0; index < status_amp.length; index++) {
+        const status_amp_instance = status_amp[index];
+        if (total_status_amp == 0)
+        {
+            total_status_amp = 1 - status_amp_instance * 0.01
+        }
+        else
+        {
+            total_status_amp *= (1 - status_amp_instance * 0.01)
+        }
+    }
+    total_status_amp = 1 - total_status_amp;
+
+    duration = duration * ((1 + (total_status_amp - status_resistance)));
+
+    return duration
 }

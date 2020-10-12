@@ -119,13 +119,13 @@ export class modifier_reimagined_crystal_maiden_frostbite_debuff extends BaseMod
                 ModifierFunction.TOOLTIP2]
     }
 
-    OnTooltip(event: ModifierTooltip): number
+    OnTooltip(): number
     {        
         return this.damage_per_tick!;
         
     }
 
-    OnTooltip2(event: ModifierTooltip): number
+    OnTooltip2(): number
     {
         return this.tick_interval!;
     }

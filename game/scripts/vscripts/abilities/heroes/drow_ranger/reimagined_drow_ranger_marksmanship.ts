@@ -2,6 +2,7 @@ import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_drow_ranger_marksmanship_passive } from "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_marksmanship_passive"
 import "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_projectile_handler"
 import "../../../modifiers/general_mechanics/modifier_reimagined_damage_penalty"
+import "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_marksmanship_pride_drow"
 
 @registerAbility()
 export class reimagined_drow_ranger_marksmanship extends BaseAbility
@@ -50,6 +51,6 @@ export class reimagined_drow_ranger_marksmanship extends BaseAbility
 
     ReimaginedPrideOfTheDrow(): void
     {
-        
+        this.caster.AddNewModifier(this.caster, this, "modifier_reimagined_drow_ranger_marksmanship_pride_drow", {duration: this.pride_drow_duration});
     }
 }
