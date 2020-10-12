@@ -2,6 +2,7 @@ import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util"
 import { modifier_reimagined_drow_ranger_frost_arrows_slow } from "./modifier_reimagined_drow_ranger_frost_arrows_slow"
 import { modifier_reimagined_drow_ranger_frost_arrows_brittle } from "./modifier_reimagined_drow_ranger_frost_arrows_brittle"
+import { modifier_reimagined_drow_ranger_marksmanship_passive } from "../.././heroes/drow_ranger/modifier_reimagined_drow_ranger_marksmanship_passive"
 
 @registerModifier()
 export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseModifier
@@ -320,59 +321,66 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
     ReimaginedCryoArrowhead(target: CDOTA_BaseNPC): void
     {
         // Check if Marksmanship is active
-        if (this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_agility_buff"))
+        if (this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_passive"))
         {
-            // Roll for chance to proc the Cryo Arrowhead
-            if (RollPseudoRandomPercentage(this.cryo_arrowhead_chance!, PseudoRandom.CUSTOM_GAME_1, this.parent))
+            const modifier_marksmanship = this.parent.FindModifierByName("modifier_reimagined_drow_ranger_marksmanship_passive") as modifier_reimagined_drow_ranger_marksmanship_passive;
+            if (modifier_marksmanship)
             {
-                // Find all enemies in the AoE
-                const enemies = FindUnitsInRadius(this.parent.GetTeamNumber(),
-                                                  target.GetAbsOrigin(),
-                                                  undefined,
-                                                  this.cryo_arrowhead_radius!,
-                                                  UnitTargetTeam.ENEMY,
-                                                  UnitTargetType.HERO + UnitTargetType.BASIC,
-                                                  UnitTargetFlags.NONE,
-                                                  FindOrder.ANY,
-                                                  false);
-    
-                for (const enemy of enemies)
+                if (modifier_marksmanship.marksmanship_enabled)
                 {
-                    // Deal damage to the target
-                    ApplyDamage(
+                    // Roll for chance to proc the Cryo Arrowhead
+                    if (RollPseudoRandomPercentage(this.cryo_arrowhead_chance!, PseudoRandom.CUSTOM_GAME_1, this.parent))
                     {
-                        attacker: this.parent,
-                        damage: this.cryo_arrowhead_damage!,
-                        damage_type: DamageTypes.MAGICAL,
-                        victim: enemy,
-                        ability: this.ability,
-                        damage_flags: DamageFlag.NONE
-                    });
-    
-                    // Apply or extend Frost Arrows slow modifier
-                    if (!enemy.HasModifier(modifier_reimagined_drow_ranger_frost_arrows_slow.name))
-                    {
-                        enemy.AddNewModifier(this.parent, this.ability, modifier_reimagined_drow_ranger_frost_arrows_slow.name, {duration: this.cryo_arrowhead_duration});
-                    }
-                    else
-                    {
-                        const modifier = enemy.FindModifierByName(modifier_reimagined_drow_ranger_frost_arrows_slow.name);
-                        if (modifier)
-                        {   
-                            this.ReimaginedFreezingOffensive(modifier, this.cryo_arrowhead_duration!);
+                        // Find all enemies in the AoE
+                        const enemies = FindUnitsInRadius(this.parent.GetTeamNumber(),
+                                                        target.GetAbsOrigin(),
+                                                        undefined,
+                                                        this.cryo_arrowhead_radius!,
+                                                        UnitTargetTeam.ENEMY,
+                                                        UnitTargetType.HERO + UnitTargetType.BASIC,
+                                                        UnitTargetFlags.NONE,
+                                                        FindOrder.ANY,
+                                                        false);
+            
+                        for (const enemy of enemies)
+                        {
+                            // Deal damage to the target
+                            ApplyDamage(
+                            {
+                                attacker: this.parent,
+                                damage: this.cryo_arrowhead_damage!,
+                                damage_type: DamageTypes.MAGICAL,
+                                victim: enemy,
+                                ability: this.ability,
+                                damage_flags: DamageFlag.NONE
+                            });
+            
+                            // Apply or extend Frost Arrows slow modifier
+                            if (!enemy.HasModifier(modifier_reimagined_drow_ranger_frost_arrows_slow.name))
+                            {
+                                enemy.AddNewModifier(this.parent, this.ability, modifier_reimagined_drow_ranger_frost_arrows_slow.name, {duration: this.cryo_arrowhead_duration});
+                            }
+                            else
+                            {
+                                const modifier = enemy.FindModifierByName(modifier_reimagined_drow_ranger_frost_arrows_slow.name);
+                                if (modifier)
+                                {   
+                                    this.ReimaginedFreezingOffensive(modifier, this.cryo_arrowhead_duration!);
+                                }
+                            }
                         }
+            
+                        // Play sound
+                        EmitSoundOn(this.sound_cryo, target);
+            
+                        // Play particle effect
+                        this.particle_cryo_fx = ParticleManager.CreateParticle(this.particle_cryo, ParticleAttachment.WORLDORIGIN, undefined);
+                        ParticleManager.SetParticleControl(this.particle_cryo_fx, 0, target.GetAbsOrigin());
+                        ParticleManager.SetParticleControl(this.particle_cryo_fx, 1, target.GetAbsOrigin());
+                        ParticleManager.ReleaseParticleIndex(this.particle_cryo_fx);
                     }
                 }
-    
-                // Play sound
-                EmitSoundOn(this.sound_cryo, target);
-    
-                // Play particle effect
-                this.particle_cryo_fx = ParticleManager.CreateParticle(this.particle_cryo, ParticleAttachment.WORLDORIGIN, undefined);
-                ParticleManager.SetParticleControl(this.particle_cryo_fx, 0, target.GetAbsOrigin());
-                ParticleManager.SetParticleControl(this.particle_cryo_fx, 1, target.GetAbsOrigin());
-                ParticleManager.ReleaseParticleIndex(this.particle_cryo_fx);
             }
         }
-    }
+    }            
 }

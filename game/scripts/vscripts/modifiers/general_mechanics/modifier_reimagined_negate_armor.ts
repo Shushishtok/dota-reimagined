@@ -15,7 +15,7 @@ export class modifier_reimagined_negate_armor extends BaseModifier
     
     OnCreated()
     {
-        this.armor = this.parent.GetPhysicalArmorValue(false);
+        this.armor = this.parent.GetPhysicalArmorBaseValue();
     }
 
     DeclareFunctions(): ModifierFunction[]

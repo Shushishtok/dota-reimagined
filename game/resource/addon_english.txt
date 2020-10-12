@@ -965,6 +965,60 @@
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_multishot_arrow_range_multiplier"
 		"ARROW RANGE MULTIPLIER:"
 
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship"
+		"Marksmanship"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_Description"
+		"Drow's experience in battle grant her a chance to launch arrows with incredible accuracy and effectiveness. Pierces through the enemy's defenses, ignoring their base armor. Grants Drow and nearby ranged heroes with bonus agility based on Drow's current agility. This ability is disabled if there is an enemy hero within %disable_range% range.
+		<font color='#B25266'><b>Pride of the Drow!:</b> Can be activated to prevent Marksmanship being disabled by nearby enemies for %pride_drow_duration% seconds. Has a cooldown of %abilitycooldown% seconds.
+		<font color='#B25266'><b>Ambush from the Forests:</b> While Marksmanship is active and Drow Ranger did not attack for %ambush_forest_no_attack_period% seconds, Drow Ranger's next arrow is guaranteed to proc Marksmanship.
+		<font color='#B25266'><b>Ranger of Frost:</b> Hitting targets with Marksmanship that are afflicted with Frost Arrows grants Drow Ranger's stacks to Ranger of Frost. Each stack increases Drow Ranger's attack speed by %ranger_frost_attack_speed%, her projectile speed by %ranger_frost_projectile_speed%, and decreases the distance where Marksmanship is disabled by %ranger_frost_disable_distance_decrease%. Stacks infinitely and refreshes itself. Lasts %ranger_frost_duration% seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_Lore"
+		"The Drow Ranger's is the epitome of archery prowess."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_Note0"
+		"Ranger of Frost will also give a stack if the attack is a Frost Arrow, which applies the slow."		
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_aghanim_description"
+		"Causes Drow Ranger's attacks to splinter on the target, hitting nearby units with normal attacks that deal reduced damage."
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_chance"
+		"%CHANCE:"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_bonus_damage"
+		"BONUS PROC DAMAGE:"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_agility_multiplier"
+		"%AGILITY BONUS:"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_agility_range"
+		"AGILITY RADIUS:"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_split_count_scepter"
+		"SCEPTER SPLIT COUNT:"
+
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_damage_reduction_scepter"
+		"%SCEPTER DAMAGE REDUCTION:"
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_marksmanship_pride_drow"
+		"Pride of the Drow"
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_marksmanship_pride_drow_Description"
+		"Prevents Marksmanship for being disabled for the duration of this modifier."
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost"
+		"Ranger of Frost"
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost_Description"
+		"Increases attack speed by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and projectile speed by %dMODIFIER_PROPERTY_PROJECTILE_SPEED_BONUS%. Also decreases the range Marksmanship is disabled by %dMODIFIER_PROPERTY_TOOLTIP%."
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_marksmanship_agility_buff"
+		"Marksmanship"
+
+		"DOTA_Tooltip_modifier_reimagined_drow_ranger_marksmanship_agility_buff_Description"
+		"Increases agility by %dMODIFIER_PROPERTY_STATS_AGILITY_BONUS%."
+
 		// ITEMS
 		// Reimagined Enchanted Mango
 		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango"

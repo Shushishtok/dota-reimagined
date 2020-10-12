@@ -8,12 +8,14 @@ export class reimagined_drow_ranger_marksmanship extends BaseAbility
 {
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
-    sound: string = "";
-    particle: string = "";
-    particle_fx?: ParticleID;
+    sound: string = ""; // TODO: Add cast sound
+    // TODO: Add cast animation
 
     // Ability specials
     damage_reduction_scepter?: number;
+
+    // Reimagined specials
+    pride_drow_duration?: number;    
 
     GetIntrinsicModifierName(): string
     {
@@ -22,7 +24,11 @@ export class reimagined_drow_ranger_marksmanship extends BaseAbility
 
     OnSpellStart(): void
     {
-        
+        // Reimagined specials
+        this.pride_drow_duration = this.GetSpecialValueFor("pride_drow_duration");
+
+        // Reimagined: Pride of the Drow!: Can be activated to prevent Marksmanship being disabled by nearby enemies for 4/5/6 seconds. Has a cooldown of 60/50/40 seconds.
+        this.ReimaginedPrideOfTheDrow();
     }
 
     OnProjectileHit(target: CDOTA_BaseNPC, location: Vector)
@@ -40,5 +46,10 @@ export class reimagined_drow_ranger_marksmanship extends BaseAbility
 
         // Remove damage reduction penalty modifier
         modifier.Destroy();
+    }
+
+    ReimaginedPrideOfTheDrow(): void
+    {
+        
     }
 }

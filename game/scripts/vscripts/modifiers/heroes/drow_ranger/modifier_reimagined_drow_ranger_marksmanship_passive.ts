@@ -1,9 +1,10 @@
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
-import { modifier_reimagined_drow_ranger_marksmanship_agility_buff } from "./modifier_reimagined_drow_ranger_marksmanship_agility_buff"
-import { modifier_reimagined_drow_ranger_frost_arrows_handler } from "./modifier_reimagined_drow_ranger_frost_arrows_handler"
-import "../../general_mechanics/modifier_reimagined_negate_armor"
-
+import { modifier_reimagined_drow_ranger_marksmanship_agility_buff } from "./modifier_reimagined_drow_ranger_marksmanship_agility_buff";
+import { modifier_reimagined_drow_ranger_frost_arrows_handler } from "./modifier_reimagined_drow_ranger_frost_arrows_handler";
+import "./modifier_reimagined_drow_ranger_marksmanship_pride_drow";
+import "./modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost"
+import "../../general_mechanics/modifier_reimagined_negate_armor";
 
 @registerModifier()
 export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseModifier
@@ -23,6 +24,10 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
     first_time: boolean = true;
     projectile_map: Map<number, boolean> = new Map();
 
+    // Reimagined properties    
+    last_attack_time: number = 0;    
+    ambush_forest_guaranteed_proc: boolean = false;
+
     // Modifier specials
     chance?: number;
     bonus_damage?: number;    
@@ -31,6 +36,11 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
     scepter_range?: number;
     damage_reduction_scepter?: number;
     disable_range?: number;    
+
+    // Reimagined specials
+    ambush_forest_no_attack_period?: number;
+    ranger_frost_disable_distance_decrease?: number;
+    ranger_frost_duration?: number;
 
     IsHidden() {return true}
     IsDebuff() {return false}
@@ -49,9 +59,13 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
             this.parent.AddNewModifier(this.caster, this.ability, "modifier_reimagined_drow_ranger_projectile_handler", {});
         }
 
+        // Reimagined: Ambush from the Forests: While Marksmanship is active and Drow Ranger did not attack for x seconds, Drow Ranger's next arrow is guaranteed to proc.
+        this.ReimaginedAmbushFromTheForestInitialize();
+
+        // Start thinking, enable Marksmanship, and roll for proc
         this.StartIntervalThink(0.1);
         this.EnableMarksmanship();
-        this.RollForMarksmanship();
+        this.RollForMarksmanship();        
     }
 
     GetAbilitySpecials()
@@ -64,6 +78,11 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         this.scepter_range = this.ability.GetSpecialValueFor("scepter_range")
         this.damage_reduction_scepter = this.ability.GetSpecialValueFor("damage_reduction_scepter")
         this.disable_range = this.ability.GetSpecialValueFor("disable_range")
+
+        // Reimagined specials
+        this.ambush_forest_no_attack_period = this.ability.GetSpecialValueFor("ambush_forest_no_attack_period");
+        this.ranger_frost_disable_distance_decrease = this.ability.GetSpecialValueFor("ranger_frost_disable_distance_decrease");
+        this.ranger_frost_duration = this.ability.GetSpecialValueFor("ranger_frost_duration");
     }
 
     OnRefresh(): void
@@ -73,9 +92,19 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
 
     OnIntervalThink(): void
     {
+        // Reimagined: Ambush from the Forests: While Marksmanship is active and Drow Ranger did not attack for x seconds, Drow Ranger's next arrow is guaranteed to proc.
+        this.ReimaginedAmbushFromTheForest();
+
+        // Reimagined: Pride of the Drow!: Can be activated to prevent Marksmanship being disabled by nearby enemies for x seconds. Has a cooldown of y seconds.
+        if (this.ReimaginedPrideOfTheDrow()) return;
+
+        let disable_distance = this.disable_range!;
+        // Ranger of Frost: Hitting targets with Marksmanship that are afflicted with Frost Arrows grants Drow Ranger's stacks to Ranger of Frost. Each stack increases Drow Ranger's attack speed by x, her projectile speed by y, and decreases the distance where Marksmanship is disabled by z. Stacks infinitely and refreshes itself. Lasts v seconds.
+        disable_distance -= this.ReimaginedRangerOfFrostRangeDecrease();
+
         // Check for nearby enemies
         const enemies = util.FindUnitsAroundUnit(this.parent,
-                                            this.disable_range!,
+                                            disable_distance,
                                             UnitTargetTeam.ENEMY,
                                             UnitTargetType.HERO,
                                             UnitTargetFlags.NOT_ILLUSIONS + UnitTargetFlags.INVULNERABLE + UnitTargetFlags.OUT_OF_WORLD + UnitTargetFlags.NOT_CREEP_HERO + UnitTargetFlags.MAGIC_IMMUNE_ENEMIES)
@@ -156,8 +185,8 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
 
     RollForMarksmanship(): void
     {
-        // Roll chance to fire a Marksmanship proc on the next attack        
-        if (RollPercentage(this.chance!))
+        // Roll chance to fire a Marksmanship proc on the next attack       
+        if (this.ambush_forest_guaranteed_proc || RollPercentage(this.chance!))
         {            
             this.proc_attack = true;
         }
@@ -180,6 +209,10 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         // Record the attack with the proc in it        
         this.projectile_map.set(event.record, this.proc_attack);     
 
+        // Reimagined: Ambush from the Forests: While Marksmanship is active and Drow Ranger did not attack for x seconds, Drow Ranger's next arrow is guaranteed to proc.
+        // Reset values from the reimagination
+        this.ReimaginedAmbushFromTheForestReset();
+
         // Roll for the next attack
         this.RollForMarksmanship();
     }
@@ -196,11 +229,14 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
             if (this.projectile_map.get(event.record))
             {
                 // Ignore armor
-                event.target.AddNewModifier(this.caster, this.ability, GenericModifier.IGNORE_ARMOR, {duration: FrameTime()});                
+                event.target.AddNewModifier(this.caster, this.ability, GenericModifier.IGNORE_ARMOR, {duration: FrameTime()});
             }
+
+            // Ranger of Frost: Hitting targets with Marksmanship that are afflicted with Frost Arrows grants Drow Ranger's stacks to Ranger of Frost. Each stack increases Drow Ranger's attack speed by x, her projectile speed by y, and decreases the distance where Marksmanship is disabled by z. Stacks infinitely and refreshes itself. Lasts v seconds.
+            this.ReimaginedRangerOfFrost(event.target);
         }
 
-        // TODO: Scepter effect: Splinter: Check if caster has scepter
+        // Scepter effect: Splinter: Check if caster has scepter
         if (this.parent.HasScepter())
         {
             let enemies_found = 0;
@@ -307,5 +343,89 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         {
             return {[ModifierState.CANNOT_MISS]: true}
         }
+    }
+
+    ReimaginedPrideOfTheDrow(): boolean
+    {
+        // Check if the parent has the Pride of the Drow modifier
+        if (this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_pride_drow"))
+        {
+            // If so, check if Marksmanship is currently enabled
+            if (!this.marksmanship_enabled)
+            {
+                // If not, enable it
+                this.EnableMarksmanship();
+            }    
+    
+            // Either way, return true to ignore the rest of the interval check
+            return true;
+        }
+
+        return false;
+    }   
+
+    ReimaginedAmbushFromTheForestInitialize(): void
+    {
+        this.last_attack_time = GameRules.GetGameTime();
+    }
+
+    ReimaginedAmbushFromTheForest(): void
+    {
+        // If we're already guaranteed a proc, no need to do anything else
+        if (this.ambush_forest_guaranteed_proc) return;
+
+        // Check the time elapsed between last attack time and current time
+        const current_time = GameRules.GetGameTime();        
+        if (current_time - this.last_attack_time > this.ambush_forest_no_attack_period!)
+        {
+            this.ambush_forest_guaranteed_proc = true;
+
+            // Reroll the proc to guarantee it, if it's not already proccing
+            if (!this.proc_attack) this.RollForMarksmanship();
+        }
+    }
+
+    ReimaginedAmbushFromTheForestReset(): void
+    {
+        // Reset both variables
+        this.last_attack_time = GameRules.GetGameTime();
+        this.ambush_forest_guaranteed_proc = false;
+    }
+
+    ReimaginedRangerOfFrost(target: CDOTA_BaseNPC): void
+    {
+        // Check if the target is afflicted with Frost Arrrows' slow after a frame
+        if (target.HasModifier("modifier_reimagined_drow_ranger_frost_arrows_slow"))
+        {            
+            // Add Ranger of Frost if target doesn't have it already
+            if (!this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost"))   
+            {                
+                this.parent.AddNewModifier(this.caster, this.ability, "modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost", {duration: this.ranger_frost_duration});
+            }
+
+            // Grant a stack of Ranger of Frost and refresh
+            const modifier_ranger = this.parent.FindModifierByName("modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost");
+            if (modifier_ranger)
+            {
+                modifier_ranger.IncrementStackCount();
+                modifier_ranger.ForceRefresh();
+            }
+        }
+    }
+
+    ReimaginedRangerOfFrostRangeDecrease(): number
+    {
+        let distance_decrease = 0;
+        if (this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost"))
+        {
+            const modifier_frost = this.parent.FindModifierByName("modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost");
+            if (modifier_frost)
+            {
+                const stacks = modifier_frost.GetStackCount();
+                distance_decrease = this.ranger_frost_disable_distance_decrease! * stacks;
+            }
+        }
+
+        return distance_decrease;
     }
 }

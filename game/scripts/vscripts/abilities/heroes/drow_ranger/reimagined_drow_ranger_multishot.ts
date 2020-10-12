@@ -3,6 +3,8 @@ import * as util from "../../../lib/util";
 import { reimagined_drow_ranger_frost_arrows } from "./reimagined_drow_ranger_frost_arrows"
 import { modifier_reimagined_drow_ranger_frost_arrows_handler } from "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_frost_arrows_handler"
 import { modifier_reimagined_drow_ranger_multishot_endless_barrage } from "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_multishot_endless_barrage";
+import { modifier_reimagined_drow_ranger_marksmanship_passive } from "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_marksmanship_passive"
+import { reimagined_drow_ranger_marksmanship } from "./reimagined_drow_ranger_marksmanship"
 
 @registerAbility()
 export class reimagined_drow_ranger_multishot extends BaseAbility
@@ -12,6 +14,7 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
     sound_multishot: string = "Hero_DrowRanger.Multishot.Channel";
     sound_multishot_attack: string = "Hero_DrowRanger.Multishot.Attack";
     particle_multishot: string = "particles/units/heroes/hero_drow/drow_multishot_proj_linear_proj.vpcf";    
+    projectile_marksmanship_attack: string = "particles/units/heroes/hero_drow/drow_marksmanship_attack.vpcf"
     initial_delay: number = 0.1;    
     arrows_fired_this_wave: number = 0;
     total_arrows_fired: number = 0;    
@@ -19,8 +22,7 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
     time_to_release_wave: number = 0;
     waves: number = 0;
     current_wave: number = 1;    
-    enemy_set: Set<CDOTA_BaseNPC> = new Set();    
-    projectile_map: Map<ProjectileID, number> = new Map();
+    enemy_set: Set<CDOTA_BaseNPC> = new Set();        
 
     // Reimagined properties
     barrage_mode: boolean = false;    
@@ -97,8 +99,7 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
         this.arrows_fired_this_wave = 0;
         this.total_arrows_fired = 0;        
         this.time_to_release_wave = this.initial_delay;
-        this.current_wave = 1;
-        this.projectile_map.clear();
+        this.current_wave = 1;        
         this.projectile_speed_bonus = 0;
     }
 
@@ -167,23 +168,56 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
         }
     }   
 
-    ReimaginedThrillingHunt(projectileHandle: ProjectileID, target: CDOTA_BaseNPC): void
+    ReimaginedThrillingHunt(target: CDOTA_BaseNPC, extraData: {thrilling_hunt: boolean}): {bonus_damage: number, damage_flag: DamageFlag}
     {
-        // Get wave number
-        const wave = this.projectile_map.get(projectileHandle)
-
-        // Remove from map
-        this.projectile_map.delete(projectileHandle);
+        let bonus_damage = 0;
+        let damage_flag = DamageFlag.NONE;
 
         // Increase projectile speed of arrows launched
-        this.projectile_speed_bonus += this.thrilling_hunt_projectile_speed!;
+        this.projectile_speed_bonus += this.thrilling_hunt_projectile_speed!;        
 
+        // Check if this hit was a Marksmanship hit        
+        if (extraData && extraData.thrilling_hunt)
+        {
+            // Find ability handle
+            if (this.caster.HasAbility("reimagined_drow_ranger_marksmanship"))
+            {
+                const ability_handle = this.caster.FindAbilityByName("reimagined_drow_ranger_marksmanship") as reimagined_drow_ranger_marksmanship;
+                if (ability_handle)
+                {
+                    // Add bonus damage 
+                    bonus_damage = ability_handle.GetSpecialValueFor("bonus_damage");
+
+                    // Add armor negation flag
+                    damage_flag = DamageFlag.IGNORES_BASE_PHYSICAL_ARMOR;
+                }
+            }
+        }
+
+        // Return an object that includes the bonus damage and the damage flag
+        return {bonus_damage: bonus_damage, damage_flag: damage_flag};
+    }
+
+    ReimaginedThrillingHuntMarksmanship(wave: number): boolean
+    {
         // Check if this is the first wave
-        if (wave != 1) return;
+        if (wave != 1) return false;
         
-        // TODO: Check if Marksmanship is learned
-                // Get the handle modifier for Marksmanship
-                    // Apply a Marksmanship hit
+        // Check if Marksmanship is learned
+        if (this.caster.HasModifier("modifier_reimagined_drow_ranger_marksmanship_passive"))
+        {
+            // Get the handle modifier for Marksmanship and check that it is enabled
+            const modifier_handle = this.caster.FindModifierByName("modifier_reimagined_drow_ranger_marksmanship_passive") as modifier_reimagined_drow_ranger_marksmanship_passive;
+            if (modifier_handle)
+            {
+                if (modifier_handle.marksmanship_enabled)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     GetChannelAnimation(): GameActivity
@@ -242,11 +276,21 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
         let distance = this.caster.Script_GetAttackRange() * this.arrow_range_multiplier! 
         let speed = this.arrow_speed! + this.projectile_speed_bonus;
 
-        const projectile = ProjectileManager.CreateLinearProjectile(
+        let projectile_effect = this.particle_multishot        
+
+        // Reimagined: Thrilling Hunt: The first wave's arrows proc Marksmanship in addition to Frost Arrows slow. Hitting an enemy with an arrow increases the projectile speed of all remaining arrows by x.
+        let extraData = {};
+        if (this.ReimaginedThrillingHuntMarksmanship(this.current_wave))
+        {
+            projectile_effect = this.projectile_marksmanship_attack;            
+            extraData = {thrilling_hunt: true}
+        } 
+
+        ProjectileManager.CreateLinearProjectile(
         {
             Ability: this,
             EffectName: this.particle_multishot,
-            ExtraData: {},
+            ExtraData: extraData,
             Source: this.caster,
             bDrawsOnMinimap: false,
             bHasFrontalCone: false,
@@ -266,12 +310,10 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
             vAcceleration: undefined,
             vSpawnOrigin: this.caster.GetAttachmentOrigin(this.caster.ScriptLookupAttachment(AttachLocation.ATTACK1)),
             vVelocity: (firing_direction * speed) as Vector
-        });
-
-        this.projectile_map.set(projectile, this.current_wave);
+        });        
     }
 
-    OnProjectileHitHandle(target: CDOTA_BaseNPC, location: Vector, projectileHandle: ProjectileID): void
+    OnProjectileHit_ExtraData(target: CDOTA_BaseNPC, location: Vector, extraData: {thrilling_hunt: boolean}): void
     {
         // Does nothing if no target was hit
         if (!target) return;
@@ -283,9 +325,18 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
         this.enemy_set.add(target);
 
         // Calculate damage based on attack damage
-        const damage = this.caster.GetAttackDamage() * this.arrow_damage_pct! * 0.01;
+        let damage = this.caster.GetAttackDamage() * this.arrow_damage_pct! * 0.01;
+        let damage_flags = DamageFlag.NONE
 
-        // Deal physical damage to the target        
+        // Reimagined: Thrilling Hunt: The first wave's arrows proc Marksmanship in addition to Frost Arrows slow. Hitting an enemy with an arrow increases the projectile speed of all remaining arrows by x.
+        const thrilling_hunt_object = this.ReimaginedThrillingHunt(target, extraData);
+        if (thrilling_hunt_object && thrilling_hunt_object.bonus_damage && thrilling_hunt_object.damage_flag)
+        {
+            damage += thrilling_hunt_object.bonus_damage;
+            damage_flags = thrilling_hunt_object.damage_flag;
+        }
+
+        // Deal physical damage to the target
         ApplyDamage(
         {
             attacker: this.caster,
@@ -293,7 +344,7 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
             damage_type: this.GetAbilityDamageType(),
             victim: target,
             ability: this,
-            damage_flags: DamageFlag.NONE
+            damage_flags: damage_flags
         });
 
         // Check magic immunity
@@ -317,12 +368,6 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
                     }
                 }
             }
-        }
-
-        if (this.projectile_map.has(projectileHandle))
-        {
-            // Reimagined: Thrilling Hunt: The first wave's arrows proc Marksmanship in addition to Frost Arrows slow. Hitting an enemy with an arrow increases the projectile speed of all remaining arrows by x.
-            this.ReimaginedThrillingHunt(projectileHandle, target);
-        }
+        }        
     }
 }
