@@ -939,7 +939,7 @@
 		"Drow releases a flurry of arrows in continuous salvos, hitting enemies for extra damage and applying longer duration Frost Arrows. Lasts up to %abilitychanneltime% seconds.
 		<font color='#B25266'><b>Quick Quiver:</b> For every %quick_quiver_aspd% attack speed that Drow Ranger has, increases the amount of arrows fired in each wave by %quick_quiver_bonus_arrows%.
 		<font color='#B25266'><b>Endless Barrage:</b> Can be set to auto cast to increase the max channel time to %endless_barrage_channel_time% seconds, firing a wave of arrows every %endless_barrage_delay_between_waves% seconds, but causes each wave to drain %endless_barrage_mana_per_wave% mana. Lasts until no mana is left to fire an additional wave, the channeling is interrupted, or the duration elapses.
-		<font color='#B25266'><b>Thrilling Hunt:</b> The first wave's arrows trigger Marksmanship's bonuses. Hitting an enemy with an arrow increases the projectile speed of all arrows that were not fired by %thrilling_hunt_projectile_speed%."
+		<font color='#B25266'><b>Thrilling Hunt:</b> While Marksmanship is enabled, the first wave's arrows trigger Marksmanship's bonuses. In addition, each enemy hit with a Multishot projectile increases the projectile speed of all further projectiles of this cast by %thrilling_hunt_projectile_speed%."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_multishot_Lore"
 		"In the ranger's youth, learning to fire multiple arrows at once was considered a distracting frivolity. In the war of the Ancients, such technique has become strange necessity."
@@ -972,13 +972,13 @@
 		"Drow's experience in battle grant her a chance to launch arrows with incredible accuracy and effectiveness. Pierces through the enemy's defenses, ignoring their base armor. Grants Drow and nearby ranged heroes with bonus agility based on Drow's current agility. This ability is disabled if there is an enemy hero within %disable_range% range.
 		<font color='#B25266'><b>Pride of the Drow!:</b> Can be activated to prevent Marksmanship being disabled by nearby enemies for %pride_drow_duration% seconds. Has a cooldown of %abilitycooldown% seconds.
 		<font color='#B25266'><b>Ambush from the Forests:</b> While Marksmanship is active and Drow Ranger did not attack for %ambush_forest_no_attack_period% seconds, Drow Ranger's next arrow is guaranteed to proc Marksmanship.
-		<font color='#B25266'><b>Ranger of Frost:</b> Hitting targets with Marksmanship that are afflicted with Frost Arrows grants Drow Ranger's stacks to Ranger of Frost. Each stack increases Drow Ranger's attack speed by %ranger_frost_attack_speed%, her projectile speed by %ranger_frost_projectile_speed%, and decreases the distance where Marksmanship is disabled by %ranger_frost_disable_distance_decrease%. Stacks infinitely and refreshes itself. Lasts %ranger_frost_duration% seconds."
+		<font color='#B25266'><b>Ranger of Frost:</b> While Marksmanship is active, attacking targets that are afflicted with Frost Arrows' slow debuff grants Drow Ranger's a stack to the Ranger of Frost buff. Each stack increases Drow Ranger's attack speed by %ranger_frost_attack_speed%, her projectile speed by %ranger_frost_projectile_speed%, and decreases the distance where Marksmanship is disabled by %ranger_frost_disable_distance_decrease%. Stacks infinitely. Each stack has its own independent duration, and lasts %ranger_frost_duration% seconds."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_Lore"
 		"The Drow Ranger's is the epitome of archery prowess."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_Note0"
-		"Ranger of Frost will also give a stack if the attack is a Frost Arrow, which applies the slow."		
+		"Ranger of Frost will also give a stack if the attack is a Frost Arrow, which applies the slow."				 
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_aghanim_description"
 		"Causes Drow Ranger's attacks to splinter on the target, hitting nearby units with normal attacks that deal reduced damage."

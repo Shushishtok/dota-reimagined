@@ -14,7 +14,7 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
     sound_multishot: string = "Hero_DrowRanger.Multishot.Channel";
     sound_multishot_attack: string = "Hero_DrowRanger.Multishot.Attack";
     particle_multishot: string = "particles/units/heroes/hero_drow/drow_multishot_proj_linear_proj.vpcf";    
-    projectile_marksmanship_attack: string = "particles/units/heroes/hero_drow/drow_marksmanship_attack.vpcf"
+    projectile_marksmanship_attack: string = "particles/heroes/drow_ranger/multishot_marksmanship_arrows.vpcf"
     initial_delay: number = 0.1;    
     arrows_fired_this_wave: number = 0;
     total_arrows_fired: number = 0;    
@@ -199,10 +199,10 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
     }
 
     ReimaginedThrillingHuntMarksmanship(wave: number): boolean
-    {
-        // Check if this is the first wave
-        if (wave != 1) return false;
-        
+    {        
+        // Check if this is the first wave        
+        if (wave != 1) return false;                
+
         // Check if Marksmanship is learned
         if (this.caster.HasModifier("modifier_reimagined_drow_ranger_marksmanship_passive"))
         {
@@ -246,6 +246,15 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
         this.arrows_fired_this_wave++;
         this.total_arrows_fired++;
 
+        // Reimagined: Thrilling Hunt: The first wave's arrows proc Marksmanship in addition to Frost Arrows slow. Hitting an enemy with an arrow increases the projectile speed of all remaining arrows by x.
+        let projectile_effect = this.particle_multishot
+        let extraData = {};        
+        if (this.ReimaginedThrillingHuntMarksmanship(this.current_wave))
+        {
+            projectile_effect = this.projectile_marksmanship_attack;            
+            extraData = {thrilling_hunt: true}
+        }
+
         // Check if we're starting a new wave
         if (this.arrows_fired_this_wave == this.arrows_per_wave!)
         {            
@@ -274,22 +283,12 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
 
         // Calculate distance and speed
         let distance = this.caster.Script_GetAttackRange() * this.arrow_range_multiplier! 
-        let speed = this.arrow_speed! + this.projectile_speed_bonus;
-
-        let projectile_effect = this.particle_multishot        
-
-        // Reimagined: Thrilling Hunt: The first wave's arrows proc Marksmanship in addition to Frost Arrows slow. Hitting an enemy with an arrow increases the projectile speed of all remaining arrows by x.
-        let extraData = {};
-        if (this.ReimaginedThrillingHuntMarksmanship(this.current_wave))
-        {
-            projectile_effect = this.projectile_marksmanship_attack;            
-            extraData = {thrilling_hunt: true}
-        } 
+        let speed = this.arrow_speed! + this.projectile_speed_bonus;        
 
         ProjectileManager.CreateLinearProjectile(
         {
             Ability: this,
-            EffectName: this.particle_multishot,
+            EffectName: projectile_effect,
             ExtraData: extraData,
             Source: this.caster,
             bDrawsOnMinimap: false,

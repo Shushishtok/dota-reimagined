@@ -9,14 +9,28 @@ export class reimagined_drow_ranger_marksmanship extends BaseAbility
 {
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
-    sound: string = ""; // TODO: Add cast sound
-    // TODO: Add cast animation
+    sound_cast: string = "Hero_DrowRanger.Multishot.Channel"; 
 
     // Ability specials
     damage_reduction_scepter?: number;
 
     // Reimagined specials
     pride_drow_duration?: number;    
+
+    OnAbilityPhaseStart(): boolean
+    {
+        // Add TI6 activity for cast_ability_2 animation
+        this.caster.AddActivityModifier("ti6");
+        this.caster.StartGesture(GameActivity.DOTA_CAST_ABILITY_2);
+
+        return true;
+    }
+    
+    OnAbilityPhaseInterrupted(): void
+    {
+        // Clear TI6 activity for cast_ability_2 animation
+        this.caster.ClearActivityModifiers();
+    }
 
     GetIntrinsicModifierName(): string
     {
@@ -25,6 +39,12 @@ export class reimagined_drow_ranger_marksmanship extends BaseAbility
 
     OnSpellStart(): void
     {
+        // Clear TI6 activity for cast_ability_2 animation
+        this.caster.ClearActivityModifiers();        
+
+        // Play cast sound
+        EmitSoundOn(this.sound_cast, this.caster);
+
         // Reimagined specials
         this.pride_drow_duration = this.GetSpecialValueFor("pride_drow_duration");
 

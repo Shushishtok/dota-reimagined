@@ -18,6 +18,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
     particle_start_fx?: ParticleID;
     particle_marksmanship: string = "particles/units/heroes/hero_drow/drow_marksmanship.vpcf"
     particle_marksmanship_fx?: ParticleID;    
+    base_projectile: string = "particles/units/heroes/hero_drow/drow_base_attack.vpcf"
     projectile_frost: string = "particles/units/heroes/hero_drow/drow_frost_arrow.vpcf";
     marksmanship_enabled: boolean = true;
     proc_attack = false;
@@ -224,10 +225,16 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         // Only apply on attacks coming from the parent
         if (event.attacker != this.parent) return;        
 
+        // Only apply on actual attacks: performed attacks are not counted
+        if (event.no_attack_cooldown) return;
+
         if (this.projectile_map.has(event.record))
         {
             if (this.projectile_map.get(event.record))
             {
+                // Play hit sound
+                EmitSoundOn(this.sound_hit_target, event.target);
+
                 // Ignore armor
                 event.target.AddNewModifier(this.caster, this.ability, GenericModifier.IGNORE_ARMOR, {duration: FrameTime()});
             }
@@ -238,7 +245,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
 
         // Scepter effect: Splinter: Check if caster has scepter
         if (this.parent.HasScepter())
-        {
+        {            
             let enemies_found = 0;
             // Find two enemies that aren't the main target
             const enemies = FindUnitsInRadius(this.parent.GetTeamNumber(),
@@ -248,22 +255,23 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
                                              UnitTargetTeam.ENEMY,
                                              UnitTargetType.HERO + UnitTargetType.BASIC,
                                              UnitTargetFlags.MAGIC_IMMUNE_ENEMIES + UnitTargetFlags.FOW_VISIBLE + UnitTargetFlags.NO_INVIS,
-                                             FindOrder.ANY, // CHECK IF THIS IS CORRECT OR IT SHOULD BE CLOSEST
+                                             FindOrder.ANY, 
                                              false);
 
             // If Drow has Frost Arrows set to auto cast, change projectile to Frost Arrows and spend mana
-            let projectile_name = this.parent.GetRangedProjectileName();
+            let projectile_name = this.base_projectile;
             if (this.parent.HasModifier("modifier_reimagined_drow_ranger_frost_arrows_handler"))
             {
                 const modifier_frost_arrows = this.parent.FindModifierByName("modifier_reimagined_drow_ranger_frost_arrows_handler") as modifier_reimagined_drow_ranger_frost_arrows_handler;
                 if (modifier_frost_arrows)
                 {
                     if (modifier_frost_arrows.FiresFrostProjectiles())
-                    {
+                    {                        
                         projectile_name = this.projectile_frost;
+                        modifier_frost_arrows.GetAbility()!.UseResources(true, false, false);
                     }
                 }
-            }
+            }            
 
             for (const enemy of enemies)
             {
@@ -271,8 +279,8 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
                 if (enemy == event.target) continue;    
 
                 // If we already found two enemies to fire at, stop
-                if (enemies_found >= this.split_count_scepter!)
-
+                if (enemies_found >= this.split_count_scepter!) return;                
+                
                 // Create tracking projectile using Drow's base/frost projectile
                 ProjectileManager.CreateTrackingProjectile(
                     {
@@ -395,22 +403,26 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
     ReimaginedRangerOfFrost(target: CDOTA_BaseNPC): void
     {
         // Check if the target is afflicted with Frost Arrrows' slow after a frame
-        if (target.HasModifier("modifier_reimagined_drow_ranger_frost_arrows_slow"))
-        {            
-            // Add Ranger of Frost if target doesn't have it already
-            if (!this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost"))   
-            {                
-                this.parent.AddNewModifier(this.caster, this.ability, "modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost", {duration: this.ranger_frost_duration});
-            }
+        Timers.CreateTimer(FrameTime(), () =>
+        {
 
-            // Grant a stack of Ranger of Frost and refresh
-            const modifier_ranger = this.parent.FindModifierByName("modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost");
-            if (modifier_ranger)
-            {
-                modifier_ranger.IncrementStackCount();
-                modifier_ranger.ForceRefresh();
+            if (target.HasModifier("modifier_reimagined_drow_ranger_frost_arrows_slow"))
+            {            
+                // Add Ranger of Frost if target doesn't have it already
+                if (!this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost"))   
+                {                
+                    this.parent.AddNewModifier(this.caster, this.ability, "modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost", {duration: this.ranger_frost_duration});
+                }
+                
+                // Grant a stack of Ranger of Frost and refresh
+                const modifier_ranger = this.parent.FindModifierByName("modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost");
+                if (modifier_ranger)
+                {
+                    modifier_ranger.IncrementStackCount();
+                    modifier_ranger.ForceRefresh();
+                }
             }
-        }
+        })
     }
 
     ReimaginedRangerOfFrostRangeDecrease(): number

@@ -22,6 +22,6 @@ export class modifier_reimagined_damage_penalty extends BaseModifier
 
     GetModifierDamageOutgoing_Percentage(): number
     {
-        return this.damage_reduction;
+        return this.damage_reduction * (-1);
     }
 }
