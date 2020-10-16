@@ -1,0 +1,18 @@
+{
+	"Creates a ApplyDamage snippet": {
+		"prefix": "ApplyDamage",
+		"body": [
+		  "// Deal damage to the target",
+		  "ApplyDamage(",
+		  "{",
+		  "\tattacker: ${1:this.caster},",
+		  "\tdamage: ${2:this.damage!},",
+		  "\tdamage_type: ${3:this.GetAbilityDamageType()},",
+		  "\tvictim: ${4:target},",
+		  "\tability: ${5:this},",
+		  "\tdamage_flags: ${6:DamageFlag.NONE}",
+		  "});"
+		],
+		"description": "Creates a ApplyDamage snippet"
+	  }
+}

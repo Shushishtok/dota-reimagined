@@ -9,7 +9,7 @@ export class reimagined_drow_ranger_marksmanship extends BaseAbility
 {
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
-    sound_cast: string = "Hero_DrowRanger.Multishot.Channel"; 
+    sound_cast: string = "DrowRanger.Marksmanship.PrideOfTheDrow"; 
 
     // Ability specials
     damage_reduction_scepter?: number;

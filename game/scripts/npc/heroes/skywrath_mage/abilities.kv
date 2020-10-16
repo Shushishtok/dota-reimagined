@@ -1,0 +1,128 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Skywrath Mage: Arcane Bolt
+	//=================================================================================================================
+	"reimagined_skywrath_mage_arcane_bolt"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"		
+		"AbilityTextureName"			"skywrath_mage_arcane_bolt"
+		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_arcane_bolt"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_SkywrathMage.ArcaneBolt.Cast"
+		"HasScepterUpgrade"			"1"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"875"
+		"AbilityCastPoint"				"0.1 0.1 0.1 0.1"		
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"5.0 4.0 3.0 2.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"90"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"bolt_speed"					"500"
+			}
+
+			"02"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"bolt_vision"					"325"
+			}
+
+			"03"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"bolt_damage"					"60 80 100 120"
+			}
+
+			"04"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"int_multiplier"				"1.6"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+
+			"05"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"vision_duration"				"3.34"
+			}
+
+			"06"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"scepter_radius"				"700"
+				"RequiresScepter"				"1"
+			}
+
+			"07"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"arcane_infusion_speed_per_int"	"1.8"
+			}
+
+			"08"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"wrath_arcane_bolt_casts"	"4"
+			}
+
+			"09"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"wrath_bolt_speed_multiplier"	"2"
+			}
+
+			"10"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"wrath_int_calculate_range"	"1200"
+			}
+
+			"11"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"wrath_caster_calculations"	"2"
+			}
+
+			"12"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"wrath_duration"		"12"
+			}
+
+			"13"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"blank_bolt_duration"	"6"
+			}
+
+			"14"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"blank_bolt_damage_pct"	"35 40 45 50"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+}

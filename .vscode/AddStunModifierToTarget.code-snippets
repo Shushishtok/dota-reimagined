@@ -1,0 +1,11 @@
+{
+	"Adds a AddNewModifier code with modifier stunned":
+	{
+		"prefix": "AddStunModifierToTarget",
+		"body": [
+			"// Apply stun modifier to the target",
+		  	"${1:target}.AddNewModifier(${2:this.caster}, ${3:this}, \"modifier_stunned\", {duration: ${4:duration}});"
+		],
+		"description": "Adds a AddNewModifier code with modifier stunned"
+	}
+}

@@ -4,7 +4,7 @@
 #base heroes/crystal_maiden/abilities.kv
 #base heroes/phantom_assassin/abilities.kv
 #base heroes/drow_ranger/abilities.kv
-
+#base heroes/skywrath_mage/abilities.kv
 
 "DOTAAbilities"
 {

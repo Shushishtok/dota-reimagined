@@ -1,0 +1,31 @@
+{
+	"Creates a new standard modifier file": {
+		"prefix": "StandardModifier",
+		"body": [
+		  "import { BaseModifier, registerModifier, } from \"../../../lib/dota_ts_adapter\";",
+		  "",
+		  "@registerModifier()",
+		  "export class modifier_general_red_mighty_execution extends BaseModifier",
+		  "{",
+		  "\t// Modifier properties",
+		  "\tcaster: CDOTA_BaseNPC = this.GetCaster()!;",
+		  "\tability: CDOTABaseAbility = this.GetAbility()!; ",
+		  "\tparent: CDOTA_BaseNPC = this.GetParent();"
+		  "",
+		  "\t// Modifier specials",
+		  "\t$1",
+		  "",
+		  "\tIsHidden() {return true}",
+		  "\tIsDebuff() {return false}",
+		  "\tIsPurgable() {return false}",
+		  "",
+		  "\tOnCreated(): void",
+		  "\t{",		  		  
+		  "\t\t// Modifier specials",
+		  "\t\t$2",
+		  "\t}",
+		  "}"
+		],
+		"description": "Creates a new standard modifier file"
+	  }
+}

@@ -1,0 +1,34 @@
+
+{
+	"Creates a CreateLinearProjectile snippet": {
+		"prefix": "CreateLinearProjectile",
+		"body": [
+		  "ProjectileManager.CreateLinearProjectile(",
+		  "{",
+		  "\tAbility: this,",
+		  "\tEffectName: this.particle_toss,",
+		  "\tExtraData: {actual_stun_duration: actual_stun_duration},",
+		  "\tSource: this.caster,",
+		  "\tbDrawsOnMinimap: false,",
+		  "\tbHasFrontalCone: false,",
+		  "\tbIgnoreSource: false,",
+		  "\tbProvidesVision: false,",
+		  "\tbVisibleToEnemies: true,",
+		  "\tfDistance: this.GetCastRange(this.caster.GetAbsOrigin(), undefined),",
+		  "\tfEndRadius: this.radius,",
+		  "\tfExpireTime: GameRules.GetGameTime() + 10,",
+		  "\tfMaxSpeed: undefined,",
+		  "\tfStartRadius: this.radius,",
+		  "\tiUnitTargetFlags: UnitTargetFlags.NONE,",
+		  "\tiUnitTargetTeam: UnitTargetTeam.ENEMY,",
+		  "\tiUnitTargetType: UnitTargetType.HERO + UnitTargetType.BASIC,",
+		  "\tiVisionRadius: undefined,",
+		  "\tiVisionTeamNumber: undefined,",
+		  "\tvAcceleration: undefined,",
+		  "\tvSpawnOrigin: this.caster.GetAttachmentOrigin(this.caster.ScriptLookupAttachment(\"attach_hitloc\")),",
+		  "\tvVelocity: (direction * this.speed) as Vector",
+		  "});"
+		],
+		"description": "Creates a CreateLinearProjectile snippet"
+	  }
+}

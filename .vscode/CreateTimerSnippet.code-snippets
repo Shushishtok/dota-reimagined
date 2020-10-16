@@ -1,0 +1,14 @@
+{
+	"Create a standard timer snippet": {
+		"prefix": "CreateTimerSnippet",
+		"body": [
+		  "Timers.CreateTimer(${1:1}, () => ",
+		  "{",
+		  "\t// Do something",
+		  "\t$3",
+		  "\treturn ${2:undefined};",
+		  "});"
+		],
+		"description": "Create a standard timer snippet"
+	  }
+}

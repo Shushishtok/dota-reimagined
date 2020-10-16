@@ -1,0 +1,27 @@
+{
+	"Creates a new tracking projectile snippet": {
+		"prefix": "CreateTrackingProjectileSnippet",
+		"body": [
+		  "ProjectileManager.CreateTrackingProjectile(",
+		  "{                ",
+		  "\tAbility: this,",
+		  "\tEffectName: this.particle,",
+		  "\tExtraData: {},",
+		  "\tSource: this.caster,",
+		  "\tTarget: this.target,",
+		  "\tbDodgeable: false,",
+		  "\tbDrawsOnMinimap: false,",
+		  "\tbIsAttack: false,",
+		  "\tbProvidesVision: true,",
+		  "\tbReplaceExisting: false,",
+		  "\tbVisibleToEnemies: true,",
+		  "\tiMoveSpeed: this.throw_speed,",
+		  "\tiSourceAttachment: ProjectileAttachment.HITLOCATION,",
+		  "\tiVisionRadius: 300,",
+		  "\tiVisionTeamNumber: this.caster.GetTeamNumber(),",
+		  "\tvSourceLoc: this.caster.GetAbsOrigin()",
+		  "});"
+		],
+		"description": "Creates a new tracking projectile snippet"
+	  }
+}
