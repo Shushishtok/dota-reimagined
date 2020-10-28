@@ -172,12 +172,12 @@ export function CalculateDirectionToPosition(origin_pos: Vector, towards_pos: Ve
  * @param findFlags The flag(s) to take into account when searching
  * @returns An array of all units found around the unit using the sent parameters.
  */
-export function FindUnitsAroundUnit(unit: CDOTA_BaseNPC, radius: number, findTeam: UnitTargetTeam, findtypes: UnitTargetType, findFlags: UnitTargetFlags): CDOTA_BaseNPC[]
+export function FindUnitsAroundUnit(caster: CDOTA_BaseNPC, around_unit: CDOTA_BaseNPC, radius: number, findTeam: UnitTargetTeam, findtypes: UnitTargetType, findFlags: UnitTargetFlags): CDOTA_BaseNPC[]
 {
     let units: CDOTA_BaseNPC[] = [];
 
-    units = FindUnitsInRadius(unit.GetTeamNumber(),
-                            unit.GetAbsOrigin(),
+    units = FindUnitsInRadius(caster.GetTeamNumber(),
+                              around_unit.GetAbsOrigin(),
                             undefined,
                             radius,
                             findTeam,
@@ -457,13 +457,13 @@ export function IsRoshan(unit: CDOTA_BaseNPC): boolean
     }
 }
 	
-export function CanOrbEffectBeCast(event: ModifierAttackEvent, ability: CDOTABaseAbility): boolean
+export function CanOrbEffectBeCast(event: ModifierAttackEvent, ability: CDOTABaseAbility, orb_data: OrbData): boolean
 {
     // Assume it's an orb attack unless otherwise stated
     let orb_attack = true;    
 
-    orb_attack = CanUserCastOrb(event.attacker, ability, false, false);
-    orb_attack = CanOrbBeCastOnTarget(event.target, true, true, true);
+    orb_attack = CanUserCastOrb(event.attacker, ability, orb_data.can_proc_from_illusions, orb_data.can_proc_while_silenced);
+    orb_attack = CanOrbBeCastOnTarget(event.target, orb_data.can_proc_on_building, orb_data.can_proc_on_wards, orb_data.can_proc_on_magic_immune);
 
     return orb_attack;
 }
@@ -554,4 +554,14 @@ export function GetAppliedDuration(caster: CDOTA_BaseNPC, target: CDOTA_BaseNPC,
     duration = duration * ((1 + (total_status_amp - status_resistance)));
 
     return duration
+}
+
+export function HasBit(checker: number, value: number)
+{
+    return bit.band(checker, value) == value
+}
+
+export function GenerateRandomPositionAroundPosition(position: Vector, min_distance: number, max_distance: number): Vector
+{
+    return (position + RandomVector(min_distance + Math.sqrt(RandomFloat(0, 1)) * (max_distance! - min_distance!))) as Vector;
 }

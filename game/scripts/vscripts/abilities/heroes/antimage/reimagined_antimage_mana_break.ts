@@ -66,6 +66,7 @@ export class reimagined_antimage_mana_break extends BaseAbility
 
         // Find all enemies in area
         const enemies = FindUnitsAroundUnit(this.caster,
+                                            this.caster,                                            
                                             this.energy_blast_radius!,
                                             UnitTargetTeam.ENEMY,
                                             UnitTargetType.HERO + UnitTargetType.BASIC,

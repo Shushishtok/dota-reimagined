@@ -84,7 +84,15 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
         if (!this.firing_frost_arrows) return;
 
         // Check if the orb effect can be cast, returns whether the arrow is an orb attack or not
-        const frost_arrow = util.CanOrbEffectBeCast(event, this.ability);
+        const orb_data: OrbData = 
+        {
+            can_proc_from_illusions: false,
+            can_proc_on_building: false,
+            can_proc_on_magic_immune: false,
+            can_proc_on_wards: false,
+            can_proc_while_silenced: false
+        };
+        const frost_arrow = util.CanOrbEffectBeCast(event, this.ability, orb_data);
 
         // If this was a "cast" command, turn firing arrows state off to prevent continues attacks
         if (this.cast_command)
@@ -96,6 +104,9 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
             
             this.cast_command = false;
         }
+
+        // Add activity modifier to change her animation to frost arrows animation
+        this.caster.AddActivityModifier("frost_arrow");
 
         // Record the attack in the map        
         this.projectile_map.set(event.record, frost_arrow);
@@ -118,7 +129,10 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
         
                 // Expend mana if this is a Frost Arrow
                 this.ability.UseResources(true, false, false);
-            }    
+
+                // Remove activity modifier
+                this.caster.ClearActivityModifiers();
+            }
         }
     }
 
@@ -252,7 +266,7 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
         {
             this.firing_frost_arrows = false;
         }
-    }
+    }    
 
     FiresFrostProjectiles(): boolean
     {

@@ -27,3 +27,21 @@ declare interface KnockbackProperties
     should_stun: 0 | 1;
 }
 
+declare interface OrbData
+{
+    can_proc_from_illusions: boolean;
+    can_proc_while_silenced: boolean;
+    can_proc_on_building: boolean;
+    can_proc_on_wards: boolean;
+    can_proc_on_magic_immune: boolean;
+}
+
+interface CDOTA_BaseNPC {
+    AddNewModifier(
+        caster: CDOTA_BaseNPC | undefined,
+        ability: CDOTABaseAbility | undefined,
+        modifierName: string,
+        modifierTable: { duration?: number; [key: string]: any } | undefined,
+    ): CDOTA_Buff;
+}
+

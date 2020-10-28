@@ -39,7 +39,7 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
 
         // Ability specials
         this.duration = this.GetSpecialValueFor("duration");
-
+        
         // Play cast sound
         EmitSoundOn(this.sound_cast, target);
 

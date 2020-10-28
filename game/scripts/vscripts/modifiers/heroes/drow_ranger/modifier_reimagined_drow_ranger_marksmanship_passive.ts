@@ -105,6 +105,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
 
         // Check for nearby enemies
         const enemies = util.FindUnitsAroundUnit(this.parent,
+                                                 this.parent,
                                             disable_distance,
                                             UnitTargetTeam.ENEMY,
                                             UnitTargetType.HERO,

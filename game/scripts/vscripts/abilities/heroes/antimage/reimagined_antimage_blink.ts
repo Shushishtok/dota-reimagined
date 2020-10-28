@@ -93,6 +93,7 @@ export class reimagined_antimage_blink extends BaseAbility
     {
         // Find enemies around the caster
         const enemies = util.FindUnitsAroundUnit(this.caster,
+                                                 this.caster,
                                                  this.reaction_radius!,
                                                  UnitTargetTeam.ENEMY,
                                                  UnitTargetType.HERO + UnitTargetType.BASIC,

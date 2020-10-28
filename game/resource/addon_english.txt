@@ -887,7 +887,7 @@
 		"Releases a wave that silences and knocks back enemy units. Knockback distance is relative to how close they are to you.
 		<font color='#B25266'><b>X Gust:</b> Launches %xgust_projectiles% Gust projectiles in every %xgust_angle% degrees of Drow Ranger, pushing all enemies away from her.
 		<font color='#B25266'><b>Wave Chill:</b> Enemies that are in %wave_chill_range% range of Drow Ranger are also frozen, becoming stunned during the Gust's knockback plus %wave_chill_freeze_duration% additional seconds.
-		<font color='#B25266'><b>Tailwind:</b> Gust may be cast on self to constantly push the caster on the direction she's currently facing, silencing enemies in %tailwind_silence_radius% radius around her. The caster can rotate itself to change the direction the gust pushes it. Last %tailwind_duration% seconds."
+		<font color='#B25266'><b>Tailwind:</b> Drow can cast Gust on herself to constantly push her on the direction she's currently facing, silencing enemies in %tailwind_silence_radius% radius around her. Drow Ranger can rotate herself to change the direction the gust pushes her. Lasts %tailwind_duration% seconds."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_Lore"
 		"Traxex is rather fond of the tranquility of physical combat, calling on her Drow heritage to end the incantations of opposing magi."
@@ -970,7 +970,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_Description"
 		"Drow's experience in battle grant her a chance to launch arrows with incredible accuracy and effectiveness. Pierces through the enemy's defenses, ignoring their base armor. Grants Drow and nearby ranged heroes with bonus agility based on Drow's current agility. This ability is disabled if there is an enemy hero within %disable_range% range.
-		<font color='#B25266'><b>Pride of the Drow!:</b> Can be activated to prevent Marksmanship being disabled by nearby enemies for %pride_drow_duration% seconds. Has a cooldown of %abilitycooldown% seconds.
+		<font color='#B25266'><b>Pride of the Drow!:</b> Can be activated to prevent Marksmanship from being disabled by nearby enemies for %pride_drow_duration% seconds.
 		<font color='#B25266'><b>Ambush from the Forests:</b> While Marksmanship is active and Drow Ranger did not attack for %ambush_forest_no_attack_period% seconds, Drow Ranger's next arrow is guaranteed to proc Marksmanship.
 		<font color='#B25266'><b>Ranger of Frost:</b> While Marksmanship is active, attacking targets that are afflicted with Frost Arrows' slow debuff grants Drow Ranger's a stack to the Ranger of Frost buff. Each stack increases Drow Ranger's attack speed by %ranger_frost_attack_speed%, her projectile speed by %ranger_frost_projectile_speed%, and decreases the distance where Marksmanship is disabled by %ranger_frost_disable_distance_decrease%. Stacks infinitely. Each stack has its own independent duration, and lasts %ranger_frost_duration% seconds."
 
@@ -1019,6 +1019,176 @@
 		"DOTA_Tooltip_modifier_reimagined_drow_ranger_marksmanship_agility_buff_Description"
 		"Increases agility by %dMODIFIER_PROPERTY_STATS_AGILITY_BONUS%."
 
+		// Skywrath Mage
+		// Skywrath Mage's Arcane Bolt
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt"
+		"Arcane Bolt"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_Description"
+		"Skywrath Mage launches a slow-moving bolt of arcane magic, dealing damage to an enemy unit based on Skywrath Mage's intelligence.
+		<font color='#B25266'><b>Arcane Infusion:</b> Grants bonus %arcane_infusion_speed_per_int% projectile speed for each point of intelligence Skywrath has when casting Arcane Bolt.
+		<font color='#B25266'><b>Wrath of Dragonus:</b> After Skywrath Mage casts %wrath_arcane_bolt_casts% Arcane Bolts, the next Arcane Bolt cast will become a Wrath Bolt, which travels %wrath_bolt_speed_multiplier% times as fast, the damage includes the intelligence of nearby allied heroes in %wrath_int_calculate_range% range, and Skywrath's intelligence is calculated %wrath_caster_calculations% times. The counter modifier lasts %wrath_duration% seconds.
+		<font color='#B25266'><b>Blank Bolt:</b> Arcane Bolt can be cast on spell immune enemies. When the projectile hits a spell immune enemy, it deals no damage, and instead sets a debuff that has a stack count equal to %blank_bolt_damage_pct%%% of the damage the unit would've taken. When the unit takes magic damage with an ability and it is not spell immune, the debuff is consumed and the damage it had stored is dealt in a separate instance. The debuff lasts %blank_bolt_duration% seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_Lore"
+		"Within the Ghastly Eyrie's endless intrigue, only the clever and calm can hope to survive."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_Note0"
+		"While the projectile is moving, it provides %bolt_vision% vision around it. Upon impact, it will reveal the target area for %vision_duration% seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_Note1"
+		"Wrath Bolts do not multiply the intelligence of nearby allies by the multiplier."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_Note2"
+		"Blank Bolt can refresh itself with additional Arcane Bolt hits on a spell immune enemy. The damage will be adjusted when the new cast deals more damage."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_aghanim_description"
+		"When Skywrath Mage casts Arcane Bolt, a different random target within %scepter_radius% range will be hit with the same ability. Heroes will take priority."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_bolt_damage"
+		"BASE DAMAGE:"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_int_multiplier"
+		"INT DAMAGE MULTIPLIER:"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_scepter_radius"
+		"SCEPTER RADIUS:"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_arcane_bolt_wrath"
+		"Wrath Bolt Counter"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_arcane_bolt_wrath_Description"
+		"After %dMODIFIER_PROPERTY_TOOLTIP% Arcane Bolts were fired, the next Arcane Bolt will be a Wrath Bolt."
+		
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt"
+		"Blank Bolt"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt_Description"
+		"When not spell immune and taking magical damage from an ability, the modifier is consumed and deals magical damage equal to the stack count."
+
+		// Skywrath Mage's Concussive Shot
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot"
+		"Concussive Shot"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_Description"
+		"Skywrath Mage sets off a long range shot that hits the closest hero within a long range.  Upon impact, it deals damage and slows in an area of effect.
+		<font color='#B25266'><b>Conjured Relay:</b> Concussive Shot bounces %conjured_relay_bounce_count% times towards the closest enemy that was not hit by Concussive Shot this cast. Looks in %conjured_relay_search_radius% units around the last bounce target.
+		<font color='#B25266'><b>Brain Concussion:</b> The main target hit by Concussive Shot is also affected by a %brain_concussion_spell_amp_rdct%%% spell amp reduction for the duration of the slow.
+		<font color='#B25266'><b>Ghastly Eerie:</b> If the main target of Concussive Shot is afflicted by Ancient Seal's debuff when the projectile hits, the radius of Concussive Shot increases by %ghastly_eerie_radius_pct%%% and the slow duration increases by %ghastly_eerie_duration_pct%%% for all enemies in the blast range."		
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_Lore"
+		"Those who serve the court of the Ghastly Eyrie are ever locked in covert war. One must always know where danger lurks nearest."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_Note0"
+		"If no enemy heroes are in range or they are in fog, Concussive Shot targets the nearest enemy creep."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_Note1"
+		"Damages creeps around the impact area."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_Note2"
+		"Provides %shot_vision% vision around the projectile, and reveals the target area for %vision_duration% seconds upon impact."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_aghanim_description"
+		"When Skywrath Mage casts Concussive Shot, a different random target within cast range will be hit with the same ability. Heroes will take priority."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_launch_radius"
+		"SHOT RANGE:"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_slow_radius"
+		"RADIUS:"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_damage"
+		"DAMAGE:"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_slow_duration"
+		"SLOW DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_movement_speed_pct"
+		"%SLOW:"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_concussive_shot_slow"
+		"Concussive Shot"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_concussive_shot_slow_Description"
+		"Slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%"
+
+		// Skywrath Mage's Ancient Seal
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal"
+		"Ancient Seal"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_Description"
+		"Skywrath Mage seals the targeted unit with an ancient rune, silencing it and causing it to take additional damage from spells.
+		<font color='#B25266'><b>Seal of Scree'auk:</b> Can be cast on an ally to set the seal within it, granting it a %seal_screeauk_spell_amp%%% spell amp, and causes it to emit an aura that applies Ancient Seal's debuff on any enemy in %seal_screeauk_radius% radius near it. 
+		<font color='#B25266'><b>Rebounding Seal:</b> When the seal expires prematurely, it is applied to the closest enemy in %rebound_seal_search_radius% radius around it with its remaining duration. This effects also applies on allies affected by Seal of the Scree'auk seals. This process can repeat infinitely.
+		<font color='#B25266'><b>Sealed Emnity:</b> Every %sealed_emnity_magic_damage_threshold% magical damage accumulated by the target during the debuff increases the magic reduction by %sealed_emnity_magic_reduction_increase%%% for the reminder of the duration."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_Lore"
+		"A holy incantation, whosoever finds themselves touched by Avilliva's sigil must suffer in penitent silence."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_Note0"
+		"The magic damage resistance reduction doesn't affect creeps."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_Note1"
+		"Scepter effect will also also be applied when casting Seal of Scree'auk on an ally, casting it on a random ally in its range."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_aghanim_description"
+		"Anytime Skywrath Mage casts Ancient Seal, a different random target within %scepter_radius% range will be affected by the same ability. Heroes will take priority."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_resist_debuff"
+		"%INCREASED MAGIC DAMAGE:"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_seal_duration"
+		"DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_scepter_radius"
+		"SCEPTER RADIUS:"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_ancient_seal_debuff"
+		"Ancient Seal"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_ancient_seal_debuff_Description"
+		"Silenced. Magic damage is increased by %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%%."
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_ancient_seal_screeauk"
+		"Seal of Scree'auk"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_ancient_seal_screeauk_Description"
+		"Spell amp increased by %dMODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE%%%, and all enemies in %dMODIFIER_PROPERTY_TOOLTIP% radius of you will be affected by Ancient Seal."
+
+		// Skywrath Mage's Mystic Flare
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare"
+		"Mystic Flare"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_Description"
+		"Skywrath Mage uses his ultimate magical ability to conjure a precise and violent mystical field that lays waste to his adversaries. Deals massive damage distributed evenly among any Heroes in the area over %duration% seconds.
+		<font color='#B25266'><b>Mystical Bombardment:</b> Every interval also fires %mystical_bombardment_hits_per_interval% small instances of Mystic Flare in random locations around the target point up between %mystical_bombardment_min_range% and %mystical_bombardment_max_range% units away from it, dealing an instance damage to all enemies in a %mystical_bombardment_radius% radius where it landed. Damage is distributed evenly between enemies in the hit radius.
+		<font color='#B25266'><b>Flare of Divinity:</b> Mystic Flare automatically moves towards the closest enemy in %flare_divinity_search_radius% range of its center, moving at %flare_divinity_move_speed% speed. 
+		<font color='#B25266'><b>Skywrath's High Mage:</b> Each point of intelligence the caster has reduces the duration of Mystic Flare by %high_mage_duration_per_int_pct%%%, up to %high_mage_max_duration_reduction_pct%%% duration reduction. The damage scales accordingly."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_Lore"
+		"Only the most practiced of Skywrath sorcerers could hope to shape the skies into such a storm."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_Note0"
+		"Mystic Flare only affects Heroes; it does not damage illusions or creep heroes."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_Note1"
+		"Spell immune enemies do not count toward the damage distribution."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_Note2"
+		"Mystic Flare will damage enemy creeps if no enemy heroes are present."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_aghanim_description"
+		"When Skywrath Mage casts Mystic Flare, another Mystic Flare will be created on the position of a different random target enemy within %scepter_radius% range. Heroes will take priority."
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_radius"
+		"RADIUS:"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_duration"
+		"DURATION:"
+
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_damage"
+		"DAMAGE:"
+
 		// ITEMS
 		// Reimagined Enchanted Mango
 		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango"
@@ -1032,5 +1202,5 @@
 
 		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango_Lore"
 		"The bittersweet flavors of Jidi Isle are irresistible to amphibians."
-	}	
+	}
 }

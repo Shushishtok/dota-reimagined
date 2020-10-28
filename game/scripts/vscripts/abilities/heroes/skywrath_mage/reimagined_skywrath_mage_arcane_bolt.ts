@@ -182,7 +182,6 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
         {
             // Reimagined: Blank Bolt: Arcane Bolt can be cast on spell immune enemies. When the projectile hits a spell immune enemy, it deals no damage, but instead sets a debuff that has a stack count equal to x% of the damage the unit would've taken if it wasn't spell immune. Upon hitting with an ability that deals magic damage to the target, the debuff is consumed and the damage it had stored is dealt in an additional separate instance. Lasts y seconds. Blank Bolt can refresh itself with additional Arcane Bolt hits on a spell immune enemy, with the damage being adjusted only when the new stack has more damage than the current.
             this.ReimaginedBlankBolt(target, extraData.damage);
-
             return;
         }
             
@@ -286,6 +285,9 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
 
         // Calculate caster's intelligence based on the calculation multiplier
         damage += (this.caster as CDOTA_BaseNPC_Hero).GetIntellect() * this.int_multiplier! * this.wrath_caster_calculations!;
+
+        // Add the base damage on top
+        damage += this.bolt_damage!;
 
         // Return damage and speed
         return {damage, speed}
