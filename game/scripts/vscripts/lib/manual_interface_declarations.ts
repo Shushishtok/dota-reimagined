@@ -44,4 +44,3 @@ interface CDOTA_BaseNPC {
         modifierTable: { duration?: number; [key: string]: any } | undefined,
     ): CDOTA_Buff;
 }
-

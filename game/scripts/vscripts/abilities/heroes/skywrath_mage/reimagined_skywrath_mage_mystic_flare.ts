@@ -1,5 +1,9 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
+import { modifier_reimagined_skywrath_mage_talent_7_debuff } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_talent_7_debuff"
+import { modifier_reimagined_skywrath_mage_talent_8_buff } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_talent_8_buff"
+import { SkywrathMageTalents } from "./reimagined_skywrath_mage_talents";
+
 
 interface MysticFlareProperties
 {
@@ -51,6 +55,9 @@ export class reimagined_skywrath_mage_mystic_flare extends BaseAbility
 
     OnSpellStart(): void
     {
+        const ability = this.caster.FindAbilityByName("reimagined_skywrath_mage_talent_3")!;
+        ability.SetLevel(1);
+
         // Ability properties
         const target_position = this.GetCursorPosition();
 
@@ -82,6 +89,13 @@ export class reimagined_skywrath_mage_mystic_flare extends BaseAbility
     
         // Add a mystic flare
         this.AddNewMysticFlare(target_position);
+
+        // Talent: Divine Flight:  When casting Mystic Flare, Skywrath Mage gains flying movement for x seconds. Doesn't grant flying vision.
+        if (util.HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_8))
+        {
+            const talent_duration = util.GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_8, "duration");
+            this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_8_buff.name, {duration: talent_duration});
+        }
 
         // Scepter effect: cast Mystic Flare on a nearby target that is further then the radius of the initial target. Priotizes heroes. 
         if (this.caster.HasScepter())
@@ -181,6 +195,26 @@ export class reimagined_skywrath_mage_mystic_flare extends BaseAbility
 
             // Reimagined: Flare of Divinity: Mystic Flare automatically moves towards the closest hero in x range of its center, moving at y speed. 
             this.ReimaginedFlareOfDivinity(mystic_flare_ID);
+
+            if (util.HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_7))
+            {
+                // Find all enemies in the initial AoE
+                const enemies = FindUnitsInRadius(this.caster.GetTeamNumber(),
+                                                  properties.position,
+                                                  undefined,
+                                                  this.radius!,
+                                                  UnitTargetTeam.ENEMY,
+                                                  UnitTargetType.HERO + UnitTargetType.BASIC,
+                                                  UnitTargetFlags.NONE,
+                                                  FindOrder.ANY,
+                                                  false);
+                
+                // Give them the leashed modifier
+                for (const enemy of enemies)
+                {
+                    enemy.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_7_debuff.name, {duration: properties.duration, mystic_flare_ID: mystic_flare_ID});    
+                }
+            }
         }
     }
 

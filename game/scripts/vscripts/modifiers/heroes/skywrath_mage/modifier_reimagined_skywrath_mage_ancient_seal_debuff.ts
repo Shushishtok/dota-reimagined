@@ -1,4 +1,6 @@
+import { SkywrathMageTalents } from "../../../abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
+import { HasTalent } from "../../../lib/util";
 
 @registerModifier()
 export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseModifier
@@ -14,13 +16,13 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
     resist_debuff?: number;
 
     // Reimagined properties
-    sealed_emnity_bonus_reduction = 0;
-    sealed_emnity_damage_taken = 0;
+    sealed_enmity_bonus_reduction = 0;
+    sealed_enmity_damage_taken = 0;
 
     // Reimagind specials
     rebound_seal_search_radius?: number;
-    sealed_emnity_magic_damage_threshold?: number;
-    sealed_emnity_magic_reduction_increase?: number;
+    sealed_enmity_magic_damage_threshold?: number;
+    sealed_enmity_magic_reduction_increase?: number;
 
     IsHidden() {return false}
     IsDebuff() {return true}
@@ -33,8 +35,8 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
 
         // Reimagind specials
         this.rebound_seal_search_radius = this.ability.GetSpecialValueFor("rebound_seal_search_radius");
-        this.sealed_emnity_magic_damage_threshold = this.ability.GetSpecialValueFor("sealed_emnity_magic_damage_threshold");
-        this.sealed_emnity_magic_reduction_increase = this.ability.GetSpecialValueFor("sealed_emnity_magic_reduction_increase");
+        this.sealed_enmity_magic_damage_threshold = this.ability.GetSpecialValueFor("sealed_enmity_magic_damage_threshold");
+        this.sealed_enmity_magic_reduction_increase = this.ability.GetSpecialValueFor("sealed_enmity_magic_reduction_increase");
 
         // Add particle effect
         this.particle_seal_fx = ParticleManager.CreateParticle(this.particle_seal, ParticleAttachment.OVERHEAD_FOLLOW, this.parent);
@@ -45,7 +47,8 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
     DeclareFunctions(): ModifierFunction[]
     {
         return [ModifierFunction.MAGICAL_RESISTANCE_BONUS,
-                // Reimagined: ealed Emnity: Every x magical damage accumulated by the target during the debuff increases the magic reduction by y% for the reminder of the duration.
+                ModifierFunction.INCOMING_DAMAGE_PERCENTAGE,
+                // Reimagined: ealed enmity: Every x magical damage accumulated by the target during the debuff increases the magic reduction by y% for the reminder of the duration.
                 ModifierFunction.ON_TAKEDAMAGE]
     }
 
@@ -53,13 +56,30 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
     {
         // Doesn't affect creeps, it seems.
         if (this.parent.IsCreep()) return 0;
-        return (this.resist_debuff! + this.sealed_emnity_bonus_reduction) * (-1);
+        return (this.resist_debuff! + this.sealed_enmity_bonus_reduction) * (-1);
     }
 
     OnTakeDamage(event: ModifierAttackEvent)
     {
-        // Reimagined: ealed Emnity: Every x magical damage accumulated by the target during the debuff increases the magic reduction by y% for the reminder of the duration.
-        this.ReimaginedSealedEmnity(event);
+        // Reimagined: Sealed Enmity: Every x magical damage accumulated by the target during the debuff increases the magic reduction by y% for the reminder of the duration.
+        this.ReimaginedSealedEnmity(event);
+    }
+
+    GetModifierIncomingDamage_Percentage(event: ModifierAttackEvent): number
+    {
+        // Talent: Seal of Amplification: Sealed Enmity now increases damage taken from all types of damage instead of only magical.
+        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_5))
+        {
+            // Ignore magic sources as they're already being handled by reducing magic resistance
+            if (event.damage_type == DamageTypes.MAGICAL) return 0;
+
+            // Creeps are unaffected
+            if (this.parent.IsCreep()) return 0;
+
+            return this.sealed_enmity_bonus_reduction!;
+        }
+
+        return 0;
     }
 
     CheckState(): Partial<Record<ModifierState, boolean>>
@@ -104,7 +124,7 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
         }
     }
 
-    ReimaginedSealedEmnity(event: ModifierAttackEvent)
+    ReimaginedSealedEnmity(event: ModifierAttackEvent)
     {
         if (!IsServer()) return;
 
@@ -116,9 +136,9 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
 
         
         // Increment damage taken counter
-        this.sealed_emnity_damage_taken += event.damage;
+        this.sealed_enmity_damage_taken += event.damage;
         
-        // Calculate current sealed emnity percentage
-        this.sealed_emnity_bonus_reduction = Math.floor(this.sealed_emnity_damage_taken / this.sealed_emnity_magic_damage_threshold!) * this.sealed_emnity_magic_reduction_increase!;
+        // Calculate current sealed enmity percentage
+        this.sealed_enmity_bonus_reduction = Math.floor(this.sealed_enmity_damage_taken / this.sealed_enmity_magic_damage_threshold!) * this.sealed_enmity_magic_reduction_increase!;
     }
 }

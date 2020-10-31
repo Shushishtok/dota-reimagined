@@ -332,13 +332,13 @@
 			"07"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"sealed_emnity_magic_damage_threshold"	"125"
+				"sealed_enmity_magic_damage_threshold"	"125"
 			}
 
 			"08"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"sealed_emnity_magic_reduction_increase"	"1.5"
+				"sealed_enmity_magic_reduction_increase"	"1.5"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -462,4 +462,214 @@
 		}
 	}
 
+
+	//=================================================================================================================
+	// Skywrath Mage: Talent: Unending Proficiency: Casting Arcane Bolt increases your intelligence by x for y seconds. Has independent stacks.
+	//=================================================================================================================
+	"reimagined_skywrath_mage_talent_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"int_bonus"				"4"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"duration"				"30"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Skywrath Mage: Talent: Wrathful Incantation: Wrath Bolts also calculate the target's main attribute as damage.
+	//=================================================================================================================
+	"reimagined_skywrath_mage_talent_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"value"					"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Skywrath Mage: Talent: Trapped Energy: Fizzling a Concussive Shot grants a buff that automatically fires Concussive Shot at a nearby enemy hero that comes into range. Lasts x seconds.
+	//=================================================================================================================
+	"reimagined_skywrath_mage_talent_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"duration"				"12"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"search_interval"		"0.1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Skywrath Mage: Talent: Motor Dysfunction: Brain Concussion now also decreases turn rate by x%
+	//=================================================================================================================
+	"reimagined_skywrath_mage_talent_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"turn_rate_reduction"	"60"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Skywrath Mage: Talent: Seal of Amplification: Sealed Enmity now increases damage taken from all types of damage instead of only magical.
+	//=================================================================================================================
+	"reimagined_skywrath_mage_talent_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"value"					"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Skywrath Mage: Talent: Scree'auk's Screech: Seal of Scree'auk now pulses every x seconds, applying its effect to all enemies in y range.
+	//=================================================================================================================
+	"reimagined_skywrath_mage_talent_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"pulse_interval"		"2"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"800"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Skywrath Mage: Talent: Null Field: Mystic Flare now adds the Leashed state to all enemy units in the initial AoE, preventing usage of movement abilities until leaving the AoE.
+	//=================================================================================================================
+	"reimagined_skywrath_mage_talent_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"check_interval"		"0.25"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Skywrath Mage: Talent: Divine Flight:  When casting Mystic Flare, Skywrath Mage gains flying movement for x seconds. Doesn't grant flying vision.
+	//=================================================================================================================
+	"reimagined_skywrath_mage_talent_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"12"
+			}
+		}
+	}
 }

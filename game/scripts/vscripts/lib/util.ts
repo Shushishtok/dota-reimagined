@@ -1,5 +1,5 @@
+import "../modifiers/general_mechanics/modifier_reimagined_no_outgoing_damage";
 import { BaseAbility, BaseModifier } from "./dota_ts_adapter";
-import "../modifiers/general_mechanics/modifier_reimagined_no_outgoing_damage"
 
 export interface ReimaginedModifier extends BaseModifier
 {
@@ -564,4 +564,124 @@ export function HasBit(checker: number, value: number)
 export function GenerateRandomPositionAroundPosition(position: Vector, min_distance: number, max_distance: number): Vector
 {
     return (position + RandomVector(min_distance + Math.sqrt(RandomFloat(0, 1)) * (max_distance! - min_distance!))) as Vector;
+}
+
+// Serverside talent utility functions
+export function HasTalent(caster: CDOTA_BaseNPC, name: string): boolean
+{
+    if (IsServer())
+    {
+        if (caster.HasAbility(name))
+        {
+            const ability = caster.FindAbilityByName(name);
+            if (ability)
+            {
+                if (ability.IsTrained())
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    else
+    {
+        if (caster.HasModifier("modifier_" + name))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+interface AbilityKeyValue
+{
+    talent_name: string
+    special_name: string
+}
+
+let specialValueTable: Map<string, number> = new Map();
+let abilityKVValueFile: Map<string, any> = new Map();
+
+export function GetTalentSpecialValueFor(caster: CDOTA_BaseNPC, name: string, value: string): number
+{
+    let number = 0;
+
+    if (IsServer())
+    {
+        if (HasTalent(caster, name))
+        {
+            const ability = caster.FindAbilityByName(name);
+            if (ability)
+            {
+                return ability.GetSpecialValueFor(value);
+            }
+        }
+    }
+    else
+    {
+        // Check if talent is learned
+        if (HasTalent(caster, name))
+        {
+            // Form a KeyValue table
+            const keyValue: AbilityKeyValue = 
+            {
+                talent_name: name,
+                special_name: value
+            }        
+
+            // Check if the value doesn't already exist in the map from previous attempts
+            if (specialValueTable.has(keyValue.talent_name + keyValue.special_name))
+            {            
+                return specialValueTable.get(keyValue.talent_name + keyValue.special_name)!;
+            }
+
+            // Load KVs for the hero
+            const abilityKVSpecial = "AbilitySpecial";
+            let hero_name = caster.GetUnitName()
+            hero_name = hero_name.replace("npc_dota_hero_", "");    
+            const filepath = "scripts/npc/heroes/" + hero_name + "/abilities.kv";
+            
+            let abilitiesKV;
+            if (abilityKVValueFile.has(filepath))
+            {
+                abilitiesKV = abilityKVValueFile.get(filepath)
+            }
+            else
+            {
+                abilitiesKV = LoadKeyValues(filepath) as any;
+                abilityKVValueFile.set(filepath, abilitiesKV);
+            }
+        
+            // "AbilitySpecial" block
+            if (abilitiesKV[name][abilityKVSpecial])
+            {
+                // "01", "02"... block
+                for (const key in abilitiesKV[name][abilityKVSpecial]) 
+                {                     
+                    // "field, name" block      
+                    for (const key2 in abilitiesKV[name][abilityKVSpecial][key])
+                    {                                
+                        if (key2 == value)
+                        {                
+                            // Form the KeyValue objects
+                            const keyValue: AbilityKeyValue =
+                            {
+                                talent_name: name,
+                                special_name: value
+                            }
+                            
+                            // Put value in the map for future access
+                            const actual_value: number = abilitiesKV[name][abilityKVSpecial][key][key2]                        
+                            specialValueTable.set(keyValue.talent_name + keyValue.special_name, actual_value);
+                            
+                            return actual_value
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return number
 }

@@ -1,4 +1,5 @@
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
+import * as util from "../../../lib/util"
 
 @registerModifier()
 export class modifier_reimagined_skywrath_mage_arcane_bolt_wrath extends BaseModifier

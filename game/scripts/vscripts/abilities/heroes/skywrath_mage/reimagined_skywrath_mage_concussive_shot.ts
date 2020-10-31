@@ -1,6 +1,8 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
 import { modifier_reimagined_skywrath_mage_concussive_shot_slow } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_concussive_shot_slow"
+import { modifier_reimagined_skywrath_mage_talent_3_buff } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_talent_3_buff"
+import { SkywrathMageTalents } from "./reimagined_skywrath_mage_talents";
 
 @registerAbility()
 export class reimagined_skywrath_mage_concussive_shot extends BaseAbility
@@ -51,7 +53,7 @@ export class reimagined_skywrath_mage_concussive_shot extends BaseAbility
         this.conjured_relay_bounce_count = this.GetSpecialValueFor("conjured_relay_bounce_count");
         this.conjured_relay_search_radius = this.GetSpecialValueFor("conjured_relay_search_radius");        
         this.ghastly_eerie_duration_pct = this.GetSpecialValueFor("ghastly_eerie_duration_pct");
-        this.ghastly_eerie_radius_pct = this.GetSpecialValueFor("ghastly_eerie_radius_pct");        
+        this.ghastly_eerie_radius_pct = this.GetSpecialValueFor("ghastly_eerie_radius_pct");                
 
         // Roll for responses
         if (RollPercentage(75))
@@ -95,25 +97,25 @@ export class reimagined_skywrath_mage_concussive_shot extends BaseAbility
 			ParticleManager.SetParticleControl(this.particle_fail_fx, 1, this.caster.GetAbsOrigin());
             ParticleManager.ReleaseParticleIndex(this.particle_fail_fx);
             
+            // Talent: Trapped Energy: Fizzling a Concussive Shot grants a buff that automatically fires Concussive Shot at a nearby enemy hero that comes into range. Lasts x seconds.
+            if (util.HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_3))
+            {
+                const talent_3_duration = util.GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_3, "duration");
+                this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_3_buff.name, {duration: talent_3_duration})
+            }
+
             return;            
         }
 
         // Get the closest unit found, designate as target
-        let enemy = enemies[0];
-
-        // Play the cast particle
-        this.particle_cast_fx = ParticleManager.CreateParticle(this.particle_cast, ParticleAttachment.ABSORIGIN_FOLLOW, this.caster);        
-        ParticleManager.SetParticleControlEnt(this.particle_cast_fx, 0, this.caster, ParticleAttachment.POINT_FOLLOW, AttachLocation.HITLOC, this.caster.GetAbsOrigin(), false);        
-        ParticleManager.SetParticleControlEnt(this.particle_cast_fx, 1, enemy, ParticleAttachment.POINT_FOLLOW, AttachLocation.HITLOC, enemy.GetAbsOrigin(), false);
-        ParticleManager.SetParticleControl(this.particle_cast_fx, 2, Vector(this.speed, 0, 0));
-        ParticleManager.ReleaseParticleIndex(this.particle_cast_fx);
+        let enemy = enemies[0];        
 
         // Reimagined: Conjured Relay: Concussive Shot bounces x times towards the closest enemy that was not hit by Concussive Shot this cast. Looks in y units around the target.
         let conjured_relay_info = undefined;
         conjured_relay_info = this.ReimaginedConjuredRelayMarker(enemy);        
         
         // Fire a Concussive shot at the target
-        this.LaunchConcussiveShot(this.caster, enemy, conjured_relay_info);
+        this.LaunchConcussiveShot(this.caster, enemy, conjured_relay_info, true);
 
         // Scepter effect: secondary Concussive Shot
         if (this.caster.HasScepter())
@@ -165,12 +167,22 @@ export class reimagined_skywrath_mage_concussive_shot extends BaseAbility
             conjured_relay_info = this.ReimaginedConjuredRelayMarker(scepter_target);
 
             // Fire concussive shot at the scepter target            
-            this.LaunchConcussiveShot(this.caster, scepter_target, conjured_relay_info);
+            this.LaunchConcussiveShot(this.caster, scepter_target, conjured_relay_info, false);
         }
     }
 
-    LaunchConcussiveShot(source: CDOTA_BaseNPC, target: CDOTA_BaseNPC, conjured_relay_info: {remaining_bounces: number, main_target: CDOTA_BaseNPC, enemies_hit: Set<CDOTA_BaseNPC>})
+    LaunchConcussiveShot(source: CDOTA_BaseNPC, target: CDOTA_BaseNPC, conjured_relay_info: {remaining_bounces: number, main_target: CDOTA_BaseNPC, enemies_hit: Set<CDOTA_BaseNPC>}, primary_projectile: boolean)
     {
+        if (primary_projectile)
+        {
+            // Play the cast particle
+            this.particle_cast_fx = ParticleManager.CreateParticle(this.particle_cast, ParticleAttachment.ABSORIGIN_FOLLOW, this.caster);        
+            ParticleManager.SetParticleControlEnt(this.particle_cast_fx, 0, this.caster, ParticleAttachment.POINT_FOLLOW, AttachLocation.HITLOC, this.caster.GetAbsOrigin(), false);        
+            ParticleManager.SetParticleControlEnt(this.particle_cast_fx, 1, target, ParticleAttachment.POINT_FOLLOW, AttachLocation.HITLOC, target.GetAbsOrigin(), false);
+            ParticleManager.SetParticleControl(this.particle_cast_fx, 2, Vector(this.speed, 0, 0));
+            ParticleManager.ReleaseParticleIndex(this.particle_cast_fx);
+        }
+
         // Fire projectile at target
         const projectile = ProjectileManager.CreateTrackingProjectile(
         {                
@@ -332,7 +344,7 @@ export class reimagined_skywrath_mage_concussive_shot extends BaseAbility
                 if (new_main_target)
                 {
                     conjured_relay_info.main_target = new_main_target;
-                    this.LaunchConcussiveShot(current_main_target, new_main_target, conjured_relay_info);
+                    this.LaunchConcussiveShot(current_main_target, new_main_target, conjured_relay_info, false);
                 }
             }
         }

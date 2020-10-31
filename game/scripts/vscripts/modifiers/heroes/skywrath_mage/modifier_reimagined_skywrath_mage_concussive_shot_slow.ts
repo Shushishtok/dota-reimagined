@@ -1,4 +1,6 @@
+import { SkywrathMageTalents } from "../../../abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
+import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 
 @registerModifier()
 export class modifier_reimagined_skywrath_mage_concussive_shot_slow extends BaseModifier
@@ -34,7 +36,8 @@ export class modifier_reimagined_skywrath_mage_concussive_shot_slow extends Base
     DeclareFunctions(): ModifierFunction[]
     {
         return [ModifierFunction.MOVESPEED_BONUS_PERCENTAGE,
-                ModifierFunction.SPELL_AMPLIFY_PERCENTAGE]
+                ModifierFunction.SPELL_AMPLIFY_PERCENTAGE,
+                ModifierFunction.TURN_RATE_PERCENTAGE]
     }
 
     GetModifierMoveSpeedBonus_Percentage(): number
@@ -51,6 +54,17 @@ export class modifier_reimagined_skywrath_mage_concussive_shot_slow extends Base
 
         return 0;
     }
+
+    GetModifierTurnRate_Percentage(): number
+    {
+        // Talent: Motor Dysfunction: Brain Concussion now also decreases turn rate by x%
+        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_4))
+        {
+            return GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_4, "turn_rate_reduction") * (-1);            
+        }
+
+        return 0;
+    }    
 
     GetEffectName(): string
     {

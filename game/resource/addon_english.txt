@@ -1066,6 +1066,18 @@
 		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt_Description"
 		"When not spell immune and taking magical damage from an ability, the modifier is consumed and deals magical damage equal to the stack count."
 
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_talent_1_buff"
+		"Unending Proficiency"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_talent_1_buff_Description"
+		"Increases intelligence by %dMODIFIER_PROPERTY_STATS_INTELLECT_BONUS%."
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_talent_3_buff"
+		"Trapped Energy"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_talent_3_buff_Description"
+		"Automatically fires Concussive Shot at the closest enemy unit in range."
+
 		// Skywrath Mage's Concussive Shot
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot"
 		"Concussive Shot"
@@ -1120,7 +1132,7 @@
 		"Skywrath Mage seals the targeted unit with an ancient rune, silencing it and causing it to take additional damage from spells.
 		<font color='#B25266'><b>Seal of Scree'auk:</b> Can be cast on an ally to set the seal within it, granting it a %seal_screeauk_spell_amp%%% spell amp, and causes it to emit an aura that applies Ancient Seal's debuff on any enemy in %seal_screeauk_radius% radius near it. 
 		<font color='#B25266'><b>Rebounding Seal:</b> When the seal expires prematurely, it is applied to the closest enemy in %rebound_seal_search_radius% radius around it with its remaining duration. This effects also applies on allies affected by Seal of the Scree'auk seals. This process can repeat infinitely.
-		<font color='#B25266'><b>Sealed Emnity:</b> Every %sealed_emnity_magic_damage_threshold% magical damage accumulated by the target during the debuff increases the magic reduction by %sealed_emnity_magic_reduction_increase%%% for the reminder of the duration."
+		<font color='#B25266'><b>Sealed enmity:</b> Every %sealed_enmity_magic_damage_threshold% magical damage accumulated by the target during the debuff increases the magic reduction by %sealed_enmity_magic_reduction_increase%%% for the reminder of the duration."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_Lore"
 		"A holy incantation, whosoever finds themselves touched by Avilliva's sigil must suffer in penitent silence."
@@ -1188,6 +1200,18 @@
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_damage"
 		"DAMAGE:"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_talent_7_debuff"
+		"Null Field"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_talent_7_debuff_Description"
+		"Cannot use movement abilities until moving away from the center of the field."
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_talent_8_buff"
+		"Divine Flight"
+
+		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_talent_8_buff_Description"
+		"Grants flying movement."
 
 		// ITEMS
 		// Reimagined Enchanted Mango

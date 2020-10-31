@@ -1,6 +1,9 @@
-import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
-import { modifier_reimagined_skywrath_mage_arcane_bolt_wrath } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_arcane_bolt_wrath"
-import { modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt"
+import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
+import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
+import { modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt";
+import { modifier_reimagined_skywrath_mage_arcane_bolt_wrath } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_arcane_bolt_wrath";
+import { modifier_reimagined_skywrath_mage_talent_1_buff } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_talent_1_buff"
+import { SkywrathMageTalents } from "./reimagined_skywrath_mage_talents";
 
 @registerAbility()
 export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
@@ -68,6 +71,23 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
 
         // Play cast sound
         EmitSoundOn(this.sound_cast, this.caster);
+
+        // Talent: Unending Proficiency: Casting Arcane Bolt increases your intelligence by x for y seconds. Has independent stacks.
+        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_1))
+        {
+            const talent_1_duration = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_1, "duration");
+
+            if (!this.caster.HasModifier(modifier_reimagined_skywrath_mage_talent_1_buff.name))
+            {
+                this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_1_buff.name, {duration: talent_1_duration});
+            }
+
+            const talent_1_modifier = this.caster.FindModifierByName(modifier_reimagined_skywrath_mage_talent_1_buff.name);
+            if (talent_1_modifier)
+            {
+                talent_1_modifier.IncrementStackCount();
+            }
+        }
         
         // Reimagined: Wrath of Dragonus: After Skywrath casts x Arcane Bolts, the next Arcane Bolt will become a Wrath Bolt. Wrath Bolts are twice as fast, the damage includes the intelligence of all nearby allied heroes in 1200 range, and the caster's intelligence is calculated twice. Wrath Bolts are also duplicated by Aghanim's Scepter upgrade. The counter modifier lasts y seconds and refreshes itself when casting Arcane Bolt.
         const wrath_bolt = this.ReimaginedWrathOfDragonusCounter();
@@ -141,7 +161,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
         // Reimagined: Wrath of Dragonus: After Skywrath casts x Arcane Bolts, the next Arcane Bolt will become a Wrath Bolt. Wrath Bolts are twice as fast, the damage includes the intelligence of all nearby allied heroes in 1200 range, and the caster's intelligence is calculated twice. Wrath Bolts are also duplicated by Aghanim's Scepter upgrade. The counter modifier lasts y seconds and refreshes itself when casting Arcane Bolt.
         if (wrath_bolt)
         {
-            const wrath_data = this.ReimaginedWrathOfDragonus(bolt_speed);
+            const wrath_data = this.ReimaginedWrathOfDragonus(bolt_speed, target);
             if (wrath_data)
             {
                 damage = wrath_data.damage;
@@ -256,7 +276,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
         return wrath_bolt
     }
 
-    ReimaginedWrathOfDragonus(speed: number): {damage: number, speed: number}
+    ReimaginedWrathOfDragonus(speed: number, target: CDOTA_BaseNPC): {damage: number, speed: number}
     {
         let damage = 0;
 
@@ -288,6 +308,12 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
 
         // Add the base damage on top
         damage += this.bolt_damage!;
+
+        // Talent: Wrathful Incantation: Wrath Bolts also calculate the target's main attribute as damage.
+        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_2))
+        {
+            damage += (target as CDOTA_BaseNPC_Hero).GetPrimaryStatValue();
+        }
 
         // Return damage and speed
         return {damage, speed}

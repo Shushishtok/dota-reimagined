@@ -1,4 +1,4 @@
-#base heroes/anti_mage/abilities.kv
+#base heroes/antimage/abilities.kv
 #base heroes/night_stalker/abilities.kv
 #base heroes/sven/abilities.kv
 #base heroes/crystal_maiden/abilities.kv
