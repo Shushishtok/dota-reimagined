@@ -6,6 +6,7 @@
 #base heroes/drow_ranger/hero.kv
 #base heroes/skywrath_mage/hero.kv
 
+
 "DOTAHeroes"
 {	
 }

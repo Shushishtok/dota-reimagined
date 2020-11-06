@@ -249,13 +249,13 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
         else if (event.order_type == UnitOrder.CAST_TARGET && event.ability == this.ability)
         {
             this.firing_frost_arrows = true;
-
+            
             // Command the parent to attack the target
             ExecuteOrderFromTable(
                 {
                     OrderType: UnitOrder.ATTACK_TARGET,
                     UnitIndex: this.parent.entindex(),
-                    TargetIndex: event.target.entindex()
+                    TargetIndex: event.target!.entindex()
                 }
             );
 

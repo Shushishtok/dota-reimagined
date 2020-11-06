@@ -71,7 +71,7 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
     {
         // Do nothing if the caster is broken
         if (this.parent.PassivesDisabled()) return 0;
-
+        
         // Do nothing if the target is spell immune
         if (event.target.IsMagicImmune()) return 0;
 

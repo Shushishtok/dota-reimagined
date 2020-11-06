@@ -285,6 +285,8 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
                 // Create tracking projectile using Drow's base/frost projectile
                 ProjectileManager.CreateTrackingProjectile(
                     {
+                        bIgnoreObstructions: true,
+                        bSuppressTargetCheck: true,                        
                         Ability: this.ability,
                         EffectName: projectile_name,
                         ExtraData: {},

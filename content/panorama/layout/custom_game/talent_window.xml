@@ -1,0 +1,68 @@
+<root>
+    <styles>
+        <include src="file://{resources}/styles/custom_game/talent_window.css"/>
+    </styles>
+
+    <scripts>
+        <include src="file://{resources}/scripts/custom_game/talent_windows.js" />
+    </scripts>
+
+    <Panel class="Rmg_Talent_Window">
+        <Label id="TalentsHeader" text="Talents" />
+        <Panel class="talentRow">
+            <Panel class="talentLevels">
+                <Panel class="talentLevelContainer">                    
+                    <Label class="talentLevel" text="40"></Label>                    
+                </Panel>
+            </Panel>            
+            <Panel class="leftTalent">
+                <DOTAAbilityImage id="Rmg_talent8" class="talentImage"/>
+            </Panel>
+            <Panel class="rightTalent">
+                <DOTAAbilityImage id="Rmg_talent7" class="talentImage"/>
+            </Panel>
+        </Panel>
+
+        <Panel class="talentRow">
+            <Panel class="talentLevels">
+                <Panel class="talentLevelContainer">                    
+                    <Label class="talentLevel" text="30"></Label>                    
+                </Panel>             
+            </Panel>                
+            <Panel class="leftTalent">
+                <DOTAAbilityImage id="Rmg_talent6" class="talentImage"/>
+            </Panel>
+            <Panel class="rightTalent">
+                <DOTAAbilityImage id="Rmg_talent5" class="talentImage"/>
+            </Panel>
+        </Panel>
+
+        <Panel class="talentRow">
+            <Panel class="talentLevels">
+                <Panel class="talentLevelContainer">                    
+                    <Label class="talentLevel" text="20"></Label>                    
+                </Panel>
+            </Panel>
+            <Panel class="leftTalent">
+                <DOTAAbilityImage id="Rmg_talent4" class="talentImage"/>
+            </Panel>
+            <Panel class="rightTalent">
+                <DOTAAbilityImage id="Rmg_talent3" class="talentImage"/>
+            </Panel>
+        </Panel>
+
+        <Panel class="talentRow">
+            <Panel class="talentLevels">
+                <Panel class="talentLevelContainer">                    
+                    <Label class="talentLevel" text="10"></Label>                    
+                </Panel>
+            </Panel>
+            <Panel class="leftTalent">
+                <DOTAAbilityImage id="Rmg_talent2" class="talentImage"/>
+            </Panel>
+            <Panel class="rightTalent">
+                <DOTAAbilityImage id="Rmg_talent1" class="talentImage"/>
+            </Panel>
+        </Panel>
+    </Panel>
+</root>

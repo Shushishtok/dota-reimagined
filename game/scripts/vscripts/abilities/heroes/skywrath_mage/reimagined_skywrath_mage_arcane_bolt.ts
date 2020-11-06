@@ -188,7 +188,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
             iMoveSpeed: bolt_speed,            
             iVisionRadius: this.bolt_vision,
             iVisionTeamNumber: this.caster.GetTeamNumber(),
-            vSourceLoc: this.caster.GetAbsOrigin()
+            vSourceLoc: this.caster.GetAbsOrigin(),            
         });
     }
 

@@ -68,8 +68,10 @@ export class reimagined_phantom_assassin_stifling_dagger extends BaseAbility
             iSourceAttachment: ProjectileAttachment.ATTACK_1,
             iVisionRadius: 450,
             iVisionTeamNumber: this.caster.GetTeamNumber(),
-            vSourceLoc: this.caster.GetAbsOrigin()
-        })
+            vSourceLoc: this.caster.GetAbsOrigin(),
+            bIgnoreObstructions: true,
+            bSuppressTargetCheck: false
+        });
 
         // Put particle ID in the map for the on-hit data
         this.dagger_map.set(particleID, real_dagger);

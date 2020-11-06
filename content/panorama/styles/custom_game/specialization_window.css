@@ -1,0 +1,159 @@
+#SpecializationContainer {
+    width: 650px;
+    height: 450px;
+    align: center center;
+  
+    background-color: #000000dd;
+    box-shadow: fill #00000055 -2px -2px 4px 4px;
+  
+    background-image: url("s2r://panorama/images/events/diretide/2020/moreinfo_header_psd.vtex");
+    background-size: 100% 100%;
+  }
+  
+  .SpecializationHeader {
+    width: 100%;
+    height: 10%;
+  }
+  
+  .CloseSpecializationButton {
+      flow-children: right;
+      align: right top;
+      margin-top: 10px;
+      margin-right: 15px;
+      transition: brightness 0.2s ease-in-out 0s;
+  }
+  .CloseSpecializationButton:hover {
+      brightness: 1.8;
+    transition: brightness 0.1s ease-in-out 0s;
+  }
+  .CloseSpecializationButton:active {
+      brightness: 1.2;
+  }
+  .CloseSpecializationButton > Image {
+      width: 16px;
+      height: 16px;
+      vertical-align: center;
+    wash-color: white;
+    margin-right: 4px;
+  
+  }
+  .CloseSpecializationButton > Label {
+      font-size: 16px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    color: white;
+  }
+  
+  .SpecializationTitle {
+    align: center center;
+    font-weight: bold;
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-size: 25px;
+    text-shadow: 0px 0px 22px 2.0 #15995b;
+    letter-spacing: 1px;
+    color: white;
+  }
+  
+  #SpecializationContents {
+    width: 100%;
+    height: 90%;
+    vertical-align: bottom;
+  }
+  
+  #Row1 {
+    width: 100%;
+    height: 11%;
+  }
+  
+  #Row2 {
+    width: 100%;
+    height: 21%;
+    margin-top: 12%;
+  }
+  
+  #Row3 {
+    width: 100%;
+    height: 21%;
+    margin-top: 34%;
+  }
+  
+  #Row4 {
+    width: 100%;
+    height: 21%;
+    margin-top: 56%;
+  }
+  
+  #Row5 {
+    width: 100%;
+    height: 21%;
+    margin-top: 78%;
+  }
+  
+  #Column1 {
+    width: 25%;
+    height: 100%;
+  }
+  
+  #Column2 {
+    width: 25%;
+    height: 100%;
+    margin-left: 25%;
+  }
+  
+  #Column3 {
+    width: 25%;
+    height: 100%;
+    margin-left: 50%;
+  }
+  
+  #Column4 {
+    width: 25%;
+    height: 100%;
+    margin-left: 75%;
+  }
+  
+  .AbilityImages {
+      width: 72px;
+      height: 72px;
+      border-radius: 5px;
+      box-shadow: fill #15995b -2px -2px 4px 4px;
+    margin-left: 25%;
+  }
+  
+  .TierLabel {
+    align: center center;
+  
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: underline;
+  
+    text-shadow: 0px 0px 22px 2.0 #15995b;
+    letter-spacing: 1px;
+    color: white;
+    margin-top: 10px;
+  }
+  
+  #Image1 {
+    align: left center;
+  }
+  
+  .Specilizations {
+    align: center center;
+      flow-children: right;
+    transition: brightness 0.2s ease-in-out 0s;
+  }
+  .Specilizations:hover {
+      brightness: 1.8;
+      transition: brightness 0.1s ease-in-out 0s;
+  }
+  .Specilizations:active {
+      brightness: 1.2;
+  }
+  
+  .Specilizations > Image {
+      width: 42px;
+      height: 42px;
+      vertical-align: center;
+    wash-color: white;
+  }

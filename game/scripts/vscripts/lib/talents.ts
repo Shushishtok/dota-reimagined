@@ -25,7 +25,7 @@ export class BaseTalent extends BaseAbility
 }
 
 export class BaseTalentModifier extends BaseModifier
-{
+{    
     IsHidden() {return true}
     IsDebuff() {return false}
     IsPurgable() {return false}

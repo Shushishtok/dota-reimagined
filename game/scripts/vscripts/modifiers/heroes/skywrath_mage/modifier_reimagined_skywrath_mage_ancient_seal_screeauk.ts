@@ -77,7 +77,7 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_screeauk extends Bas
     DeclareFunctions(): ModifierFunction[]
     {
         return [ModifierFunction.SPELL_AMPLIFY_PERCENTAGE,
-                ModifierFunction.TOOLTIP]
+                ModifierFunction.TOOLTIP,]
     }
 
     OnTooltip()

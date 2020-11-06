@@ -49,7 +49,7 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
 
     
     GetAbsorbSpell(event: ModifierAbilityEvent): 0 | 1
-    {
+    {        
         if (!IsServer()) return 0;
 
         // Do not absorb allies' spells

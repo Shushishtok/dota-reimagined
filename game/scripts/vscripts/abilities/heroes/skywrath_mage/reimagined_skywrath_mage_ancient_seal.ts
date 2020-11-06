@@ -19,7 +19,7 @@ export class reimagined_skywrath_mage_ancient_seal extends BaseAbility
     OnSpellStart(): void
     {
         // Ability properties
-        const target = this.GetCursorTarget()!;
+        const target = this.GetCursorTarget()!;        
 
         // Ability specials
         this.seal_duration = this.GetSpecialValueFor("seal_duration");

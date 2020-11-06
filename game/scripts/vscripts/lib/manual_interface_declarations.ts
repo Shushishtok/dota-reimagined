@@ -12,7 +12,7 @@ declare interface ModifierTooltip
 declare interface ModifierUnitEvent
 {
     ability: CDOTABaseAbility;
-    target: CDOTA_BaseNPC;
+    target?: CDOTA_BaseNPC;
 }
 
 declare interface KnockbackProperties
@@ -43,4 +43,15 @@ interface CDOTA_BaseNPC {
         modifierName: string,
         modifierTable: { duration?: number; [key: string]: any } | undefined,
     ): CDOTA_Buff;
+}
+
+interface CustomGameEventDeclarations 
+{
+    learn_talent_event: {ability: EntityIndex, learned_by_force: boolean};    
+    force_learn_talent: {talent_num: number};
+}
+
+interface CDOTA_BaseNPC_Hero
+{
+    talents_learned: Set<CDOTABaseAbility>;
 }

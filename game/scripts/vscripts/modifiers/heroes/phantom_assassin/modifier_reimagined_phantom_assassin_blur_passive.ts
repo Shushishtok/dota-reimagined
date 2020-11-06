@@ -55,7 +55,7 @@ export class modifier_reimagined_phantom_assassin_blur_passive extends BaseModif
     }
 
     OnDeath(event: ModifierAttackEvent): void    
-    {
+    {        
         // Only triggers when the attacker is the parent
         if (this.parent != event.attacker) return;
 

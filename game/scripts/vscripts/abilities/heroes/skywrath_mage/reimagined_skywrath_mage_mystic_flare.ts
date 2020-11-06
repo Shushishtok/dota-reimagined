@@ -55,9 +55,6 @@ export class reimagined_skywrath_mage_mystic_flare extends BaseAbility
 
     OnSpellStart(): void
     {
-        // const ability = this.caster.FindAbilityByName("reimagined_skywrath_mage_talent_3")!;
-        // ability.SetLevel(1);
-
         // Ability properties
         const target_position = this.GetCursorPosition();
 

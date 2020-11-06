@@ -82,7 +82,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseMod
 
         // Does nothing if the aura is disabled
         if (this.parent.PassivesDisabled()) {return;}
-
+        
         // Does nothing if the attacker is not the caster
         if (this.parent != event.attacker) {return;}
 

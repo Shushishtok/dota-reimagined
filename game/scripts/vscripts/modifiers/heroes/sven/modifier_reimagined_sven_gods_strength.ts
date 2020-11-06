@@ -111,7 +111,7 @@ export class modifier_reimagined_sven_gods_strength extends BaseModifier
     }
 
     GetModifierProcAttack_BonusDamage_Physical(event: ModifierAttackEvent): number
-    {
+    {        
         // Check if Buff Fish is ready to be applied        
         if (!this.parent.HasModifier(modifier_reimagined_sven_gods_Strength_buff_fish_counter.name))
         {            

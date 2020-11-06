@@ -1,0 +1,26 @@
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.exe
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.deps.json
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.runtimeconfig.json
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.runtimeconfig.dev.json
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.dll
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.pdb
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.csprojAssemblyReference.cache
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.AssemblyInfoInputs.cache
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.AssemblyInfo.cs
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.csproj.CoreCompileInputs.cache
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.dll
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.pdb
+e:\!!! WIME AND MIDA\!!! THE ORACLE OF PROSPERITY\DOTA_UTILITIES\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.genruntimeconfig.cache
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.exe
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.deps.json
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.runtimeconfig.json
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.runtimeconfig.dev.json
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.dll
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\bin\Debug\netcoreapp3.1\DOTA_UTILITIES.pdb
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.csprojAssemblyReference.cache
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.AssemblyInfoInputs.cache
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.AssemblyInfo.cs
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.csproj.CoreCompileInputs.cache
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.dll
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.pdb
+C:\Users\Shush\Desktop\dota-reimagined\scripts\dota_utilities\obj\Debug\netcoreapp3.1\DOTA_UTILITIES.genruntimeconfig.cache

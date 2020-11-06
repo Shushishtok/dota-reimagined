@@ -1,0 +1,102 @@
+<Panel hittest="false" id="SpecializationContainer">
+			<Panel hittest="false" class="SpecializationHeader">
+				<Label class="SpecializationTitle" text="Specialization Tree" />
+				<Button class="CloseSpecializationButton" onactivate="CloseSpecializationClicked()">
+					<Image src="s2r://panorama/images/control_icons/x_close_png.vtex" />
+					<Label text="#Close" />
+				</Button>
+			</Panel>
+			<Panel hittest="false" id="SpecializationContents">
+				<Panel hittest="false" id="Row1">
+					<Panel hittest="false" id="Column1" />
+					<Panel hittest="false" id="Column2">
+						<Label class="TierLabel" text="Tier 1" />
+					</Panel>
+					<Panel hittest="false" id="Column3">
+						<Label class="TierLabel" text="Tier 2" />
+					</Panel>
+					<Panel hittest="false" id="Column4">
+						<Label class="TierLabel" text="Tier 3" />
+					</Panel>
+				</Panel>
+				<Panel hittest="false" id="Row2">
+					<Panel hittest="false" id="Column1">
+						<DOTAAbilityImage id="AbilityImage1" class="AbilityImages" abilityname="earthshaker_fissure" onmouseover="DOTAShowAbilityTooltip( 'earthshaker_fissure' )" onmouseout="DOTAHideAbilityTooltip()"/>
+					</Panel>
+					<Panel hittest="false" id="Column2">
+						<Button id="Row2Column2Tier1" class="Specilizations" onactivate="Row2Column2Tier1Clicked()">
+							<Image src="s2r://panorama/images/hud/reborn/icon_damage_psd.vtex" id="Image1" />
+						</Button>
+					</Panel>
+					<Panel hittest="false" id="Column3">
+						<Button id="Row2Column3Tier2" class="Specilizations" onactivate="Row2Column3Tier2Clicked()">
+							<Image src="s2r://panorama/images/hud/reborn/icon_attack_speed2_psd.vtex" id="Image2" />
+						</Button>
+					</Panel>
+					<Panel hittest="false" id="Column4">
+						<Button id="Row2Column4Tier3" class="Specilizations" onactivate="Row2Column4Tier3Clicked()">
+							<Image src="s2r://panorama/images/hud/reborn/ult_no_mana_psd.vtex" id="Image3" />
+						</Button>
+					</Panel>
+				</Panel>
+				<Panel hittest="false" id="Row3">
+					<Panel hittest="false" id="Column1">
+						<DOTAAbilityImage id="AbilityImage2" class="AbilityImages" abilityname="earthshaker_enchant_totem" onmouseover="DOTAShowAbilityTooltip( 'earthshaker_enchant_totem )" onmouseout="DOTAHideAbilityTooltip()"/>
+					</Panel>
+					<Panel hittest="false" id="Column2">
+						<Button id="Row3Column2Tier1" class="Specilizations" onactivate="Row3Column2Tier1Clicked()">
+							<Image src="s2r://panorama/images/hud/reborn/close_guide_btn_psd.vtex" id="Image1" />
+						</Button>
+					</Panel>
+					<Panel hittest="false" id="Column3">
+						<Button id="Row3Column3Tier2" class="Specilizations" onactivate="Row3Column3Tier2Clicked()">
+							<Image src="s2r://panorama/images/hud/reborn/icon_attack_speed2_psd.vtex" id="Image2" />
+						</Button>
+					</Panel>
+					<Panel hittest="false" id="Column4">
+						<Button id="Row3Column4Tier3" class="Specilizations" onactivate="Row3Column4Tier3Clicked()">
+							<Image src="s2r://panorama/images/hud/reborn/icon_attack_speed3_psd.vtex" id="Image3" />
+						</Button>
+					</Panel>
+
+				</Panel>
+				<Panel hittest="false" id="Row4">
+					<Panel hittest="false" id="Column1">
+						<DOTAAbilityImage id="AbilityImage3" class="AbilityImages" abilityname="earthshaker_aftershock" onmouseover="DOTAShowAbilityTooltip( 'earthshaker_aftershock' )" onmouseout="DOTAHideAbilityTooltip()"/>
+					</Panel>
+					<Panel hittest="false" id="Column2">
+						<Button id="Row4Column2Tier1" class="Specilizations" onactivate="Row4Column2Tier1Clicked()">
+							<Image src="s2r://panorama/images/hud/reborn/icon_damage_psd.vtex" id="Image1" />
+						</Button>
+					</Panel>
+					<Panel hittest="false" id="Column3">
+						<Button id="Row4Column3Tier2" class="Specilizations" onactivate="Row4Column3Tier2Clicked()">
+							<Image src="s2r://panorama/images/hud/reborn/icon_heroview_active_psd.vtex" id="Image2" />
+						</Button>
+					</Panel>
+					<Panel hittest="false" id="Column4">
+						<Button id="Row4Column4Tier3" class="Specilizations" onactivate="Row4Column4Tier3Clicked()">
+							<Image src="s2r://panorama/images/hud/reborn/icon_attack_speed3_psd.vtex" id="Image3" />
+						</Button>
+					</Panel>
+				</Panel>
+				<Panel hittest="false" id="Row5">
+					<Panel hittest="false" id="Column1">
+						<DOTAAbilityImage id="AbilityImage4" class="AbilityImages" abilityname="earthshaker_echo_slam" onmouseover="DOTAShowAbilityTooltip( 'earthshaker_echo_slam' )" onmouseout="DOTAHideAbilityTooltip()"/>
+					</Panel>
+					<Panel hittest="false" id="Column2">
+						<Button id="Row5Column2Tier1" class="Specilizations" onactivate="Row5Column2Tier1Clicked()">
+							<Image src="s2r://panorama/images/hud/reborn/sharedunit_rest_png.vtex" id="Image1" />
+						</Button>
+					</Panel>
+					<Panel hittest="false" id="Column3">
+
+					</Panel>
+					<Panel hittest="false" id="Column4">
+						<Button id="Row5Column4Tier3" class="Specilizations" onactivate="Row5Column4Tier3Clicked()">
+							<Image src="s2r://panorama/images/hud/reborn/ult_no_mana_psd.vtex" id="Image3" />
+						</Button>
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
