@@ -33,6 +33,21 @@
     visibility: visible;
 }
 
+#talent_hud_scene
+{
+    visibility: collapse;
+}
+
+#talent_hud_scene.upgradeAvailable
+{
+    visibility: visible;
+    width: 100%;
+    height: 300%;
+    margin: -1px;
+	border-radius: 50px;
+	margin-top: -55px;
+}
+
 #talent_btn_container 
 {    
     width: 75px;

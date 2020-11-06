@@ -6,5 +6,6 @@
         <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud.xml" />
         <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/talent_window.xml" />
         <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/talent_hud.xml" />
+        <CustomUIElement type="HeroSelection" layoutfile="file://{resources}/layout/custom_game/pick_screen.xml"/>
     </Panel>
 </root>

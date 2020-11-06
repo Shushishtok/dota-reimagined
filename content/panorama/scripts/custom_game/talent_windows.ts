@@ -5,8 +5,10 @@ interface DOTAAbilityImage extends Panel
 
 interface CustomGameEventDeclarations 
 {
-    learn_talent_event: {ability: EntityIndex, learned_by_force: boolean};    
-    force_learn_talent: {talent_num: number};
+    learn_talent_event: {ability: EntityIndex};        
+    confirm_talent_learned: {talent_num: number, learned_by_force: 0 | 1};
+    request_currently_selected_unit: {};
+    send_currently_selected_unit: {unit: EntityIndex}
 }
 
 class RmgTalentWindow
@@ -27,6 +29,7 @@ class RmgTalentWindow
     hudButtonContainer?: Panel;
     hudButton?: Button;
     hudOverlay?: Panel;
+    hudScene?: ScenePanel;
 
     // IDs
     abilityTalentButtonID: string = "Rmg_talent";
@@ -93,7 +96,7 @@ class RmgTalentWindow
         {
             const button = $("#" + this.abilityTalentButtonID + index) as DOTAAbilityImage;            
             
-            button.SetPanelEvent("onactivate", () => this.LearnTalent(button, false));
+            button.SetPanelEvent("onactivate", () => this.LearnTalent(button));
             button.SetPanelEvent("onmouseover", () => this.ShowTooltip(button));
             button.SetPanelEvent("onmouseout", () => this.HideTooltip());            
         }
@@ -108,6 +111,7 @@ class RmgTalentWindow
     {
         this.hudButton!.SetPanelEvent("onactivate", () => this.OnHudButtonClick());
         this.hudOverlay = this.hudButtonContainer!.FindChildTraverse("talent_hud_btn_overlay")!;        
+        this.hudScene = this.hudButtonContainer!.FindChildTraverse("talent_hud_scene") as ScenePanel;
     }
 
     OnHudButtonClick()
@@ -373,70 +377,72 @@ class RmgTalentWindow
         return true;
     }
 
-    LearnTalent(button: DOTAAbilityImage, learn_talent_by_force: boolean)
+    LearnTalent(button: DOTAAbilityImage)
     {
         // Get the ability mapped to the button
         if (this.talentMap.has(button))
         {
             const ability = this.talentMap.get(button)!;
-            if (this.CanTalentBeLearned(ability) || learn_talent_by_force) // learning by force is only possible via command "-learntalentx" in cheat mode
+            if (this.CanTalentBeLearned(ability))
             {
-                // Add the learned class to the button
-                button.AddClass(this.cssTalentLearned);
-
                 // Send event to server to apply the talent                
-                GameEvents.SendCustomGameEventToServer("learn_talent_event", {ability: ability, learned_by_force: learn_talent_by_force});
-
-                // Add row of the talent to the map
-                this.currentlyPickedRowsSet.add(this.GetTalentRow(ability)!);
-
-                // Set the second ability of the same row as unselectedable
-                const secondary_button = this.GetSecondaryAbilityInRow(ability)!;                
-                if (secondary_button)
-                {
-                    secondary_button.AddClass(this.cssTalentUnlearnable);
-                }
-
-                // Check if the HUD should still be animated. Check after a frame since it's checking too fast otherwise
-                $.Schedule(0, () =>
-                {
-                    this.AnimateHudTalentButton();
-                    this.AnimateLearnableAbilities();
-
-                    // Check if any other talent can still be learned. If not, toggle the window
-                    if (!this.CanHeroUpgradeAnyTalent())
-                    {
-                        if (!learn_talent_by_force)
-                        {
-                            this.ToggleTalentWindow();
-                        }
-                    }
-                })
+                GameEvents.SendCustomGameEventToServer("learn_talent_event", {ability: ability});                
             }
         }
     }
 
-    ForceLearnTalent(event: {talent_num: number})
-    {           
-        $.Msg("Got message!");        
-        const talent_num = event.talent_num
-        $.Msg("Talent number is: " + talent_num);
-
-        // Check if the talent number is in a valid range
-        if (talent_num < 1 || talent_num > this.talentsCount) return false;
-        $.Msg("Talent is within range");
+    OnTalentLearnedConfirmed(event: {talent_num: number, learned_by_force: 0 | 1})
+    {
+        const talent_num = event.talent_num;   
+        let learn_talent_by_force: boolean
+        if (event.learned_by_force == 1) learn_talent_by_force = true;
+        else learn_talent_by_force = false;                
 
         // Find talent button by ID
         const talentIDString: string = "#" + this.abilityTalentButtonID + (talent_num);
-        const talentButton: DOTAAbilityImage = $(talentIDString) as DOTAAbilityImage;                
-        $.Msg("Looking for button in ID " + talentIDString);
+        const talentButton: DOTAAbilityImage = $(talentIDString) as DOTAAbilityImage;                        
 
-        if (talentButton)
-        {
-            $.Msg("learning talent.. by force!");
-            this.LearnTalent(talentButton, true);
+        if (talentButton && this.talentMap.has(talentButton))
+        {            
+            const ability = this.talentMap.get(talentButton)!;
+
+            // Add the learned class to the button
+            talentButton.AddClass(this.cssTalentLearned);
+
+            // Add row of the talent to the map
+            this.currentlyPickedRowsSet.add(this.GetTalentRow(ability)!);
+    
+            // Set the second ability of the same row as unselectedable
+            const secondary_button = this.GetSecondaryAbilityInRow(ability)!;                
+            if (secondary_button)
+            {
+                secondary_button.AddClass(this.cssTalentUnlearnable);
+            }
+    
+            // Check if the HUD should still be animated. Check after a frame since it's checking too fast otherwise
+            $.Schedule(0, () =>
+            {
+                this.AnimateHudTalentButton();
+                this.AnimateLearnableAbilities();
+    
+                // Check if any other talent can still be learned. If not, toggle the window                
+                if (!this.CanHeroUpgradeAnyTalent())
+                {                                        
+                    if (!learn_talent_by_force)
+                    {                        
+                        this.ToggleTalentWindow();
+                    }
+                }
+            })
         }
     }
+
+    OnRequestSelectedUnit()
+    {
+        const unit = Players.GetLocalPlayerPortraitUnit();
+        GameEvents.SendCustomGameEventToServer("send_currently_selected_unit", {unit: unit});
+    }
+    
 
     GetTalentRow(ability: AbilityEntityIndex): number | undefined
     {        
@@ -476,6 +482,7 @@ class RmgTalentWindow
                         if (!this.hudButton!.BHasClass(this.cssTalentButtonUpgradeReady))
                         {
                             this.hudButton!.AddClass(this.cssTalentButtonUpgradeReady);
+                            this.hudScene!.AddClass(this.cssTalentButtonUpgradeReady);
                         }
                     }
                     else
@@ -483,6 +490,7 @@ class RmgTalentWindow
                         if (this.hudButton!.BHasClass(this.cssTalentButtonUpgradeReady))
                         {
                             this.hudButton!.RemoveClass(this.cssTalentButtonUpgradeReady);
+                            this.hudScene!.RemoveClass(this.cssTalentButtonUpgradeReady);
                         }
                     }
                 });
@@ -607,7 +615,8 @@ class RmgTalentWindow
         GameEvents.Subscribe("dota_player_learned_ability", () => this.OnPlayerLearnedAbility());
         GameEvents.Subscribe("dota_player_update_query_unit", () => this.OnPlayerUpdateQueryUnit());
         GameEvents.Subscribe("dota_player_update_selected_unit", () => this.OnPlayerUpdateSelectedUnit());
-        GameEvents.Subscribe("force_learn_talent", (event) => this.ForceLearnTalent(event))
+        GameEvents.Subscribe("confirm_talent_learned", (event) => this.OnTalentLearnedConfirmed(event))
+        GameEvents.Subscribe("request_currently_selected_unit", () => this.OnRequestSelectedUnit())
     }
 
     OnPlayerGainedLevel()

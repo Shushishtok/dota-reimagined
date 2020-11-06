@@ -47,11 +47,14 @@ interface CDOTA_BaseNPC {
 
 interface CustomGameEventDeclarations 
 {
-    learn_talent_event: {ability: EntityIndex, learned_by_force: boolean};    
-    force_learn_talent: {talent_num: number};
+    learn_talent_event: {ability: EntityIndex};    
+    confirm_talent_learned: {talent_num: number, learned_by_force: 0 | 1};    
+    request_currently_selected_unit: {};
+    send_currently_selected_unit: {unit: EntityIndex};
 }
 
 interface CDOTA_BaseNPC_Hero
 {
     talents_learned: Set<CDOTABaseAbility>;
+    talentMap: Map<number, CDOTABaseAbility>;
 }

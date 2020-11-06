@@ -1,5 +1,6 @@
 import "../modifiers/general_mechanics/modifier_reimagined_no_outgoing_damage";
 import { BaseAbility, BaseModifier } from "./dota_ts_adapter";
+import { BaseTalent } from "./talents";
 
 export interface ReimaginedModifier extends BaseModifier
 {
@@ -684,4 +685,63 @@ export function GetTalentSpecialValueFor(caster: CDOTA_BaseNPC, name: string, va
     }
 
     return number
+}
+
+export function IsTalentAbility(ability: CDOTABaseAbility)
+{
+    if ((ability as BaseTalent).isTalentAbility) return true;
+    if (ability.GetAbilityName().indexOf("special_bonus") !== -1) return true;
+
+    return false;
+}
+
+export function PrepareTalentList(hero: CDOTA_BaseNPC_Hero): Map<number, CDOTABaseAbility>
+{
+    let talentMap: Map<number, CDOTABaseAbility> = new Map();    
+    
+    // Run over all slots, find out how many abilities this hero has    
+    let talentsFound = 0;
+    for (let index = 0; index < hero.GetAbilityCount(); index++) 
+    {       
+        const ability = hero.GetAbilityByIndex(index);
+        if (ability)
+        {
+            if (IsTalentAbility(ability))
+            {
+                talentsFound++;
+                talentMap.set(talentsFound, ability);                
+            }
+        }        
+    }
+
+    // Assign the map to the hero
+    hero.talentMap = talentMap;
+    return talentMap;
+}
+
+export function GetTalentNumber(ability: CDOTABaseAbility): number | undefined
+{
+    // Get caster
+    const caster = ability.GetCaster() as CDOTA_BaseNPC_Hero;
+
+    // Cycle between the talent map of the caster until the talent number is found
+    for (const talent_number of caster.talentMap.keys()) 
+    {
+        if (caster.talentMap.get(talent_number) == ability)
+        {
+            return talent_number;
+        }    
+    }
+
+    return undefined;
+}
+
+export function GetTalentAbilityFromNumber(hero: CDOTA_BaseNPC_Hero, talent_number: number): CDOTABaseAbility | undefined
+{
+    if (hero.talentMap.has(talent_number))
+    {
+        return hero.talentMap.get(talent_number);
+    }
+
+    return undefined;
 }

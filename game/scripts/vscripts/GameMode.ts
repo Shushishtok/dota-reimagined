@@ -1,4 +1,5 @@
 import { reloadable } from "./lib/tstl-utils";
+import { GetTalentAbilityFromNumber, GetTalentNumber, IsTalentAbility, PrepareTalentList } from "./lib/util";
 
 const heroSelectionTime = 30;
 
@@ -14,6 +15,7 @@ declare global
 export class GameMode 
 {
     Game: CDOTABaseGameMode = GameRules.GetGameModeEntity();
+    last_waiting_talent_num?: number;    
 
     public static Precache(this: void, context: CScriptPrecacheContext) 
     {                
@@ -42,8 +44,9 @@ export class GameMode
         ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
         ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
         ListenToGameEvent("dota_player_gained_level", event => this.OnPlayerLevelUp(event), undefined);
-        CustomGameEventManager.RegisterListener("learn_talent_event", (_, event) => this.OnLearnTalent(event.ability, event.learned_by_force));
         ListenToGameEvent("player_chat", event => this.OnPlayerChat(event), undefined);
+        CustomGameEventManager.RegisterListener("learn_talent_event", (_, event) => this.OnLearnTalent(event, 0));
+        CustomGameEventManager.RegisterListener("send_currently_selected_unit", (_,event) => this.OnSentCurrentlySelectedUnit(event))
     }
 
     RmgGameRules()
@@ -97,21 +100,80 @@ export class GameMode
         this.Game.SetUseCustomHeroLevels(true);
     }
 
-    private OnLearnTalent(ability: EntityIndex, learned_by_force: 0 | 1)
-    {        
-        const ability_handle = EntIndexToHScript(ability) as CDOTABaseAbility;
-        ability_handle.SetLevel(1);
+    private OnLearnTalent(event: {ability: EntityIndex; PlayerID: PlayerID}, learned_by_force: 0 | 1)    
+    {     
+        const ability_handle = EntIndexToHScript(event.ability) as CDOTABaseAbility;
         const caster = (ability_handle.GetCaster() as CDOTA_BaseNPC_Hero)
+        const player = PlayerResource.GetPlayer(event.PlayerID)!;           
 
-        // Do not spend an ability point if talent was learned by force
-        if (learned_by_force == 0)
-        {
-            // Otherwise reduce as usual
-            caster.SetAbilityPoints(caster.GetAbilityPoints() -1);
-        }
+        // Serverside verification check. Networking 101: don't trust your client
+        // If ability was already leveled, do nothing.        
+        if (ability_handle.GetLevel() > 0) return;
         
-        // Add talent that was legitimately leveled to the set        
-        caster.talents_learned.add(ability_handle);
+        // Verify ability is actually a talent
+        if (!IsTalentAbility(ability_handle)) return;
+        
+        // If the caster is not a real hero, do nothing
+        if (!caster.IsRealHero()) return;                
+
+        const talent_num = GetTalentNumber(ability_handle);        
+        if (!talent_num) return;        
+
+        // Only allow to level up talents for yourself, unless this is a forced level, or it is cheat mode        
+        if (learned_by_force == 1 || ability_handle.GetCaster() == player.GetAssignedHero() || GameRules.IsCheatMode())
+        {                
+            // If caster doesn't have any ability points to spend, do nothing
+            if (learned_by_force == 0 && caster.GetAbilityPoints() == 0) return;    
+            
+            // Finished verification!
+            // Level up the ability
+            ability_handle.SetLevel(1);
+    
+            // Do not spend an ability point if talent was learned by force
+            if (learned_by_force == 0)
+            {
+                // Otherwise reduce as usual
+                caster.SetAbilityPoints(caster.GetAbilityPoints() -1);
+            }
+            
+            // Add talent that was legitimately leveled to the set        
+            caster.talents_learned.add(ability_handle);
+
+            print(talent_num, learned_by_force);
+            // Send confirmation event to the client        
+            CustomGameEventManager.Send_ServerToPlayer(player, "confirm_talent_learned", {talent_num: talent_num, learned_by_force: learned_by_force})
+        }
+    }
+
+    private ForceLearnTalent(hero: CDOTA_BaseNPC_Hero, talent_num: number, playerID: PlayerID)
+    {
+        let event: {ability: EntityIndex; PlayerID: PlayerID};        
+
+        // Get ability as talent        
+        const ability = GetTalentAbilityFromNumber(hero, talent_num);
+        if (ability)
+        {
+            // Form the event call
+            event = {ability: ability.GetEntityIndex(), PlayerID: playerID};
+
+            // Call talent
+            this.OnLearnTalent(event, 1);
+        }        
+    }
+
+    OnSentCurrentlySelectedUnit(event: {unit: EntityIndex, PlayerID: PlayerID})
+    {
+        const unit = EntIndexToHScript(event.unit) as CDOTA_BaseNPC_Hero;
+
+        // Verification
+        if (!GameRules.IsCheatMode()) return;
+        if (!unit.IsRealHero()) return;
+        if (!this.last_waiting_talent_num) return;
+
+        this.ForceLearnTalent(unit, this.last_waiting_talent_num!, event.PlayerID);
+
+        // Remove last waiting talent
+        this.last_waiting_talent_num = undefined;
     }
 
     public OnStateChange(): void 
@@ -138,10 +200,13 @@ export class GameMode
     {
         let unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
 
-        // Initialize the talents learned set if it's not initialized yet
         if (unit.IsRealHero())
         {            
-            if (!(unit as CDOTA_BaseNPC_Hero).talents_learned) (unit as CDOTA_BaseNPC_Hero).talents_learned = new Set();        
+            // Initialize the talents ability map if it's not initialized yet
+            if (!(unit as CDOTA_BaseNPC_Hero).talentMap) unit.talentMap = PrepareTalentList(unit);
+
+            // Initialize the talents learned set if it's not initialized yet
+            if (!(unit as CDOTA_BaseNPC_Hero).talents_learned) unit.talents_learned = new Set();                    
         }
     }
 
@@ -199,8 +264,10 @@ export class GameMode
                 {                    
                     if (talent_num >= 1 && talent_num <= 8)
                     {                               
-                        const player = PlayerResource.GetPlayer(event.playerid)!
-                        CustomGameEventManager.Send_ServerToPlayer(player, "force_learn_talent", {talent_num: talent_num})
+                        const player = PlayerResource.GetPlayer(event.playerid)!;
+                        this.last_waiting_talent_num = talent_num;
+
+                        CustomGameEventManager.Send_ServerToPlayer(player, "request_currently_selected_unit", {});
                     }
                 }
             }

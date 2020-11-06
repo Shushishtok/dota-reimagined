@@ -17,6 +17,7 @@ export const registerTalent = (name?: string, Modifier?: typeof BaseTalentModifi
 export class BaseTalent extends BaseAbility
 {
     static Modifier: typeof BaseModifier;    
+    isTalentAbility: boolean = true;
 
     GetIntrinsicModifierName(): string
     {

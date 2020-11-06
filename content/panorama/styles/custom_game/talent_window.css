@@ -2,9 +2,9 @@
 {
     horizontal-align: left;    
     vertical-align: middle;
-    margin-bottom: 6%;    
-    width: 20%;
-    height: 53%;  
+    margin-bottom: 75px;    
+    width: 350px;
+    height: 450px;  
     background-color: #000000da;
 
     transform: translateX( -750px );
@@ -23,11 +23,11 @@
     text-align: center;
     color: #d9b284;
     font-family: titlefont;
-    font-size: 28px;
+    font-size: 24px;
     horizontal-align: middle;
     text-shadow: 0px 0px 8px #906127;
-    margin-top: 2%;    
-    margin-left: 25%;    
+    margin-top: 10px;
+    margin-left: 70px;      
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 2px;
@@ -36,23 +36,23 @@
 .talentRow
 {
     width: 100%;
-    height: 96px;
-    margin-top: 5%;    
+    height: 75px;
+    margin-top: 22px;    
     flow-children: right;        
 }
 
 .talentLevels
 {    
     horizontal-align: left;        
-    width: 96px;
+    width: 80px;
     height: 100%;    
     margin-left: 10px;
 }
 
 .talentLevelContainer
 {
-    width: 80%;
-    height: 80%;        
+    width: 55px;
+    height: 55px;        
     horizontal-align: center;
     vertical-align: center;
     border: 5px solid #906127;
@@ -69,23 +69,23 @@
     color: #d9b284;
     text-shadow: 0px 0px 8px #906127;
     text-align: center;
-    font-size: 35px;
-    margin-top: 15%;
-    margin-right: 3px;
+    font-size: 30px;
+    margin-top: 6px;
+    margin-right: 2px;
 }
 
 .leftTalent
 {    
-    width: 96px;
+    width: 80px;
     height: 100%;
-    margin-left: 6%;
+    margin-left: 20px;
 }
 
 .rightTalent
 {    
-    width: 96px;
+    width: 80px;
     height: 100%;  
-    margin-left: 10%;  
+    margin-left: 30px;  
 }
 
 .talentImage
