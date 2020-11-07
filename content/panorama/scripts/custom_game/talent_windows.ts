@@ -53,6 +53,7 @@ class RmgTalentWindow
         this.SubscribeToEvents(); 
         this.InitializeHeroTalents();
         this.ConfigureTalentAbilityButtons();
+        this.ConfigureTalentHotkey();
     }
 
     AddRmgHudTalentButton()
@@ -258,15 +259,15 @@ class RmgTalentWindow
         const currentEntity = Players.GetLocalPlayerPortraitUnit();        
         if (this.isHudCurrentlyVisible)
         {
-            if (!Entities.IsValidEntity(currentEntity) || !Entities.IsHero(currentEntity) || !Entities.IsControllableByPlayer(currentEntity, Players.GetLocalPlayer()))
+            if (!Entities.IsValidEntity(currentEntity) || !Entities.IsHero(currentEntity))
             {
                 this.hudButtonContainer!.style.visibility = "collapse";                
                 this.isHudCurrentlyVisible = false;
-            }                    
+            }
         }
         else
         {
-            if (Entities.IsValidEntity(currentEntity) && Entities.IsHero(currentEntity) && Entities.IsControllableByPlayer(currentEntity, Players.GetLocalPlayer()))
+            if (Entities.IsValidEntity(currentEntity) && Entities.IsHero(currentEntity))
             {
                 this.hudButtonContainer!.style.visibility = "visible";
                 this.isHudCurrentlyVisible = true;
@@ -607,7 +608,7 @@ class RmgTalentWindow
 
         const formattedText = title + description + lore;
         return formattedText;
-    }
+    }    
 
     SubscribeToEvents()
     {
@@ -632,7 +633,7 @@ class RmgTalentWindow
     }
 
     OnPlayerUpdateQueryUnit()
-    {
+    {        
         this.CloseTalentWindow_UnitDeselected();
         this.ToggleHud();        
         this.AnimateHudTalentButton();
@@ -641,12 +642,17 @@ class RmgTalentWindow
     }
 
     OnPlayerUpdateSelectedUnit()
-    {
+    {        
         this.CloseTalentWindow_UnitDeselected();
         this.ToggleHud();
         this.AnimateHudTalentButton();
         this.GetHeroTalents();  
         this.AnimateLearnableAbilities();      
+    }
+
+    ConfigureTalentHotkey()
+    {
+        Game.AddCommand("+ToggleTalent", () => this.OnHudButtonClick(), "", 0);
     }
 }
 

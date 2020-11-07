@@ -68,6 +68,14 @@ export class reimagined_sven_storm_bolt extends BaseAbility
     momentum_punch_current_location?: Vector;
     momentum_punch_total_distance: number = 0;
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_sven/sven_spell_storm_bolt.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/storm_hammer_gatling_gun.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/storm_hammer_momentum_punch_explosion.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/storm_hammer_strong_right.vpcf", context);        
+    }
+
     GetAOERadius()
     {
         return this.GetSpecialValueFor("bolt_aoe");

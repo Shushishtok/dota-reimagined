@@ -16,7 +16,7 @@ export class reimagined_skywrath_mage_concussive_shot extends BaseAbility
     particle_cast_fx?: ParticleID;
     particle_fail: string = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot_failure.vpcf";
     particle_fail_fx?: ParticleID;
-    projectile_concussive: string = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot.vpcf"
+    projectile_concussive: string = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot.vpcf";
     projectile_map: Map<ProjectileID, {remaining_bounces: number, main_target: CDOTA_BaseNPC, enemies_hit: Set<CDOTA_BaseNPC>}> = new Map();
 
     // Ability specials
@@ -35,6 +35,14 @@ export class reimagined_skywrath_mage_concussive_shot extends BaseAbility
     conjured_relay_search_radius?: number;    
     ghastly_eerie_duration_pct?: number;
     ghastly_eerie_radius_pct?: number;
+
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot_cast.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot_failure.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot_slow_debuff.vpcf", context);        
+    }
 
     OnSpellStart(): void
     {

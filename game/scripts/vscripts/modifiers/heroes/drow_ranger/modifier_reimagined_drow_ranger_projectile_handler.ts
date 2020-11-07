@@ -31,8 +31,7 @@ export class modifier_reimagined_drow_ranger_projectile_handler extends BaseModi
     {
         return [ModifierFunction.ON_ATTACK_START]
     }
-
-    // Since for some goddamn reason the Property
+    
     OnAttackStart(event: ModifierAttackEvent): void
     {
         if (!IsServer()) return;

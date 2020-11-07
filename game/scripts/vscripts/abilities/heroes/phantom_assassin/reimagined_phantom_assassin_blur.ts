@@ -1,5 +1,4 @@
 import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
-import * as util from "../../../lib/util";
 import { modifier_reimagined_phantom_assassin_blur_passive } from "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_blur_passive"
 import { modifier_reimagined_phantom_assassin_blur_active } from "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_blur_active"
 import "../../../modifiers/heroes/phantom_assassin/modifier_reimagined_phantom_assassin_blur_quick_and_quiet"
@@ -15,6 +14,14 @@ export class reimagined_phantom_assassin_blur extends BaseAbility
 
     // Ability specials
     duration?: number;
+
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_phantom_assassin/phantom_assassin_active_start.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/phantom_assassin/blur_turned_your_blade.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_phantom_assassin/phantom_assassin_active_blur.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/status_fx/status_effect_phantom_assassin_active_blur.vpcf", context);        
+    }
 
     GetCastPoint(): number 
     {

@@ -19,6 +19,13 @@ export class reimagined_antimage_counterspell extends BaseAbility
         return modifier_reimagined_antimage_counterspell_passive.name;
     }
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_antimage/antimage_blink_end_glow.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_antimage/antimage_counter.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_antimage/antimage_spellshield.vpcf", context);
+    }
+
     OnSpellStart(): void
     {
         // Ability specials

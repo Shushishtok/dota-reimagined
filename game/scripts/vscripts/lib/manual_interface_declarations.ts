@@ -34,6 +34,7 @@ declare interface OrbData
     can_proc_on_building: boolean;
     can_proc_on_wards: boolean;
     can_proc_on_magic_immune: boolean;
+    mana_cost: number
 }
 
 interface CDOTA_BaseNPC {

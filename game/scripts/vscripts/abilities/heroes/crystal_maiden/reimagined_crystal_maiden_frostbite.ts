@@ -12,6 +12,11 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
     // Ability specials
     duration?: number;    
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf", context);        
+    }
+
     CastFilterResultTarget(target: CDOTA_BaseNPC): UnitFilterResult | undefined
     {
         if (!IsServer()) return;

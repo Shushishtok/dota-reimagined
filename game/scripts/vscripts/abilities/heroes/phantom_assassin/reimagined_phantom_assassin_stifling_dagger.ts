@@ -25,6 +25,12 @@ export class reimagined_phantom_assassin_stifling_dagger extends BaseAbility
     fan_of_knives_delay?: number;    
     fan_of_knives_fixed_damage?: number;    
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_phantom_assassin/phantom_assassin_stifling_dagger.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_phantom_assassin/phantom_assassin_stifling_dagger_debuff.vpcf", context);           
+    }
+
     OnSpellStart(): void
     {
         // Ability properties:

@@ -14,6 +14,11 @@ export class item_reimagined_enchanted_mango extends BaseItem
     // Ability specials
     replenish_amount?: number;
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/items3_fx/mango_active.vpcf", context);
+    }
+
     GetIntrinsicModifierName()
     {
         return modifier_reimagined_enchanted_mango_passive.name;

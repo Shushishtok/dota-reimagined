@@ -1,5 +1,4 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
-import * as util from "../../../lib/util";
 import { reimagined_drow_ranger_frost_arrows } from "./reimagined_drow_ranger_frost_arrows"
 import { modifier_reimagined_drow_ranger_frost_arrows_handler } from "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_frost_arrows_handler"
 import { modifier_reimagined_drow_ranger_multishot_endless_barrage } from "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_multishot_endless_barrage";
@@ -14,7 +13,7 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
     sound_multishot: string = "Hero_DrowRanger.Multishot.Channel";
     sound_multishot_attack: string = "Hero_DrowRanger.Multishot.Attack";
     particle_multishot: string = "particles/units/heroes/hero_drow/drow_multishot_proj_linear_proj.vpcf";    
-    projectile_marksmanship_attack: string = "particles/heroes/drow_ranger/multishot_marksmanship_arrows.vpcf"
+    projectile_marksmanship_attack: string = "particles/heroes/drow_ranger/multishot_marksmanship_arrows.vpcf";
     initial_delay: number = 0.1;    
     arrows_fired_this_wave: number = 0;
     total_arrows_fired: number = 0;    
@@ -46,6 +45,12 @@ export class reimagined_drow_ranger_multishot extends BaseAbility
     endless_barrage_delay_between_waves?: number;
     endless_barrage_mana_per_wave?: number;    
     thrilling_hunt_projectile_speed?: number;
+
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_drow/drow_multishot_proj_linear_proj.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/drow_ranger/multishot_marksmanship_arrows.vpcf", context);
+    }
 
     GetIntrinsicModifierName(): string
     {

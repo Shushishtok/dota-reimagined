@@ -1,5 +1,5 @@
 import { BaseModifier, registerModifier} from "../../../lib/dota_ts_adapter";
-import { modifier_reimagined_sven_gods_Strength_buff_fish_counter } from "./modifier_reimagined_sven_gods_Strength_buff_fish_counter"
+import { modifier_reimagined_sven_gods_strength_buff_fish_counter } from "./modifier_reimagined_sven_gods_strength_buff_fish_counter"
 
 @registerModifier()
 export class modifier_reimagined_sven_gods_strength extends BaseModifier
@@ -8,7 +8,7 @@ export class modifier_reimagined_sven_gods_strength extends BaseModifier
     caster: CDOTA_BaseNPC = this.GetCaster()!;
     ability: CDOTABaseAbility = this.GetAbility()!; 
     parent: CDOTA_BaseNPC = this.GetParent();
-    particle_buff: string = "particles/units/heroes/hero_sven/sven_spell_gods_strength_ambient.vpcf"
+    particle_buff: string = "particles/units/heroes/hero_sven/sven_spell_gods_strength_ambient.vpcf";
     particle_buff_fx?: ParticleID;
     hero_effect: string = "particles/units/heroes/hero_sven/sven_gods_strength_hero_effect.vpcf";
     status_effect: string = "particles/status_fx/status_effect_gods_strength.vpcf";
@@ -113,10 +113,10 @@ export class modifier_reimagined_sven_gods_strength extends BaseModifier
     GetModifierProcAttack_BonusDamage_Physical(event: ModifierAttackEvent): number
     {        
         // Check if Buff Fish is ready to be applied        
-        if (!this.parent.HasModifier(modifier_reimagined_sven_gods_Strength_buff_fish_counter.name))
+        if (!this.parent.HasModifier(modifier_reimagined_sven_gods_strength_buff_fish_counter.name))
         {            
             // Set buff fish cooldown modifier
-            this.parent.AddNewModifier(this.caster, this.ability, modifier_reimagined_sven_gods_Strength_buff_fish_counter.name, {duration: this.buff_fish_cooldown!});
+            this.parent.AddNewModifier(this.caster, this.ability, modifier_reimagined_sven_gods_strength_buff_fish_counter.name, {duration: this.buff_fish_cooldown!});
             
             const parentdamage = this.parent.GetAverageTrueAttackDamage(event.target);
             const damage = parentdamage * this.buff_fish_bonus_damage_pct! * 0.01;
@@ -198,9 +198,9 @@ export class modifier_reimagined_sven_gods_strength extends BaseModifier
     {
         if (IsServer())
         {
-            if (this.parent.HasModifier(modifier_reimagined_sven_gods_Strength_buff_fish_counter.name))
+            if (this.parent.HasModifier(modifier_reimagined_sven_gods_strength_buff_fish_counter.name))
             {
-                this.parent.RemoveModifierByName(modifier_reimagined_sven_gods_Strength_buff_fish_counter.name);
+                this.parent.RemoveModifierByName(modifier_reimagined_sven_gods_strength_buff_fish_counter.name);
             }
         }
     }

@@ -16,9 +16,9 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
     sound_hit_target: string = "Hero_DrowRanger.Marksmanship.Target";
     particle_start: string = "particles/units/heroes/hero_drow/drow_marksmanship_start.vpcf";
     particle_start_fx?: ParticleID;
-    particle_marksmanship: string = "particles/units/heroes/hero_drow/drow_marksmanship.vpcf"
+    particle_marksmanship: string = "particles/units/heroes/hero_drow/drow_marksmanship.vpcf";
     particle_marksmanship_fx?: ParticleID;    
-    base_projectile: string = "particles/units/heroes/hero_drow/drow_base_attack.vpcf"
+    base_projectile: string = "particles/units/heroes/hero_drow/drow_base_attack.vpcf";
     projectile_frost: string = "particles/units/heroes/hero_drow/drow_frost_arrow.vpcf";
     marksmanship_enabled: boolean = true;
     proc_attack = false;
@@ -177,8 +177,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
 
     DeclareFunctions(): ModifierFunction[]
     {
-        return [ModifierFunction.ON_ATTACK_START,
-                ModifierFunction.ON_ATTACK_RECORD,                  
+        return [ModifierFunction.ON_ATTACK_RECORD,                  
                 ModifierFunction.ON_ATTACK_LANDED,
                 ModifierFunction.ON_ATTACK_RECORD_DESTROY,                
                 ModifierFunction.PROCATTACK_BONUS_DAMAGE_PHYSICAL,                
@@ -208,7 +207,10 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         // Does nothing if the parent is either broken or the ability isn't active
         if (!this.marksmanship_enabled || this.parent.PassivesDisabled()) return;
 
-        // Record the attack with the proc in it        
+        // If the target is a ward or a building, do nothing
+        if (event.target.IsBuilding() || event.target.IsOther()) return;
+
+        // Record the attack with the proc in it
         this.projectile_map.set(event.record, this.proc_attack);     
 
         // Reimagined: Ambush from the Forests: While Marksmanship is active and Drow Ranger did not attack for x seconds, Drow Ranger's next arrow is guaranteed to proc.
@@ -339,7 +341,16 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
 
     FiresMarksmanshipArrow(): boolean
     {
-        // Check if this is going to be a Marksmanship arrow
+        // Check if this is going to be a Marksmanship 
+        const attack_target = this.parent.GetAttackTarget();
+        if (attack_target)
+        {
+            if (attack_target.IsBuilding() || attack_target.IsOther())
+            {
+                return false;
+            }
+        }
+
         if (this.proc_attack && this.marksmanship_enabled && !this.parent.PassivesDisabled())
         {                       
             return true;

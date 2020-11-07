@@ -26,6 +26,13 @@ export class reimagined_drow_ranger_wave_of_silence extends BaseAbility
     wave_chill_freeze_duration?: number;
     tailwind_duration?: number;    
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_drow/drow_silence_wave.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_ancient_apparition/ancient_apparition_cold_feet_frozen.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/drow_ranger/gust_tailwind.vpcf", context);
+    }
+
     OnSpellStart(): void
     {
         // Ability properties

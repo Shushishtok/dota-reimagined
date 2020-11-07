@@ -10,15 +10,13 @@ export class modifier_reimagined_sven_great_cleave_epic_cleave extends BaseModif
 
     // Reimagined specials
     epic_cleave_attacks?: number;
-
     
     IsHidden() {return false}
     IsDebuff() {return false}
     IsPurgable() {return false}
 
     OnCreated()
-    {
-        
+    {        
         this.ability = this.GetAbility()!;
 
         // Reimagined specials

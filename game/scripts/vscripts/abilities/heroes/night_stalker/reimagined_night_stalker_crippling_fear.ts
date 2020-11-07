@@ -17,6 +17,13 @@ export class reimagined_night_stalker_crippling_fear extends BaseAbility
     duration_night?: number;
     radius?: number;    
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_night_stalker/nightstalker_crippling_fear_aura.vpcf" , context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_night_stalker/nightstalker_crippling_fear.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/night_stalker/reimagined_nightstalker_crippling_fear_feared.vpcf", context);                
+    }
+
     OnSpellStart(): void
     {
         // Ability specials

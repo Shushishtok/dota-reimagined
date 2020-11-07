@@ -4,7 +4,6 @@ import { modifier_reimagined_skywrath_mage_talent_7_debuff } from "../../../modi
 import { modifier_reimagined_skywrath_mage_talent_8_buff } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_talent_8_buff"
 import { SkywrathMageTalents } from "./reimagined_skywrath_mage_talents";
 
-
 interface MysticFlareProperties
 {
     position: Vector;
@@ -26,8 +25,8 @@ export class reimagined_skywrath_mage_mystic_flare extends BaseAbility
     sound_scepter = "Hero_SkywrathMage.MysticFlare.Scepter";        
     sound_mystic_flare = "Hero_SkywrathMage.MysticFlare";
     sound_target = "Hero_SkywrathMage.MysticFlare.Target";
-    particle_mystic_flare_ambient = "particles/heroes/skywrath_mage/skywrath_mage_mystic_flare_moving_ambient.vpcf"        
-    particle_hit = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_mystic_flare_ambient_hit.vpcf"
+    particle_mystic_flare_ambient = "particles/heroes/skywrath_mage/skywrath_mage_mystic_flare_moving_ambient.vpcf";
+    particle_hit = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_mystic_flare_ambient_hit.vpcf";
     mystic_flare_map: Map<number, MysticFlareProperties> = new Map();
     mystic_flare_counter = 0;
 
@@ -47,6 +46,12 @@ export class reimagined_skywrath_mage_mystic_flare extends BaseAbility
     flare_divinity_move_speed?: number;
     high_mage_duration_per_int_pct?: number;
     high_mage_max_duration_reduction_pct?: number;
+
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/skywrath_mage_mystic_flare_moving_ambient.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_skywrath_mage/skywrath_mage_mystic_flare_ambient_hit.vpcf", context);        
+    }
 
     GetAOERadius(): number
     {

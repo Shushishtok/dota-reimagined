@@ -90,9 +90,10 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
             can_proc_on_building: false,
             can_proc_on_magic_immune: false,
             can_proc_on_wards: false,
-            can_proc_while_silenced: false
+            can_proc_while_silenced: false,
+            mana_cost: this.ability.GetManaCost(this.ability.GetLevel())
         };
-        const frost_arrow = util.CanOrbEffectBeCast(event, this.ability, orb_data);
+        const frost_arrow = util.CanOrbEffectBeCast(event, this.ability, orb_data);        
 
         // If this was a "cast" command, turn firing arrows state off to prevent continues attacks
         if (this.cast_command)
@@ -273,7 +274,7 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
         if (this.firing_frost_arrows) 
         {
             const target = this.parent.GetAttackTarget();
-            if (target && util.CanOrbBeCastOnTarget(target, false, false, false) && util.CanUserCastOrb(this.parent, this.ability, false, false))
+            if (target && util.CanOrbBeCastOnTarget(target, false, false, false) && util.CanUserCastOrb(this.parent, this.ability, false, false, this.ability.GetManaCost(this.ability.GetLevel())))
             {
                 return true;
             }

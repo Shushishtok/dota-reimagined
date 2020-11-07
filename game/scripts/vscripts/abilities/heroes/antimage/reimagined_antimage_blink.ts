@@ -26,6 +26,13 @@ export class reimagined_antimage_blink extends BaseAbility
     interference_curr_mana_rdct_pct?: number;
     magic_nullity_duration?: number;
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_antimage/antimage_blink_start.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_antimage/antimage_blink_end.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/econ/items/antimage/antimage_weapon_basher_ti5/am_manaburn_basher_ti_5.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/anti_mage/antimage_magic_nullity_shield.vpcf", context);
+    }
 
     OnSpellStart(): void
     {

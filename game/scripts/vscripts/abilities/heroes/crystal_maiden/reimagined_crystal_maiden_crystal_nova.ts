@@ -24,6 +24,15 @@ export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
     // Reimagined specials
     snowstorm_duration?: number;
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_crystalmaiden/maiden_crystal_nova.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/generic_gameplay/generic_slowed_cold.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/crystal_maiden/snowstorm_field.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/crystal_maiden/hailwind_shards.vpcf", context);        
+    }
+
     OnAbilityPhaseStart()
     {
         this.EmitSound(this.sound_precast);

@@ -24,6 +24,11 @@ export class reimagined_antimage_mana_void extends BaseAbility
     purity_of_will_missing_mana_for_instance?: number;
     purity_of_will_max_stun_increased?: number;
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_antimage/antimage_manavoid.vpcf", context);
+    }
+
     OnAbilityPhaseStart(): boolean
     {        
         EmitSoundOn(this.sound_start, this.caster);

@@ -18,7 +18,8 @@ export class GameMode
     last_waiting_talent_num?: number;    
 
     public static Precache(this: void, context: CScriptPrecacheContext) 
-    {                
+    {           
+        print("Precaching sounds");     
         PrecacheResource("soundfile", "soundevents/custom_sounds.vsndevts", context);
     }
 

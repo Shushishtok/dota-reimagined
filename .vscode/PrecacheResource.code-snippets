@@ -1,0 +1,9 @@
+{
+	"Adds a precache line for a particle": {
+		"prefix": "Precache",
+		"body": [
+		  "PrecacheResource(PrecacheType.PARTICLE, $1, context);"
+		],
+		"description": "Adds a precache line for a particle"
+	  }
+}

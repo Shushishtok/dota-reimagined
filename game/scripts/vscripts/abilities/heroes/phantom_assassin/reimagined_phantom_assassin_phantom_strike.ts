@@ -14,13 +14,19 @@ export class reimagined_phantom_assassin_phantom_strike extends BaseAbility
     sound_end: string = "Hero_PhantomAssassin.Strike.End";
     particle_start: string = "particles/units/heroes/hero_phantom_assassin/phantom_assassin_phantom_strike_start.vpcf";    
     particle_start_fx?: ParticleID;
-    particle_end: string = "particles/units/heroes/hero_phantom_assassin/phantom_assassin_phantom_strike_end.vpcf"        
+    particle_end: string = "particles/units/heroes/hero_phantom_assassin/phantom_assassin_phantom_strike_end.vpcf";
 
     // Ability specials
     duration?: number;
     
     // Reimagined speicals
     escape_plan_blur_duration?: number;
+
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_phantom_assassin/phantom_assassin_phantom_strike_start.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_phantom_assassin/phantom_assassin_phantom_strike_end.vpcf", context);
+    }
 
     GetCastRange(location: Vector, target: CDOTA_BaseNPC | undefined): number
     {

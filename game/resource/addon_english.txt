@@ -462,10 +462,10 @@
 		"DOTA_Tooltip_modifier_reimagined_sven_gods_strength_Description"
 		"Base damage increased by %dMODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE%%%, strength increased by %dMODIFIER_PROPERTY_STATS_STRENGTH_BONUS%, and adds %dMODIFIER_PROPERTY_TOOLTIP%%% bonus damage when attacking every %dMODIFIER_PROPERTY_TOOLTIP2% seconds. Gains additional bonus damage when killing enemy units."
 
-		"DOTA_Tooltip_modifier_reimagined_sven_gods_Strength_buff_fish_counter"
+		"DOTA_Tooltip_modifier_reimagined_sven_gods_strength_buff_fish_counter"
 		"Buff Fish Cooldown"
 
-		"DOTA_Tooltip_modifier_reimagined_sven_gods_Strength_buff_fish_counter_Description"
+		"DOTA_Tooltip_modifier_reimagined_sven_gods_strength_buff_fish_counter_Description"
 		"Buff Fish cannot be used while in cooldown."
 
 		// Crystal Maiden

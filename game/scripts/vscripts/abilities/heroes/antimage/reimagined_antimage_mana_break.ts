@@ -20,11 +20,21 @@ export class reimagined_antimage_mana_break extends BaseAbility
     // Ability specials
     energy_blast_radius?: number;
     energy_blast_max_mana_burn?: number;
-    energy_blast_passive_disable_duration?: number;
+    energy_blast_passive_disable_duration?: number;            
 
     GetIntrinsicModifierName(): string
     {
         return modifier_reimagined_antimage_mana_break.name;
+    }
+
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/anti_mage/antimage_energy_blast.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/anti_mage/antimage_mana_burn_hit_energy_blast.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/generic_gameplay/generic_manaburn.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/anti_mage/antimage_mana_cleave.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/anti_mage/antimage_mana_burn_hit.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/anti_mage/antimage_mana_convergence_debuff.vpcf", context);
     }
 
     OnAbilityPhaseStart(): boolean

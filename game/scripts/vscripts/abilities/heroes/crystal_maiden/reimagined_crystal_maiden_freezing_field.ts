@@ -12,6 +12,13 @@ export class reimagined_crystal_maiden_freezing_field extends BaseAbility
     // Ability specials
     max_duration?: number;    
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_crystalmaiden/maiden_freezing_field_snow.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_crystalmaiden/maiden_freezing_field_explosion.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf", context);        
+    }
+
     OnSpellStart(): void
     {
         // Ability specials

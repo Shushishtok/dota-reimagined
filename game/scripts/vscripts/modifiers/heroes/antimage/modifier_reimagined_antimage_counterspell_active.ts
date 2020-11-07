@@ -25,8 +25,7 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
 
     OnCreated(): void
     {
-        // Modifier properties
-        
+        // Modifier properties        
         this.ability = this.GetAbility()!;
 
         // Reimagined specials

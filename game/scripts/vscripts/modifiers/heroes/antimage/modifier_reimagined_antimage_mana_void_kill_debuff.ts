@@ -1,4 +1,4 @@
-import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_ts_adapter";
+import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 
 @registerModifier()
 export class modifier_reimagined_antimage_mana_void_kill_debuff extends BaseModifier

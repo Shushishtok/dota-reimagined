@@ -9,7 +9,6 @@ export class modifier_reimagined_drow_ranger_marksmanship_agility_buff extends B
     parent: CDOTA_BaseNPC = this.GetParent();
     lock: boolean = false;
 
-
     // Modifier specials
     agility_multiplier?: number;
 

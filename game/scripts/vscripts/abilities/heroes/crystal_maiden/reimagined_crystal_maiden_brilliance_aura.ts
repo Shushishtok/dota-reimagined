@@ -1,7 +1,6 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_crystal_maiden_arcane_aura_aura } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_aura";
 import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery"
-import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery"
 import { modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane"
 
 @registerAbility()
@@ -15,6 +14,12 @@ export class reimagined_crystal_maiden_brilliance_aura extends BaseAbility
 
     // Reimagined specials
     focused_arcane_duration?: number;
+
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/crystal_maiden/arcane_aura_focused_arcane_cast.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/crystal_maiden/arcane_aura_focused_arcane_effect.vpcf", context);
+    }
 
     GetIntrinsicModifierName()
     {

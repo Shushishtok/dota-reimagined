@@ -461,15 +461,16 @@ export function IsRoshan(unit: CDOTA_BaseNPC): boolean
 export function CanOrbEffectBeCast(event: ModifierAttackEvent, ability: CDOTABaseAbility, orb_data: OrbData): boolean
 {
     // Assume it's an orb attack unless otherwise stated
-    let orb_attack = true;    
+    let orb_attack = true;        
 
-    orb_attack = CanUserCastOrb(event.attacker, ability, orb_data.can_proc_from_illusions, orb_data.can_proc_while_silenced);
+    orb_attack = CanUserCastOrb(event.attacker, ability, orb_data.can_proc_from_illusions, orb_data.can_proc_while_silenced, orb_data.mana_cost);
+    if (!orb_attack) return false;
+
     orb_attack = CanOrbBeCastOnTarget(event.target, orb_data.can_proc_on_building, orb_data.can_proc_on_wards, orb_data.can_proc_on_magic_immune);
-
     return orb_attack;
 }
 
-export function CanUserCastOrb(user: CDOTA_BaseNPC, ability: CDOTABaseAbility, can_proc_from_illusions: boolean, can_proc_while_silenced: boolean): boolean
+export function CanUserCastOrb(user: CDOTA_BaseNPC, ability: CDOTABaseAbility, can_proc_from_illusions: boolean, can_proc_while_silenced: boolean, mana_cost: number): boolean
 {
     // Illusions cannot proc the orb attacks
     if (!can_proc_from_illusions)
@@ -483,6 +484,9 @@ export function CanUserCastOrb(user: CDOTA_BaseNPC, ability: CDOTABaseAbility, c
         if (user.IsSilenced()) return false;
     }
 
+    // If the caster doesn't have enough mana to cast it, return false    
+    if (user.GetMana() < mana_cost) return false;
+    
     // If the ability can't be cast due to mana or other limitations, can't proc the orb attacks
     if (!ability.IsFullyCastable()) return false;
 

@@ -35,6 +35,14 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
     blank_bolt_duration?: number;
     blank_bolt_damage_pct?: number;
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_skywrath_mage/skywrath_mage_arcane_bolt.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/wrath_bolt.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/blank_bolt.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/blank_bolt_endcap.vpcf", context);        
+    }
+
     OnSpellStart(): void
     {
         // Ability properties

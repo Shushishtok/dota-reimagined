@@ -21,6 +21,14 @@ export class reimagined_sven_great_cleave extends BaseAbility
     overhead_slam_speed?: number;    
     overhead_slam_radius?: number;
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/overhead_slam.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/overhead_slam_hit.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_sven/sven_spell_great_cleave.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/great_cleave_epic_cleave.vpcf", context);        
+    }
+
     GetIntrinsicModifierName(): string
     {
         return modifier_reimagined_sven_great_cleave_passive.name;

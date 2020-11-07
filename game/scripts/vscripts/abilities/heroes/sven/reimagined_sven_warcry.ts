@@ -20,6 +20,13 @@ export class reimagined_sven_warcry extends BaseAbility
     chaaarge_duration_increase?: number;
     heart_valor_current_hp_shield_pct?: number;
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, this.particle_cast, context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_sven/sven_warcry_buff.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/warcry_shield.vpcf", context);
+    }
+
     OnSpellStart(): void
     {
         // Ability specials

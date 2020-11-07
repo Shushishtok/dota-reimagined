@@ -16,6 +16,13 @@ export class reimagined_skywrath_mage_ancient_seal extends BaseAbility
     seal_duration?: number;
     scepter_radius?: number;    
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_skywrath_mage/skywrath_mage_ancient_seal_debuff.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/ancient_seal_buff.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/talent_seal_of_screeauk_pulse.vpcf", context);        
+    }
+
     OnSpellStart(): void
     {
         // Ability properties

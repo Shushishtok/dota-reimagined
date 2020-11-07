@@ -11,9 +11,15 @@ export class reimagined_night_stalker_void extends BaseAbility
     caster: CDOTA_BaseNPC = this.GetCaster();
     sound_cast: string = "Hero_Nightstalker.Void";
     rare_cast_response: string = "night_stalker_nstalk_ability_dark_08";
-    cast_response: string[] = ["night_stalker_nstalk_ability_void_01", "night_stalker_nstalk_ability_void_02", "night_stalker_nstalk_ability_void_03", "night_stalker_nstalk_ability_void_04"];
-    particle: string = "";
-    particle_fx?: ParticleID;
+    cast_response: string[] = ["night_stalker_nstalk_ability_void_01", "night_stalker_nstalk_ability_void_02", "night_stalker_nstalk_ability_void_03", "night_stalker_nstalk_ability_void_04"];    
+    particle_hit: string = "particles/units/heroes/hero_night_stalker/nightstalker_void_hit.vpcf";
+    particle_hit_fx?: ParticleID
+
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_night_stalker/nightstalker_void_hit.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_night_stalker/nightstalker_void.vpcf", context);        
+    }
 
     // Ability specials
     damage?: number;
@@ -145,6 +151,11 @@ export class reimagined_night_stalker_void extends BaseAbility
             ability: this,
             damage_flags: DamageFlag.NONE
         });
+        
+        // Play hit particle effect on target
+        this.particle_hit_fx = ParticleManager.CreateParticle(this.particle_hit, ParticleAttachment.ABSORIGIN_FOLLOW, enemy);
+        ParticleManager.SetParticleControl(this.particle_hit_fx, 0, enemy.GetAbsOrigin());
+        ParticleManager.ReleaseParticleIndex(this.particle_hit_fx);
 
         // Apply stun, if feasible
         if (should_ministun)

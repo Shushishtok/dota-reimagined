@@ -12,6 +12,11 @@ export class reimagined_phantom_assassin_coup_de_grace extends BaseAbility
     // Reimagined specials    
     decisive_strike_duration?: number;
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_phantom_assassin/phantom_assassin_crit_impact.vpcf", context);        
+    }
+
     GetCastAnimation(): GameActivity
     {
         return GameActivity.DOTA_SPAWN;

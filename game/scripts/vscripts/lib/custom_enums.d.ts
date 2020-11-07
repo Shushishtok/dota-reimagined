@@ -23,3 +23,11 @@ declare const enum GenericModifier
     CANNOT_MISS = "modifier_reimagined_cannot_miss",
     DAMAGE_REDUCTION = "modifier_reimagined_damage_penalty"
 }
+
+declare const enum PrecacheType
+{
+    SOUNDFILE = "soundfile",
+    PARTICLE = "particle",
+    PARTICLE_FOLDER = "particle_folder",
+    MODEL = "model"
+}

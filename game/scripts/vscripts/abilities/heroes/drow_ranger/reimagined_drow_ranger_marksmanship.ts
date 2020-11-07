@@ -17,6 +17,15 @@ export class reimagined_drow_ranger_marksmanship extends BaseAbility
     // Reimagined specials
     pride_drow_duration?: number;    
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_drow/drow_marksmanship_start.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_drow/drow_marksmanship.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_drow/drow_base_attack.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_drow/drow_frost_arrow.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/drow_ranger/marksmanship_pride_of_the_drow.vpcf", context);        
+    }
+
     OnAbilityPhaseStart(): boolean
     {
         // Add TI6 activity for cast_ability_2 animation

@@ -24,8 +24,7 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_slow extends BaseMo
 
     OnCreated(): void
     {
-        // Modifier properties
-        
+        // Modifier properties        
         this.ability = this.GetAbility()!;
 
         // Modifier specials

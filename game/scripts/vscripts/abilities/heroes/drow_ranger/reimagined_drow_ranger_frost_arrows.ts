@@ -9,6 +9,16 @@ export class reimagined_drow_ranger_frost_arrows extends BaseAbility
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();        
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/drow_ranger/frost_arrows_cryo_arrowhead.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/status_fx/status_effect_frost.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_drow/drow_marksmanship_start.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_drow/drow_marksmanship.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_drow/drow_base_attack.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_drow/drow_frost_arrow.vpcf", context);
+    }
+
     GetCastRange(): number
     {
         // Scales with the attack range of the parent

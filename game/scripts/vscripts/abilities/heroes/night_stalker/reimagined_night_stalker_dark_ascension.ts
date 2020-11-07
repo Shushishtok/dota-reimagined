@@ -14,6 +14,11 @@ export class reimagined_night_stalker_dark_ascension extends BaseAbility
     // Ability specials
     duration?: number;
 
+    Precache(context: CScriptPrecacheContext)
+    {
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_night_stalker/nightstalker_ulti.vpcf", context);
+    }
+
     // Reimagined: Wings Out: Dark Ascension bonuses are also granted while above a threshold of The Dead Of Night stacks
     GetIntrinsicModifierName(): string
     {
