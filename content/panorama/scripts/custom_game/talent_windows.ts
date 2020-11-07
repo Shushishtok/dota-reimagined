@@ -116,7 +116,7 @@ class RmgTalentWindow
     }
 
     OnHudButtonClick()
-    {
+    {        
         this.ToggleTalentWindow();
     }
 
@@ -651,8 +651,77 @@ class RmgTalentWindow
     }
 
     ConfigureTalentHotkey()
+    {     
+        const talentHotkey = Game.GetKeybindForCommand(DOTAKeybindCommand_t.DOTA_KEYBIND_LEARN_STATS);
+        Game.CreateCustomKeyBind(talentHotkey, "AttributeHotkey");
+        Game.AddCommand("AttributeHotkey", () => this.OnHudButtonClick(), "", 0);
+
+        //Enable focus for talent window children (this is to allow catching of Escape button)
+        const panel2 = this.contextPanel;        
+        this.RecurseEnableFocus(panel2);        
+
+        $.RegisterKeyBind(panel2, "key_escape", () =>
+        {
+            if(this.isTalentWindowCurrentlyOpen)
+            {
+        		this.ToggleTalentWindow();
+        	}
+        });       
+
+        GameUI.SetMouseCallback((event: MouseEvent, value: 0 | 1 | 2 | 3 | 4 | 5 | 6 | -1) => this.SetMouseCallback(event, value));        
+
+        
+
+        //     var talentWindow = $.GetContextPanel();
+        //     if(talentWindow.BHasClass("show_talent_window") && GameUI.GetClickBehaviors() == CLICK_BEHAVIORS.DOTA_CLICK_BEHAVIOR_NONE){
+    
+        //         if ( eventName == "pressed" ){
+        //             //No matter what button is pressed, if it is outside the bounds of talent window, close the window
+        //             var cursorPos = GameUI.GetCursorPosition();
+        //             if(cursorPos[0] < talentWindow.actualxoffset ||
+        //                 (talentWindow.actualxoffset + talentWindow.contentwidth) < cursorPos[0] ||
+        //                 cursorPos[1] < talentWindow.actualyoffset ||
+        //                 (talentWindow.actualyoffset + talentWindow.contentheight) < cursorPos[1]){
+    
+        //                 OpenImbaTalentWindow(false);
+        //             }
+        //         }
+        //     }
+    
+        //     //Do not consume event
+        //     return false;
+        // });
+    }
+
+    SetMouseCallback(event: MouseEvent, value: 0 | 1 | 2 | 3 | 4 | 5 | 6 | -1): boolean
     {
-        Game.AddCommand("+ToggleTalent", () => this.OnHudButtonClick(), "", 0);
+        if (this.isTalentWindowCurrentlyOpen && GameUI.GetClickBehaviors() == CLICK_BEHAVIORS.DOTA_CLICK_BEHAVIOR_NONE)
+        {
+            if (event == "pressed")
+            {
+                const cursorPos = GameUI.GetCursorPosition();
+                if (cursorPos[0] < this.talentWindow.actualxoffset ||
+                    this.talentWindow.actualxoffset + this.talentWindow.contentwidth < cursorPos[0] ||
+                    cursorPos[1] < this.talentWindow.actualyoffset ||
+                    this.talentWindow.actualyoffset + this.talentWindow.contentheight < cursorPos[1])
+                {
+                    this.ToggleTalentWindow();
+                }
+            }
+        }
+
+        return false;
+    }
+
+    RecurseEnableFocus(panel: Panel)
+    {
+        panel.SetAcceptsFocus(true);
+        const children = panel.Children();
+        
+        children.forEach(child => 
+        {
+            this.RecurseEnableFocus(child);    
+        });
     }
 }
 
