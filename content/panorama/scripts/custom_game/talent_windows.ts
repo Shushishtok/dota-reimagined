@@ -656,11 +656,10 @@ class RmgTalentWindow
         Game.CreateCustomKeyBind(talentHotkey, "AttributeHotkey");
         Game.AddCommand("AttributeHotkey", () => this.OnHudButtonClick(), "", 0);
 
-        //Enable focus for talent window children (this is to allow catching of Escape button)
-        const panel2 = this.contextPanel;        
-        this.RecurseEnableFocus(panel2);        
+        //Enable focus for talent window children (this is to allow catching of Escape button)        
+        this.RecurseEnableFocus(this.contextPanel);        
 
-        $.RegisterKeyBind(panel2, "key_escape", () =>
+        $.RegisterKeyBind(this.contextPanel, "key_escape", () =>
         {
             if(this.isTalentWindowCurrentlyOpen)
             {
@@ -668,29 +667,8 @@ class RmgTalentWindow
         	}
         });       
 
+        // Allow mouse clicks outside the talent window to close it.
         GameUI.SetMouseCallback((event: MouseEvent, value: 0 | 1 | 2 | 3 | 4 | 5 | 6 | -1) => this.SetMouseCallback(event, value));        
-
-        
-
-        //     var talentWindow = $.GetContextPanel();
-        //     if(talentWindow.BHasClass("show_talent_window") && GameUI.GetClickBehaviors() == CLICK_BEHAVIORS.DOTA_CLICK_BEHAVIOR_NONE){
-    
-        //         if ( eventName == "pressed" ){
-        //             //No matter what button is pressed, if it is outside the bounds of talent window, close the window
-        //             var cursorPos = GameUI.GetCursorPosition();
-        //             if(cursorPos[0] < talentWindow.actualxoffset ||
-        //                 (talentWindow.actualxoffset + talentWindow.contentwidth) < cursorPos[0] ||
-        //                 cursorPos[1] < talentWindow.actualyoffset ||
-        //                 (talentWindow.actualyoffset + talentWindow.contentheight) < cursorPos[1]){
-    
-        //                 OpenImbaTalentWindow(false);
-        //             }
-        //         }
-        //     }
-    
-        //     //Do not consume event
-        //     return false;
-        // });
     }
 
     SetMouseCallback(event: MouseEvent, value: 0 | 1 | 2 | 3 | 4 | 5 | 6 | -1): boolean
