@@ -19,8 +19,7 @@ export class modifier_reimagined_antimage_mana_break_mana_convergence_counter ex
 
     OnCreated(): void
     {
-        // Modifier properties
-        
+        // Modifier properties        
         this.ability = this.GetAbility()!;
 
         // Modifier specials
@@ -29,7 +28,9 @@ export class modifier_reimagined_antimage_mana_break_mana_convergence_counter ex
     }
 
     OnStackCountChanged(): void
-    {
+    {   
+        if (!IsServer()) return;
+
         // Check if stacks are currently on the threshold
         if (this.GetStackCount() >= this.mana_convergence_hit_threshold!)
         {

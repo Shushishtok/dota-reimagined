@@ -176,8 +176,7 @@ export class reimagined_drow_ranger_wave_of_silence extends BaseAbility
     }
 
     ReimaginedWaveChill(distance: number, target: CDOTA_BaseNPC)
-    {
-        print(distance, this.wave_chill_range)
+    {        
         // If distance is below the minimum, freeze the target!
         if (distance <= this.wave_chill_range!)
         {            

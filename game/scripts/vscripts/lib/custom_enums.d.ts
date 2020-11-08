@@ -31,3 +31,11 @@ declare const enum PrecacheType
     PARTICLE_FOLDER = "particle_folder",
     MODEL = "model"
 }
+
+declare const enum TalentStatus
+{
+    LEARNED = 0,
+    NOT_LEARNED = 1,
+    UNLEARNABLE = 2,
+    CAN_BE_LEARNED = 3
+}

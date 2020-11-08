@@ -16,6 +16,7 @@ export class GameMode
 {
     Game: CDOTABaseGameMode = GameRules.GetGameModeEntity();
     last_waiting_talent_num?: number;    
+    talent_ping_map: Map<PlayerID, number> = new Map();
 
     public static Precache(this: void, context: CScriptPrecacheContext) 
     {           
@@ -48,6 +49,7 @@ export class GameMode
         ListenToGameEvent("player_chat", event => this.OnPlayerChat(event), undefined);
         CustomGameEventManager.RegisterListener("learn_talent_event", (_, event) => this.OnLearnTalent(event, 0));
         CustomGameEventManager.RegisterListener("send_currently_selected_unit", (_,event) => this.OnSentCurrentlySelectedUnit(event))
+        CustomGameEventManager.RegisterListener("ping_talent", (_,event) => this.OnPingTalent(event))        
     }
 
     RmgGameRules()
@@ -99,6 +101,7 @@ export class GameMode
         );
         
         this.Game.SetUseCustomHeroLevels(true);
+        this.Game.SetCustomDireScore(0);
     }
 
     private OnLearnTalent(event: {ability: EntityIndex; PlayerID: PlayerID}, learned_by_force: 0 | 1)    
@@ -106,7 +109,7 @@ export class GameMode
         const ability_handle = EntIndexToHScript(event.ability) as CDOTABaseAbility;
         const caster = (ability_handle.GetCaster() as CDOTA_BaseNPC_Hero)
         const player = PlayerResource.GetPlayer(event.PlayerID)!;           
-
+        
         // Serverside verification check. Networking 101: don't trust your client
         // If ability was already leveled, do nothing.        
         if (ability_handle.GetLevel() > 0) return;
@@ -139,8 +142,7 @@ export class GameMode
             
             // Add talent that was legitimately leveled to the set        
             caster.talents_learned.add(ability_handle);
-
-            print(talent_num, learned_by_force);
+            
             // Send confirmation event to the client        
             CustomGameEventManager.Send_ServerToPlayer(player, "confirm_talent_learned", {talent_num: talent_num, learned_by_force: learned_by_force})
         }
@@ -274,4 +276,83 @@ export class GameMode
             }
         }
     }
+
+    OnPingTalent(event: {ability: EntityIndex, status: TalentStatus, PlayerID: PlayerID}): void
+    {
+        // Get information
+        const ability_handle = EntIndexToHScript(event.ability) as CDOTABaseAbility;
+        const caster = ability_handle.GetCaster() as CDOTA_BaseNPC_Hero;
+        const player = PlayerResource.GetPlayer(event.PlayerID)!;
+
+        // Validation
+        if (!IsValidEntity(ability_handle)) return;
+
+        // Spam prevention
+        if (this.talent_ping_map.has(event.PlayerID))
+        {
+            let spam_times = this.talent_ping_map.get(event.PlayerID)!;
+            if (spam_times >= 3)
+            {
+                return;
+            }
+            else
+            {
+                spam_times++;
+                this.talent_ping_map.set(event.PlayerID, spam_times);
+                if (spam_times >= 3)
+                {
+                    Timers.CreateTimer(3, () => 
+                    {
+                        this.talent_ping_map.set(event.PlayerID, 0);
+                    })
+                }
+            }
+        }
+        else
+        {
+            this.talent_ping_map.set(event.PlayerID, 1);
+        }
+
+        // Make the text based on the type of the ability form
+        const ability_name = ability_handle.GetAbilityName();
+        let talent_status_string;
+        switch (event.status) 
+        {
+            case TalentStatus.LEARNED:
+                talent_status_string = "#DOTA_Reimagined_Talent_Learned";
+                break;
+
+            case TalentStatus.CAN_BE_LEARNED:
+                talent_status_string = "#DOTA_Reimagined_Talent_Can_Be_Learned";
+                break;
+
+            case TalentStatus.NOT_LEARNED:
+                talent_status_string = "#DOTA_Reimagined_Talent_Not_Learned";
+                break;
+
+            case TalentStatus.UNLEARNABLE:
+                talent_status_string = "#DOTA_Reimagined_Talent_Cannot_Be_Learned";
+                break;
+            default:
+                break;
+        }
+        
+        // In the custom chat message event, everything in "%%x%%" will be localized clientside
+        let text = "";        
+        if (caster != player.GetAssignedHero())
+        {
+            if (caster.GetTeamNumber() != player.GetTeamNumber())
+            {
+                text = "%%#DOTA_Reimagined_Talent_Ping_Enemy%% " + "%%" + caster.GetUnitName() + "%%" + "'s talent ";
+            }
+            else
+            {
+                text = "%%#DOTA_Reimagined_Talent_Ping_Ally%% " + "%%" + caster.GetUnitName() + "%%" + "'s talent ";
+            }
+        }
+        
+        // Form the final text and send
+        text += "%%#DOTA_Tooltip_Ability_" + ability_name + "%% " + '<img src="file://{images}/control_icons/chat_wheel_icon.png" style="margin-top: 4px; width:10px;height:10px" width="10" height="10" > ' + " %%" + talent_status_string + "%%";        
+        CustomGameEventManager.Send_ServerToTeam(player.GetTeamNumber(), "custom_chat_message", {textData: text, playerID: event.PlayerID, isTeam: true, ability_name: ability_name});
+    }    
 }

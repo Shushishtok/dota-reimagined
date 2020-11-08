@@ -3,6 +3,7 @@ import { modifier_reimagined_antimage_mana_break_mana_convergence_counter } from
 import { modifier_reimagined_antimage_mana_break_disable } from "./modifier_reimagined_antimage_mana_break_disable"
 import { modifier_reimagined_antimage_mana_convergence_debuff } from "./modifier_reimagined_antimage_mana_convergence_debuff"
 import * as util  from "../../../lib/util"
+import { AntiMageTalents } from "../../../abilities/heroes/antimage/reimagined_antimage_talents";
 
 @registerModifier()
 export class modifier_reimagined_antimage_mana_break extends BaseModifier
@@ -64,6 +65,7 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
     DeclareFunctions(): ModifierFunction[]
     {
         return [ModifierFunction.PROCATTACK_BONUS_DAMAGE_PHYSICAL,
+                ModifierFunction.PROCATTACK_BONUS_DAMAGE_PURE, // Talent 2
                 ModifierFunction.ON_ATTACK_LANDED]
     }
 
@@ -124,6 +126,23 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
         ParticleManager.ReleaseParticleIndex(this.particle_mana_break_fx);
 
         return damage;
+    }
+
+    GetModifierProcAttack_BonusDamage_Pure(event: ModifierAttackEvent): number
+    {
+        // Talent: Flowing Void: Mana Break now deals pure damage to the target equals to x% of the total mana burn if the target has no mana left after Mana Break's effect.
+        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_2))
+        {
+            const talent_2_pure_dmg_pct = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_2, "pure_dmg_pct");            
+            if (event.target.GetMana() == 0)
+            {               
+                const pure_damage = (this.mana_per_hit! + this.mana_per_hit_pct! * event.target.GetMaxMana() * 0.01) * talent_2_pure_dmg_pct * 0.01;                
+                SendOverheadEventMessage(undefined, OverheadAlert.DAMAGE, event.target, pure_damage, undefined);
+                return pure_damage;
+            }
+        }
+
+        return 0;
     }
 
     OnAttackLanded(event: ModifierAttackEvent): void

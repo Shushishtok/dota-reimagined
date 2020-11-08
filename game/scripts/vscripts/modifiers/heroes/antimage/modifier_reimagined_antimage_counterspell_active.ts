@@ -1,4 +1,6 @@
+import { AntiMageTalents } from "../../../abilities/heroes/antimage/reimagined_antimage_talents";
 import { BaseModifier, registerModifier} from "../../../lib/dota_ts_adapter";
+import "./modifier_reimagined_antimage_talent_6_buff"
 import * as util from "../../../lib/util";
 
 @registerModifier()
@@ -75,6 +77,27 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
         // Play reflect sound
         EmitSoundOn(this.sound_reflect, event.ability.GetCaster());
 
+        // Talent: Magic Cannot Harm Me!: Magic resistance increases by x% for each enemy unit target spell that was cast at Anti Mage. Lasts y seconds. Stacks and refreshes itself.                
+        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_6))
+        {            
+            const duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_6, "duration");            
+            let talent_modifier;
+            if (!this.caster.HasModifier("modifier_reimagined_antimage_talent_6_buff"))
+            {                
+                talent_modifier = this.caster.AddNewModifier(this.caster, this.ability, "modifier_reimagined_antimage_talent_6_buff", {duration: duration});                
+            }
+            else
+            {                
+                talent_modifier = this.caster.FindModifierByName("modifier_reimagined_antimage_talent_6_buff");
+            }
+            
+            if (talent_modifier)
+            {                
+                talent_modifier.IncrementStackCount();
+                talent_modifier.ForceRefresh();
+            }
+        }
+
         // Reimagined: The Magic Ends Here: Burns a flat amount of mana of the original casters of reflected spells.
         this.ReimaginedTheMagicEndsHere(event.ability.GetCaster());
 
@@ -87,6 +110,12 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
     ReimaginedTheMagicEndsHere(original_caster: CDOTA_BaseNPC): void
     {
         original_caster.ReduceMana(this.magic_ends_mana_burn!);
+
+        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_5))
+        {
+            const silence_duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_5, "silence_duration");
+            original_caster.AddNewModifier(this.caster, this.ability, BuiltInModifier.SILENCE, {duration: silence_duration});
+        }
     }
 
     ReimaginedAntiMagicShell(): void

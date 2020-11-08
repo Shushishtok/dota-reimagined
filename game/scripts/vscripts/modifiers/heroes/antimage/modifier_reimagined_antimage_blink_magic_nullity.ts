@@ -1,4 +1,6 @@
+import { AntiMageTalents } from "../../../abilities/heroes/antimage/reimagined_antimage_talents";
 import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_ts_adapter";
+import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 
 @registerModifier()
 export class modifier_reimagined_antimage_blink_magic_nullity extends BaseModifier
@@ -34,11 +36,29 @@ export class modifier_reimagined_antimage_blink_magic_nullity extends BaseModifi
 
     DeclareFunctions(): ModifierFunction[]
     {
-        return [ModifierFunction.MAGICAL_RESISTANCE_BONUS]
+        return [ModifierFunction.MAGICAL_RESISTANCE_BONUS,
+                ModifierFunction.STATUS_RESISTANCE_STACKING] // Talent 3
     }
 
     GetModifierMagicalResistanceBonus(): number
     {
+        // Talent: Nullifier of Magic: Magic Nullity now increases your magic resistance to x% and status resistance by z% for the duration.
+        if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_3))
+        {
+            return GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_3, "magic_resist");
+        }
+
         return this.magic_nullity_magic_res!;
+    }
+
+    GetModifierStatusResistanceStacking(): number
+    {
+        // Talent: Nullifier of Magic: Magic Nullity now increases your magic resistance to x% and status resistance by z% for the duration.
+        if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_3))
+        {
+            return GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_3, "status_resist");
+        }
+
+        return 0;
     }
 }

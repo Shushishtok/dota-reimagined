@@ -168,7 +168,7 @@
 			"06"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"magic_nullity_duration"	"2"				
+				"magic_nullity_duration"	"3"				
 			}
 		}		
 	}
@@ -344,4 +344,196 @@
 			}
 		}
 	}
+
+	//=================================================================================================================
+	// Anti Mage: Talent: Feedback Pulse: Energy Blast now triggers a total of x quick waves y seconds one after another. All waves after the initial wave only deal and burns z the amount.
+	//=================================================================================================================
+	"reimagined_antimage_talent_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"												
+		"ScriptFile"				    "abilities/heroes/antimage/reimagined_antimage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"antimage_mana_break"				
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"total_waves"			"5"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"wave_interval"			"0.3"
+			}
+
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"mana_burn_pct_wave"	"25"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Anti Mage: Talent: Flowing Void: Mana Break now deals pure damage to the target equals to x% of the total mana burn if the target has no mana left after Mana Break's effect.
+	//=================================================================================================================
+	"reimagined_antimage_talent_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"												
+		"ScriptFile"				    "abilities/heroes/antimage/reimagined_antimage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"antimage_mana_break"				
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"pure_dmg_pct"			"75"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Anti Mage: Talent: Nullifier of Magic: Magic Nullity now increases your magic resistance to x% and status resistance by z% for the duration.
+	//=================================================================================================================
+	"reimagined_antimage_talent_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"												
+		"ScriptFile"				    "abilities/heroes/antimage/reimagined_antimage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"antimage_blink"				
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"magic_resist"			"100"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"status_resist"			"25"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Anti Mage: Talent: Overblink: Blink can now be set to auto cast. Triples Blink's max range, but causes Anti Mage to be stunned for up to y seconds after blinking. Scales by z for each x units above the regular cast range.
+	//=================================================================================================================
+	"reimagined_antimage_talent_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"												
+		"ScriptFile"				    "abilities/heroes/antimage/reimagined_antimage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"antimage_blink"				
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_stun"				"3"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"cast_range_increase"	"3"
+			}
+
+			"03"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"stun_per_units"		"0.25"
+			}
+
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"units_interval"		"100"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Anti Mage: Talent: Abolish Magic: Counterspell's The Magic Ends Here now also silences the caster for x seconds after reflecting a spell towards it.
+	//=================================================================================================================
+	"reimagined_antimage_talent_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"												
+		"ScriptFile"				    "abilities/heroes/antimage/reimagined_antimage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"antimage_counterspell"				
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"silence_duration"		"1.75"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Anti Mage: Talent: Magic Cannot Harm Me!: Magic resistance increases by x% for each enemy unit target spell that was cast at Anti Mage. Lasts y seconds. Stacks and refreshes itself.
+	//=================================================================================================================
+	"reimagined_antimage_talent_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"												
+		"ScriptFile"				    "abilities/heroes/antimage/reimagined_antimage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"antimage_counterspell"				
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"duration"				"8"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"magic_resist_stack"	"10"
+			}
+		}
+	}	
 }

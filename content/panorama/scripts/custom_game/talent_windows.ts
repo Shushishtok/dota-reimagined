@@ -9,6 +9,15 @@ interface CustomGameEventDeclarations
     confirm_talent_learned: {talent_num: number, learned_by_force: 0 | 1};
     request_currently_selected_unit: {};
     send_currently_selected_unit: {unit: EntityIndex}
+    ping_talent: {ability: EntityIndex, status: TalentStatus}
+}
+
+enum TalentStatus
+{
+    LEARNED = 0,
+    NOT_LEARNED = 1,
+    UNLEARNABLE = 2,
+    CAN_BE_LEARNED = 3
 }
 
 class RmgTalentWindow
@@ -21,7 +30,8 @@ class RmgTalentWindow
     talentsRows = 4;
     talentsLevelPerRow = 10;
     talentMap: Map<DOTAAbilityImage, AbilityEntityIndex> = new Map();    
-    currentlyPickedRowsSet: Set<number> = new Set();
+    currentlyPickedRowsSet: Set<number> = new Set();    
+    talentSetMap: Map<EntityIndex, AbilityEntityIndex[]> = new Map();
 
     // Panels
     contextPanel: Panel;
@@ -54,6 +64,14 @@ class RmgTalentWindow
         this.InitializeHeroTalents();
         this.ConfigureTalentAbilityButtons();
         this.ConfigureTalentHotkey();
+    }
+
+    intToARGB(i: number): string 
+    { 
+        return ('00' + ( i & 0xFF).toString( 16 ) ).substr( -2 ) +
+                ('00' + ( ( i >> 8 ) & 0xFF ).toString( 16 ) ).substr( -2 ) +
+                ('00' + ( ( i >> 16 ) & 0xFF ).toString( 16 ) ).substr( -2 ) + 
+                ('00' + ( ( i >> 24 ) & 0xFF ).toString( 16 ) ).substr( -2 );
     }
 
     AddRmgHudTalentButton()
@@ -141,14 +159,14 @@ class RmgTalentWindow
 
     CloseTalentWindow_UnitDeselected()
     {        
-        const unitIDPortrait = Players.GetLocalPlayerPortraitUnit();
+        const unitIDPortrait = Players.GetLocalPlayerPortraitUnit();        
 
         if (this.isTalentWindowCurrentlyOpen)
         {
             // If this is another hero, then refill the talent window without closing it
             if (Entities.IsHero(unitIDPortrait))
-            {
-                this.GetHeroTalents();                                
+            {                
+                this.GetHeroTalents();        
             }
             else // Close the window
             {
@@ -182,27 +200,43 @@ class RmgTalentWindow
         // Delete the current talents, if any
         this.talentMap.clear();        
 
-        // Count how many abilities this unit actually has
-        let abilityCount = 0;
-        for (let index = 0; index < Entities.GetAbilityCount(this.currentlySelectedUnitID!); index++) 
+        if (!this.talentSetMap.has(this.currentlySelectedUnitID))
         {
-            const ability = Entities.GetAbility(this.currentlySelectedUnitID!, index);
-            if (Entities.IsValidEntity(ability)) abilityCount++;
-            else break;                
-        }                
-        
+            // Count how many abilities this unit actually has
+            let abilityCount = 0;
+            for (let index = 0; index < Entities.GetAbilityCount(this.currentlySelectedUnitID!); index++) 
+            {
+                const ability = Entities.GetAbility(this.currentlySelectedUnitID!, index);
+                if (Entities.IsValidEntity(ability)) abilityCount++;
+                else break;                
+            }
+
+            // Assign the last abilities to the array
+            let abilitySet: AbilityEntityIndex[] = [];
+            let ability;
+            for (let index = 0; index < this.talentsCount; index++) 
+            {
+                const abilityIndex = abilityCount - this.talentsCount + index;                                           
+                ability = Entities.GetAbility(this.currentlySelectedUnitID!, abilityIndex);                
+                abilitySet[index] = ability;
+            }
+
+            this.talentSetMap.set(this.currentlySelectedUnitID, abilitySet);
+        }           
+
         // Find all talents abilities
-        let ability;
+        const abilitySet = this.talentSetMap.get(this.currentlySelectedUnitID)!;
+        
         let rowNum = 1;
+        let ability;
         for (let index = 1; index <= this.talentsCount; index++) 
         {                
             // Get talent button
             const talentIDString: string = "#" + this.abilityTalentButtonID + (index);
             const talentButton: DOTAAbilityImage = $(talentIDString) as DOTAAbilityImage;                
 
-            // Get amount of abilities that this hero has - talents would always be his last abilities                
-            const abilityIndex = abilityCount - this.talentsCount + index - 1;                           
-            ability = Entities.GetAbility(this.currentlySelectedUnitID!, abilityIndex);                                            
+            // Get amount of abilities that this hero has - talents would always be his last abilities                            
+            ability = abilitySet[index - 1];
             
             // Map the button to the ability
             this.talentMap.set(talentButton, ability);
@@ -379,15 +413,42 @@ class RmgTalentWindow
     }
 
     LearnTalent(button: DOTAAbilityImage)
-    {
+    {   
         // Get the ability mapped to the button
         if (this.talentMap.has(button))
         {
-            const ability = this.talentMap.get(button)!;
+            const ability = this.talentMap.get(button)!;   
             if (this.CanTalentBeLearned(ability))
             {
-                // Send event to server to apply the talent                
-                GameEvents.SendCustomGameEventToServer("learn_talent_event", {ability: ability});                
+                if (GameUI.IsAltDown())
+                {
+                    // Ping talent
+                    GameEvents.SendCustomGameEventToServer("ping_talent", {ability: ability, status: TalentStatus.CAN_BE_LEARNED});
+                }
+                else
+                {
+                    // Send event to server to apply the talent                
+                    GameEvents.SendCustomGameEventToServer("learn_talent_event", {ability: ability});                
+                }
+            }
+            else
+            {
+                // Pinging the talent
+                if (GameUI.IsAltDown())
+                {
+                    if (Abilities.GetLevel(ability) > 0)
+                    {
+                        GameEvents.SendCustomGameEventToServer("ping_talent", {ability: ability,status: TalentStatus.LEARNED});
+                    }
+                    else if (Abilities.GetLevel(this.talentMap.get(this.GetSecondaryAbilityInRow(ability)!)!) > 0)
+                    {
+                        GameEvents.SendCustomGameEventToServer("ping_talent", {ability: ability, status: TalentStatus.UNLEARNABLE});
+                    }
+                    else
+                    {
+                        GameEvents.SendCustomGameEventToServer("ping_talent", {ability: ability, status: TalentStatus.NOT_LEARNED});
+                    }
+                }
             }
         }
     }
@@ -545,13 +606,15 @@ class RmgTalentWindow
     {
         const ability_name = button.abilityname;
 
-        let title = $.Localize("DOTA_Tooltip_ability_" + ability_name, button);                
+        let title = $.Localize("DOTA_Tooltip_ability_" + ability_name, button);                        
         if (title === "DOTA_Tooltip_ability_" + ability_name)
         {
             title = "";
         }
         else
         {
+            title = title.replace("[!s:value]%", "%value%%%");
+            title = title.replace("[!s:value]", "%value%");
             title = GameUI.ReplaceDOTAAbilitySpecialValues(ability_name, title)!;
         }
         return title;
@@ -568,6 +631,8 @@ class RmgTalentWindow
         }
         else
         {
+            description = description.replace("[!s:value]%", "%value%%%");
+            description = description.replace("[!s:value]", "%value%");
             description = GameUI.ReplaceDOTAAbilitySpecialValues(ability_name, description)!;
         }
 
@@ -668,22 +733,30 @@ class RmgTalentWindow
         });       
 
         // Allow mouse clicks outside the talent window to close it.
-        GameUI.SetMouseCallback((event: MouseEvent, value: 0 | 1 | 2 | 3 | 4 | 5 | 6 | -1) => this.SetMouseCallback(event, value));        
+        GameUI.SetMouseCallback((event: MouseEvent, value: MouseButton | MouseScrollDirection) => this.SetMouseCallback(event, value));        
     }
 
-    SetMouseCallback(event: MouseEvent, value: 0 | 1 | 2 | 3 | 4 | 5 | 6 | -1): boolean
-    {
-        if (this.isTalentWindowCurrentlyOpen && GameUI.GetClickBehaviors() == CLICK_BEHAVIORS.DOTA_CLICK_BEHAVIOR_NONE)
+    SetMouseCallback(event: MouseEvent, value: MouseButton | MouseScrollDirection): boolean
+    {        
+        if (this.isTalentWindowCurrentlyOpen && value == CLICK_BEHAVIORS.DOTA_CLICK_BEHAVIOR_NONE)
         {
             if (event == "pressed")
             {
-                const cursorPos = GameUI.GetCursorPosition();
+                const cursorPos = GameUI.GetCursorPosition();                
                 if (cursorPos[0] < this.talentWindow.actualxoffset ||
                     this.talentWindow.actualxoffset + this.talentWindow.contentwidth < cursorPos[0] ||
                     cursorPos[1] < this.talentWindow.actualyoffset ||
                     this.talentWindow.actualyoffset + this.talentWindow.contentheight < cursorPos[1])
                 {
-                    this.ToggleTalentWindow();
+                    const currentUnit = this.currentlySelectedUnitID;
+                    $.Schedule(0, () => 
+                    {
+                        // Only close the window if we didn't change the selection of units
+                        if (Players.GetLocalPlayerPortraitUnit() == currentUnit)
+                        {
+                            this.ToggleTalentWindow();
+                        }
+                    })
                 }
             }
         }
@@ -700,6 +773,18 @@ class RmgTalentWindow
         {
             this.RecurseEnableFocus(child);    
         });
+    }    
+
+    FindDotaHudElement(): Panel
+    {
+        const contextPanel = this.contextPanel;
+        let currentPanel = contextPanel;
+        while (currentPanel.id !== "DotaHud")
+        {
+            currentPanel = currentPanel.GetParent()!;
+        }
+        
+        return currentPanel;
     }
 }
 
