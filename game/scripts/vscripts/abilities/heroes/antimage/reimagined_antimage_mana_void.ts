@@ -1,5 +1,7 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
+import { GetTalentAbilityFromNumber, GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 import { modifier_reimagined_antimage_mana_void_kill_debuff } from "../../../modifiers/heroes/antimage/modifier_reimagined_antimage_mana_void_kill_debuff";
+import { AntiMageTalents } from "./reimagined_antimage_talents";
 
 @registerAbility()
 export class reimagined_antimage_mana_void extends BaseAbility
@@ -48,7 +50,7 @@ export class reimagined_antimage_mana_void extends BaseAbility
     OnSpellStart(): void
     {
         // Ability properties
-        const target = this.GetCursorTarget();
+        const target = this.GetCursorTarget()!;
 
         // Ability specials
         this.mana_void_damage_per_mana = this.GetSpecialValueFor("mana_void_damage_per_mana");
@@ -119,12 +121,15 @@ export class reimagined_antimage_mana_void extends BaseAbility
 
         // Calculate damage
         let damage = this.CalculateDamage(mana_calculation_target);
+        
+        // Talent: Violent Circuits: Mana Void adds x% of the main target's max mana to the damage calculation.        
+        damage += this.ReimaginedTalentViolentCircuits(target);                
 
         // Deal damage to all targets in the AoE
         for (const enemy of enemies) 
         {
             this.DealDamageToEnemy(enemy, damage);
-        }        
+        }
     }
 
     ReimaginedCalculatedCombustion(enemies: CDOTA_BaseNPC[]): CDOTA_BaseNPC
@@ -154,14 +159,19 @@ export class reimagined_antimage_mana_void extends BaseAbility
 
     ReimaginedVoidFeedback(target: CDOTA_BaseNPC, damage: number): number
     {
+        let actual_damage = damage;        
         // Check for mana percentage threshold
+        print(target.GetManaPercent(), actual_damage);
         if (target.GetManaPercent() <= this.void_feedback_mana_threshold_pct!)
         {
             // Multiply damage
-            damage = damage * this.void_feedback_damage_multiplier!;
+            actual_damage = actual_damage * this.void_feedback_damage_multiplier!;                        
+
+            // Talent: Void of Emptyness: Void Feedback now deals x times the damage when the target has less than x% of its max mana. Overrides Void Feedback's damage.
+            actual_damage = math.max(this.ReimaginedTalentVoidOfEmptiness(target, damage), actual_damage);            
         }
 
-        return damage;
+        return actual_damage;
     }
 
     DealDamageToEnemy(enemy: CDOTA_BaseNPC, damage: number): void
@@ -217,7 +227,37 @@ export class reimagined_antimage_mana_void extends BaseAbility
 
         const damage = this.CalculateDamage(target);
         this.DealDamageToEnemy(target, damage);
+    }
 
-        
+    ReimaginedTalentVoidOfEmptiness(target: CDOTA_BaseNPC, damage: number): number
+    {
+        if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_7))
+        {
+            const mana_threshold = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_7, "mana_threshold");
+            const multiplier = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_7, "multiplier");
+
+            if (target.GetManaPercent() <= mana_threshold)
+            {
+                damage = damage * multiplier;
+            }
+        }
+
+        return damage;
+    }
+
+    ReimaginedTalentViolentCircuits(target: CDOTA_BaseNPC): number
+    {
+        let bonus_damage = 0;
+
+        if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_8))
+        {
+            if (target.GetMaxMana() > 0)
+            {
+                const max_mana_pct = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_8, "max_mana_pct");
+                bonus_damage = target.GetMaxMana() * max_mana_pct * 0.01;
+            }
+        }
+
+        return bonus_damage;
     }
 }

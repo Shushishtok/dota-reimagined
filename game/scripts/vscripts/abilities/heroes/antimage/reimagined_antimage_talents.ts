@@ -29,3 +29,9 @@ export class reimagined_antimage_talent_5 extends BaseTalent {}
 
 @registerTalent()
 export class reimagined_antimage_talent_6 extends BaseTalent {}
+
+@registerTalent()
+export class reimagined_antimage_talent_7 extends BaseTalent {}
+
+@registerTalent()
+export class reimagined_antimage_talent_8 extends BaseTalent {}

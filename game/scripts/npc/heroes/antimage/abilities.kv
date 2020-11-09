@@ -536,4 +536,60 @@
 			}
 		}
 	}	
+
+	//=================================================================================================================
+	// Anti Mage: Talent: Void of Emptyness: Void Feedback now deals x times the damage when the target has less than x% of its max mana. Overrides Void Feedback's damage.
+	//=================================================================================================================
+	"reimagined_antimage_talent_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"												
+		"ScriptFile"				    "abilities/heroes/antimage/reimagined_antimage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"antimage_mana_void"				
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"mana_threshold"		"5"
+			}	
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"multiplier"			"4"
+			}	
+		}				
+	}	
+
+	//=================================================================================================================
+	// Anti Mage: Talent: Violent Circuits: Mana Void adds x% of the main target's max mana to the damage calculation.
+	//=================================================================================================================
+	"reimagined_antimage_talent_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"												
+		"ScriptFile"				    "abilities/heroes/antimage/reimagined_antimage_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"antimage_mana_void"				
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_mana_pct"			"15"
+			}				
+		}				
+	}
 }

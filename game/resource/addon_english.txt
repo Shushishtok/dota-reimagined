@@ -160,7 +160,7 @@
 		"Feedback Pulse"
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_talent_1_Description"
-		"Energy Blast now triggers a total of %total_waves% quick waves %wave_interval% seconds one after another. All waves after the initial wave only deal and burn %mana_burn_pct_wave%%% the regular amount."
+		"Energy Blast now triggers a total of %total_waves% waves, each being applied %wave_interval% seconds one after another. All waves after the initial wave only deal and burn %mana_burn_pct_wave%%% the regular amount."
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_talent_1_Lore"
 		"Knowing that causing feedback on his enemies can turn the tides of battle, Magina mastered a technique that allows him to release even the smallest pockets of energies that reside within his body."
@@ -178,7 +178,7 @@
 		"Nullifier of Magic"
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_talent_3_Description"
-		"Blink's Magic Nullity now increases your magic resistance to %magic_resist%%% and status resistance by %status_resist%%% for the duration."
+		"Blink's Magic Nullity now increases your magic resistance to %magic_resist%%% and status resistance by %status_resist%%% for its duration."
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_talent_3_Lore"
 		"Learning to shrug off magic aimed at you is important in your step of winning battles against mages."
@@ -196,7 +196,7 @@
 		"Abolish Magic"
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_talent_5_Description"
-		"Counterspell's The Magic Ends Here now also silences the caster for %silence_duration% seconds after reflecting a spell towards it."
+		"Counterspell's The Magic Ends Here now also silences the caster for %silence_duration% seconds after reflecting a spell towards it. Can apply multiple times for all reflected spells."
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_talent_5_Lore"
 		"Punishing those who dare cast magic on him, Anti Mage not only make them suffer from it, but also makes them vulnerable and helpless."
@@ -215,6 +215,24 @@
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_talent_6_Lore"
 		"Not only Anti Mage is able to become essentially invulnerable to most kinds of magic while exuding that force, but it also keeps him from harm even after it dissipates."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_talent_7"
+		"Void of Emptyness"
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_talent_7_Description"
+		"Void Feedback now deals %multiplier% times the damage when the target has less than %mana_threshold%%% of its max mana. Overrides Void Feedback's damage."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_talent_7_Lore"
+		"With the target almost completely drained of mana, Magina uses his ultimate technique to its utmost potential."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_talent_8"
+		"Violent Circuits"
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_talent_8_Description"
+		"Mana Void adds %max_mana_pct%%% of the main target's max mana to the damage calculation."
+
+		"DOTA_Tooltip_Ability_reimagined_antimage_talent_8_Lore"
+		"Disrupting the natural flow of mana in his enemies, Anti Mage flips their own magic against them."
 
 		// Night Stalker
 		// Night Stalker's Void
@@ -1197,7 +1215,7 @@
 		"Skywrath Mage seals the targeted unit with an ancient rune, silencing it and causing it to take additional damage from spells.
 		<font color='#B25266'><b>Seal of Scree'auk:</b> Can be cast on an ally to set the seal within it, granting it a %seal_screeauk_spell_amp%%% spell amp, and causes it to emit an aura that applies Ancient Seal's debuff on any enemy in %seal_screeauk_radius% radius near it. 
 		<font color='#B25266'><b>Rebounding Seal:</b> When the seal expires prematurely, it is applied to the closest enemy in %rebound_seal_search_radius% radius around it with its remaining duration. This effects also applies on allies affected by Seal of the Scree'auk seals. This process can repeat infinitely.
-		<font color='#B25266'><b>Sealed enmity:</b> Every %sealed_enmity_magic_damage_threshold% magical damage accumulated by the target during the debuff increases the magic reduction by %sealed_enmity_magic_reduction_increase%%% for the reminder of the duration."
+		<font color='#B25266'><b>Sealed Enmity:</b> Every %sealed_enmity_magic_damage_threshold% magical damage accumulated by the target during the debuff increases the magic reduction by %sealed_enmity_magic_reduction_increase%%% for the reminder of the duration."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_Lore"
 		"A holy incantation, whosoever finds themselves touched by Avilliva's sigil must suffer in penitent silence."

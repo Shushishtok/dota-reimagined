@@ -75,11 +75,6 @@ class CustomChat
         {
             text += event.isTeam ? `[${$.Localize("#DOTA_ChatCommand_GameAllies_Name")}] ` : this.NON_BREAKING_SPACE;
         }
-        
-        if (event.textData.indexOf("DOTA_Tooltip_Ability"))
-        {
-            
-        }
          
         text += event.textData.replace(/%%\d*(.+?)%%/g, (_, token) => $.Localize(token));
         if (event.ability_name != undefined)
