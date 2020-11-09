@@ -71,10 +71,7 @@ export class reimagined_antimage_blink extends BaseAbility
         let blink_range = this.blink_range;
 
         // Talent: Overblink: Blink can now be set to auto cast. Triples Blink's max range, but causes Anti Mage to be stunned for up to y seconds after blinking. Scales by z for each x units above the regular cast range.
-        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4) && this.GetAutoCastState())
-        {
-            blink_range = blink_range * util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "cast_range_increase");
-        }
+        blink_range = this.ReimaginedTalentOverblink(blink_range);
 
         let blink_pos: Vector;
         if (distance <= blink_range)
@@ -117,29 +114,7 @@ export class reimagined_antimage_blink extends BaseAbility
         this.ReimaginationMagicNullity();
 
         // Talent: Overblink: Blink can now be set to auto cast. Triples Blink's max range, but causes Anti Mage to be stunned for up to y seconds after blinking. Scales by z for each x units above the regular cast range.
-        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4) && this.GetAutoCastState())
-        {
-            // Check if the Blink was over the regular cast range
-            const blink_distance = util.CalculateDistanceBetweenPoints(original_caster_position, blink_pos);
-            if (blink_distance > this.blink_range)
-            {
-                // Get variables
-                const max_stun = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "max_stun");
-                const stun_per_units = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "stun_per_units");
-                const units_interval = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "units_interval");
-
-                // Calculate stun
-                const overblink_range = (blink_distance - this.blink_range);
-                let overblink_stun = overblink_range / units_interval * stun_per_units
-                if (overblink_stun > max_stun)
-                {
-                    overblink_stun = max_stun;
-                }
-
-                // Stun self
-                this.caster.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: overblink_stun});
-            }
-        }
+       this.ReimaginedTalentOverblinkStun(original_caster_position, blink_pos);
     }
 
     ReimaginationReaction()
@@ -216,5 +191,42 @@ export class reimagined_antimage_blink extends BaseAbility
     {
         // Apply magic resistance modifier to caster
         this.caster.AddNewModifier(this.caster, this, modifier_reimagined_antimage_blink_magic_nullity.name, {duration: this.magic_nullity_duration!});
+    }
+
+    ReimaginedTalentOverblink(blink_range: number): number
+    {
+        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4) && this.GetAutoCastState())
+        {
+            return blink_range * util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "cast_range_increase");
+        }
+
+        return blink_range;
+    }
+
+    ReimaginedTalentOverblinkStun(original_caster_position: Vector, blink_pos: Vector)
+    {
+        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4) && this.GetAutoCastState())
+        {
+            // Check if the Blink was over the regular cast range
+            const blink_distance = util.CalculateDistanceBetweenPoints(original_caster_position, blink_pos);
+            if (blink_distance > this.blink_range!)
+            {
+                // Get variables
+                const max_stun = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "max_stun");
+                const stun_per_units = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "stun_per_units");
+                const units_interval = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "units_interval");
+
+                // Calculate stun
+                const overblink_range = (blink_distance - this.blink_range!);
+                let overblink_stun = overblink_range / units_interval * stun_per_units
+                if (overblink_stun > max_stun)
+                {
+                    overblink_stun = max_stun;
+                }
+
+                // Stun self
+                this.caster.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: overblink_stun});
+            }
+        }
     }
 }

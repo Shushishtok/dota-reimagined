@@ -58,10 +58,7 @@ export class modifier_reimagined_skywrath_mage_concussive_shot_slow extends Base
     GetModifierTurnRate_Percentage(): number
     {
         // Talent: Motor Dysfunction: Brain Concussion now also decreases turn rate by x%
-        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_4))
-        {
-            return GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_4, "turn_rate_reduction") * (-1);            
-        }
+        return this.ReimaginedTalentMotorDysfunction();
 
         return 0;
     }    
@@ -74,5 +71,15 @@ export class modifier_reimagined_skywrath_mage_concussive_shot_slow extends Base
     GetEffectAttachType(): ParticleAttachment
     {
         return ParticleAttachment.ABSORIGIN_FOLLOW;
+    }
+
+    ReimaginedTalentMotorDysfunction(): number
+    {
+        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_4))
+        {
+            return GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_4, "turn_rate_reduction") * (-1);            
+        }
+
+        return 0;
     }
 }

@@ -43,6 +43,20 @@ export class modifier_reimagined_antimage_blink_magic_nullity extends BaseModifi
     GetModifierMagicalResistanceBonus(): number
     {
         // Talent: Nullifier of Magic: Magic Nullity now increases your magic resistance to x% and status resistance by z% for the duration.
+        let magic_nullity_magic_res = this.magic_nullity_magic_res!
+        magic_nullity_magic_res = this.ReimaginedTalentNullifierofMagicMResistance()
+
+        return magic_nullity_magic_res;
+    }
+
+    GetModifierStatusResistanceStacking(): number
+    {
+        // Talent: Nullifier of Magic: Magic Nullity now increases your magic resistance to x% and status resistance by z% for the duration.
+        return this.ReimaginedTalentNullifierofMagicSResistance();
+    }
+
+    ReimaginedTalentNullifierofMagicMResistance(): number
+    {
         if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_3))
         {
             return GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_3, "magic_resist");
@@ -51,14 +65,13 @@ export class modifier_reimagined_antimage_blink_magic_nullity extends BaseModifi
         return this.magic_nullity_magic_res!;
     }
 
-    GetModifierStatusResistanceStacking(): number
+    ReimaginedTalentNullifierofMagicSResistance(): number
     {
-        // Talent: Nullifier of Magic: Magic Nullity now increases your magic resistance to x% and status resistance by z% for the duration.
         if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_3))
         {
             return GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_3, "status_resist");
         }
-
+    
         return 0;
     }
 }

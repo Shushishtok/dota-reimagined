@@ -77,29 +77,8 @@ export class reimagined_antimage_mana_break extends BaseAbility
         // Apply a pulse!
         this.ReimaginedEnergyBlastPulse(false);
 
-        // Feedback Pulse: Energy Blast now triggers a total of x quick waves y seconds one after another. All waves after the initial wave only deal and burns z the amount.
-        if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_1))
-        {
-            const additional_waves = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "total_waves") - 1
-            const wave_interval = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "wave_interval");
-            this.mana_burn_reduction_talent = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "mana_burn_pct_wave");
-            
-            let additional_waves_fired = 0;
-            Timers.CreateTimer(wave_interval, () => 
-            {
-                additional_waves_fired++;
-                this.ReimaginedEnergyBlastPulse(true);
-                
-                if (additional_waves_fired >= additional_waves)
-                {
-                    return undefined;
-                }
-                else
-                {
-                    return wave_interval;
-                }
-            })
-        }
+        // Talent: Feedback Pulse: Energy Blast now triggers a total of x quick waves y seconds one after another. All waves after the initial wave only deal and burns z the amount.
+        this.ReimaginedTalentFeedbackPulse();
     }
 
     ReimaginedEnergyBlastPulse(isTalentProc: boolean): void
@@ -156,6 +135,32 @@ export class reimagined_antimage_mana_break extends BaseAbility
             this.particle_blast_mana_burn_fx = ParticleManager.CreateParticle(this.particle_blast_mana_burn, ParticleAttachment.ABSORIGIN, enemy);
             ParticleManager.SetParticleControl(this.particle_blast_mana_burn_fx, 0, enemy.GetAbsOrigin());
             ParticleManager.ReleaseParticleIndex(this.particle_blast_mana_burn_fx);
+        }
+    }
+
+    ReimaginedTalentFeedbackPulse()
+    {
+        if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_1))
+        {
+            const additional_waves = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "total_waves") - 1
+            const wave_interval = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "wave_interval");
+            this.mana_burn_reduction_talent = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "mana_burn_pct_wave");
+            
+            let additional_waves_fired = 0;
+            Timers.CreateTimer(wave_interval, () => 
+            {
+                additional_waves_fired++;
+                this.ReimaginedEnergyBlastPulse(true);
+                
+                if (additional_waves_fired >= additional_waves)
+                {
+                    return undefined;
+                }
+                else
+                {
+                    return wave_interval;
+                }
+            })
         }
     }
 }

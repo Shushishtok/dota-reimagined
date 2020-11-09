@@ -81,21 +81,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
         EmitSoundOn(this.sound_cast, this.caster);
 
         // Talent: Unending Proficiency: Casting Arcane Bolt increases your intelligence by x for y seconds. Has independent stacks.
-        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_1))
-        {
-            const talent_1_duration = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_1, "duration");
-
-            if (!this.caster.HasModifier(modifier_reimagined_skywrath_mage_talent_1_buff.name))
-            {
-                this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_1_buff.name, {duration: talent_1_duration});
-            }
-
-            const talent_1_modifier = this.caster.FindModifierByName(modifier_reimagined_skywrath_mage_talent_1_buff.name);
-            if (talent_1_modifier)
-            {
-                talent_1_modifier.IncrementStackCount();
-            }
-        }
+        this.ReimaginedTalentUnendingProficiency();
         
         // Reimagined: Wrath of Dragonus: After Skywrath casts x Arcane Bolts, the next Arcane Bolt will become a Wrath Bolt. Wrath Bolts are twice as fast, the damage includes the intelligence of all nearby allied heroes in 1200 range, and the caster's intelligence is calculated twice. Wrath Bolts are also duplicated by Aghanim's Scepter upgrade. The counter modifier lasts y seconds and refreshes itself when casting Arcane Bolt.
         const wrath_bolt = this.ReimaginedWrathOfDragonusCounter();
@@ -318,10 +304,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
         damage += this.bolt_damage!;
 
         // Talent: Wrathful Incantation: Wrath Bolts also calculate the target's main attribute as damage.
-        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_2))
-        {
-            damage += (target as CDOTA_BaseNPC_Hero).GetPrimaryStatValue();
-        }
+        damage += this.ReimaginedTalentWrathfulIncantation(target);
 
         // Return damage and speed
         return {damage, speed}
@@ -354,5 +337,34 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
             // Refresh modifier
             modifier_blank_bolt.ForceRefresh();
         }
+    }
+
+    ReimaginedTalentUnendingProficiency()
+    {
+        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_1))
+        {
+            const talent_1_duration = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_1, "duration");
+
+            if (!this.caster.HasModifier(modifier_reimagined_skywrath_mage_talent_1_buff.name))
+            {
+                this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_1_buff.name, {duration: talent_1_duration});
+            }
+
+            const talent_1_modifier = this.caster.FindModifierByName(modifier_reimagined_skywrath_mage_talent_1_buff.name);
+            if (talent_1_modifier)
+            {
+                talent_1_modifier.IncrementStackCount();
+            }
+        }
+    }
+
+    ReimaginedTalentWrathfulIncantation(target: CDOTA_BaseNPC): number
+    {
+        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_2) && target.IsHero())
+        {
+            return (target as CDOTA_BaseNPC_Hero).GetPrimaryStatValue();
+        }
+
+        return 0;
     }
 }

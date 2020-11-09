@@ -48,7 +48,7 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
     {
         return [ModifierFunction.MAGICAL_RESISTANCE_BONUS,
                 ModifierFunction.INCOMING_DAMAGE_PERCENTAGE,
-                // Reimagined: ealed enmity: Every x magical damage accumulated by the target during the debuff increases the magic reduction by y% for the reminder of the duration.
+                // Reimagined: Sealed Enmity: Every x magical damage accumulated by the target during the debuff increases the magic reduction by y% for the reminder of the duration.
                 ModifierFunction.ON_TAKEDAMAGE]
     }
 
@@ -68,17 +68,8 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
     GetModifierIncomingDamage_Percentage(event: ModifierAttackEvent): number
     {
         // Talent: Seal of Amplification: Sealed Enmity now increases damage taken from all types of damage instead of only magical.
-        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_5))
-        {
-            // Ignore magic sources as they're already being handled by reducing magic resistance
-            if (event.damage_type == DamageTypes.MAGICAL) return 0;
-
-            // Creeps are unaffected
-            if (this.parent.IsCreep()) return 0;
-
-            return this.sealed_enmity_bonus_reduction!;
-        }
-
+        return this.ReimaginedTalentSealOfAmplification(event);
+        
         return 0;
     }
 
@@ -140,5 +131,21 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
         
         // Calculate current sealed enmity percentage
         this.sealed_enmity_bonus_reduction = Math.floor(this.sealed_enmity_damage_taken / this.sealed_enmity_magic_damage_threshold!) * this.sealed_enmity_magic_reduction_increase!;
+    }
+
+    ReimaginedTalentSealOfAmplification(event: ModifierAttackEvent): number
+    {
+        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_5))
+        {
+            // Ignore magic sources as they're already being handled by reducing magic resistance
+            if (event.damage_type == DamageTypes.MAGICAL) return 0;
+
+            // Creeps are unaffected
+            if (this.parent.IsCreep()) return 0;
+
+            return this.sealed_enmity_bonus_reduction!;
+        }
+
+        return 0;
     }
 }

@@ -42,36 +42,12 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_screeauk extends Bas
         this.AddParticle(this.particle_buff_fx, false, false, -1, false, false);     
         
         // Talent: Scree'auk's Screech: Seal of Scree'auk now pulses every x seconds, applying its effect to all enemies in y range.
-        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_6))
-        {
-            if (IsServer())
-            {
-                this.talent_pulse_interval = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_6, "pulse_interval");
-                this.talent_radius = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_6, "radius");
-                this.StartIntervalThink(this.talent_pulse_interval - FrameTime()); // Reducing by one frame to make the last pulse also count
-                this.OnIntervalThink();
-            }
-        }
+        this.ReimaginedTalentScreeaukScreech();
     }
 
     OnIntervalThink(): void
     {
-        // Play pulse particle
-        const speed = (this.talent_radius! / 0.5 - 101); // Calculate of final radius = initial radius + radius + speed * lifetime, lifetime for this particle is 0.5
-        this.particle_talent_pulse_fx = ParticleManager.CreateParticle(this.particle_talent_pulse, ParticleAttachment.WORLDORIGIN, undefined)
-        ParticleManager.SetParticleControl(this.particle_talent_pulse_fx, 0, this.parent.GetAbsOrigin())
-        ParticleManager.SetParticleControl(this.particle_talent_pulse_fx, 1, Vector(speed, 0, 0));
-        ParticleManager.ReleaseParticleIndex(this.particle_talent_pulse_fx);
-
-        // Keep old radius 
-        const seal_screeauk_radius = this.seal_screeauk_radius!
-
-        // Increase radius for a frame
-        this.seal_screeauk_radius = this.talent_radius;
-        Timers.CreateTimer(FrameTime(), () =>
-        {
-            this.seal_screeauk_radius = seal_screeauk_radius;
-        })
+        this.ReimaginedTalentScreeaukScreechPulse();
     }
 
     DeclareFunctions(): ModifierFunction[]
@@ -140,5 +116,39 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_screeauk extends Bas
                 }
             }
         }
+    }
+
+    ReimaginedTalentScreeaukScreech()
+    {
+        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_6))
+        {
+            if (IsServer())
+            {
+                this.talent_pulse_interval = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_6, "pulse_interval");
+                this.talent_radius = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_6, "radius");
+                this.StartIntervalThink(this.talent_pulse_interval - FrameTime()); // Reducing by one frame to make the last pulse also count
+                this.OnIntervalThink();
+            }
+        }
+    }
+
+    ReimaginedTalentScreeaukScreechPulse()
+    {
+        // Play pulse particle
+        const speed = (this.talent_radius! / 0.5 - 101); // Calculate of final radius = initial radius + radius + speed * lifetime, lifetime for this particle is 0.5
+        this.particle_talent_pulse_fx = ParticleManager.CreateParticle(this.particle_talent_pulse, ParticleAttachment.WORLDORIGIN, undefined)
+        ParticleManager.SetParticleControl(this.particle_talent_pulse_fx, 0, this.parent.GetAbsOrigin())
+        ParticleManager.SetParticleControl(this.particle_talent_pulse_fx, 1, Vector(speed, 0, 0));
+        ParticleManager.ReleaseParticleIndex(this.particle_talent_pulse_fx);
+
+        // Keep old radius 
+        const seal_screeauk_radius = this.seal_screeauk_radius!
+
+        // Increase radius for a frame
+        this.seal_screeauk_radius = this.talent_radius;
+        Timers.CreateTimer(FrameTime(), () =>
+        {
+            this.seal_screeauk_radius = seal_screeauk_radius;
+        })
     }
 }

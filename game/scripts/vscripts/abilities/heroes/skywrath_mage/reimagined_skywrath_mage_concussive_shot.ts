@@ -106,11 +106,7 @@ export class reimagined_skywrath_mage_concussive_shot extends BaseAbility
             ParticleManager.ReleaseParticleIndex(this.particle_fail_fx);
             
             // Talent: Trapped Energy: Fizzling a Concussive Shot grants a buff that automatically fires Concussive Shot at a nearby enemy hero that comes into range. Lasts x seconds.
-            if (util.HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_3))
-            {
-                const talent_3_duration = util.GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_3, "duration");
-                this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_3_buff.name, {duration: talent_3_duration})
-            }
+            this.ReimaginedTalentTrappedEnergy();
 
             return;            
         }
@@ -387,4 +383,14 @@ export class reimagined_skywrath_mage_concussive_shot extends BaseAbility
 
         return effect_properties;
     }
+
+    ReimaginedTalentTrappedEnergy()
+    {
+        if (util.HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_3))
+        {
+            const talent_3_duration = util.GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_3, "duration");
+            this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_3_buff.name, {duration: talent_3_duration})
+        }
+    }
+
 }

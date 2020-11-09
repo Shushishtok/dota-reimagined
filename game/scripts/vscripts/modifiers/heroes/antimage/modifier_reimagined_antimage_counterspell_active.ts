@@ -78,6 +78,41 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
         EmitSoundOn(this.sound_reflect, event.ability.GetCaster());
 
         // Talent: Magic Cannot Harm Me!: Magic resistance increases by x% for each enemy unit target spell that was cast at Anti Mage. Lasts y seconds. Stacks and refreshes itself.                
+        this.ReimaginedTalentMagicCannotHarmMe();        
+
+        // Reimagined: The Magic Ends Here: Burns a flat amount of mana of the original casters of reflected spells.
+        this.ReimaginedTheMagicEndsHere(event.ability.GetCaster());
+
+        // Reimagined: Anti Magic Shell: Increases Counterspell's current duration by x seconds for every spell reflected.
+        this.ReimaginedAntiMagicShell();
+
+        return 1;
+    }
+
+    ReimaginedTheMagicEndsHere(original_caster: CDOTA_BaseNPC): void
+    {
+        original_caster.ReduceMana(this.magic_ends_mana_burn!);
+
+        // Talent: Abolish Magic: Counterspell's The Magic Ends Here now also silences the caster for x seconds after reflecting a spell towards it.
+        this.ReimaginedTalentAbolishMagic(original_caster);
+    }
+
+    ReimaginedAntiMagicShell(): void
+    {
+        this.SetDuration(this.GetRemainingTime() + this.anti_magic_duration_inc!, true);
+    }
+
+    ReimaginedTalentAbolishMagic(original_caster: CDOTA_BaseNPC)
+    {
+        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_5))
+        {
+            const silence_duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_5, "silence_duration");
+            original_caster.AddNewModifier(this.caster, this.ability, BuiltInModifier.SILENCE, {duration: silence_duration});
+        }
+    }
+
+    ReimaginedTalentMagicCannotHarmMe()
+    {
         if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_6))
         {            
             const duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_6, "duration");            
@@ -97,29 +132,5 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
                 talent_modifier.ForceRefresh();
             }
         }
-
-        // Reimagined: The Magic Ends Here: Burns a flat amount of mana of the original casters of reflected spells.
-        this.ReimaginedTheMagicEndsHere(event.ability.GetCaster());
-
-        // Reimagined: Anti Magic Shell: Increases Counterspell's current duration by x seconds for every spell reflected.
-        this.ReimaginedAntiMagicShell();
-
-        return 1;
-    }
-
-    ReimaginedTheMagicEndsHere(original_caster: CDOTA_BaseNPC): void
-    {
-        original_caster.ReduceMana(this.magic_ends_mana_burn!);
-
-        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_5))
-        {
-            const silence_duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_5, "silence_duration");
-            original_caster.AddNewModifier(this.caster, this.ability, BuiltInModifier.SILENCE, {duration: silence_duration});
-        }
-    }
-
-    ReimaginedAntiMagicShell(): void
-    {
-        this.SetDuration(this.GetRemainingTime() + this.anti_magic_duration_inc!, true);
     }
 }
