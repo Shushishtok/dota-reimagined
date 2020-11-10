@@ -168,9 +168,12 @@ export class GameMode
 
     private ForceUnlearnTalent(hero: CDOTA_BaseNPC_Hero, talent_num: number)
     {
+        // Unlearning talents can only be done in cheats mode!
+        if (!GameRules.IsCheatMode()) return;
+
         // Get ability as talent
         const ability = GetTalentAbilityFromNumber(hero, talent_num) as BaseTalent
-        if (ability && ability.IsTrained())
+        if (ability && ability.IsTrained() && ability.isTalentAbility)
         {
             // Remove the ability
             ability.SetLevel(0);
