@@ -1,4 +1,6 @@
+import { SvenTalents } from "../../../abilities/heroes/sven/reimagined_sven_talents";
 import { BaseModifier, registerModifier} from "../../../lib/dota_ts_adapter";
+import { HasTalent } from "../../../lib/util";
 import { modifier_reimagined_sven_gods_strength_buff_fish_counter } from "./modifier_reimagined_sven_gods_strength_buff_fish_counter"
 
 @registerModifier()
@@ -112,23 +114,7 @@ export class modifier_reimagined_sven_gods_strength extends BaseModifier
 
     GetModifierProcAttack_BonusDamage_Physical(event: ModifierAttackEvent): number
     {        
-        // Check if Buff Fish is ready to be applied        
-        if (!this.parent.HasModifier(modifier_reimagined_sven_gods_strength_buff_fish_counter.name))
-        {            
-            // Set buff fish cooldown modifier
-            this.parent.AddNewModifier(this.caster, this.ability, modifier_reimagined_sven_gods_strength_buff_fish_counter.name, {duration: this.buff_fish_cooldown!});
-            
-            const parentdamage = this.parent.GetAverageTrueAttackDamage(event.target);
-            const damage = parentdamage * this.buff_fish_bonus_damage_pct! * 0.01;
-            
-
-            SendOverheadEventMessage(undefined, OverheadAlert.DAMAGE, event.target, damage + parentdamage, undefined);
-            return damage;
-        }
-        else
-        {            
-            return 0;
-        }
+        return this.ReimaginedBuffFish(event);
     }
 
     OnDeath(event: ModifierAttackEvent): void
@@ -195,13 +181,43 @@ export class modifier_reimagined_sven_gods_strength extends BaseModifier
     }
 
     OnDestroy(): void
-    {
+    {        
         if (IsServer())
         {
-            if (this.parent.HasModifier(modifier_reimagined_sven_gods_strength_buff_fish_counter.name))
+            // Buff Fish is handled by the talent if taken
+            if (!HasTalent(this.caster, SvenTalents.SvenTalent_7))
             {
-                this.parent.RemoveModifierByName(modifier_reimagined_sven_gods_strength_buff_fish_counter.name);
+                if (this.parent.HasModifier(modifier_reimagined_sven_gods_strength_buff_fish_counter.name))
+                {
+                    this.parent.RemoveModifierByName(modifier_reimagined_sven_gods_strength_buff_fish_counter.name);
+                }
             }
+        }
+    }
+
+
+
+    ReimaginedBuffFish(event: ModifierAttackEvent): number
+    {
+        // Talent: Bodybuilder Fish: God's Strength's Buff Fish effect becomes permanent.
+        // Check if permanent Buff Fish is applied; if so, it's handled in the talent
+        if (HasTalent(this.caster, SvenTalents.SvenTalent_7)) return 0;
+        
+        // Check if Buff Fish is ready to be applied        
+        if (!this.parent.HasModifier(modifier_reimagined_sven_gods_strength_buff_fish_counter.name))
+        {            
+            // Set buff fish cooldown modifier
+            this.parent.AddNewModifier(this.caster, this.ability, modifier_reimagined_sven_gods_strength_buff_fish_counter.name, {duration: this.buff_fish_cooldown!});
+            
+            const parentdamage = this.parent.GetAverageTrueAttackDamage(event.target);
+            const damage = parentdamage * this.buff_fish_bonus_damage_pct! * 0.01;            
+
+            SendOverheadEventMessage(undefined, OverheadAlert.DAMAGE, event.target, damage + parentdamage, undefined);
+            return damage;
+        }
+        else
+        {            
+            return 0;
         }
     }
 }

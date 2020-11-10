@@ -26,6 +26,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
     tail?: CBaseEntity;
     currently_day: boolean = true;
     natural_night: boolean = false;
+    base_night_duration: number = 300;
 
     // Modifier specials
     bonus_movement_speed_pct_night?: number;
@@ -297,8 +298,12 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
         // Trigger temporary night and increment stack for the next occassion
         if (modifier_everlasting)
         {            
-            // Get current stacks and calculate length
-            const extra_night_duration = modifier_everlasting.GetStackCount() * this.everlasting_night_duration!;
+            // Get current stacks and calculate length. When we're in perma night mode, run for double the night duration minus one.
+            let extra_night_duration = modifier_everlasting.GetStackCount() * this.everlasting_night_duration!;
+            if (extra_night_duration >= this.base_night_duration * 2)
+            {
+                extra_night_duration = this.base_night_duration * 2 -1;
+            }
             
             // Begin a temporary night to extend the night
             if (extra_night_duration > 0)
@@ -306,8 +311,12 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
                 GameRules.BeginTemporaryNight(extra_night_duration);
             }
 
-            // Increment stacks
-            modifier_everlasting.IncrementStackCount();
+            // Increment stacks until we're in perma night, in which case stop going up.
+            const stacks_to_perma_night = this.base_night_duration / this.everlasting_night_duration!;
+            if (modifier_everlasting.GetStackCount() < stacks_to_perma_night)
+            {
+                modifier_everlasting.IncrementStackCount();
+            }
         }
     }
 }

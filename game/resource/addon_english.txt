@@ -476,7 +476,7 @@
 		"Epic Cleave"
 
 		"DOTA_Tooltip_modifier_reimagined_sven_great_cleave_epic_cleave_Description"
-		"After attacking %dMODIFIER_PROPERTY_TOOLTIP% times, your next attack will fire a devastating Epic Cleave."
+		"Every %dMODIFIER_PROPERTY_TOOLTIP% attacks will fire a devastating Epic Cleave."
 
 		// Sven's Warcry
 		"DOTA_Tooltip_Ability_reimagined_sven_warcry"
@@ -550,6 +550,84 @@
 
 		"DOTA_Tooltip_modifier_reimagined_sven_gods_strength_buff_fish_counter_Description"
 		"Buff Fish cannot be used while in cooldown."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_1"
+		"Momentum Breaker"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_1_Description"
+		"Momentum Punch now also increases the stun duration of the projectile by %stun_duration% for every %units_travel% units it traveled until reaching its destination."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_1_Lore"
+		"As the Gauntlet breaks the momentum on impact, the unfortunate victims feel its acute pressure."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_2"
+		"Fist Catcher"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_2_Description"
+		"Enemies hit by Storm Bolt's Strong Right get dragged along with it to its destination."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_2_Lore"
+		"Modifying the Gauntlet to be able to catch enemies on the path and drag them was proven to be effective at decimating entire armies."
+
+		"DOTA_Tooltip_modifier_reimagined_sven_talent_2_buff"
+		"Fist Catcher"
+
+		"DOTA_Tooltip_modifier_reimagined_sven_talent_2_buff_Description"
+		"Being dragged with Sven's Gauntlet."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_3"
+		"Quakewave"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_3_Description"
+		"Overhead Slam now knockbacks enemies hit up and back %knockback_distance% units over a duration of %knockback_duration% seconds. Units hit are stunned for a total of %stun_duration% seconds."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_3_Lore"
+		"The extreme force of the shockwave done by the Outcast Blade can throw anyone off their feet."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_4"
+		"Double Swinger"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_4_Description"
+		"Epic Cleave can now be triggered %total_cleave_attacks% times in succession before resetting the Epic Cleave counter."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_4_Lore"
+		"Sven's flutters his sword in perfect motions, every motion shivering the cores of his opponents."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_5"
+		"True Bravery"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_5_Description"
+		"Warcry now also basic dispels all allies on cast."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_5_Lore"
+		"Inspiring himself and his allies for the cause, the team shrugs off most harmful effects and press on."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_6"
+		"Rallying Cry of Strength"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_6_Description"
+		"Power Overwhelming now also grants allies %strength_pct%%% of Sven's current Strength while God's Strength is active. Does not include Sven himself."		
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_6_Lore"
+		"Simply witnessing the Rogue Knight's warcry is enough to make one stronger."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_7"
+		"Bodybuilder Fish"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_7_Description"
+		"God's Strength's Buff Fish effect becomes permanently active, regardless of God's Strength."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_7_Lore"
+		"As Sven becomes stronger, he no longer has to rely on borrowed powers to deal massive damage to his adversaries."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_8"
+		"God's Epic Stance"
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_8_Description"
+		"While God's Strength is active, grants %chance_pct%%% chance on attack to immediately set Epic Cleave's counter at max stacks. Uses Psuedo Random distribution."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_talent_8_Lore"
+		"Utilizing the ultimate strength given by the gods, every swing can suddenly become the last its enemy would witness."
 
 		// Crystal Maiden
 		// Crystal Maiden's Crystal Nova

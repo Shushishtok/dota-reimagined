@@ -1,5 +1,7 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
+import { HasTalent } from "../../../lib/util";
 import { modifier_reimagined_sven_warcry_buff } from "../../../modifiers/heroes/sven/modifier_reimagined_sven_warcry_buff"
+import { SvenTalents } from "./reimagined_sven_talents";
 
 @registerAbility()
 export class reimagined_sven_warcry extends BaseAbility
@@ -79,6 +81,9 @@ export class reimagined_sven_warcry extends BaseAbility
         {
             // Grant allies the warcry modifier bonus
             ally.AddNewModifier(this.caster, this, modifier_reimagined_sven_warcry_buff.name, {duration: duration, shield_stacks: shield_stacks});
+
+            // Talent: True Bravery: Warcry now also basic dispels all allies on cast.
+            this.ReimaginedTalentTrueBravery(ally);
         }
     }
 
@@ -125,5 +130,14 @@ export class reimagined_sven_warcry extends BaseAbility
         shield_stacks = this.caster.GetHealth() * this.heart_valor_current_hp_shield_pct! * 0.01;
 
         return shield_stacks;
+    }
+
+    ReimaginedTalentTrueBravery(ally: CDOTA_BaseNPC)
+    {
+        if (HasTalent(this.caster, SvenTalents.SvenTalent_5))
+        {
+            // Purge allies!
+            ally.Purge(false, true, false, false, false);
+        }
     }
 }

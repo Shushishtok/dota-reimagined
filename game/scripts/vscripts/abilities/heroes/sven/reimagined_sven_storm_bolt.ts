@@ -1,6 +1,8 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
 import { modifier_reimagind_sven_storm_hammer_scepter } from "../../../modifiers/heroes/sven/modifier_reimagind_sven_storm_hammer_scepter"
+import { modifier_reimagined_sven_talent_2_buff } from "../../../modifiers/heroes/sven/modifier_reimagined_sven_talent_2_buff";
+import { SvenTalents } from "./reimagined_sven_talents";
 
 interface StormBoltProjectile
 {    
@@ -194,6 +196,10 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             this.ReimaginedGomuGomuNoGatlingGun(this.caster.GetForwardVector());
         }        
 
+        let bolt_stun_duration = this.bolt_stun_duration!;
+        // Talent: Momentum Breaker: Momentum Punch now also increases the stun duration by x for every y units traveled.        
+        bolt_stun_duration += this.ReimaginedTalentMomentumBreaker(projectileID);        
+
         let radius = this.bolt_aoe!;
         // Reimagined: Momentum Punch: For every few units the main projectile traveled until it hit the target or was disjointed, increases the impact's AoE by a small amount.
         radius = this.ReimaginedMomentumPunchRadiusIncrease(location, projectileID)   
@@ -235,8 +241,11 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             });
 
             // Stun them!
-            enemy.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: this.bolt_stun_duration});
+            enemy.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: bolt_stun_duration});
         }
+
+        // Fix positions of units that might have been moved due to the projectile
+        ResolveNPCPositions(location, radius);
     }
 
     OnProjectileThinkHandle(projectileID: ProjectileID)
@@ -323,6 +332,9 @@ export class reimagined_sven_storm_bolt extends BaseAbility
         {
             // If this is the main enemy, ignore it
             if (projectile.main_target == enemy) continue;            
+
+            // Talent: Fist Catcher: Enemies hit by Strong Right get dragged along with it.
+            this.ReimaginedTalentFistCatcher(projectile, enemy, projectileID);
 
             // Check if the enemy is in the set of this projectile. If so, ignore it
             if (!projectile.hit_targets.has(enemy))
@@ -465,5 +477,45 @@ export class reimagined_sven_storm_bolt extends BaseAbility
         }
 
         return false;
+    }
+
+    ReimaginedTalentMomentumBreaker(projectileID: ProjectileID): number
+    {
+        let bonus_stun_duration = 0;
+        if (!this.active_projectiles_map.has(projectileID)) return bonus_stun_duration;
+
+        if (util.HasTalent(this.caster, SvenTalents.SvenTalent_1))
+        {
+            const stun_duration = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_1, "stun_duration");
+            const units_travel = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_1, "units_travel");
+            const properties: StormBoltProjectile = this.active_projectiles_map.get(projectileID);
+
+            const total_distance = properties.momentum_punch_total_distance;
+            bonus_stun_duration = total_distance / units_travel * stun_duration;            
+        }
+
+        return bonus_stun_duration;
+    }
+
+    ReimaginedTalentFistCatcher(projectile: StormBoltProjectile, enemy: CDOTA_BaseNPC, projectileID: ProjectileID): void
+    {
+        if (util.HasTalent(this.caster, SvenTalents.SvenTalent_2))
+        {
+            // Ignore cases where the enemy is pretty close already
+            const distance = util.CalculateDistanceBetweenEntities(enemy, projectile.main_target!);
+            if (distance <= projectile.main_target!.GetHullRadius()) return;
+    
+            // Hook the enemy... with a modifier!
+            if (!enemy.HasModifier(modifier_reimagined_sven_talent_2_buff.name))
+            {
+                const modifier = enemy.AddNewModifier(this.caster, this, modifier_reimagined_sven_talent_2_buff.name, {});
+                if (modifier)
+                {
+                    (modifier as modifier_reimagined_sven_talent_2_buff).main_target = projectile.main_target!;
+                    (modifier as modifier_reimagined_sven_talent_2_buff).projectile = projectileID;
+                }
+            }
+        }
+
     }
 }

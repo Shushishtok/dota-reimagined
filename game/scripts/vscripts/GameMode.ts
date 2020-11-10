@@ -1,3 +1,4 @@
+import { BaseTalent } from "./lib/talents";
 import { reloadable } from "./lib/tstl-utils";
 import { GetTalentAbilityFromNumber, GetTalentNumber, IsTalentAbility, PrepareTalentList } from "./lib/util";
 
@@ -15,7 +16,8 @@ declare global
 export class GameMode 
 {
     Game: CDOTABaseGameMode = GameRules.GetGameModeEntity();
-    last_waiting_talent_num?: number;    
+    talent_count: number = 8;
+    last_waiting_talent_num?: number;
     talent_ping_map: Map<PlayerID, number> = new Map();
 
     public static Precache(this: void, context: CScriptPrecacheContext) 
@@ -164,6 +166,28 @@ export class GameMode
         }        
     }
 
+    private ForceUnlearnTalent(hero: CDOTA_BaseNPC_Hero, talent_num: number)
+    {
+        // Get ability as talent
+        const ability = GetTalentAbilityFromNumber(hero, talent_num) as BaseTalent
+        if (ability && ability.IsTrained())
+        {
+            // Remove the ability
+            ability.SetLevel(0);
+            
+            // Remove its associated modifier
+            const modifier_name: string = "modifier_" + ability.GetAbilityName();
+            if (modifier_name)
+            {
+                const modifier_handle = hero.FindModifierByName(modifier_name);
+                if (modifier_handle)
+                {
+                    modifier_handle.Destroy();
+                }
+            }
+        }
+    }
+
     OnSentCurrentlySelectedUnit(event: {unit: EntityIndex, PlayerID: PlayerID})
     {
         const unit = EntIndexToHScript(event.unit) as CDOTA_BaseNPC_Hero;
@@ -173,7 +197,31 @@ export class GameMode
         if (!unit.IsRealHero()) return;
         if (!this.last_waiting_talent_num) return;
 
-        this.ForceLearnTalent(unit, this.last_waiting_talent_num!, event.PlayerID);
+        // 10 signals "learn all talents"
+        if (this.last_waiting_talent_num == 10)
+        {
+            for (let index = 1; index <= this.talent_count; index++) 
+            {
+                this.ForceLearnTalent(unit, index, event.PlayerID);
+            }
+        }
+        // -10 signals "unlearn all talents"
+        else if (this.last_waiting_talent_num == -10)
+        {
+            for (let index = 1; index < this.talent_count; index++) 
+            {
+                this.ForceUnlearnTalent(unit, index);
+            }
+        }
+        // Negative talent number signals "unlearn this talent"
+        else if (this.last_waiting_talent_num < 0)
+        {
+            this.ForceUnlearnTalent(unit, this.last_waiting_talent_num! * (-1))
+        }
+        else // Learn a single talent
+        {
+            this.ForceLearnTalent(unit, this.last_waiting_talent_num!, event.PlayerID);
+        }
 
         // Remove last waiting talent
         this.last_waiting_talent_num = undefined;
@@ -265,7 +313,7 @@ export class GameMode
                 const talent_num = Number(numText);                
                 if (!isNaN(talent_num))
                 {                    
-                    if (talent_num >= 1 && talent_num <= 8)
+                    if (talent_num >= 1 && talent_num <= this.talent_count)
                     {                               
                         const player = PlayerResource.GetPlayer(event.playerid)!;
                         this.last_waiting_talent_num = talent_num;
@@ -274,6 +322,42 @@ export class GameMode
                     }
                 }
             }
+        }
+        // For learning all talents, we use 10 as code
+        else if (event.text.indexOf("-learnalltalents") !== -1)
+        {
+            const player = PlayerResource.GetPlayer(event.playerid)!;
+            this.last_waiting_talent_num = 10;
+
+            CustomGameEventManager.Send_ServerToPlayer(player, "request_currently_selected_unit", {});
+        }
+
+        // For unlearning a talent, we use negative talent number values
+        else if (event.text.indexOf("-unlearntalent") !== -1)
+        {
+            const numText = event.text.substr(event.text.length-1);            
+            if (numText !== "" && numText !== undefined && numText !== null)
+            {                
+                const talent_num = Number(numText);            
+                if (!isNaN(talent_num))
+                {                    
+                    if (talent_num >= 1 && talent_num <= this.talent_count)
+                    {                               
+                        const player = PlayerResource.GetPlayer(event.playerid)!;
+                        this.last_waiting_talent_num = talent_num * (-1);
+
+                        CustomGameEventManager.Send_ServerToPlayer(player, "request_currently_selected_unit", {});
+                    }
+                }
+            }
+        }
+        // For unlearning all talents, we use negative talents -10 as code
+        else if (event.text.indexOf("-unlearnalltalents") !== -1)
+        {
+            const player = PlayerResource.GetPlayer(event.playerid)!;
+            this.last_waiting_talent_num = -10;
+
+            CustomGameEventManager.Send_ServerToPlayer(player, "request_currently_selected_unit", {});
         }
     }
 

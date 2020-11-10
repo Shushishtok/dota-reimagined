@@ -3,6 +3,7 @@ import * as util from "../../../lib/util"
 import { modifier_reimagined_sven_great_cleave_epic_cleave } from "./modifier_reimagined_sven_great_cleave_epic_cleave_counter";
 import { modifier_reimagined_sven_great_cleave_epic_cleave_armor_reduction } from "./modifier_reimagined_sven_great_cleave_epic_cleave_armor_reduction";
 import { modifier_reimagined_sven_gods_strength } from "./modifier_reimagined_sven_gods_strength"
+import { SvenTalents } from "../../../abilities/heroes/sven/reimagined_sven_talents";
 
 @registerModifier()
 export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
@@ -23,6 +24,10 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
     cleave_ending_width?: number;
     cleave_distance?: number;
     great_cleave_damage?: number;
+
+    // Reimagined talent properties
+    epic_cleave_reset_counter: number = 1;
+    epic_cleave_reset_blocked?: boolean = false;
     
     // Reimagined specials
     epic_cleave_counter_duration?: number;
@@ -156,8 +161,14 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
                 // Set flag to true
                 procs_epic_cleave = true;
                 
-                // Reset the stack count
-                modifier.Destroy();
+                // Talent: Double Swinger: Epic Cleave can now be triggered x times in succession before resetting its counter.
+                this.ReimaginedTalentDoubleSwinger();
+
+                if (!this.epic_cleave_reset_blocked)
+                {
+                    // Remove the stacks counter
+                    modifier.Destroy();
+                }
 
                 // Define cleave properties
                 const starting_width = this.cleave_starting_width! * this.epic_cleave_distance_multiplier!;
@@ -204,5 +215,31 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
         }
         
         return procs_epic_cleave;
+    }
+
+    ReimaginedTalentDoubleSwinger(): void
+    {        
+        if (util.HasTalent(this.caster, SvenTalents.SvenTalent_4))
+        {
+            const total_cleave_attacks = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_4, "total_cleave_attacks");
+
+            // Block the counter from going down
+            if (!this.epic_cleave_reset_blocked)
+            {
+                this.epic_cleave_reset_blocked = true;
+
+                // Initialize the counter
+                this.epic_cleave_reset_counter = 1;
+            }
+            else
+            {
+                this.epic_cleave_reset_counter++;
+
+                if (this.epic_cleave_reset_counter == total_cleave_attacks)
+                {
+                    this.epic_cleave_reset_blocked = false;
+                }
+            }
+        }
     }
 }

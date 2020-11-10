@@ -3,6 +3,7 @@ import { modifier_reimagined_sven_great_cleave_passive } from "../../../modifier
 import "../../../modifiers/heroes/sven/modifier_reimagined_sven_great_cleave_epic_cleave_armor_reduction"
 import "../../../modifiers/heroes/sven/modifier_reimagined_sven_great_cleave_epic_cleave_counter"
 import * as util from "../../../lib/util";
+import { SvenTalents } from "./reimagined_sven_talents";
 
 @registerAbility()
 export class reimagined_sven_great_cleave extends BaseAbility
@@ -15,6 +16,9 @@ export class reimagined_sven_great_cleave extends BaseAbility
     particle: string = "particles/heroes/sven/overhead_slam.vpcf";
     particle_hit: string = "particles/heroes/sven/overhead_slam_hit.vpcf";
     particle_hit_fx?: ParticleID;
+
+    // Reimagined properties
+    active_projectile_map: Map<ProjectileID, Vector> = new Map();
 
     // Reimagined specials
     overhead_slam_max_distance?: number;
@@ -72,7 +76,7 @@ export class reimagined_sven_great_cleave extends BaseAbility
         EmitSoundOn(this.sound_cast, this.caster);
 
         // Launch projectile towards position
-        ProjectileManager.CreateLinearProjectile(
+        const projectile = ProjectileManager.CreateLinearProjectile(
         {
             Ability: this,
             EffectName: this.particle,            
@@ -94,11 +98,13 @@ export class reimagined_sven_great_cleave extends BaseAbility
             iVisionTeamNumber: this.caster.GetTeamNumber(),
             vAcceleration: undefined,
             vSpawnOrigin: this.caster.GetAttachmentOrigin(this.caster.ScriptLookupAttachment("attach_sword_end")),
-            vVelocity: (direction * this.overhead_slam_speed) as Vector
+            vVelocity: (direction * this.overhead_slam_speed * Vector(1, 1, 0)) as Vector
         });
+
+        this.active_projectile_map.set(projectile, this.caster.GetAbsOrigin());
     }
 
-    OnProjectileHit(target: CDOTA_BaseNPC | undefined, location: Vector)
+    OnProjectileHitHandle(target: CDOTA_BaseNPC | undefined, location: Vector, projectileID: ProjectileID)
     {
         if (target)
         {
@@ -112,9 +118,51 @@ export class reimagined_sven_great_cleave extends BaseAbility
             this.particle_hit_fx = ParticleManager.CreateParticle(this.particle_hit, ParticleAttachment.ABSORIGIN_FOLLOW, target)
             ParticleManager.SetParticleControl(this.particle_hit_fx, 0, target.GetAbsOrigin());
             ParticleManager.ReleaseParticleIndex(this.particle_hit_fx);
+
+            // Talent: Quakewave: Overhead Slam knockbacks enemies hit up and backwards over a duration of x seconds, stunning them in the process.
+            this.ReimaginedQuakewave(target, projectileID);
+        }
+        else
+        {
+            // Reached max distance, remove from map
+            this.active_projectile_map.delete(projectileID);
         }
 
         // Do not make the projectile disappear upon hitting a target
         return false;
+    }
+
+    ReimaginedQuakewave(target: CDOTA_BaseNPC, projectileID: ProjectileID)
+    {
+        if (util.HasTalent(this.caster, SvenTalents.SvenTalent_3))
+        {
+            // Verify this is a valid projectile
+            if (this.active_projectile_map.has(projectileID))
+            {
+                // Get current position
+                const original_caster_pos = this.active_projectile_map.get(projectileID)!;
+
+                // Initialize talent properties                
+                const knockback_duration = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "knockback_duration");
+                const knockback_height = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "knockback_height");
+                const knockback_distance = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "knockback_distance");
+                const stun_duration = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "stun_duration");
+
+                // Initialize knockback properties
+                const knockback: KnockbackProperties = 
+                {
+                    center_x: original_caster_pos.x,
+                    center_y: original_caster_pos.y,
+                    center_z: original_caster_pos.z,
+                    duration: stun_duration,
+                    knockback_distance: knockback_distance,
+                    knockback_duration: knockback_duration,
+                    knockback_height: knockback_height,
+                    should_stun: 1
+                };
+    
+                target.AddNewModifier(this.caster, this, BuiltInModifier.KNOCKBACK, knockback);
+            }
+        }
     }
 }

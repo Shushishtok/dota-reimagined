@@ -390,4 +390,228 @@
 			}
 		}	
 	}
+
+	//=================================================================================================================
+	// Sven: Talent: Momentum Breaker: Momentum Punch now also increases the stun duration by x for every y units traveled.
+	//=================================================================================================================
+	"reimagined_sven_talent_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"sven_storm_bolt"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"stun_duration"			"0.01"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"units_travel"			"10"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Sven: Talent: Fist Catcher: Enemies hit by Strong Right get dragged along with it.
+	//=================================================================================================================
+	"reimagined_sven_talent_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"sven_storm_bolt"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"value"					"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Sven: Talent: Quakewave: Overhead Slam knockbacks enemies hit up and backwards over a duration of x seconds, stunning them in the process.
+	//=================================================================================================================
+	"reimagined_sven_talent_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"sven_great_cleave"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"knockback_duration"	"1"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"knockback_height"		"300"
+			}
+
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"knockback_distance"	"300"
+			}
+
+			"04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"stun_duration"			"1.75"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Sven: Talent: Double Swinger: Epic Cleave can now be triggered x times in succession before resetting its counter.
+	//=================================================================================================================
+	"reimagined_sven_talent_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"sven_great_cleave"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"total_cleave_attacks"	"2"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Sven: Talent: True Bravery: Heart of Valor now also basic dispels all allies on cast.
+	//=================================================================================================================
+	"reimagined_sven_talent_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"sven_warcry"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"value"					"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Sven: Talent: Rallying Cry of Strength: Power Overwhelming now also grants allies x% of Sven's current Strength. Does not include Sven himself.
+	//=================================================================================================================
+	"reimagined_sven_talent_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"sven_warcry"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"strength_pct"			"25"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Sven: Talent: Bodybuilder Fish: God's Strength's Buff Fish effect becomes permanent.
+	//=================================================================================================================
+	"reimagined_sven_talent_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"sven_gods_strength"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"value"					"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Sven: Talent: God's Epic Stance: While God's Strength is active, each time Sven lands an attack, there is a x% chance to immediately set the Epic Cleave counter at max stacks. Uses Psuedo Random distribution.
+	//=================================================================================================================
+	"reimagined_sven_talent_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"sven_gods_strength"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"chance_pct"			"25"
+			}
+		}
+	}
 }

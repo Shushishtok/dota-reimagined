@@ -1,4 +1,6 @@
+import { SvenTalents } from "../../../abilities/heroes/sven/reimagined_sven_talents";
 import { BaseModifier, registerModifier} from "../../../lib/dota_ts_adapter";
+import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 import { modifier_reimagined_sven_gods_strength } from "./modifier_reimagined_sven_gods_strength";
 
 
@@ -91,9 +93,10 @@ export class modifier_reimagined_sven_warcry_buff extends BaseModifier
                 ModifierFunction.PHYSICAL_ARMOR_BONUS,
                 ModifierFunction.TRANSLATE_ACTIVITY_MODIFIERS,                    
                 ModifierFunction.TOTAL_CONSTANT_BLOCK, // Reimagined: Heart of Valor:
-                ModifierFunction.BASEDAMAGEOUTGOING_PERCENTAGE, // Reimagind: Power Overwhelming
+                ModifierFunction.BASEDAMAGEOUTGOING_PERCENTAGE, // Reimagined: Power Overwhelming
                 ModifierFunction.TOOLTIP,
-                ModifierFunction.TOOLTIP2
+                ModifierFunction.TOOLTIP2,
+                ModifierFunction.STATS_STRENGTH_BONUS // Talent: Rallying Cry of Strength
             ]; 
     }    
 
@@ -172,6 +175,12 @@ export class modifier_reimagined_sven_warcry_buff extends BaseModifier
         return 0;
     }
 
+    GetModifierBonusStats_Strength(): number
+    {
+        // Talent: Rallying Cry of Strength: Power Overwhelming now also grants allies x% of Sven's current Strength. Does not include Sven himself.
+        return this.ReimaginedTalentRallyingCryOfStrength();
+    }
+
     OnDestroy()
     {
         if (this.particle_shield_fx)
@@ -179,5 +188,21 @@ export class modifier_reimagined_sven_warcry_buff extends BaseModifier
             ParticleManager.DestroyParticle(this.particle_shield_fx!, false);
             ParticleManager.ReleaseParticleIndex(this.particle_shield_fx!);
         }        
+    }
+
+    ReimaginedTalentRallyingCryOfStrength(): number
+    {
+        if (HasTalent(this.caster, SvenTalents.SvenTalent_6))
+        {
+            const strength_pct = GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_6, "strength_pct");
+
+            // Only when God's Strength is active. Ignores the caster
+            if (this.gods_strength_active && this.parent != this.caster)
+            {
+                return (this.caster as CDOTA_BaseNPC_Hero).GetStrength() * strength_pct * 0.01;
+            }
+        }
+
+        return 0;
     }
 }
