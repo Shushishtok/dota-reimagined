@@ -36,6 +36,9 @@ export class reimagined_skywrath_mage_concussive_shot extends BaseAbility
     ghastly_eerie_duration_pct?: number;
     ghastly_eerie_radius_pct?: number;
 
+    // Reimagined talent specials
+    talent_3_duration?: number;
+
     Precache(context: CScriptPrecacheContext)
     {
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot_cast.vpcf", context);
@@ -388,8 +391,8 @@ export class reimagined_skywrath_mage_concussive_shot extends BaseAbility
     {
         if (util.HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_3))
         {
-            const talent_3_duration = util.GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_3, "duration");
-            this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_3_buff.name, {duration: talent_3_duration})
+            if (!this.talent_3_duration) this.talent_3_duration = util.GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_3, "duration");
+            this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_3_buff.name, {duration: this.talent_3_duration})
         }
     }
 

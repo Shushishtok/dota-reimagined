@@ -14,6 +14,10 @@ export class modifier_reimagined_antimage_blink_magic_nullity extends BaseModifi
 
     // Modifier specials
     magic_nullity_magic_res?: number;
+    
+    // Reimagined talent specials
+    talent_3_magic_resist?: number;
+    talent_3_status_resist?: number;
 
     IsHidden() {return false}
     IsDebuff() {return false}
@@ -59,7 +63,8 @@ export class modifier_reimagined_antimage_blink_magic_nullity extends BaseModifi
     {
         if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_3))
         {
-            return GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_3, "magic_resist");
+            if (!this.talent_3_magic_resist) this.talent_3_magic_resist = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_3, "magic_resist");
+            return this.talent_3_magic_resist;
         }
 
         return this.magic_nullity_magic_res!;
@@ -69,7 +74,8 @@ export class modifier_reimagined_antimage_blink_magic_nullity extends BaseModifi
     {
         if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_3))
         {
-            return GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_3, "status_resist");
+            if (!this.talent_3_status_resist) this.talent_3_status_resist = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_3, "status_resist");
+            return this.talent_3_status_resist
         }
     
         return 0;

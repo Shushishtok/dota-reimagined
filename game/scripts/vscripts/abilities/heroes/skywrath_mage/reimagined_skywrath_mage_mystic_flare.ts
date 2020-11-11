@@ -47,6 +47,9 @@ export class reimagined_skywrath_mage_mystic_flare extends BaseAbility
     high_mage_duration_per_int_pct?: number;
     high_mage_max_duration_reduction_pct?: number;
 
+    // Reimagined talent specials
+    talent_duration?: number;
+
     Precache(context: CScriptPrecacheContext)
     {
         PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/skywrath_mage_mystic_flare_moving_ambient.vpcf", context);
@@ -459,8 +462,8 @@ export class reimagined_skywrath_mage_mystic_flare extends BaseAbility
     {
         if (util.HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_8))
         {
-            const talent_duration = util.GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_8, "duration");
-            this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_8_buff.name, {duration: talent_duration});
+            if (!this.talent_duration) this.talent_duration = util.GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_8, "duration");
+            this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_8_buff.name, {duration: this.talent_duration});
         }
     }
 }

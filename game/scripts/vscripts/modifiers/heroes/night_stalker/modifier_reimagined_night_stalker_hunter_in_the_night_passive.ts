@@ -1,4 +1,6 @@
+import { NightStalkerTalents } from "../../../abilities/heroes/night_stalker/reimagined_night_stalker_talents";
 import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_ts_adapter";
+import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 import { modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night } from "./modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night";
 import { modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights} from "./modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights";
 
@@ -34,6 +36,10 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
 
     // Reimagined specials
     everlasting_night_duration?: number;
+
+    // Reimagined talent specials
+    bonuses_pct?: number;
+    day_vision_bonus?: number;
 
     IsHidden() {return true}
     IsDebuff() {return false}
@@ -237,6 +243,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
         return [ModifierFunction.MOVESPEED_BONUS_PERCENTAGE,
                 ModifierFunction.ATTACKSPEED_BONUS_CONSTANT,
                 ModifierFunction.IGNORE_MOVESPEED_LIMIT, // Reimagination: As Quick As a Shadow
+                ModifierFunction.BONUS_DAY_VISION, // Talent: Daywalker
                 ] 
     }
 
@@ -251,7 +258,11 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
             return this.bonus_movement_speed_pct_night!;
         }
 
-        return 0;
+        // Talent: Daywalker: During daytime, Night Stalker gains x% of the normal movement and attack speed bonuses, and gains bonus y day vision range.
+        let movespeed_bonus = 0;
+        movespeed_bonus = this.ReimaginedTalentDaywalker(true);
+
+        return movespeed_bonus;
     }
 
     GetModifierAttackSpeedBonus_Constant(): number
@@ -265,7 +276,11 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
             return this.bonus_attack_speed_night!;
         }
 
-        return 0;
+        // Talent: Daywalker: During daytime, Night Stalker gains x% of the normal movement and attack speed bonuses, and gains bonus y day vision range.
+        let attack_speed_bonus = 0;
+        attack_speed_bonus = this.ReimaginedTalentDaywalker(true);
+
+        return attack_speed_bonus;
     }
 
     GetModifierIgnoreMovespeedLimit(): 0 | 1
@@ -281,6 +296,11 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
 
         return 0;
     }    
+
+    GetBonusDayVision(): number
+    {
+        return this.ReimaginedTalentDaywalkerVision();
+    }
 
     ReimaginationEverlastingNights(): void
     {
@@ -318,5 +338,43 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
                 modifier_everlasting.IncrementStackCount();
             }
         }
+    }
+
+    ReimaginedTalentDaywalker(attack_speed: boolean): number
+    {
+        let bonus = 0;
+        if (HasTalent(this.caster, NightStalkerTalents.NightStalkerTalents_5))
+        {
+            if (!this.bonuses_pct) this.bonuses_pct = GetTalentSpecialValueFor(this.caster, NightStalkerTalents.NightStalkerTalents_5, "bonuses_pct");
+            
+            // Only active at day time
+            if (this.GetStackCount() == 0)
+            {
+                if (attack_speed)
+                {
+                    return bonus = this.bonus_attack_speed_night! * this.bonuses_pct! * 0.01;
+                }
+                else
+                {
+                    return bonus = this.bonus_movement_speed_pct_night! * this.bonuses_pct * 0.01;
+                }
+            }
+        }
+
+        return bonus;
+    }
+
+    ReimaginedTalentDaywalkerVision(): number
+    {
+        if (HasTalent(this.caster, NightStalkerTalents.NightStalkerTalents_5))
+        {
+            if (!this.day_vision_bonus) this.day_vision_bonus = GetTalentSpecialValueFor(this.caster, NightStalkerTalents.NightStalkerTalents_5, "day_vision_bonus");
+            if (this.GetStackCount() == 0)
+            {
+                return this.day_vision_bonus;
+            }            
+        }
+
+        return 0;
     }
 }

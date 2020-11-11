@@ -40,7 +40,6 @@ export class modifier_reimagined_skywrath_mage_talent_7_debuff extends BaseModif
             // Modifier specials
             this.radius = this.ability.GetSpecialValueFor("radius");
 
-
             // Start checking!
             const check_interval = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_7, "check_interval");
             this.StartIntervalThink(check_interval);

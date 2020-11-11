@@ -35,6 +35,9 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
     epic_cleave_distance_multiplier?: number;
     epic_cleave_damage_pct?: number;
 
+    // Reimagined talent specials
+    total_cleave_attacks?: number;
+
     IsHidden() {return true}
     IsDebuff() {return false}
     IsPurgable() {return false}
@@ -221,7 +224,7 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
     {        
         if (util.HasTalent(this.caster, SvenTalents.SvenTalent_4))
         {
-            const total_cleave_attacks = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_4, "total_cleave_attacks");
+            if (!this.total_cleave_attacks) this.total_cleave_attacks = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_4, "total_cleave_attacks");
 
             // Block the counter from going down
             if (!this.epic_cleave_reset_blocked)
@@ -235,7 +238,7 @@ export class modifier_reimagined_sven_great_cleave_passive extends BaseModifier
             {
                 this.epic_cleave_reset_counter++;
 
-                if (this.epic_cleave_reset_counter == total_cleave_attacks)
+                if (this.epic_cleave_reset_counter == this.total_cleave_attacks)
                 {
                     this.epic_cleave_reset_blocked = false;
                 }

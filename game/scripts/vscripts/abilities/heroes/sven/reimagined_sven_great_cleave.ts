@@ -25,6 +25,12 @@ export class reimagined_sven_great_cleave extends BaseAbility
     overhead_slam_speed?: number;    
     overhead_slam_radius?: number;
 
+    // Reimagined talent specials
+    knockback_duration?: number;
+    knockback_height?: number;
+    knockback_distance?: number;
+    stun_duration?: number;
+
     Precache(context: CScriptPrecacheContext)
     {
         PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/overhead_slam.vpcf", context);
@@ -143,10 +149,10 @@ export class reimagined_sven_great_cleave extends BaseAbility
                 const original_caster_pos = this.active_projectile_map.get(projectileID)!;
 
                 // Initialize talent properties                
-                const knockback_duration = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "knockback_duration");
-                const knockback_height = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "knockback_height");
-                const knockback_distance = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "knockback_distance");
-                const stun_duration = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "stun_duration");
+                if (!this.knockback_duration) this.knockback_duration = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "knockback_duration");
+                if (!this.knockback_height) this.knockback_height = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "knockback_height");
+                if (!this.knockback_distance) this.knockback_distance = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "knockback_distance");
+                if (!this.stun_duration) this.stun_duration = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_3, "stun_duration");
 
                 // Initialize knockback properties
                 const knockback: KnockbackProperties = 
@@ -154,10 +160,10 @@ export class reimagined_sven_great_cleave extends BaseAbility
                     center_x: original_caster_pos.x,
                     center_y: original_caster_pos.y,
                     center_z: original_caster_pos.z,
-                    duration: stun_duration,
-                    knockback_distance: knockback_distance,
-                    knockback_duration: knockback_duration,
-                    knockback_height: knockback_height,
+                    duration: this.stun_duration,
+                    knockback_distance: this.knockback_distance,
+                    knockback_duration: this.knockback_duration,
+                    knockback_height: this.knockback_height,
                     should_stun: 1
                 };
     

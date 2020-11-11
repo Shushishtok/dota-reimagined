@@ -27,6 +27,13 @@ export class reimagined_antimage_blink extends BaseAbility
     interference_curr_mana_rdct_pct?: number;
     magic_nullity_duration?: number;
 
+    // Reimagined talent specials
+    cast_range_increase?: number;
+    max_stun?: number;
+    stun_per_units?: number;
+    units_interval?: number;
+
+
     Precache(context: CScriptPrecacheContext)
     {
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_antimage/antimage_blink_start.vpcf", context);
@@ -197,7 +204,9 @@ export class reimagined_antimage_blink extends BaseAbility
     {
         if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4) && this.GetAutoCastState())
         {
-            return blink_range * util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "cast_range_increase");
+            if (!this.cast_range_increase) this.cast_range_increase = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "cast_range_increase");
+
+            return blink_range * this.cast_range_increase;
         }
 
         return blink_range;
@@ -212,16 +221,16 @@ export class reimagined_antimage_blink extends BaseAbility
             if (blink_distance > this.blink_range!)
             {
                 // Get variables
-                const max_stun = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "max_stun");
-                const stun_per_units = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "stun_per_units");
-                const units_interval = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "units_interval");
+                if (!this.max_stun) this.max_stun = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "max_stun");
+                if (!this.stun_per_units) this.stun_per_units = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "stun_per_units");
+                if (!this.units_interval) this.units_interval = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "units_interval");
 
                 // Calculate stun
                 const overblink_range = (blink_distance - this.blink_range!);
-                let overblink_stun = overblink_range / units_interval * stun_per_units
-                if (overblink_stun > max_stun)
+                let overblink_stun = overblink_range / this.units_interval * this.stun_per_units
+                if (overblink_stun > this.max_stun)
                 {
-                    overblink_stun = max_stun;
+                    overblink_stun = this.max_stun;
                 }
 
                 // Stun self

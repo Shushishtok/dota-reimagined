@@ -413,6 +413,96 @@
 		"DOTA_Tooltip_modifier_reimagined_night_stalker_dark_ascension_active_Description"
 		"Grants unobstructed vision, flying movement and %dMODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE% bonus damage."
 
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_1"
+		"Rip and Tear"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_1_Description"
+		"Each attack Night Stalker lands on an enemy affected by Void reduces its armor by %armor_reduction%. Lasts until the Void's debuff ends."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_1_Lore"
+		"Feeling hopelessness and helplessness against such horrors is not an uncommon occurrence."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_2"
+		"Path to the Prey"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_2_Description"
+		"While stalking a target afflicted by Void, Night Stalker gains free pathing and phased movement."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_2_Lore"
+		"Once the night terror has marked a target, it cannot run or hide."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_3"
+		"Feed The Night"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_3_Description"
+		"Each enemy hero that dies while inside Crippling Fear extends its duration by x seconds. Units extends it by y seconds instead."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_3_Lore"
+		"Night Stalker's control over the night increases for every victim he slaughters."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_4"
+		"Dreadful Creature"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_4_Description"
+		"Enemies that are affected by Crippling Fear for over %application_threshold% seconds have Break applied on them and take %incoming_damage_increase%%% more damage from all sources until they lose the aura debuff."
+		
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_4_Lore"
+		"Staying in close proximity to the Night Stalker for too long can spark insanity in anyone."
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_talent_4_debuff"
+		"Dreadful Creature"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_talent_4_debuff_Description"
+		"Broken and taking %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%% more damage from all sources until leaving Crippling Fear's aura."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_5"
+		"Daywalker"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_5_Description"
+		"uring daytime, Night Stalker gains %bonuses_pct%%% of the normal movement and attack speed bonuses, and gains bonus %day_vision_bonus% day vision range."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_5_Lore"
+		"By keeping a small shroud of darkness around it, Night Stalker slowly adapts to the light."
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_talent_6"
+		"Sneak Through The Night"
+		
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_talent_6_Description"
+		"Invisible until coming in vision range of nearby enemies heroes or getting too close to enemy units."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_6"
+		"Sneak Through the Night"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_6_Description"
+		"During the night, Night Stalker is passively invisible while not in vision range of enemy heroes during nighttime. Units closer than %proximity_distance% units to Night Stalker will also reveal him. This detection occurs regardless of obstacles between Night Stalker and his enemies."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_6_Lore"
+		"Night Stalker moves swiftly at night, almost undetectable. His victims can only feel his presence when he's nearby."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_7"
+		"Flight Muscles"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_7_Description"
+		"Wings Out is applied when Night Stalker has at least %talent_stacks_threshold% Dead of Night stacks. In addition, while Dark Ascension is active, his move speed also increases by an additional %dark_ascension_bonus_ms_pct%%%."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_7_Lore"
+		"Embracing the darkness in its full glory allowed Night Stalker to spread his wings more often and use them more effectively."
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_talent_8"
+		"Midnight Peak"
+
+		"DOTA_Tooltip_modifier_reimagined_night_stalker_talent_8_Description"
+		"Damage reduction increased by %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%%, status resistance increased by %dMODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING%%% and outgoing damage from all sources increased by %dMODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE%%%. Active as long as Dead of Night has at least %dMODIFIER_PROPERTY_TOOLTIP% stacks."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_8"
+		"Midnight Peak"
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_8_Description"
+		"While Night Stalker's Dead of the Night stacks are at least %talent_stacks_threshold% stacks, grants Night Stalker %damage_reduction_pct%%% damage reduction, %status_resist_pct%%% status resistance and %damage_amp_pct%%% outgoing damage from all sources."
+
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_8_Lore"
+		"At the peak of the night, there is very little that can actually hope to face against Night Stalker."
+
 		// Sven
 		// Sven's Storm Hammer
 		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt"

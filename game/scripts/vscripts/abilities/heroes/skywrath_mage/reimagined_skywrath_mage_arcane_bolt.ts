@@ -35,6 +35,9 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
     blank_bolt_duration?: number;
     blank_bolt_damage_pct?: number;
 
+    // Reimagined talent specials
+    talent_1_duration?: number;
+
     Precache(context: CScriptPrecacheContext)
     {
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_skywrath_mage/skywrath_mage_arcane_bolt.vpcf", context);
@@ -343,11 +346,11 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
     {
         if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_1))
         {
-            const talent_1_duration = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_1, "duration");
+            if (!this.talent_1_duration) this.talent_1_duration = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_1, "duration");
 
             if (!this.caster.HasModifier(modifier_reimagined_skywrath_mage_talent_1_buff.name))
             {
-                this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_1_buff.name, {duration: talent_1_duration});
+                this.caster.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_talent_1_buff.name, {duration: this.talent_1_duration});
             }
 
             const talent_1_modifier = this.caster.FindModifierByName(modifier_reimagined_skywrath_mage_talent_1_buff.name);

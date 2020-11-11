@@ -19,6 +19,9 @@ export class modifier_reimagined_skywrath_mage_concussive_shot_slow extends Base
 
     // Reimagined specials
     brain_concussion_spell_amp_rdct?: number;
+    
+    // Reimagined talent specials
+    turn_rate_reduction?: number;
 
     IsHidden() {return false}
     IsDebuff() {return true}
@@ -76,8 +79,9 @@ export class modifier_reimagined_skywrath_mage_concussive_shot_slow extends Base
     ReimaginedTalentMotorDysfunction(): number
     {
         if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_4))
-        {
-            return GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_4, "turn_rate_reduction") * (-1);            
+        {   
+            if (!this.turn_rate_reduction) this.turn_rate_reduction = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_4, "turn_rate_reduction")
+            return this.turn_rate_reduction * (-1);            
         }
 
         return 0;

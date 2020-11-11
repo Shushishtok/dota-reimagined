@@ -25,6 +25,8 @@ export class reimagined_antimage_mana_break extends BaseAbility
     
     // Talent specials
     mana_burn_reduction_talent?: number;
+    additional_waves?: number;
+    wave_interval?: number;
 
     GetIntrinsicModifierName(): string
     {
@@ -142,23 +144,23 @@ export class reimagined_antimage_mana_break extends BaseAbility
     {
         if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_1))
         {
-            const additional_waves = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "total_waves") - 1
-            const wave_interval = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "wave_interval");
-            this.mana_burn_reduction_talent = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "mana_burn_pct_wave");
+            if (!this.additional_waves) this.additional_waves = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "total_waves") - 1
+            if (!this.wave_interval) this.wave_interval = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "wave_interval");
+            if (!this.mana_burn_reduction_talent) this.mana_burn_reduction_talent = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_1, "mana_burn_pct_wave");
             
             let additional_waves_fired = 0;
-            Timers.CreateTimer(wave_interval, () => 
+            Timers.CreateTimer(this.wave_interval, () => 
             {
                 additional_waves_fired++;
                 this.ReimaginedEnergyBlastPulse(true);
                 
-                if (additional_waves_fired >= additional_waves)
+                if (additional_waves_fired >= this.additional_waves!)
                 {
                     return undefined;
                 }
                 else
                 {
-                    return wave_interval;
+                    return this.wave_interval;
                 }
             })
         }

@@ -1,6 +1,8 @@
 import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_night_stalker_crippling_fear_silence_debuff } from "./modifier_reimagined_night_stalker_crippling_fear_silence_debuff";
 import { modifier_reimagined_night_stalker_crippling_fear_fear_debuff} from "./modifier_reimagined_night_stalker_crippling_fear_fear_debuff"
+import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
+import { NightStalkerTalents } from "../../../abilities/heroes/night_stalker/reimagined_night_stalker_talents";
 
 @registerModifier()
 export class modifier_reimagined_night_stalker_crippling_fear_aura extends BaseModifier
@@ -21,6 +23,11 @@ export class modifier_reimagined_night_stalker_crippling_fear_aura extends BaseM
     roll_back_light_radius_inc_sec?: number;
     roll_back_light_interval?: number;
     roll_back_light_radius_per_interval?: number;
+
+    // Talent specials
+    hero_duration_extend?: number;
+    unit_duration_extend?: number;
+
 
     IsHidden() {return false}
     IsDebuff() {return false}
@@ -47,6 +54,7 @@ export class modifier_reimagined_night_stalker_crippling_fear_aura extends BaseM
         
         this.particle_aura_fx = ParticleManager.CreateParticle(this.particle_aura, ParticleAttachment.ABSORIGIN_FOLLOW, this.parent);
         ParticleManager.SetParticleControl(this.particle_aura_fx, 0, this.parent.GetAbsOrigin());
+        ParticleManager.SetParticleControlEnt(this.particle_aura_fx, 1, this.parent, ParticleAttachment.POINT_FOLLOW, AttachLocation.HITLOC, this.parent.GetAbsOrigin(), true);
         ParticleManager.SetParticleControl(this.particle_aura_fx, 2, Vector(this.radius, 0, this.radius));
         this.AddParticle(this.particle_aura_fx, false, false, -1, false, false);
         
@@ -93,6 +101,50 @@ export class modifier_reimagined_night_stalker_crippling_fear_aura extends BaseM
 
         // Set the control point of the particle to match the new radius
         ParticleManager.SetParticleControl(this.particle_aura_fx!, 2, Vector(this.radius!, this.radius!, this.radius!))
+    }
+
+    DeclareFunctions(): ModifierFunction[]
+    {
+        return [ModifierFunction.ON_DEATH];
+    }
+
+    OnDeath(event: ModifierAttackEvent): void
+    {
+        if (!IsServer()) return;
+
+        // Feed The Night: Each enemy hero that dies while inside Crippling Fear extends its duration by x seconds. Units extends it by y instead.
+        this.ReimaginedTalentFeedTheNight(event);
+    }
+
+    ReimaginedTalentFeedTheNight(event: ModifierAttackEvent): void
+    {
+        if (HasTalent(this.parent, NightStalkerTalents.NightStalkerTalents_3))
+        {
+            // Only apply if the killer is the parent
+            if (event.attacker != this.parent) return;
+    
+            // Ignore illusions
+            if (event.unit!.IsIllusion()) return;
+
+            // Only apply if the unit had the aura debuff
+            if (!event.unit!.HasModifier(this.debuff_modifier_name!)) return;
+            
+            // Only apply if the target is not an ally
+            if (event.unit!.GetTeamNumber() == this.parent.GetTeamNumber()) return;
+    
+            if (!this.hero_duration_extend) this.hero_duration_extend = GetTalentSpecialValueFor(this.parent, NightStalkerTalents.NightStalkerTalents_3, "hero_duration_extend");
+            if (!this.unit_duration_extend) this.unit_duration_extend = GetTalentSpecialValueFor(this.parent, NightStalkerTalents.NightStalkerTalents_3, "unit_duration_extend");
+
+            // Extend based on hero/units. Creep heroes are considered units for this purpose.
+            if (event.unit!.IsRealHero())
+            {
+                this.SetDuration(this.GetRemainingTime() + this.hero_duration_extend, true);
+            }
+            else
+            {
+                this.SetDuration(this.GetRemainingTime() + this.unit_duration_extend, true);
+            }
+        }
     }
 
     // Aura definitions

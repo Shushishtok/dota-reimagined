@@ -24,6 +24,9 @@ export class modifier_reimagined_sven_warcry_buff extends BaseModifier
     // Reimagined specials
     power_overwhelming_damage_pct?: number;
 
+    // Reimagined talent specials
+    strength_pct?: number;
+
     IsHidden() {return false}
     IsDebuff() {return false}
     IsPurgable() {return true}
@@ -194,12 +197,12 @@ export class modifier_reimagined_sven_warcry_buff extends BaseModifier
     {
         if (HasTalent(this.caster, SvenTalents.SvenTalent_6))
         {
-            const strength_pct = GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_6, "strength_pct");
+            if (!this.strength_pct) this.strength_pct = GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_6, "strength_pct");
 
             // Only when God's Strength is active. Ignores the caster
             if (this.gods_strength_active && this.parent != this.caster)
             {
-                return (this.caster as CDOTA_BaseNPC_Hero).GetStrength() * strength_pct * 0.01;
+                return (this.caster as CDOTA_BaseNPC_Hero).GetStrength() * this.strength_pct * 0.01;
             }
         }
 

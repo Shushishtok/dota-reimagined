@@ -1,4 +1,6 @@
+import { NightStalkerTalents } from "../../../abilities/heroes/night_stalker/reimagined_night_stalker_talents";
 import { BaseModifier, registerModifier} from "../../../lib/dota_ts_adapter";
+import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 import { modifier_reimagined_night_stalker_dark_ascension_active } from "./modifier_reimagined_night_stalker_dark_ascension_active";
 import { modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night } from "./modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night"
 import { modifier_reimagined_night_stalker_hunter_in_the_night_passive } from "./modifier_reimagined_night_stalker_hunter_in_the_night_passive";
@@ -15,6 +17,10 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
     bonus_damage?: number
     wings_out_stack_threshold?: number;
     wings_out_damage_pct?: number;
+
+    // Reimagined talent specials
+    talent_stacks_threshold?: number;
+    dark_ascension_bonus_ms_pct?: number;    
 
     IsHidden(): boolean
     {
@@ -62,7 +68,8 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
     DeclareFunctions(): ModifierFunction[]
     {
         return [ModifierFunction.PREATTACK_BONUS_DAMAGE,
-                ModifierFunction.TRANSLATE_ACTIVITY_MODIFIERS]
+                ModifierFunction.TRANSLATE_ACTIVITY_MODIFIERS,
+                ModifierFunction.MOVESPEED_BONUS_PERCENTAGE]
     } 
 
     CheckState(): Partial<Record<ModifierState, boolean>>
@@ -95,6 +102,12 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
         return;
     }
 
+    GetModifierMoveSpeedBonus_Percentage(): number
+    {
+        // Talent: Wings Out's is applied when Night Stalker has at least x Dead of Night stacks. While Dark Ascension is active, his move speed also increases by an additional y%.
+        return this.ReimaginedTalentFlightMusclesMoveSpeed()
+    }
+
     ShouldModifierBeActive(): boolean
     {
         // Modifier is inactive and hidden when the parent has the active component
@@ -117,9 +130,41 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
         {
             return true;
         }
-        else // Otherwise, it should not trigger and be hidden.
+
+        // Talent: Wings Out's is applied when Night Stalker has at least x Dead of Night stacks. While Dark Ascension is active, his move speed also increases by an additional y%.
+        if (this.ReimaginedTalentFlightMuscles()) return true;
+
+        // Otherwise, it should not trigger and be hidden.        
+        return false;        
+    }
+
+    ReimaginedTalentFlightMuscles(): boolean
+    {
+        if (HasTalent(this.caster, NightStalkerTalents.NightStalkerTalents_7))
         {
-            return false;
+            if (!this.talent_stacks_threshold) this.talent_stacks_threshold = GetTalentSpecialValueFor(this.caster, NightStalkerTalents.NightStalkerTalents_7, "talent_stacks_threshold");
+
+            if (this.parent.GetModifierStackCount(modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night.name, this.parent) >= this.talent_stacks_threshold)
+            {
+                return true;
+            }
         }
+
+        return false
+    }
+
+    ReimaginedTalentFlightMusclesMoveSpeed(): number
+    {
+        if (HasTalent(this.caster, NightStalkerTalents.NightStalkerTalents_7))
+        {
+            if (!this.dark_ascension_bonus_ms_pct) this.dark_ascension_bonus_ms_pct = GetTalentSpecialValueFor(this.caster, NightStalkerTalents.NightStalkerTalents_7, "dark_ascension_bonus_ms_pct");
+
+            if (this.parent.HasModifier(modifier_reimagined_night_stalker_dark_ascension_active.name))
+            {
+                return this.dark_ascension_bonus_ms_pct;
+            }            
+        }
+
+        return 0;
     }
 }

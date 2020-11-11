@@ -307,4 +307,246 @@
 			}
 		}
 	}
+
+	//=================================================================================================================
+	// Night Stalker: Talent: Rip And Tear: Each attack Night Stalker makes against an enemy affected by Void reduces their armor by x
+	//=================================================================================================================
+	"reimagined_night_stalker_talent_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"night_stalker_void"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"armor_reduction"		"1.5"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Night Stalker: Talent: Path to the Prey: While the Stalking buff is active, Night Stalker gains free pathing and phased movement.
+	//=================================================================================================================
+	"reimagined_night_stalker_talent_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"night_stalker_void"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"value"					"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Night Stalker: Talent: Feed The Night: Each enemy hero that dies while inside Crippling Fear extends its duration by x seconds. Units extends it by y instead.
+	//=================================================================================================================
+	"reimagined_night_stalker_talent_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"night_stalker_crippling_fear"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"hero_duration_extend"	"3"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"unit_duration_extend"	"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Night Stalker: Talent: Dreadful Creature: Enemies that are affected by Crippling Fear for over x seconds have Break applied on them and take y% more damage until they lose the aura debuff.
+	//=================================================================================================================
+	"reimagined_night_stalker_talent_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"night_stalker_crippling_fear"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"application_threshold"	"3"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"incoming_damage_increase"	"15"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Night Stalker: Talent: Daywalker: During daytime, Night Stalker gains x% of the normal movement and attack speed bonuses, and gains bonus y day vision range.
+	//=================================================================================================================
+	"reimagined_night_stalker_talent_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"night_stalker_hunter_in_the_night"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonuses_pct"	"25"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"day_vision_bonus"		"300"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Night Stalker: Talent: Sneak Through the Night: During the night, Night Stalker is passively invisible while not in vision range of enemy heroes during nighttime, regardless of obstacles. Units closer than x units to Night Stalker will also reveal him.
+	//=================================================================================================================
+	"reimagined_night_stalker_talent_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"night_stalker_hunter_in_the_night"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"proximity_distance"	"350"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Night Stalker: Talent: Wings Out's is applied when Night Stalker has at least x Dead of Night stacks. While Dark Ascension is active, his move speed also increases by an additional y%.
+	//=================================================================================================================
+	"reimagined_night_stalker_talent_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"night_stalker_darkness"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"talent_stacks_threshold"		"60"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"dark_ascension_bonus_ms_pct"	"15"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Night Stalker: Talent: Midnight Peak: While Night Stalker's Dead of the Night stacks are higher than x, grants Night Stalker y% damage reduction, z% status resistance and t% damage amp.
+	//=================================================================================================================
+	"reimagined_night_stalker_talent_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"				
+		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityTextureName"			"night_stalker_darkness"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"talent_stacks_threshold"		"90"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_reduction_pct"		"30"
+			}
+
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"status_resist_pct"		"30"
+			}
+
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_amp_pct"		"25"
+			}
+		}
+	}
 }

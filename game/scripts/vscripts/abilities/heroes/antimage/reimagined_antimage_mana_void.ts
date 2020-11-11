@@ -26,6 +26,11 @@ export class reimagined_antimage_mana_void extends BaseAbility
     purity_of_will_missing_mana_for_instance?: number;
     purity_of_will_max_stun_increased?: number;
 
+    // Reimagined talent specials
+    mana_threshold?: number;
+    multiplier?: number;
+    max_mana_pct?: number;
+
     Precache(context: CScriptPrecacheContext)
     {
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_antimage/antimage_manavoid.vpcf", context);
@@ -233,12 +238,12 @@ export class reimagined_antimage_mana_void extends BaseAbility
     {
         if (HasTalent(this.caster, AntiMageTalents.AntiMageTalents_7))
         {
-            const mana_threshold = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_7, "mana_threshold");
-            const multiplier = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_7, "multiplier");
+            if (!this.mana_threshold) this.mana_threshold = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_7, "mana_threshold");
+            if (!this.multiplier) this.multiplier = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_7, "multiplier");
 
-            if (target.GetManaPercent() <= mana_threshold)
+            if (target.GetManaPercent() <= this.mana_threshold)
             {
-                damage = damage * multiplier;
+                damage = damage * this.multiplier;
             }
         }
 
@@ -253,8 +258,8 @@ export class reimagined_antimage_mana_void extends BaseAbility
         {
             if (target.GetMaxMana() > 0)
             {
-                const max_mana_pct = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_8, "max_mana_pct");
-                bonus_damage = target.GetMaxMana() * max_mana_pct * 0.01;
+                if (!this.max_mana_pct) this.max_mana_pct = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_8, "max_mana_pct");
+                bonus_damage = target.GetMaxMana() * this.max_mana_pct * 0.01;
             }
         }
 

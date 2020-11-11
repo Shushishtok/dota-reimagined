@@ -1,4 +1,6 @@
+import { NightStalkerTalents } from "../../../abilities/heroes/night_stalker/reimagined_night_stalker_talents";
 import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_ts_adapter";
+import { HasTalent } from "../../../lib/util";
 import { modifier_reimagined_night_stalker_void_debuff } from "./modifier_reimagined_night_stalker_void_debuff";
 import { modifier_reimagined_night_stalker_void_stalked } from "./modifier_reimagined_night_stalker_void_stalked";
 
@@ -35,10 +37,6 @@ export class modifier_reimagined_night_stalker_void_stalking extends BaseModifie
 
     OnCreated(): void
     {
-        // Modifier properties
-        
-        this.ability = this.GetAbility()!;
-
         // Modifier specials
         this.stalking_ms_bonus = this.ability.GetSpecialValueFor("stalking_ms_bonus");
         this.stalking_width = this.ability.GetSpecialValueFor("stalking_width");
@@ -109,5 +107,25 @@ export class modifier_reimagined_night_stalker_void_stalking extends BaseModifie
         }
 
         return 0;
+    }
+
+    CheckState(): Partial<Record<ModifierState, boolean>> | undefined
+    {
+        // Talent: Path to the Prey: While the Stalking buff is active, Night Stalker gains free pathing.
+        return this.ReimaginedPathToThePrey();
+    }
+
+    ReimaginedPathToThePrey(): Partial<Record<ModifierState, boolean>> | undefined
+    {
+        // We need to be actively stalking
+        if (this.GetStackCount() != 0) return undefined;
+
+        if (HasTalent(this.caster, NightStalkerTalents.NightStalkerTalents_2))
+        {
+            return {[ModifierState.FLYING_FOR_PATHING_PURPOSES_ONLY]: true,
+                    [ModifierState.NO_UNIT_COLLISION]: true};
+        }
+
+        return undefined;
     }
 }

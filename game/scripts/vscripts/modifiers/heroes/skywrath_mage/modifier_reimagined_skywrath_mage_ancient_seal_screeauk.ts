@@ -124,8 +124,8 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_screeauk extends Bas
         {
             if (IsServer())
             {
-                this.talent_pulse_interval = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_6, "pulse_interval");
-                this.talent_radius = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_6, "radius");
+                if (!this.talent_pulse_interval) this.talent_pulse_interval = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_6, "pulse_interval");
+                if (!this.talent_radius) this.talent_radius = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_6, "radius");
                 this.StartIntervalThink(this.talent_pulse_interval - FrameTime()); // Reducing by one frame to make the last pulse also count
                 this.OnIntervalThink();
             }

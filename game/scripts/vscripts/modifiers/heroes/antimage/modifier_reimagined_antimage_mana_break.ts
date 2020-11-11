@@ -33,6 +33,9 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
     mana_cleave_mana_burn?: number;    
     mana_convergence_hit_duration?: number;
 
+    // Reimagined talent specials
+    talent_2_pure_dmg_pct?: number;
+
     IsHidden() {return true}
     IsDebuff() {return false}
     IsPurgable() {return false}    
@@ -260,10 +263,10 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier
     {
         if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_2))
         {
-            const talent_2_pure_dmg_pct = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_2, "pure_dmg_pct");            
+            if (!this.talent_2_pure_dmg_pct) this.talent_2_pure_dmg_pct = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_2, "pure_dmg_pct");            
             if (event.target.GetMana() == 0)
             {               
-                const pure_damage = (this.mana_per_hit! + this.mana_per_hit_pct! * event.target.GetMaxMana() * 0.01) * talent_2_pure_dmg_pct * 0.01;                
+                const pure_damage = (this.mana_per_hit! + this.mana_per_hit_pct! * event.target.GetMaxMana() * 0.01) * this.talent_2_pure_dmg_pct * 0.01;
                 SendOverheadEventMessage(undefined, OverheadAlert.DAMAGE, event.target, pure_damage, undefined);
                 return pure_damage;
             }

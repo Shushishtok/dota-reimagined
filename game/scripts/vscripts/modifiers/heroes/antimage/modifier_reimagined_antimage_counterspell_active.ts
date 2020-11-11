@@ -21,6 +21,10 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
     anti_magic_duration_inc?: number;
     instinctive_counter_trigger_multiplier?: number;
 
+    // Reimagined talent specials
+    silence_duration?: number;
+    magic_cannot_harm_me_duration?: number;    
+
     IsHidden() {return false}
     IsDebuff() {return false}
     IsPurgable() {return false}
@@ -106,8 +110,8 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
     {
         if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_5))
         {
-            const silence_duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_5, "silence_duration");
-            original_caster.AddNewModifier(this.caster, this.ability, BuiltInModifier.SILENCE, {duration: silence_duration});
+            if (!this.silence_duration) this.silence_duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_5, "silence_duration");
+            original_caster.AddNewModifier(this.caster, this.ability, BuiltInModifier.SILENCE, {duration: this.silence_duration});
         }
     }
 
@@ -115,11 +119,11 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
     {
         if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_6))
         {            
-            const duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_6, "duration");            
+            if (!this.magic_cannot_harm_me_duration) this.magic_cannot_harm_me_duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_6, "duration");            
             let talent_modifier;
             if (!this.caster.HasModifier("modifier_reimagined_antimage_talent_6_buff"))
             {                
-                talent_modifier = this.caster.AddNewModifier(this.caster, this.ability, "modifier_reimagined_antimage_talent_6_buff", {duration: duration});                
+                talent_modifier = this.caster.AddNewModifier(this.caster, this.ability, "modifier_reimagined_antimage_talent_6_buff", {duration: this.magic_cannot_harm_me_duration});                
             }
             else
             {                

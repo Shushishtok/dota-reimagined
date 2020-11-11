@@ -70,6 +70,10 @@ export class reimagined_sven_storm_bolt extends BaseAbility
     momentum_punch_current_location?: Vector;
     momentum_punch_total_distance: number = 0;
 
+    // Reimagined talent specials
+    stun_duration?: number;
+    units_travel?: number;
+
     Precache(context: CScriptPrecacheContext)
     {
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_sven/sven_spell_storm_bolt.vpcf", context);
@@ -486,12 +490,12 @@ export class reimagined_sven_storm_bolt extends BaseAbility
 
         if (util.HasTalent(this.caster, SvenTalents.SvenTalent_1))
         {
-            const stun_duration = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_1, "stun_duration");
-            const units_travel = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_1, "units_travel");
+            if (!this.stun_duration) this.stun_duration = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_1, "stun_duration");
+            if (!this.units_travel) this.units_travel = util.GetTalentSpecialValueFor(this.caster, SvenTalents.SvenTalent_1, "units_travel");
             const properties: StormBoltProjectile = this.active_projectiles_map.get(projectileID);
 
             const total_distance = properties.momentum_punch_total_distance;
-            bonus_stun_duration = total_distance / units_travel * stun_duration;            
+            bonus_stun_duration = total_distance / this.units_travel * this.stun_duration;            
         }
 
         return bonus_stun_duration;
