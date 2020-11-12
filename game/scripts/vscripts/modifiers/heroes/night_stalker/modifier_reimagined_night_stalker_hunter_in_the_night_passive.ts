@@ -3,20 +3,21 @@ import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_t
 import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 import { modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night } from "./modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night";
 import { modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights} from "./modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights";
+import { modifier_reimagined_night_stalker_hunter_in_the_night_model } from "./modifier_reimagined_night_stalker_hunter_in_the_night_model"
 
 @registerModifier()
 export class modifier_reimagined_night_stalker_hunter_in_the_night_passive extends BaseModifier
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     night_transform_response: string[] = ["night_stalker_nstalk_ability_dark_01", "night_stalker_nstalk_ability_dark_02", "night_stalker_nstalk_ability_dark_04", "night_stalker_nstalk_ability_dark_05", "night_stalker_nstalk_ability_dark_06"]
 	night_rare_transform_response: string = "night_stalker_nstalk_ability_dark_03"
 	night_rarest_transform_response: string = "night_stalker_nstalk_ability_dark_07"
 	day_transform_response: string[] = ["night_stalker_nstalk_dayrise_01", "night_stalker_nstalk_dayrise_02", "night_stalker_nstalk_dayrise_03"]
 	day_rare_transform_response: string = "night_stalker_nstalk_dayrise_05";
-    day_rarest_transform_response: string = "night_stalker_nstalk_dayrise_04"  
+    day_rarest_transform_response: string = "night_stalker_nstalk_dayrise_04"
     particle_transition: string = "particles/units/heroes/hero_night_stalker/nightstalker_change.vpcf";
     particle_transition_fx?: ParticleID;
     particle_buff: string = "particles/units/heroes/hero_night_stalker/nightstalker_night_buff.vpcf";
@@ -32,7 +33,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
 
     // Modifier specials
     bonus_movement_speed_pct_night?: number;
-    bonus_attack_speed_night?: number;    
+    bonus_attack_speed_night?: number;
 
     // Reimagined specials
     everlasting_night_duration?: number;
@@ -47,11 +48,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
     RemoveOnDeath() {return false}
 
     OnCreated(): void
-    {        
-        // Modifier properties
-        
-        this.ability = this.GetAbility()!;
-
+    {
         // Modifier specials
         this.bonus_movement_speed_pct_night = this.ability.GetSpecialValueFor("bonus_movement_speed_pct_night");
         this.bonus_attack_speed_night = this.ability.GetSpecialValueFor("bonus_attack_speed_night");
@@ -73,7 +70,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
     OnIntervalThink(): void
     {
         // Check if this is currently a day or night
-        const is_day = GameRules.IsDaytime();         
+        const is_day = GameRules.IsDaytime();
 
         // Check if natural night time has been triggered
         if (!this.natural_night)
@@ -108,7 +105,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
 
             // Night transform responses
 			// Roll for rarest transform response
-            if (RollPercentage(5)) 
+            if (RollPercentage(5))
             {
 				EmitSoundOn(this.night_rarest_transform_response, this.parent);
             }
@@ -123,36 +120,32 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
             else if (RollPercentage(75))
             {
 				EmitSoundOn(this.night_transform_response[RandomInt(0, this.night_transform_response.length -1)], this.parent);
-            }			
+            }
 
-            // Change model to night 
-            this.parent.SetModel(this.night_model);
-            this.parent.SetOriginalModel(this.night_model);
-
-            // Remove old wearables, if feasible
-            this.RemovePropsFromModel();
+            // Change model to night
+            this.parent.AddNewModifier(this.caster, this.ability, modifier_reimagined_night_stalker_hunter_in_the_night_model.name, {});
 
             // Attach wearables
 			this.wings = SpawnEntityFromTableSynchronous("prop_dynamic", {model: "models/heroes/nightstalker/nightstalker_wings_night.vmdl"});
 			this.legs = SpawnEntityFromTableSynchronous("prop_dynamic", {model: "models/heroes/nightstalker/nightstalker_legarmor_night.vmdl"});
             this.tail = SpawnEntityFromTableSynchronous("prop_dynamic", {model: "models/heroes/nightstalker/nightstalker_tail_night.vmdl"});
-            
+
 			// Lock wearables to bone
 			this.wings.FollowEntity(this.parent, true);
 			this.legs.FollowEntity(this.parent, true);
 			this.tail.FollowEntity(this.parent, true);
 
             this.ApplyTransitionBuffParticle();
-             
+
             // Apply buff particle
-		    this.particle_buff_fx = ParticleManager.CreateParticle(this.particle_buff, ParticleAttachment.CUSTOMORIGIN_FOLLOW, this.parent);    
+		    this.particle_buff_fx = ParticleManager.CreateParticle(this.particle_buff, ParticleAttachment.CUSTOMORIGIN_FOLLOW, this.parent);
 		    ParticleManager.SetParticleControl(this.particle_buff_fx, 0, this.parent.GetAbsOrigin());
-		    ParticleManager.SetParticleControl(this.particle_buff_fx, 1, Vector(1,0,0));		
+		    ParticleManager.SetParticleControl(this.particle_buff_fx, 1, Vector(1,0,0));
 
             return;
         }
 
-        // Check if the day cycle changed from night to day    
+        // Check if the day cycle changed from night to day
         if (!this.currently_day && is_day)
         {
             // Change to day
@@ -176,12 +169,8 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
             else
             {
 				EmitSoundOn(this.day_transform_response[RandomInt(0, this.day_transform_response.length -1)], this.parent);
-            }			
+            }
 
-            // Change model to day
-            this.parent.SetModel(this.day_model);
-            this.parent.SetOriginalModel(this.day_model);
-            
             // Apply transition buff
             this.ApplyTransitionBuffParticle();
 
@@ -192,31 +181,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
                 ParticleManager.ReleaseParticleIndex(this.particle_buff_fx);
             }
 
-            // Remove props
-            this.RemovePropsFromModel();
-
             return;
-        }
-    }
-
-    RemovePropsFromModel(): void
-    {        
-        if (this.wings)
-        {
-            UTIL_Remove(this.wings);
-            this.wings = undefined;
-        }
-
-        if (this.legs)
-        {
-            UTIL_Remove(this.legs);
-            this.legs = undefined;
-        }
-
-        if (this.tail)
-        {
-            UTIL_Remove(this.tail);
-            this.tail = undefined;
         }
     }
 
@@ -230,7 +195,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
     }
 
     ReimaginationDeadOfNight(): void
-    {        
+    {
         if (!this.parent.HasModifier(modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night.name))
         {
             // Add the Dead of Night modifier to Night Stalker
@@ -244,7 +209,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
                 ModifierFunction.ATTACKSPEED_BONUS_CONSTANT,
                 ModifierFunction.IGNORE_MOVESPEED_LIMIT, // Reimagination: As Quick As a Shadow
                 ModifierFunction.BONUS_DAY_VISION, // Talent: Daywalker
-                ] 
+                ]
     }
 
     GetModifierMoveSpeedBonus_Percentage(): number
@@ -295,7 +260,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
         }
 
         return 0;
-    }    
+    }
 
     GetBonusDayVision(): number
     {
@@ -308,7 +273,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
         let modifier_everlasting;
         if (this.parent.HasModifier(modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name))
         {
-            modifier_everlasting = this.parent.FindModifierByName(modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name);                        
+            modifier_everlasting = this.parent.FindModifierByName(modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name);
         }
         else
         {
@@ -317,14 +282,14 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
 
         // Trigger temporary night and increment stack for the next occassion
         if (modifier_everlasting)
-        {            
+        {
             // Get current stacks and calculate length. When we're in perma night mode, run for double the night duration minus one.
             let extra_night_duration = modifier_everlasting.GetStackCount() * this.everlasting_night_duration!;
             if (extra_night_duration >= this.base_night_duration * 2)
             {
                 extra_night_duration = this.base_night_duration * 2 -1;
             }
-            
+
             // Begin a temporary night to extend the night
             if (extra_night_duration > 0)
             {
@@ -346,7 +311,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
         if (HasTalent(this.caster, NightStalkerTalents.NightStalkerTalents_5))
         {
             if (!this.bonuses_pct) this.bonuses_pct = GetTalentSpecialValueFor(this.caster, NightStalkerTalents.NightStalkerTalents_5, "bonuses_pct");
-            
+
             // Only active at day time
             if (this.GetStackCount() == 0)
             {
@@ -372,7 +337,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_passive exten
             if (this.GetStackCount() == 0)
             {
                 return this.day_vision_bonus;
-            }            
+            }
         }
 
         return 0;

@@ -35,13 +35,13 @@ export class modifier_reimagined_night_stalker_talent_6 extends BaseTalentModifi
     caster: CDOTA_BaseNPC = this.GetCaster()!
     proximity_distance?: number;
     currently_night: boolean = false;
-    in_vision_range_of_enemy: boolean = false;
+    in_vision_range_of_enemy: boolean = true;
 
     IsHidden(): boolean
     {
         // 0 means active (and should be visible), 1 is inactive and should be hidden
         if (this.GetStackCount() == 0) return false;
-        else return true;        
+        else return true;
     }
 
     IsDebuff() {return false}
@@ -67,11 +67,11 @@ export class modifier_reimagined_night_stalker_talent_6 extends BaseTalentModifi
             // If this is daytime, then the effects would not happen, let's just return
             this.SetStackCount(1);
             return;
-        } 
+        }
         else
         {
             this.currently_night = true;
-        } 
+        }
 
         // Check if the caster is in vision of anyone around him. We'll cap the search to about 2k cause come on no one will ever see that far
         const enemies = FindUnitsInRadius(this.caster.GetTeamNumber(),
@@ -91,14 +91,14 @@ export class modifier_reimagined_night_stalker_talent_6 extends BaseTalentModifi
             const distance = CalculateDistanceBetweenEntities(this.caster, enemy);
 
             // Enemy can see the caster; tag and exit.
-            if (enemy_vision >= distance)   
+            if (enemy_vision >= distance)
             {
                 this.in_vision_range_of_enemy = true;
                 this.SetStackCount(1);
                 return;
             }
         }
-        
+
         // If we're here, no enemy hero saw us. Look for nearby units instead
         const creeps = FindUnitsInRadius(this.caster.GetTeamNumber(),
                                         this.caster.GetAbsOrigin(),
@@ -116,8 +116,8 @@ export class modifier_reimagined_night_stalker_talent_6 extends BaseTalentModifi
             this.in_vision_range_of_enemy = true;
             this.SetStackCount(1);
             return;
-        }                  
-        
+        }
+
         // If we got through both checks, then we should be invisible!
         this.in_vision_range_of_enemy = false;
 
@@ -125,7 +125,7 @@ export class modifier_reimagined_night_stalker_talent_6 extends BaseTalentModifi
         if (!this.in_vision_range_of_enemy && this.currently_night)
         {
             this.SetStackCount(0);
-        }        
+        }
     }
 
     CheckState(): Partial<Record<ModifierState, boolean>> | undefined

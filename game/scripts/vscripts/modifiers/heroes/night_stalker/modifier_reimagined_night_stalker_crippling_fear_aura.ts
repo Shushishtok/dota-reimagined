@@ -28,7 +28,6 @@ export class modifier_reimagined_night_stalker_crippling_fear_aura extends BaseM
     hero_duration_extend?: number;
     unit_duration_extend?: number;
 
-
     IsHidden() {return false}
     IsDebuff() {return false}
     IsPurgable() {return false}

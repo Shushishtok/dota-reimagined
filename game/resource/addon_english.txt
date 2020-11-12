@@ -1,12 +1,12 @@
 "lang" {
 	"Language" "English"
-	"Tokens" 
+	"Tokens"
 	{
 		"addon_game_name" "Dota Reimagined"
 		"DOTA_Reimagined_Talent_Learned" "Talent learned"
 		"DOTA_Reimagined_Talent_Can_Be_Learned" "Talent can be learned"
 		"DOTA_Reimagined_Talent_Not_Learned"	"Talent not yet learned"
-		"DOTA_Reimagined_Talent_Cannot_Be_Learned"	"Talent cannot be learned"		
+		"DOTA_Reimagined_Talent_Cannot_Be_Learned"	"Talent cannot be learned"
 		"DOTA_Reimagined_Talent_Ping_Enemy"			"Enemy"
 		"DOTA_Reimagined_Talent_Ping_Ally"			"Ally"
 
@@ -15,7 +15,7 @@
 		"DOTA_Tooltip_ability_reimagined_antimage_mana_break"
 		"Mana Break"
 
-		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Description"		
+		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Description"
 		"Burns an opponent's mana on each attack based on a flat amount and the target's max mana. Mana Break deals %percent_damage_per_burn%%% of the mana burned as damage to the target.
 		<font color='#B25266'><b>Mana Cleave:</b> Also burns %mana_cleave_mana_burn% mana for all enemy units in %mana_cleave_distance% radius in a cone in front of Anti Mage, but does not deal damage.</font>
 		<font color='#B25266'><b>Mana Convergence:</b> when an enemy unit is hit %mana_convergence_hit_threshold% times with Mana Break, Mana Convergence triggers for %mana_convergence_debuff_duration% seconds, reducing the target's manaloss reduction by %mana_convergence_manaloss_reduction_pct%%.</font>
@@ -26,7 +26,7 @@
 
 		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Note0"
 		"Illusions can trigger Mana Break and its additional effects, but burn %illusion_percentage%%% less mana on each attack."
-		
+
 		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Note1"
 		"Mana Cleave has a starting width of %mana_cleave_starting_width% and an ending width of %mana_cleave_end_width%. It also excludes the main target."
 
@@ -242,7 +242,7 @@
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_Description"
 		"Creates a damaging void that slows an enemy unit and deals damage. Void also mini-stuns, interrupting channeling abilities. The slowing effect lasts longer at night.
 		<font color='#B25266'><b>Darkness Hungers:</b> Void sets targets' vision to %vision_day% if cast during the day or to %vision_night% if cast during the night.
-		<font color='#B25266'><b>Stalking:</b> Night Stalker gains a bonus of %stalking_ms_bonus%%% move speed while facing towards enemies affected by Void. Stalked enemies are visible through the fog of war."		
+		<font color='#B25266'><b>Stalking:</b> Night Stalker gains a bonus of %stalking_ms_bonus%%% move speed while facing towards enemies affected by Void. Stalked enemies are visible through the fog of war."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_Lore"
 		"Balanar creates a vortex of infinite night, tearing opponents violently into the eternal darkness that once was."
@@ -276,7 +276,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_radius_scepter"
 		"SCEPTER AOE:"
-		
+
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_scepter_ministun"
 		"SCPETER STUN:"
 
@@ -435,7 +435,7 @@
 		"Feed The Night"
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_3_Description"
-		"Each enemy hero that dies while inside Crippling Fear extends its duration by x seconds. Units extends it by y seconds instead."
+		"Each enemy hero that dies while inside Crippling Fear's aura extends its duration by %hero_duration_extend% seconds. Units extends it by %unit_duration_extend% seconds instead."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_3_Lore"
 		"Night Stalker's control over the night increases for every victim he slaughters."
@@ -445,7 +445,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_4_Description"
 		"Enemies that are affected by Crippling Fear for over %application_threshold% seconds have Break applied on them and take %incoming_damage_increase%%% more damage from all sources until they lose the aura debuff."
-		
+
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_4_Lore"
 		"Staying in close proximity to the Night Stalker for too long can spark insanity in anyone."
 
@@ -459,14 +459,14 @@
 		"Daywalker"
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_5_Description"
-		"uring daytime, Night Stalker gains %bonuses_pct%%% of the normal movement and attack speed bonuses, and gains bonus %day_vision_bonus% day vision range."
+		"During daytime, Night Stalker gains %bonuses_pct%%% of Hunter in the Dark's movement and attack speed bonuses, and gains bonus %day_vision_bonus% day vision range."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_5_Lore"
 		"By keeping a small shroud of darkness around it, Night Stalker slowly adapts to the light."
 
 		"DOTA_Tooltip_modifier_reimagined_night_stalker_talent_6"
 		"Sneak Through The Night"
-		
+
 		"DOTA_Tooltip_modifier_reimagined_night_stalker_talent_6_Description"
 		"Invisible until coming in vision range of nearby enemies heroes or getting too close to enemy units."
 
@@ -474,7 +474,7 @@
 		"Sneak Through the Night"
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_6_Description"
-		"During the night, Night Stalker is passively invisible while not in vision range of enemy heroes during nighttime. Units closer than %proximity_distance% units to Night Stalker will also reveal him. This detection occurs regardless of obstacles between Night Stalker and his enemies."
+		"During the night, Night Stalker is passively invisible while not in vision range of enemy heroes. Units closer than %proximity_distance% units to Night Stalker will also reveal him. This detection occurs regardless of obstacles between Night Stalker and his enemies."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_6_Lore"
 		"Night Stalker moves swiftly at night, almost undetectable. His victims can only feel his presence when he's nearby."
@@ -498,7 +498,7 @@
 		"Midnight Peak"
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_8_Description"
-		"While Night Stalker's Dead of the Night stacks are at least %talent_stacks_threshold% stacks, grants Night Stalker %damage_reduction_pct%%% damage reduction, %status_resist_pct%%% status resistance and %damage_amp_pct%%% outgoing damage from all sources."
+		"While Night Stalker has at least %talent_stacks_threshold% Dead of Night stacks, grants Night Stalker %damage_reduction_pct%%% damage reduction, %status_resist_pct%%% status resistance and %damage_amp_pct%%% outgoing damage from all sources."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_talent_8_Lore"
 		"At the peak of the night, there is very little that can actually hope to face against Night Stalker."
@@ -557,7 +557,7 @@
 		"Epic Cleave generates stacks from hitting enemies with instant attacks. However, only a real attack can trigger Epic Cleave's attack."
 
 		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_Note2"
-		"Overhead Slam's projectile moves at %overhead_slam_speed% speed, hitting enemies in %overhead_slam_radius% radius around it."				
+		"Overhead Slam's projectile moves at %overhead_slam_speed% speed, hitting enemies in %overhead_slam_radius% radius around it."
 
 		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_great_cleave_damage"
 		"%CLEAVE DAMAGE:"
@@ -583,7 +583,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_sven_warcry_Note0"
 		"Chaaaaarge doesn't count illusions, clones, tempest doubles or creep heroes. Only real heroes are eligible for the duration increase."
-		
+
 		"DOTA_Tooltip_Ability_reimagined_sven_warcry_Note1"
 		"Power Overwhelming's attack bonus adapts dynamically based on whether the caster's God's Strength is currently active."
 
@@ -610,7 +610,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_sven_gods_strength"
 		"God's Strength"
-		
+
 		"DOTA_Tooltip_Ability_reimagined_sven_gods_strength_Description"
 		"Sven channels his rogue strength, granting bonus damage for %duration% seconds.
 		<font color='#B25266'><b>Shattering Strength:</b> Increases Sven's strength by %shattering_strength_str_bonus_pct%%%.
@@ -696,7 +696,7 @@
 		"Rallying Cry of Strength"
 
 		"DOTA_Tooltip_Ability_reimagined_sven_talent_6_Description"
-		"Power Overwhelming now also grants allies %strength_pct%%% of Sven's current Strength while God's Strength is active. Does not include Sven himself."		
+		"Power Overwhelming now also grants allies %strength_pct%%% of Sven's current Strength while God's Strength is active. Does not include Sven himself."
 
 		"DOTA_Tooltip_Ability_reimagined_sven_talent_6_Lore"
 		"Simply witnessing the Rogue Knight's warcry is enough to make one stronger."
@@ -728,7 +728,7 @@
 		"A burst of damaging frost slows enemy movement and attack rate in the targeted area.
 		<font color='#B25266'><b>Snowstorm Field:</b> Leaves a field on the ground where Crystal Nova was cast for %snowstorm_duration% seconds. Allies standing on the field are granted %snowstorm_damage_reduction%%% damage reduction and %snowstorm_status_reduction%%% status resistance.
 		<font color='#B25266'><b>Snowbite:</b> When an enemy is under both Frostbite's debuff and standing on the Snowstorm Field, Crystal Nova's slow modifier's timer refreshes itself.
-		<font color='#B25266'><b>Hail Winds:</b> While Snowstorm Field is up, frozen shards are released with extreme force from the center of the field, dealing %hailwind_damage% to all enemies in %hailwind_radius% range and slowing them by %hailwind_slow_pct%%% for %hailwind_duration% second. Repeats every %hailwind_interval% seconds until Snowstorm Field dissipates."		
+		<font color='#B25266'><b>Hail Winds:</b> While Snowstorm Field is up, frozen shards are released with extreme force from the center of the field, dealing %hailwind_damage% to all enemies in %hailwind_radius% range and slowing them by %hailwind_slow_pct%%% for %hailwind_duration% second. Repeats every %hailwind_interval% seconds until Snowstorm Field dissipates."
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_Lore"
 		"The air temperature around Rylai drops rapidly, chilling all around her to the core."
@@ -744,7 +744,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_radius"
 		"RADIUS:"
-		
+
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_movespeed_slow"
 		"%MOVEMENT SLOW:"
 
@@ -758,7 +758,7 @@
 		"DAMAGE:"
 
 		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_crystal_nova_slow"
-		"Crystal Nova"		
+		"Crystal Nova"
 
 		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_crystal_nova_slow_Description"
 		"Move speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and attack speed reduced by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%. Refreshes itself when you are afflicted by both Snowstorm Field and Frostbite."
@@ -884,7 +884,7 @@
 		"Explosions occur every %explosion_interval% seconds."
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_Note2"
-		"Subzero Crystal uses psuedo random calaulation."		
+		"Subzero Crystal uses psuedo random calaulation."
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_radius"
 		"RADIUS:"
@@ -935,9 +935,9 @@
 		<font color='#B25266'><b>Fan of Knives:</b> Throws %fan_of_knives_add_daggers% additional daggers on random targets in Stifling Dagger's cast range that are not the main target that deal %fan_of_knives_fixed_damage% physical damage and do not proc on-hit effects. If there is at least one dagger that was not used, one additional dagger is thrown at the main target. Additional daggers still apply the slow debuff.
 		<font color='#B25266'><b>Sharp and Quiet:</b> Stifling Dagger's chance to proc Coup de Grace increases by %sharp_and_quite_crit_per_stack%%% chance for every %sharp_and_quite_hp_threshold_per_stack%%% health that the enemy unit has.
 		<font color='#B25266'><b>Stifling Blade:</b> The slow debuff also reduces the outgoing damage of the target by %stifling_blade_outgoing_damage%%% for the duration of the debuff."
-		
+
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_Lore"
-		"The first skill learned by the Sisters of the Veil often signals an incoming hit."		
+		"The first skill learned by the Sisters of the Veil often signals an incoming hit."
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_Note0"
 		"If an attack effect is chance-based, the chance of its application will be the same as its chance to occur."
@@ -947,7 +947,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_Note2"
 		"Fan of Knives additional daggers are fired in a delay of %fan_of_knives_delay% seconds after each dagger."
-		
+
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_move_slow"
 		"%MOVE SLOW:"
 
@@ -968,7 +968,7 @@
 
 		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_stifling_dagger_slow_Description"
 		"Movement speed reduced by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and total outgoing damage reduced by %dMODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE%%%."
-		
+
 		// Phantom Assassin's Phantom Strike
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike"
 		"Phantom Strike"
@@ -1050,7 +1050,7 @@
 		"VANISH BUFFER:"
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_scepter_cooldown"
-		"SCEPTER COOLDOWN:"		
+		"SCEPTER COOLDOWN:"
 
 		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_blur_active"
 		"Blur"
@@ -1070,10 +1070,10 @@
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_Description"
 		"Phantom Assassin refines her combat abilities, gaining a chance of delivering a devastating critical strike to enemy units. Stifling Dagger shares the same critical strike chance.
-		<font color='#B25266'><b>Kiss of Death:</b> When Phantom Assassin delivers a critical strike from Coup de Grace to a target with less than %kiss_of_death_health_threshold%%% health, there is a %kiss_of_death_kill_chance%%% chance that the critical damage will deal extremely massive damage. 
+		<font color='#B25266'><b>Kiss of Death:</b> When Phantom Assassin delivers a critical strike from Coup de Grace to a target with less than %kiss_of_death_health_threshold%%% health, there is a %kiss_of_death_kill_chance%%% chance that the critical damage will deal extremely massive damage.
 		<font color='#B25266'><b>Marked For Death:</b> Each attack that doesn't proc Coup De Grace increases its crit damage by %marked_for_death_damage_increase%%%. Resets when Coup de Grace is triggered.
 		<font color='#B25266'><b>Decisive Strike:</b> Coup de Grace can be cast as a no target ability. Doing so reduces Phantom Assassin's attack speed by %decisive_strike_as_reduction%, but increases the chance to proc Coup de Grace by %decisive_strike_crit_chance_increase%%%. Lasts for %decisive_strike_duration% seconds, or until Phantom Assassin crits %decisive_strike_crits_to_remove% times."
-		
+
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_Lore"
 		"A divine strike, Mortred honors her opponent by choosing them for death."
 
@@ -1100,7 +1100,7 @@
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_Description"
 		"Adds a freezing effect to Drow's attacks, slowing enemy movement and dealing bonus damage. Slow lasts %duration% seconds.
 		<font color='#B25266'><b>Brittle as the Cold:</b> Frost Arrows causes the target to lose %brittle_cold_armor_loss_pct%%% of its total armor and %brittle_cold_aspd_loss% attack speed for %brittle_cold_duration% seconds. Stacks indefinitely. Stacks have independent duration.
-		<font color='#B25266'><b>Freezing Offensive:</b> Each Frost Arrow extends the current slow debuff timer by %duration% seconds, instead of refreshing it. The timer can only be extended up to a maximum of %freezing_offensive_max_duration% seconds.		
+		<font color='#B25266'><b>Freezing Offensive:</b> Each Frost Arrow extends the current slow debuff timer by %duration% seconds, instead of refreshing it. The timer can only be extended up to a maximum of %freezing_offensive_max_duration% seconds.
 		<font color='#B25266'><b>Cryo Arrowhead:</b> While Marksmanship is active, grants a %cryo_arrowhead_chance%%% chance to have Frost Arrows explode on impact, dealing bonus %cryo_arrowhead_damage% magical damage to all enemies in %cryo_arrowhead_radius% radius of the target. All enemies hit are afflicted with Frost Arrow's slow debuff for %cryo_arrowhead_duration% seconds."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_Lore"
@@ -1229,7 +1229,7 @@
 		"The Drow Ranger's is the epitome of archery prowess."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_Note0"
-		"Ranger of Frost will also give a stack if the attack is a Frost Arrow, which applies the slow."				 
+		"Ranger of Frost will also give a stack if the attack is a Frost Arrow, which applies the slow."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_aghanim_description"
 		"Causes Drow Ranger's attacks to splinter on the target, hitting nearby units with normal attacks that deal reduced damage."
@@ -1310,7 +1310,7 @@
 
 		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_arcane_bolt_wrath_Description"
 		"After %dMODIFIER_PROPERTY_TOOLTIP% Arcane Bolts were fired, the next Arcane Bolt will be a Wrath Bolt."
-		
+
 		"DOTA_Tooltip_modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt"
 		"Blank Bolt"
 
@@ -1337,7 +1337,7 @@
 		"Skywrath Mage sets off a long range shot that hits the closest hero within a long range.  Upon impact, it deals damage and slows in an area of effect.
 		<font color='#B25266'><b>Conjured Relay:</b> Concussive Shot bounces %conjured_relay_bounce_count% times towards the closest enemy that was not hit by Concussive Shot this cast. Looks in %conjured_relay_search_radius% units around the last bounce target.
 		<font color='#B25266'><b>Brain Concussion:</b> The main target hit by Concussive Shot is also affected by a %brain_concussion_spell_amp_rdct%%% spell amp reduction for the duration of the slow.
-		<font color='#B25266'><b>Ghastly Eerie:</b> If the main target of Concussive Shot is afflicted by Ancient Seal's debuff when the projectile hits, the radius of Concussive Shot increases by %ghastly_eerie_radius_pct%%% and the slow duration increases by %ghastly_eerie_duration_pct%%% for all enemies in the blast range."		
+		<font color='#B25266'><b>Ghastly Eerie:</b> If the main target of Concussive Shot is afflicted by Ancient Seal's debuff when the projectile hits, the radius of Concussive Shot increases by %ghastly_eerie_radius_pct%%% and the slow duration increases by %ghastly_eerie_duration_pct%%% for all enemies in the blast range."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_Lore"
 		"Those who serve the court of the Ghastly Eyrie are ever locked in covert war. One must always know where danger lurks nearest."
@@ -1381,7 +1381,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_Description"
 		"Skywrath Mage seals the targeted unit with an ancient rune, silencing it and causing it to take additional damage from spells.
-		<font color='#B25266'><b>Seal of Scree'auk:</b> Can be cast on an ally to set the seal within it, granting it a %seal_screeauk_spell_amp%%% spell amp, and causes it to emit an aura that applies Ancient Seal's debuff on any enemy in %seal_screeauk_radius% radius near it. 
+		<font color='#B25266'><b>Seal of Scree'auk:</b> Can be cast on an ally to set the seal within it, granting it a %seal_screeauk_spell_amp%%% spell amp, and causes it to emit an aura that applies Ancient Seal's debuff on any enemy in %seal_screeauk_radius% radius near it.
 		<font color='#B25266'><b>Rebounding Seal:</b> When the seal expires prematurely, it is applied to the closest enemy in %rebound_seal_search_radius% radius around it with its remaining duration. This effects also applies on allies affected by Seal of the Scree'auk seals. This process can repeat infinitely.
 		<font color='#B25266'><b>Sealed Enmity:</b> Every %sealed_enmity_magic_damage_threshold% magical damage accumulated by the target during the debuff increases the magic reduction by %sealed_enmity_magic_reduction_increase%%% for the reminder of the duration."
 
@@ -1425,7 +1425,7 @@
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_Description"
 		"Skywrath Mage uses his ultimate magical ability to conjure a precise and violent mystical field that lays waste to his adversaries. Deals massive damage distributed evenly among any Heroes in the area over %duration% seconds.
 		<font color='#B25266'><b>Mystical Bombardment:</b> Every interval also fires %mystical_bombardment_hits_per_interval% small instances of Mystic Flare in random locations around the target point up between %mystical_bombardment_min_range% and %mystical_bombardment_max_range% units away from it, dealing an instance damage to all enemies in a %mystical_bombardment_radius% radius where it landed. Damage is distributed evenly between enemies in the hit radius.
-		<font color='#B25266'><b>Flare of Divinity:</b> Mystic Flare automatically moves towards the closest enemy in %flare_divinity_search_radius% range of its center, moving at %flare_divinity_move_speed% speed. 
+		<font color='#B25266'><b>Flare of Divinity:</b> Mystic Flare automatically moves towards the closest enemy in %flare_divinity_search_radius% range of its center, moving at %flare_divinity_move_speed% speed.
 		<font color='#B25266'><b>Skywrath's High Mage:</b> Each point of intelligence the caster has reduces the duration of Mystic Flare by %high_mage_duration_per_int_pct%%%, up to %high_mage_max_duration_reduction_pct%%% duration reduction. The damage scales accordingly."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_Lore"
@@ -1485,7 +1485,7 @@
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_3"
 		"Trapped Energy"
 
-		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_3_Description"		
+		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_3_Description"
 		"Fizzling a Concussive Shot grants a buff that automatically fires Concussive Shot at a nearby enemy hero that comes into range. Lasts %duration% seconds."
 
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_3_lore"
@@ -1494,7 +1494,7 @@
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_4"
 		"Motor Dysfunction"
 
-		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_4_Description"		
+		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_4_Description"
 		"Brain Concussion now also decreases turn rate by %turn_rate_reduction%%%."
 
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_4_lore"
@@ -1504,12 +1504,12 @@
 		"Seal of Amplification"
 
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_5_Description"
-		"Sealed Enmity now increases damage taken from all types of damage instead of only magical."	
+		"Sealed Enmity now increases damage taken from all types of damage instead of only magical."
 
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_5_lore"
 		"Dragonus employs a legendary seal, capable of making any target extremely vulnerable."
 
-		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_6"		
+		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_6"
 		"Scree'auk's Screech"
 
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_6_Description"
@@ -1518,23 +1518,23 @@
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_6_lore"
 		"Utilizing Scree'auk's special technique, Skywrath Mage causes the seal to pulse in sheer force, reaching enemies far beyond its usual range."
 
-		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_7"		
+		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_7"
 		"Null Field"
 
-		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_7_Description"		
+		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_7_Description"
 		"Mystic Flare now adds the Leashed state to all enemy units in the initial area of effect, preventing usage of movement abilities until leaving they leave the flare's radius.\nThe radius is centered on the flare's current location."
 
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_7_lore"
 		"Binding enemies into a nullity field reduces their escape options severly."
 
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_8"
-		"Divine Flight"		
+		"Divine Flight"
 
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_8_Description"
 		"When casting Mystic Flare, Skywrath Mage gains flying movement for %duration% seconds. Doesn't grant flying vision."
 
 		"DOTA_Tooltip_ability_reimagined_skywrath_mage_talent_8_lore"
-		"When Dragonus unleashes his ultimate power, the left over energies propel his wings upwards, allowing him to fly over terrain for a short while."		
+		"When Dragonus unleashes his ultimate power, the left over energies propel his wings upwards, allowing him to fly over terrain for a short while."
 
 		// ITEMS
 		// Reimagined Enchanted Mango
