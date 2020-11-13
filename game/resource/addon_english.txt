@@ -827,7 +827,7 @@
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_Description"
 		"Gives additional mana regeneration to all friendly units on the map. This bonus is increased for Crystal Maiden.
-		<font color='#B25266'><b>Focused Arcane:</b> Can be cast as a no target spell to reduce the aura range from global to %focused_arcane_radius% but also increase allies' magical resistance by %focused_arcane_magic_res%%% and spell amp by %focused_arcane_spell_amp%%%. Those bonuses does not increase for Crystal Maiden's self bonus. Lasts %focused_arcane_duration% seconds.
+		<font color='#B25266'><b>Focused Arcane:</b> Can be cast as a no target spell to reduce the aura range from global to %focused_arcane_radius%, but increase allies' magical resistance by %focused_arcane_magic_res%%% and spell amp by %focused_arcane_spell_amp%%%. Those bonuses are not multiplied by Crystal Maiden's self bonus. Lasts %focused_arcane_duration% seconds.
 		<font color='#B25266'><b>Ice Never Dies:</b> Aura persists even when Crystal Maiden is dead or hidden.
 		<font color='#B25266'><b>Blueheart Mastery:</b> Dealing damage to enemy units improves Arcane Aura's mana regeneration by %blueheart_mastery_mana_regen% for all allies for each damage instance she inflicts. Stacks infinitely and has independent stack durations. Each stack lasts %blueheart_mastery_duration% seconds."
 
@@ -924,6 +924,85 @@
 
 		"DOTA_Tooltip_modifier_reimagined_crystal_maiden_freezing_field_slow_Description"
 		"Movement speed slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%, attack speed reduced by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%."
+
+        // Crystal Maiden's Talents
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_1"
+        "Charmed Snow"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_1_Description"
+        "Snowstorm Field now provides bonus %bonus_spell_amp%%% spell amp to allies and %spell_amp_reduction%%% spell amp reduction to enemies that stand in its radius."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_1_Lore"
+        "Rylai can enchant the flowing gusts of ice to allow magic to form easily, or to repel tainted magical energies."
+
+        "DOTA_Tooltip_modifier_reimagined_crystal_maiden_talent_1_debuff"
+        "Charmed Ice"
+
+        "DOTA_Tooltip_modifier_reimagined_crystal_maiden_talent_1_debuff_Description"
+        "Spell amp reduced by %dMODIFIER_PROPERTY_TOOLTIP%%%."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_2"
+        "Dense Ice"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_2_Description"
+        "Crystal Nova's move and attack speed slow scales with the the enemy's distance to the center of the Snowstorm Field, up to %max_additional_slow%%% additional slow when standing in its center. Every %units_per_slow% units of distance from the center reduces the slow further."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_2_Lore"
+        "Rylai piles small particles of dense ice on her enemies, weighing them down and making it truly hard to move in the storm."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_3"
+        "Subzero Grasp"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_3_Description"
+        "Frostbitten enemies can no longer turn while under this effect, and their health and mana regeneration rates are reduced by %hp_mp_regen_reduction%%%."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_3_Lore"
+        "Tormented in a prison made of ice, freezing to their core, unable to even look behind them on the path they've walked on, they suffer."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_4"
+        "Bunker of Ice"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_4_Description"
+        "Igloo Frosting now also increases the cast range of the affected ally by %cast_range_bonus%. Also increases allies' Frost Emanation's search radius by %frost_emanation_radius_bonus%."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_4_Lore"
+        "By encasing an ally with ice full of spiritual and arcane energies, Rylai can extend its magical capabilities greatly."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_5"
+        "Frost Drift"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_5_Description"
+        "Blueheart Mastery now also increases Crystal Maiden's move speed by %talent_movespeed_bonus_pct%%% per stack."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_5_Lore"
+        "As her mastery grows, creating small footing of ice to allow her to slide with turns manuevering around an easy feat for Rylai."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_6"
+        "Intense Cold"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_6_Description"
+        "Focused Arcane now multiplies the mana regeneration of Arcane Aura by %mana_regen_multiplier% and decreases the cooldowns of all affected allies by %cooldown_reduction%%%."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_6_Lore"
+        "Erecting an exceptionally unique climate of cold and frost where magical energies can thrive, Rylai provides the mystical energies needed to sustain a continuous conflict."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_7"
+        "Icy Drill Barrage"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_7_Description"
+        "Freezing Field now can be set to auto cast. While auto cast is on, all explosions hit 120 units around Crystal Maiden, moving clockwise, then send a shard in that direction as a linear projectile. Shards deals explosion damage to a single unit."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_7_Lore"
+        "Rather of spreading her magic in a big area, Rylai forces it to keep close, forming a relentless offensive barrage of drills formed by ice magic."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_8"
+        "Whirlwind of Frost"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_8_Description"
+        "Freezing Field is no longer channeled, and is always centered around Crystal Maiden. If Crystal Maiden is disabled or issues a stop command, the effect stops."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_talent_8_Lore"
+        "To survive in the harsh world, one has to be versatile and keep on the move."
 
 		// Phantom Assassin
 		// Phantom Assassin's Stifling Dagger
@@ -1549,27 +1628,5 @@
 
 		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango_Lore"
 		"The bittersweet flavors of Jidi Isle are irresistible to amphibians."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 }

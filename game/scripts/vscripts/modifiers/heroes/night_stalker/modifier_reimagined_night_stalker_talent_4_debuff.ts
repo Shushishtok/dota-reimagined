@@ -7,11 +7,13 @@ export class modifier_reimagined_night_stalker_talent_4_debuff extends BaseModif
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     fear_modifier: string = "modifier_reimagined_night_stalker_crippling_fear_fear_debuff";
     silence_modifier: string = "modifier_reimagined_night_stalker_crippling_fear_silence_debuff";
     talent_active: boolean = false;
+    particle_break: string = "particles/generic_gameplay/generic_break.vpcf";
+    particle_break_fx?: ParticleID;
 
     // Modifier specials
     application_threshold?: number;
@@ -24,9 +26,9 @@ export class modifier_reimagined_night_stalker_talent_4_debuff extends BaseModif
     OnCreated(): void
     {
         // Modifier specials
-        this.application_threshold = GetTalentSpecialValueFor(this.caster, NightStalkerTalents.NightStalkerTalents_4, "application_threshold");        
+        this.application_threshold = GetTalentSpecialValueFor(this.caster, NightStalkerTalents.NightStalkerTalents_4, "application_threshold");
         this.incoming_damage_increase = GetTalentSpecialValueFor(this.caster, NightStalkerTalents.NightStalkerTalents_4, "incoming_damage_increase")
-        if (IsServer()) this.StartIntervalThink(0.1);        
+        if (IsServer()) this.StartIntervalThink(0.1);
     }
 
     OnIntervalThink(): void
@@ -43,6 +45,10 @@ export class modifier_reimagined_night_stalker_talent_4_debuff extends BaseModif
             if (this.GetElapsedTime() >= this.application_threshold!)
             {
                 this.talent_active = true;
+
+                // Add break icon
+                this.particle_break_fx = ParticleManager.CreateParticle(this.particle_break, ParticleAttachment.OVERHEAD_FOLLOW, this.parent);
+                this.AddParticle(this.particle_break_fx, false, false, -1, false, true);
             }
         }
     }
@@ -59,7 +65,7 @@ export class modifier_reimagined_night_stalker_talent_4_debuff extends BaseModif
             return this.incoming_damage_increase!;
         }
 
-        return 0;        
+        return 0;
     }
 
     CheckState(): Partial<Record<ModifierState, boolean>> | undefined

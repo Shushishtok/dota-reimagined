@@ -8,13 +8,13 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseMod
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     radius: number = 25000;
-    
+
     // Reimagined specials
     focused_arcane_radius?: number
-    blueheart_mastery_duration?: number;    
+    blueheart_mastery_duration?: number;
 
     IsHidden() {return true}
     IsDebuff() {return false}
@@ -23,10 +23,6 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseMod
 
     OnCreated(): void
     {
-        // Modifier properties
-        
-        this.ability = this.GetAbility()!;
-
         // Reimagined specials
         this.focused_arcane_radius = this.ability.GetSpecialValueFor("focused_arcane_radius");
         this.blueheart_mastery_duration = this.ability.GetSpecialValueFor("blueheart_mastery_duration");
@@ -45,14 +41,14 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseMod
         return true;
     }
 
-    IsAuraActiveOnDeath() {return true}    
+    IsAuraActiveOnDeath() {return true}
     GetAuraDuration() {return 0.5}
     GetAuraRadius(): number
     {
         // Reimagination: Focused Arcane: Can be no-target cast to reduce the aura range from global to 1200 but also increase magical resistance and spell amp of nearby allies
-        if (this.ReimaginationFocusedArcane()) {return this.focused_arcane_radius!;}        
-        
-        return this.radius;        
+        if (this.ReimaginationFocusedArcane()) {return this.focused_arcane_radius!;}
+
+        return this.radius;
     }
 
     ReimaginationFocusedArcane(): boolean
@@ -82,23 +78,23 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseMod
 
         // Does nothing if the aura is disabled
         if (this.parent.PassivesDisabled()) {return;}
-        
+
         // Does nothing if the attacker is not the caster
         if (this.parent != event.attacker) {return;}
 
         // Does nothing if the target is an ally, building or ward
         if (this.parent.GetTeamNumber() == event.unit!.GetTeamNumber() || event.unit!.IsBuilding() || event.unit!.IsOther()) {return;}
 
-        // Add and increment a stack for Blueheart Mastery        
+        // Add and increment a stack for Blueheart Mastery
         if (!this.parent.HasModifier(modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name))
         {
             this.parent.AddNewModifier(this.caster!, this.ability, modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name, {duration: this.blueheart_mastery_duration!});
-        }        
+        }
 
         const modifier = this.parent.FindModifierByName(modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name)
         if (modifier)
         {
-            modifier.IncrementStackCount();            
+            modifier.IncrementStackCount();
         }
     }
 }

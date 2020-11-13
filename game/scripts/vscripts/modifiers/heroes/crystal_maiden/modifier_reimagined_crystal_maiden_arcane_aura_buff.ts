@@ -1,4 +1,6 @@
+import { CrystalMaidenTalents } from "../../../abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
+import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 import { modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery } from "./modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery";
 import { modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane } from "./modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane";
 import { modifier_reimagined_crystal_maiden_frostbite_buff } from "./modifier_reimagined_crystal_maiden_frostbite_buff"
@@ -8,7 +10,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Modifier specials
@@ -21,6 +23,10 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
     focused_arcane_spell_amp?: number;
     blueheart_mastery_mana_regen?: number;
 
+    // Reimagined talent specials
+    mana_regen_multiplier?: number;
+    cooldown_reduction?: number;
+
     IsHidden() {return false}
     IsDebuff() {return false}
     IsPurgable() {return false}
@@ -28,7 +34,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
     OnCreated(): void
     {
         // Modifier properties
-        
+
         this.ability = this.GetAbility()!;
 
         // Modifier specials
@@ -39,7 +45,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
         this.igloo_frosting_arcane_aura_multiplier = this.ability.GetSpecialValueFor("igloo_frosting_arcane_aura_multiplier");
         this.focused_arcane_magic_res = this.ability.GetSpecialValueFor("focused_arcane_magic_res");
         this.focused_arcane_spell_amp = this.ability.GetSpecialValueFor("focused_arcane_spell_amp");
-        this.blueheart_mastery_mana_regen = this.ability.GetSpecialValueFor("blueheart_mastery_mana_regen");        
+        this.blueheart_mastery_mana_regen = this.ability.GetSpecialValueFor("blueheart_mastery_mana_regen");
     }
 
     OnRefresh(): void
@@ -52,6 +58,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
         return [ModifierFunction.MANA_REGEN_CONSTANT,
                 ModifierFunction.MAGICAL_RESISTANCE_BONUS, // Reimagined: Focused Arcane
                 ModifierFunction.SPELL_AMPLIFY_PERCENTAGE, // Reimagined: Focused Arcane
+                ModifierFunction.COOLDOWN_PERCENTAGE, // Talent: Intense Cold
                 ModifierFunction.TOOLTIP]
     }
 
@@ -63,20 +70,23 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
     GetModifierConstantManaRegen(): number
     {
         // Basic mana regen rate
-        let mana_regen = this.mana_regen!;        
+        let mana_regen = this.mana_regen!;
 
         // If this is the caster, multiply rate by self factor
         if (this.parent == this.caster)
         {
             mana_regen = mana_regen * this.self_factor!;
         }
-        
+
         // Reimagination: Blueheart Mastery: Dealing damage to enemy units improves Crystal Maiden's aura's mana regeneration for each damage instance she inflicts. Stacks infinitely, independent stacks. Each stack lasts a few seconds.
         mana_regen += this.ReimaginationBlueheartMastery();
 
         // Reimagination: Frostbite's Igloo Frosting: Frostbite can be cast on an ally, rooting it and increasing Arcane's Auras effect on that ally by a multiplier.
         mana_regen = mana_regen * this.ReimaginationIglooFrosting()
-        
+
+        // Talent: Intense Cold: Focused Arcane now multiplies the mana regeneration of Arcane Aura by x and decreases the cooldowns of all affected allies by y%.
+        mana_regen *= this.ReimaginationTalentIntenseCold(true);
+
         return mana_regen;
     }
 
@@ -88,7 +98,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
         {
             multiplier = this.igloo_frosting_arcane_aura_multiplier!;
         }
-        
+
         return multiplier;
     }
 
@@ -131,5 +141,39 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
         }
 
         return 0;
+    }
+
+    GetModifierPercentageCooldown(): number
+    {
+        return this.ReimaginationTalentIntenseCold(false);
+    }
+
+    ReimaginationTalentIntenseCold(mana_multiplier: boolean): number
+    {
+        if (HasTalent(this.caster, CrystalMaidenTalents.CrystalMaidenTalent_6))
+        {
+            if (this.caster.HasModifier(modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane.name))
+            {
+                if (mana_multiplier)
+                {
+                    if (!this.mana_regen_multiplier) this.mana_regen_multiplier = GetTalentSpecialValueFor(this.caster, CrystalMaidenTalents.CrystalMaidenTalent_6, "mana_regen_multiplier");
+                    return this.mana_regen_multiplier;
+                }
+                else
+                {
+                    if (!this.cooldown_reduction) this.cooldown_reduction = GetTalentSpecialValueFor(this.caster, CrystalMaidenTalents.CrystalMaidenTalent_6, "cooldown_reduction");
+                    return this.cooldown_reduction;
+                }
+            }
+        }
+
+        if (mana_multiplier)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

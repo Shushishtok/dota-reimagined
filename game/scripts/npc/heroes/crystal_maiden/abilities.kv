@@ -7,29 +7,29 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"crystal_maiden_crystal_nova"
     	"ScriptFile"				    "abilities/heroes/crystal_maiden/reimagined_crystal_maiden_crystal_nova"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"FightRecapLevel"				"1"		
+		"FightRecapLevel"				"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"700"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-		
-		// Time		
+
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11 10 9 8"		
+		"AbilityCooldown"				"11 10 9 8"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"130 145 160 175"
-		
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -73,61 +73,61 @@
 			"07"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"nova_damage"			"130 170 210 260"				
+				"nova_damage"			"130 170 210 260"
 			}
 
 			"08"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"snowstorm_duration"	"5"				
+				"snowstorm_duration"	"5"
 			}
 
 			"09"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"snowstorm_damage_reduction"	"25"				
+				"snowstorm_damage_reduction"	"25"
 			}
 
 			"10"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"snowstorm_status_reduction"	"25"				
+				"snowstorm_status_reduction"	"25"
 			}
 
 			"11"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"snowbite_interval"		"0.1"				
+				"snowbite_interval"		"0.1"
 			}
 
 			"12"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"hailwind_radius"		"1200"				
+				"hailwind_radius"		"1200"
 			}
 
 			"13"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"hailwind_interval"		"0.75"				
+				"hailwind_interval"		"0.75"
 			}
 
 			"14"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"hailwind_damage"		"30 45 60 75"				
+				"hailwind_damage"		"30 45 60 75"
 			}
 
 			"15"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"hailwind_slow_pct"		"10 14 18 22"				
+				"hailwind_slow_pct"		"10 14 18 22"
 			}
 
 			"16"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"hailwind_duration"		"1"				
+				"hailwind_duration"		"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -140,24 +140,24 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"crystal_maiden_frostbite"
     	"ScriptFile"				    "abilities/heroes/crystal_maiden/reimagined_crystal_maiden_frostbite"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"FightRecapLevel"				"1"		
+		"FightRecapLevel"				"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"550"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-		
-		// Time		
+
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"9 8 7 6"
 
@@ -168,7 +168,7 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityModifierSupportValue"	"0.5"	// Applies multiple modifiers
-		
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -177,13 +177,13 @@
 			{
 				"var_type"			"FIELD_INTEGER"
 				"total_damage"		"150 200 250 300"
-			}			
+			}
 
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"1.5 2.0 2.5 3.0"				
-			}			
+				"duration"				"1.5 2.0 2.5 3.0"
+			}
 
 			"03"
 			{
@@ -201,7 +201,7 @@
 			{
 				"var_type"			"FIELD_FLOAT"
 				"frost_emanation_duration"		"0.5"
-			}			
+			}
 
 			"07" // Used as a tooltip only! Actually calculated by Arcane Aura, so make sure to change on both abilities
 			{
@@ -225,20 +225,20 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"crystal_maiden_brilliance_aura"
     	"ScriptFile"				    "abilities/heroes/crystal_maiden/reimagined_crystal_maiden_brilliance_aura"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"		
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		"AbilityCooldown"				"18"
 		"AbilityManaCost"				"100"
 		"AbilityCastPoint"				"0.3"
-		
+
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.2"
-		
+
 		"AbilitySpecial"
 		{
 			"01"
@@ -305,14 +305,14 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"crystal_maiden_freezing_field"
     	"ScriptFile"				    "abilities/heroes/crystal_maiden/reimagined_crystal_maiden_freezing_field"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"FightRecapLevel"				"2"		
+		"FightRecapLevel"				"2"
 
 		"HasScepterUpgrade"				"1"
 
@@ -322,10 +322,10 @@
 		"AbilityCastPoint"				"0"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 		"AbilityChannelAnimation"		"ACT_DOTA_CHANNEL_ABILITY_4"
-		
-		// Time		
+
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"110 100 90"		
+		"AbilityCooldown"				"110 100 90"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -402,51 +402,293 @@
 			"11"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"damage"			"105 170 250"				
+				"damage"			"105 170 250"
 			}
 
 			"12"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"scepter_delay"			"1.75"				
+				"scepter_delay"			"1.75"
 				"RequiresScepter"		"1"
 			}
 
 			"13"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"arcane_glacier_damage_res_per_tick"	"5"				
+				"arcane_glacier_damage_res_per_tick"	"5"
 			}
 
 			"14"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"arcane_glacier_interval"	"1"				
+				"arcane_glacier_interval"	"1"
 			}
 
 			"15"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"arcane_glacier_linger_duration"	"2"				
+				"arcane_glacier_linger_duration"	"2"
 			}
 
 			"16"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"subzero_crystal_chance"	"5 6.5 8"				
+				"subzero_crystal_chance"	"5 6.5 8"
 			}
 
 			"17"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"subzero_crystal_duration"	"3"				
+				"subzero_crystal_duration"	"3"
 			}
 
 			"17"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"numbing_cold_bonus_dmg_pct"	"20"				
+				"numbing_cold_bonus_dmg_pct"	"20"
 			}
 		}
 	}
+
+    //=================================================================================================================
+    // Crystal Maiden: Talent: Charmed Snow: Snowstorm Field now provides bonus x% spell amp to allies and y% spell amp reduction to enemies that stand in its radius.
+    //=================================================================================================================
+    "reimagined_crystal_maiden_talent_1"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"crystal_maiden_crystal_nova"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                    "var_type"				"FIELD_INTEGER"
+                    "bonus_spell_amp"		"15"
+            }
+
+            "02"
+            {
+                    "var_type"				"FIELD_INTEGER"
+                    "spell_amp_reduction"	"15"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Crystal Maiden: Talent: Dense Ice: Crystal Nova's move and attack speed slow scales with the the enemy's distance to the Snowstorm Field, up to x% additional slow when standing in the center. Every y units of distance reduces the slow slightly.
+    //=================================================================================================================
+    "reimagined_crystal_maiden_talent_2"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"crystal_maiden_crystal_nova"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "max_additional_slow"	"30"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "units_per_slow"	    "50"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Crystal Maiden: Talent: Subzero Grasp: Frostbitten enemies can no longer turn while under this effect, and their health and mana regeneration rates are reduced by x%.
+    //=================================================================================================================
+    "reimagined_crystal_maiden_talent_3"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"crystal_maiden_frostbite"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "hp_mp_regen_reduction"	"50"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Crystal Maiden: Talent: Bunker of Ice: Igloo Frosting now also increases the cast range of the affected ally by x, and Frost Emanation's search radius increases by y for allies affected by Igloo Frosting.
+    //=================================================================================================================
+    "reimagined_crystal_maiden_talent_4"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"crystal_maiden_frostbite"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "cast_range_bonus"  	"250"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "frost_emanation_radius_bonus"  	"100"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Crystal Maiden: Talent: Frost Drift: Blueheart Mastery now also improves Crystal Maiden's move speed by x% per stack.
+    //=================================================================================================================
+    "reimagined_crystal_maiden_talent_5"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"crystal_maiden_brilliance_aura"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_movespeed_bonus_pct"  	"1"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Crystal Maiden: Talent: Intense Cold: Focused Arcane now multiplies the mana regeneration of Arcane Aura by x and decreases the cooldowns of all affected allies by y%.
+    //=================================================================================================================
+    "reimagined_crystal_maiden_talent_6"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"crystal_maiden_brilliance_aura"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "mana_regen_multiplier"  	"5"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "cooldown_reduction"  	"30"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Crystal Maiden: Talent: Icy Drill Barrage: Freezing Field now can be set to auto cast. While auto cast is on, all explosions hit x units around Crystal Maiden, moving clockwise, then send a shard in that direction as a linear projectile. Shards deals explosion damage to a single unit.
+    //=================================================================================================================
+    "reimagined_crystal_maiden_talent_7"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"crystal_maiden_freezing_field"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "explosion_distance"  	"180"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "shard_speed"  	        "600"
+            }
+
+            "03"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "shard_width"  	        "180"
+            }
+
+            "04"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "shard_max_distance"	"1000"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Crystal Maiden: Talent: Whirlwind of Frost: Freezing Field is no longer channeled, and is always centered around Crystal Maiden. If Crystal Maiden is disabled or issues a stop command, the effect stops.
+    //=================================================================================================================
+    "reimagined_crystal_maiden_talent_8"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"crystal_maiden_freezing_field"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "value"               	"1"
+            }
+        }
+    }
 }

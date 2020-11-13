@@ -1,0 +1,32 @@
+{
+	"Adds a talent KV": {
+        "prefix": "TalentKV",
+        "body": [
+          "//=================================================================================================================",
+          "// Sven: Talent: Fist Catcher: Enemies hit by Strong Right get dragged along with it.",
+          "//=================================================================================================================",
+          "\"reimagined_sven_talent_2\"",
+          "{",
+          "\t// General",
+          "\t//-------------------------------------------------------------------------------------------------------------",
+          "\t\"BaseClass\"\t\t\t\t\t\"ability_lua\"",
+          "\t\"ScriptFile\"\t\t\t\t\"abilities/heroes/sven/reimagined_sven_talents\"",
+          "\t\"AbilityBehavior\"\t\t\t\"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN\"",
+          "\t\"AbilityType\"\t\t\t\t\"DOTA_ABILITY_TYPE_BASIC\"",
+          "\t\"AbilityTextureName\"\t\t\"sven_storm_bolt\"",
+          "\t",
+          "\t// Special",
+          "\t//-------------------------------------------------------------------------------------------------------------",
+          "\t\"AbilitySpecial\"",
+          "\t{",
+          "\t\t\"01\"",
+          "\t\t{",
+          "\t\t\t\t\"var_type\"\t\t\t\t\"FIELD_INTEGER\"",
+          "\t\t\t\t\"value\"\t\t\t\t\"1\"",
+          "\t\t}",
+          "\t}",
+          "}"
+        ],
+        "description": "Adds a talent KV"
+      }
+}

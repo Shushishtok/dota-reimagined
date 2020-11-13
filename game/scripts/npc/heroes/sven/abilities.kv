@@ -7,16 +7,16 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
         "AbilityTextureName"			"sven_storm_bolt"
         "ScriptFile"				    "abilities/heroes/sven/reimagined_sven_storm_bolt"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
-		"FightRecapLevel"				"1"		
+		"FightRecapLevel"				"1"
 
 		"HasScepterUpgrade"				"1"
 
@@ -25,7 +25,7 @@
 		"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"18 16 14 12"
 
@@ -50,7 +50,7 @@
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"bolt_stun_duration"	"1.25 1.5 1.75 2.0"				
+				"bolt_stun_duration"	"1.25 1.5 1.75 2.0"
 			}
 
 			"03"
@@ -68,32 +68,32 @@
 			"05"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"cast_range_bonus_scepter"		"500"		
+				"cast_range_bonus_scepter"		"500"
 				"RequiresScepter"			"1"
 			}
 
             "06"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"strong_right_damage"	"60 100 140 180"						
+				"strong_right_damage"	"60 100 140 180"
 			}
 
 			"07"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"strong_right_radius"	"140"						
+				"strong_right_radius"	"140"
 			}
 
             "08"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"gatling_gun_count"	"12"						
-			}           
+				"gatling_gun_count"	"12"
+			}
 
 			"09"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"gatling_gun_behind_max_distance"	"350"						
+				"gatling_gun_behind_max_distance"	"350"
 			}
 
             "10"
@@ -149,7 +149,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
         "AbilityTextureName"			"sven_great_cleave"
         "ScriptFile"				    "abilities/heroes/sven/reimagined_sven_great_cleave"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
@@ -157,11 +157,11 @@
 		"AbilityCastPoint"				"0.35"
 		"AbilityCooldown"				"25 22 19 16"
 		"AbilityManaCost"				"90"
-				
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
-		{						
+		{
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
@@ -172,7 +172,7 @@
 			{
 				"var_type"				"FIELD_INTEGER"
 				"cleave_ending_width"	"360"
-			}		
+			}
 
 			"03"
 			{
@@ -233,7 +233,7 @@
 				"var_type"				"FIELD_INTEGER"
 				"epic_cleave_armor_ignore_pct"	"38 46 54 62"
 			}
-		}		
+		}
 	}
 
 	//=================================================================================================================
@@ -243,7 +243,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
         "AbilityTextureName"			"sven_warcry"
         "ScriptFile"				    "abilities/heroes/sven/reimagined_sven_warcry"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
@@ -257,10 +257,10 @@
 		"AbilityCastGestureSlot"		"DEFAULT"
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"32 28 24 20"
-	
+
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"30 40 50 60"
@@ -278,7 +278,7 @@
 			"02"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"bonus_armor"		"6 9 12 15"		
+				"bonus_armor"		"6 9 12 15"
 			}
 
 			"03"
@@ -320,7 +320,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
         "AbilityTextureName"			"sven_gods_strength"
         "ScriptFile"				    "abilities/heroes/sven/reimagined_sven_gods_strength"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
@@ -328,17 +328,17 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Sven.GodsStrength"
-		
+
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
  		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_4"
 		"AbilityCastGestureSlot"		"DEFAULT"
 		"AbilityCastPoint"				"0.3 0.3 0.3"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"110"		
-	
+		"AbilityCooldown"				"110"
+
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"100 150 200"
@@ -350,45 +350,45 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"gods_strength_damage"		"110 160 210"					
+				"gods_strength_damage"		"110 160 210"
 			}
 
 			"02"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"duration"			"40"					
+				"duration"			"40"
 			}
 
 			"03"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"shattering_strength_str_bonus_pct"		"15 30 45"					
+				"shattering_strength_str_bonus_pct"		"15 30 45"
 			}
 
 			"04"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"buff_fish_bonus_damage_pct"		"30 50 70"					
+				"buff_fish_bonus_damage_pct"		"30 50 70"
 			}
 
 			"05"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"buff_fish_cooldown"	"8"					
+				"buff_fish_cooldown"	"8"
 			}
 
 			"06"
 			{
 				"var_type"			"FIELD_FLOAT"
-				"rough_knight_unit_kill_damage_bonus"	"1 1.5 2"					
+				"rough_knight_unit_kill_damage_bonus"	"1 1.5 2"
 			}
 
 			"07"
 			{
 				"var_type"			"FIELD_FLOAT"
-				"rough_knight_hero_kill_damage_bonus"	"5 7.5 10"					
+				"rough_knight_hero_kill_damage_bonus"	"5 7.5 10"
 			}
-		}	
+		}
 	}
 
 	//=================================================================================================================
@@ -398,12 +398,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"sven_storm_bolt"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -429,12 +429,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"sven_storm_bolt"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -454,12 +454,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"sven_great_cleave"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -497,12 +497,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"sven_great_cleave"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -522,12 +522,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"sven_warcry"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -547,12 +547,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"sven_warcry"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -572,12 +572,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"sven_gods_strength"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -597,12 +597,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/sven/reimagined_sven_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"sven_gods_strength"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"

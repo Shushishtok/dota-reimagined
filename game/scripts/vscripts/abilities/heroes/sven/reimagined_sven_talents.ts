@@ -33,7 +33,7 @@ export class reimagined_sven_talent_5 extends BaseTalent {}
 export class reimagined_sven_talent_6 extends BaseTalent {}
 
 @registerModifier()
-export class modifier_reimagined_sven_talent_7 extends BaseTalentModifier 
+export class modifier_reimagined_sven_talent_7 extends BaseTalentModifier
 {
     parent = this.GetParent() as CDOTA_BaseNPC_Hero;
     ability_handle?: CDOTABaseAbility;
@@ -42,8 +42,8 @@ export class modifier_reimagined_sven_talent_7 extends BaseTalentModifier
 
     OnCreated()
     {
-        if (!IsServer()) return;        
-        
+        if (!IsServer()) return;
+
         if (this.parent.HasAbility("reimagined_sven_gods_strength"))
         {
             this.ability_handle = this.parent.FindAbilityByName("reimagined_sven_gods_strength");
@@ -61,7 +61,7 @@ export class modifier_reimagined_sven_talent_7 extends BaseTalentModifier
     }
 
     GetModifierProcAttack_BonusDamage_Physical(event: ModifierAttackEvent): number
-    {   
+    {
         if (!IsServer()) return 0;
 
         // Couldn't find it.. try again!
@@ -78,18 +78,18 @@ export class modifier_reimagined_sven_talent_7 extends BaseTalentModifier
             this.buff_fish_bonus_damage_pct = this.ability_handle.GetSpecialValueFor("buff_fish_bonus_damage_pct");
 
             if (!this.parent.HasModifier("modifier_reimagined_sven_gods_strength_buff_fish_counter"))
-            {            
+            {
                 // Set buff fish cooldown modifier
                 this.parent.AddNewModifier(this.parent, this.ability_handle, "modifier_reimagined_sven_gods_strength_buff_fish_counter", {duration: this.buff_fish_cooldown!});
-                
+
                 const parentdamage = this.parent.GetAverageTrueAttackDamage(event.target);
-                const damage = parentdamage * this.buff_fish_bonus_damage_pct! * 0.01;            
-        
+                const damage = parentdamage * this.buff_fish_bonus_damage_pct! * 0.01;
+
                 SendOverheadEventMessage(undefined, OverheadAlert.DAMAGE, event.target, damage + parentdamage, undefined);
                 return damage;
             }
         }
-        
+
         return 0;
     }
 }
@@ -104,7 +104,7 @@ export class modifier_reimagined_sven_talent_8 extends BaseTalentModifier
     modifier_gods_strength: string = "modifier_reimagined_sven_gods_strength";
     modifier_great_cleave: string = "modifier_reimagined_sven_great_cleave_passive";
     modifier_great_cleave_handle?: CDOTA_Buff;
-    modifier_epic_cleave: string = "modifier_reimagined_sven_great_cleave_epic_cleave";    
+    modifier_epic_cleave: string = "modifier_reimagined_sven_great_cleave_epic_cleave";
     epic_cleave_attacks?: number;
     chance_pct?: number;
 
@@ -121,7 +121,7 @@ export class modifier_reimagined_sven_talent_8 extends BaseTalentModifier
             this.modifier_great_cleave_handle = this.parent.FindModifierByName(this.modifier_great_cleave);
             if (this.modifier_great_cleave_handle)
             {
-                this.epic_cleave_attacks = this.modifier_great_cleave_handle.GetAbility()!.GetSpecialValueFor("epic_cleave_attacks");                
+                this.epic_cleave_attacks = this.modifier_great_cleave_handle.GetAbility()!.GetSpecialValueFor("epic_cleave_attacks");
             }
         }
     }
@@ -141,16 +141,16 @@ export class modifier_reimagined_sven_talent_8 extends BaseTalentModifier
 
         // If we still couldn't make it initialize, too bad
         if (!this.modifier_great_cleave_handle) return;
-        
+
         // Only apply if the parent has God's Strength active
         if (!this.parent.HasModifier(this.modifier_gods_strength)) return;
-        
+
         // Only apply if the parent has the counter modifier
         if (!this.parent.HasModifier(this.modifier_epic_cleave)) return;
 
         // Update values, just in case
         this.epic_cleave_attacks = this.modifier_great_cleave_handle.GetAbility()!.GetSpecialValueFor("epic_cleave_attacks");
-        
+
         // Get modifier handle
         const modifier_counter = this.parent.FindModifierByName(this.modifier_epic_cleave);
         if (modifier_counter)

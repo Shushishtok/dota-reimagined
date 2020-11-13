@@ -7,7 +7,7 @@ export class modifier_reimagined_night_stalker_crippling_fear_silence_debuff ext
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_effect: string = "particles/units/heroes/hero_night_stalker/nightstalker_crippling_fear.vpcf";
 
@@ -19,9 +19,9 @@ export class modifier_reimagined_night_stalker_crippling_fear_silence_debuff ext
     IsPurgable() {return false}
 
     OnCreated(): void
-    {        
+    {
         // Reimagined specials
-        this.crippling_crippling_fear_miss_rate = this.ability.GetSpecialValueFor("crippling_crippling_fear_miss_rate");        
+        this.crippling_crippling_fear_miss_rate = this.ability.GetSpecialValueFor("crippling_crippling_fear_miss_rate");
 
         // Talent: Dreadful Creature: Enemies that are affected by Crippling Fear for over x seconds have Break applied on them and take y% more damage until they lose the aura debuff.
         this.ReimaginedTalentDreadfulCreature();

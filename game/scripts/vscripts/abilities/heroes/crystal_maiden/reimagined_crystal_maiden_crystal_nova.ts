@@ -1,9 +1,12 @@
-import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
+import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
+import { HasTalent } from "../../../lib/util";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow";
 import { modifier_reimagined_crystal_maiden_crystal_nova_slow } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_slow";
-import { modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura"
-import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow"
-import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff"
- 
+import { modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff";
+import { CrystalMaidenTalents } from "./reimagined_crystal_maiden_talents";
+import { modifier_reimagined_crystal_maiden_talent_2_debuff } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_talent_2_debuff"
+
 @registerAbility()
 export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
 {
@@ -30,7 +33,7 @@ export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
         PrecacheResource(PrecacheType.PARTICLE, "particles/generic_gameplay/generic_slowed_cold.vpcf", context);
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf", context);
         PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/crystal_maiden/snowstorm_field.vpcf", context);
-        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/crystal_maiden/hailwind_shards.vpcf", context);        
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/crystal_maiden/hailwind_shards.vpcf", context);
     }
 
     OnAbilityPhaseStart()
@@ -59,10 +62,10 @@ export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
         this.duration = this.GetSpecialValueFor("duration");
         this.vision_duration = this.GetSpecialValueFor("vision_duration");
         this.vision_radius = this.GetSpecialValueFor("vision_radius");
-        this.nova_damage = this.GetSpecialValueFor("nova_damage");        
+        this.nova_damage = this.GetSpecialValueFor("nova_damage");
 
         // Reimagined specials
-        this.snowstorm_duration = this.GetSpecialValueFor("snowstorm_duration");        
+        this.snowstorm_duration = this.GetSpecialValueFor("snowstorm_duration");
 
         // Play cast sound
         EmitSoundOnLocationWithCaster(target_position, this.sound_cast, this.caster);
@@ -70,14 +73,14 @@ export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
         // Apply FoW visibility around the target
         this.CreateVisibilityNode(target_position, this.vision_radius, this.vision_duration);
 
-        // Play particle effect        
+        // Play particle effect
         this.particle_crystal_nova_fx = ParticleManager.CreateParticle(this.particle_crystal_nova, ParticleAttachment.CUSTOMORIGIN, undefined);
         ParticleManager.SetParticleControl(this.particle_crystal_nova_fx, 0, target_position);
         ParticleManager.SetParticleControl(this.particle_crystal_nova_fx, 1, Vector(this.radius, this.duration, this.radius));
         ParticleManager.SetParticleControl(this.particle_crystal_nova_fx, 2, target_position);
         ParticleManager.ReleaseParticleIndex(this.particle_crystal_nova_fx);
 
-        // Find all enemies in range        
+        // Find all enemies in range
         const enemies = FindUnitsInRadius(this.caster.GetTeamNumber(),
                                           target_position,
                                           undefined,
@@ -89,8 +92,8 @@ export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
                                           false);
 
         for (const enemy of enemies)
-        {            
-            // Deal damage to each enemy            
+        {
+            // Deal damage to each enemy
             ApplyDamage(
             {
                 attacker: this.caster,
@@ -100,18 +103,33 @@ export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
                 ability: this,
                 damage_flags: DamageFlag.NONE
             });
-            
+
             // Apply slow modifier to each enemy
             enemy.AddNewModifier(this.caster, this, modifier_reimagined_crystal_maiden_crystal_nova_slow.name, {duration: this.duration});
-        }                                        
+
+            // Talent: Dense Ice: Crystal Nova's move and attack speed slow scales with the the enemy's distance to the Snowstorm Field, up to x% additional slow when standing in the center. Every y units of distance reduces the slow slightly.
+            this.ReimaginedTalentDenseIce(enemy, target_position);
+        }
 
         // Snowstorm Field: Leaves a snowstorm field on the ground where Crystal Nova was cast for 5 seconds. Has various effects for allies and enemies affected by it.
-        this.ReimaginedSnowstormField(target_position)        
+        this.ReimaginedSnowstormField(target_position)
     }
 
     ReimaginedSnowstormField(target_position: Vector)
     {
         // Apply Snowstorm Field modifier thinker on cast position
-        const thinker = CreateModifierThinker(this.caster, this, modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura.name, {duration: this.snowstorm_duration}, target_position, this.caster.GetTeamNumber(), false);        
+        CreateModifierThinker(this.caster, this, modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura.name, {duration: this.snowstorm_duration}, target_position, this.caster.GetTeamNumber(), false);
+    }
+
+    ReimaginedTalentDenseIce(target: CDOTA_BaseNPC, target_position: Vector)
+    {
+        if (HasTalent(this.caster, CrystalMaidenTalents.CrystalMaidenTalent_2))
+        {
+            const talent_modifier = target.AddNewModifier(this.caster, this, modifier_reimagined_crystal_maiden_talent_2_debuff.name, {duration: this.duration});
+            if (talent_modifier)
+            {
+                (talent_modifier as modifier_reimagined_crystal_maiden_talent_2_debuff).cast_center = target_position;
+            }
+        }
     }
 }

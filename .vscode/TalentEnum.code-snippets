@@ -1,0 +1,19 @@
+{
+	"Adds a talent enum": {
+        "prefix": "TalentEnum",
+        "body": [
+          "export const enum $1Talents",
+          "{",
+          "\t$1Talent_1 = \"reimagined_$1_talent_1\",",
+          "\t$1Talent_2 = \"reimagined_$1_talent_2\",",
+          "\t$1Talent_3 = \"reimagined_$1_talent_3\",",
+          "\t$1Talent_4 = \"reimagined_$1_talent_4\",",
+          "\t$1Talent_5 = \"reimagined_$1_talent_5\",",
+          "\t$1Talent_6 = \"reimagined_$1_talent_6\",",
+          "\t$1Talent_7 = \"reimagined_$1_talent_7\",",
+          "\t$1Talent_8 = \"reimagined_$1_talent_8\"",
+          "}"
+        ],
+        "description": "Adds a talent enum"
+      }
+}

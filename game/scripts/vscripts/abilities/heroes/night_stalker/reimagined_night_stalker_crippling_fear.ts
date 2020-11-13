@@ -9,19 +9,20 @@ export class reimagined_night_stalker_crippling_fear extends BaseAbility
 {
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
-    sound_cast: string = "Hero_Nightstalker.Trickling_Fear";        
-    cast_responses: string[] = ["night_stalker_nstalk_ability_cripfear_01","night_stalker_nstalk_ability_cripfear_02","night_stalker_nstalk_ability_cripfear_03"]    
+    sound_cast: string = "Hero_Nightstalker.Trickling_Fear";
+    cast_responses: string[] = ["night_stalker_nstalk_ability_cripfear_01","night_stalker_nstalk_ability_cripfear_02","night_stalker_nstalk_ability_cripfear_03"]
 
     // Ability specials
     duration_day?: number;
     duration_night?: number;
-    radius?: number;    
+    radius?: number;
 
     Precache(context: CScriptPrecacheContext)
     {
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_night_stalker/nightstalker_crippling_fear_aura.vpcf" , context);
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_night_stalker/nightstalker_crippling_fear.vpcf", context);
-        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/night_stalker/reimagined_nightstalker_crippling_fear_feared.vpcf", context);                
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/night_stalker/reimagined_nightstalker_crippling_fear_feared.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/generic_gameplay/generic_break.vpcf", context);
     }
 
     OnSpellStart(): void
@@ -29,7 +30,7 @@ export class reimagined_night_stalker_crippling_fear extends BaseAbility
         // Ability specials
         this.duration_day = this.GetSpecialValueFor("duration_day");
         this.duration_night = this.GetSpecialValueFor("duration_night");
-        this.radius = this.GetSpecialValueFor("radius");        
+        this.radius = this.GetSpecialValueFor("radius");
 
         // Roll for cast responses
         if (RollPercentage(75) && !this.IsStolen())
@@ -52,7 +53,7 @@ export class reimagined_night_stalker_crippling_fear extends BaseAbility
         }
 
         // Reimagination: Dead of Night: Increases Crippling Fear's duration (among other things) during natural nights, based on distance from nighttime peak
-        duration = duration + this.ReimaginationDeadOfNightCripplingFear();        
+        duration = duration + this.ReimaginationDeadOfNightCripplingFear();
 
         // Apply aura modifier to self
         this.caster.AddNewModifier(this.caster, this, modifier_reimagined_night_stalker_crippling_fear_aura.name, {duration: duration});
@@ -60,7 +61,7 @@ export class reimagined_night_stalker_crippling_fear extends BaseAbility
 
     ReimaginationDeadOfNightCripplingFear(): number
     {
-        let bonus = 0;        
+        let bonus = 0;
         // Check if the caster has any Dead of Night modifier
         if (this.caster.HasModifier(modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night.name))
         {

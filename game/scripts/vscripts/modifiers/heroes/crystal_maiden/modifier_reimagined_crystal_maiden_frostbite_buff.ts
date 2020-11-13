@@ -1,4 +1,6 @@
+import { CrystalMaidenTalents } from "../../../abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
+import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 import { modifier_reimagined_crystal_maiden_frostbite_debuff } from "./modifier_reimagined_crystal_maiden_frostbite_debuff"
 
 
@@ -7,19 +9,23 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     sound_cast: string = "Hero_Crystal.Frostbite";
-    particle_frostbite: string = "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf";        
+    particle_frostbite: string = "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf";
 
-    // Modifier specials    
+    // Modifier specials
     tick_interval?: number;
 
-    // Reimagined specials    
+    // Reimagined specials
     frost_emanation_search_radius?: number;
-    frost_emanation_duration?: number;    
+    frost_emanation_duration?: number;
     igloo_frosting_arcane_aura_multiplier?: number;
-    
+
+    // Reimagined talent specials
+    cast_range_bonus?: number;
+    frost_emanation_radius_bonus?: number;
+
     IsHidden() {return false}
     IsDebuff() {return false}
     IsPurgable() {return true}
@@ -27,15 +33,15 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
     OnCreated(): void
     {
         // Modifier properties
-        
+
         this.ability = this.GetAbility()!;
 
-        // Modifier specials        
+        // Modifier specials
         this.tick_interval = this.ability.GetSpecialValueFor("tick_interval");
 
         // Reimagined specials
         this.frost_emanation_search_radius = this.ability.GetSpecialValueFor("frost_emanation_search_radius");
-        this.frost_emanation_duration = this.ability.GetSpecialValueFor("frost_emanation_duration");                
+        this.frost_emanation_duration = this.ability.GetSpecialValueFor("frost_emanation_duration");
         this.igloo_frosting_arcane_aura_multiplier = this.ability.GetSpecialValueFor("igloo_frosting_arcane_aura_multiplier");
 
         if (IsServer())
@@ -53,11 +59,15 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
 
     ReimaginedFrostEmanation()
     {
-        // Search for nearby allies (of the enemy)
-        const enemies = FindUnitsInRadius(this.caster!.GetTeamNumber(),
+        let frost_emanation_search_radius = this.frost_emanation_search_radius!;
+        // Talent: Bunker of Ice: Igloo Frosting now also increases the cast range of the affected ally by x, and Frost Emanation's search radius increases by y for allies affected by Igloo Frosting.
+        frost_emanation_search_radius += this.ReimaginedTalentBunkerOfIce(true);
+
+        // Search for nearby enemies
+        const enemies = FindUnitsInRadius(this.caster.GetTeamNumber(),
                                           this.parent.GetAbsOrigin(),
                                           undefined,
-                                          this.frost_emanation_search_radius!,
+                                          frost_emanation_search_radius,
                                           UnitTargetTeam.ENEMY,
                                           UnitTargetType.HERO | UnitTargetType.BASIC,
                                           UnitTargetFlags.NONE,
@@ -75,7 +85,13 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
 
     DeclareFunctions(): ModifierFunction[]
     {
-        return [ModifierFunction.TOOLTIP]
+        return [ModifierFunction.TOOLTIP,
+                ModifierFunction.CAST_RANGE_BONUS_STACKING]
+    }
+
+    GetModifierCastRangeBonusStacking(): number
+    {
+        return this.ReimaginedTalentBunkerOfIce(false);
     }
 
     OnTooltip(): number
@@ -95,12 +111,31 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
 
     CheckState(): Partial<Record<ModifierState, boolean>>
     {
-        return {[ModifierState.ROOTED]: true,                
+        return {[ModifierState.ROOTED]: true,
                 [ModifierState.DISARMED]: true}
-    }    
+    }
 
     OnDestroy(): void
     {
         StopSoundOn(this.sound_cast, this.parent)
+    }
+
+    ReimaginedTalentBunkerOfIce(frost_emanation: boolean): number
+    {
+        if (HasTalent(this.caster, CrystalMaidenTalents.CrystalMaidenTalent_4))
+        {
+            if (frost_emanation)
+            {
+                if (!this.frost_emanation_radius_bonus) this.frost_emanation_radius_bonus = GetTalentSpecialValueFor(this.caster, CrystalMaidenTalents.CrystalMaidenTalent_4, "frost_emanation_radius_bonus");
+                return this.frost_emanation_radius_bonus;
+            }
+            else
+            {
+                if (!this.cast_range_bonus) this.cast_range_bonus = GetTalentSpecialValueFor(this.caster, CrystalMaidenTalents.CrystalMaidenTalent_4, "cast_range_bonus");
+                return this.cast_range_bonus;
+            }
+        }
+
+        return 0;
     }
 }

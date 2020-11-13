@@ -1,0 +1,31 @@
+{
+	"Register standard talent": {
+        "prefix": "StandardTalents",
+        "body": [
+          "@registerTalent()",
+          "export class reimagined_$1_talent_1 extends BaseTalent {}",
+          "",
+          "@registerTalent()",
+          "export class reimagined_$1_talent_2 extends BaseTalent {}",
+          "",
+          "@registerTalent()",
+          "export class reimagined_$1_talent_3 extends BaseTalent {}",
+          "",
+          "@registerTalent()",
+          "export class reimagined_$1_talent_4 extends BaseTalent {}",
+          "",
+          "@registerTalent()",
+          "export class reimagined_$1_talent_5 extends BaseTalent {}",
+          "",
+          "@registerTalent()",
+          "export class reimagined_$1_talent_6 extends BaseTalent {}",
+          "",
+          "@registerTalent()",
+          "export class reimagined_$1_talent_7 extends BaseTalent {}",
+          "",
+          "@registerTalent()",
+          "export class reimagined_$1_talent_8 extends BaseTalent {}"
+        ],
+        "description": "Register standard talent"
+      }
+}
