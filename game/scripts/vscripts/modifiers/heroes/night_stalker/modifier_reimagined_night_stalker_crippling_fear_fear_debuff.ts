@@ -8,27 +8,34 @@ export class modifier_reimagined_night_stalker_crippling_fear_fear_debuff extend
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_effect: string = "particles/heroes/night_stalker/reimagined_nightstalker_crippling_fear_feared.vpcf";
+
+    // Reimagined talent properties
+    elapsed_time: number = 0;
+
+    // Reimagined talent specials
+    application_threshold?: number;
 
     IsHidden() {return false}
     IsDebuff() {return true}
     IsPurgable() {return false}
+    ShouldUseOverheadOffset() {return true}
 
     OnCreated(): void
     {
         if (IsServer())
         {
             this.StartIntervalThink(0.1)
-
-            // Talent: Dreadful Creature: Enemies that are affected by Crippling Fear for over x seconds have Break applied on them and take y% more damage until they lose the aura debuff.
-            this.ReimaginedTalentDreadfulCreature();
         }
     }
 
     OnIntervalThink(): void
     {
+        // Talent: Dreadful Creature: Enemies that are affected by Crippling Fear for over x seconds have Break applied on them and take y% more damage until they lose the aura debuff.
+        this.ReimaginedTalentDreadfulCreature();
+
         // Calculate the distance and direction between the parent and the caster
         const direction = util.CalculateDirectionToPosition(this.caster!.GetAbsOrigin(), this.parent.GetAbsOrigin());
         const distance = util.CalculateDistanceBetweenEntities(this.caster!, this.parent);
@@ -46,15 +53,27 @@ export class modifier_reimagined_night_stalker_crippling_fear_fear_debuff extend
 
         if (util.HasTalent(this.caster, NightStalkerTalents.NightStalkerTalents_4))
         {
-            if (!this.parent.HasModifier("modifier_reimagined_night_stalker_talent_4_debuff"))
+            this.elapsed_time += 0.1;
+
+            // Initialize properties
+            if (!this.application_threshold) this.application_threshold = util.GetTalentSpecialValueFor(this.caster, NightStalkerTalents.NightStalkerTalents_4, "application_threshold");
+
+            // Check if the talent should be active
+            if (this.elapsed_time >= this.application_threshold)
             {
-                // Find out how long the aura is still active for
-                let aura_duration;
-                const modifier_aura = this.caster.FindModifierByName("modifier_reimagined_night_stalker_crippling_fear_aura");
-                if (modifier_aura)
+                if (!this.parent.HasModifier("modifier_reimagined_night_stalker_talent_4_debuff"))
                 {
-                    aura_duration = modifier_aura.GetRemainingTime();
-                    this.parent.AddNewModifier(this.caster, this.ability, "modifier_reimagined_night_stalker_talent_4_debuff", {duration: aura_duration})
+                    // Find out how long the aura is still active for
+                    let aura_duration;
+                    const modifier_aura = this.caster.FindModifierByName("modifier_reimagined_night_stalker_crippling_fear_aura");
+                    if (modifier_aura)
+                    {
+                        aura_duration = modifier_aura.GetRemainingTime();
+                        this.parent.AddNewModifier(this.caster, this.ability, "modifier_reimagined_night_stalker_talent_4_debuff", {duration: aura_duration})
+
+                        // Stop thinking
+                        return -1;
+                    }
                 }
             }
         }
