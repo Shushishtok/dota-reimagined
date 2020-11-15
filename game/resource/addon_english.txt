@@ -1349,6 +1349,90 @@
 		"DOTA_Tooltip_modifier_reimagined_drow_ranger_marksmanship_agility_buff_Description"
 		"Increases agility by %dMODIFIER_PROPERTY_STATS_AGILITY_BONUS%."
 
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_1"
+        "Brittle Winds"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_1_Description"
+        "Frost Arrows attacks now apply a stack of Brittle as the Cold to all enemies in %talent_1_search_radius% radius around the target."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_1_Lore"
+        "Every enchanted arrow fills the air with frosty mist, which might prove difficult and disadvantageous to some."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_2"
+        "Cryo Surge"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_2_Description"
+        "Cryo Arrowhead now applies even when Marksmanship is disabled. Additionally, the chance to proc Cryo Arrowhead increases by %talent_2_cryo_chance_bonus%%% when Marksmanship is active."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_2_Lore"
+        "Steadily breathing frost into her arrows in perfect rhythm enables the application of cryo coating, even when Traxex is thrown off her balance."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_3"
+        "Taildraft Breeze"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_3_Description"
+        "During Tailwind, Drow Ranger fires a miniature Gust projectile backwards every %talent_3_interval% seconds. The projectile has %talent_3_width% width and goes up to %talent_3_distance% distance, knocking enemies back and silencing them for %talent_3_silence_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_3_Lore"
+        "Utilizing the same breeze that pushes Traxes forward, she thrusts it back with a Drowish incantation to get possible enemies off her trail."
+
+        "DOTA_Tooltip_modifier_reimagined_drow_ranger_gust_root"
+        "Frozen Bind"
+
+        "DOTA_Tooltip_modifier_reimagined_drow_ranger_gust_root_Description"
+        "Rooted."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_4"
+        "Frozen Bind"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_4_Description"
+        "Gust roots affected enemies for %talent_4_root_duration% seconds after the knockback. If Wave Chill procced, then the root is also extended by the stun duration."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_4_Lore"
+        "Traxex has found binding the feet of her foes is a good way to keep her distance from them."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_5"
+        "Reflex Shot"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_5_Description"
+        "Drow Ranger performs an instant attack on every enemy unit that was hit by %talent_5_arrows_for_attack% Multishot arrows. This effect can occur multiple times in a single Multishot cast, and counts for enemies that were already hit by an arrow in a wave. The counter resets between casts."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_5_Lore"
+        "Traxes uses has sharp senses to be able to reflexively fire a quick arrow on anyone that her arrow showers mark."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_6"
+        "Precision Volley"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_6_Description"
+        "Thrilling Hunt now also applies Marksmanship on %talent_6_percentage%%% of each wave's arrows. The arrows for each wave are chosen randomly."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_6_Lore"
+        "Out of all the arrows in the quiver, a number of them will surely hit their target with deadly precision."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_7"
+        "Prideful Ranger"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_7_Description"
+        "While Pride of the Drow is not active, taking damage applies Pride of the Drow automatically for %talent_7_pride_duration% seconds. Has a %talent_7_internal_cd% seconds internal cooldown. Does not trigger Marksmanship's cooldown and can trigger while Marksmanship is on cooldown."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_7_Lore"
+        "When Traxex gets hurts, her resolve gets stronger."
+
+        "DOTA_Tooltip_modifier_reimagined_drow_ranger_talent_7_counter"
+        "Prideful Ranger Cooldown"
+
+        "DOTA_Tooltip_modifier_reimagined_drow_ranger_talent_7_counter_Description"
+        "Prideful Ranger is on cooldown until this modifier's duration ends."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_8"
+        "Markswoman's Tempo"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_8_Description"
+        "Marksmanship's Ranger of Frost now also increases Drow Ranger's attack range by %talent_8_attack_range_per_stack% per stack."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_talent_8_Lore"
+        "Traxex is most terrifying when she fires a flurry of arrows that leaves no chance to escape."
+
 		// Skywrath Mage
 		// Skywrath Mage's Arcane Bolt
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt"

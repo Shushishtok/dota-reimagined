@@ -1,5 +1,5 @@
 "DOTAAbilities"
-{	
+{
 	//=================================================================================================================
 	// Reimagined: Drow Ranger's Frost Arrows
 	//=================================================================================================================
@@ -7,7 +7,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"drow_ranger_frost_arrows"
     	"ScriptFile"				    "abilities/heroes/drow_ranger/reimagined_drow_ranger_frost_arrows"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST | DOTA_ABILITY_BEHAVIOR_ATTACK"
@@ -16,16 +16,16 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_DrowRanger.FrostArrows"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"625"
 		"AbilityCastPoint"				"0"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"0"		
+		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -111,7 +111,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"drow_ranger_wave_of_silence"
     	"ScriptFile"				    "abilities/heroes/drow_ranger/reimagined_drow_ranger_wave_of_silence"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
@@ -127,7 +127,7 @@
 		"AbilityCastRange"				"900"
 		"AbilityCastPoint"				"0.25"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"16 15 14 13"
 
@@ -154,7 +154,7 @@
 			"03"
 			{
 				"var_type"			"FIELD_FLOAT"
-				"silence_duration"	"3 4 5 6"				
+				"silence_duration"	"3 4 5 6"
 			}
 
 			"04"
@@ -167,7 +167,7 @@
 			{
 				"var_type"			"FIELD_FLOAT"
 				"knockback_duration"		"0.6 0.7 0.8 0.9"
-			}	
+			}
 
 			"06"
 			{
@@ -221,22 +221,22 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"drow_ranger_multishot"
     	"ScriptFile"				    "abilities/heroes/drow_ranger/reimagined_drow_ranger_multishot"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
-	
+
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.0"
 		"AbilityChannelTime"			"1.75"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"26 24 22 20"
 
@@ -257,7 +257,7 @@
 			"02"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"arrow_damage_pct"			"85 110 135 160"				
+				"arrow_damage_pct"			"85 110 135 160"
 			}
 
 			"03"
@@ -330,13 +330,13 @@
 			{
 				"var_type"					"FIELD_INTEGER"
 				"endless_barrage_mana_per_wave"		"30"
-			}	
+			}
 
 			"15"
 			{
 				"var_type"					"FIELD_INTEGER"
 				"thrilling_hunt_projectile_speed"		"100 120 140 160"
-			}			
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CHANNEL_ABILITY_3"
 	}
@@ -348,16 +348,16 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"drow_ranger_marksmanship"
     	"ScriptFile"				    "abilities/heroes/drow_ranger/reimagined_drow_ranger_marksmanship"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityCastRange"				"400"
 		"AbilityCooldown"				"60 50 40"
-		"AbilityCastPoint"				"0.45"	
+		"AbilityCastPoint"				"0.45"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"HasScepterUpgrade"				"1"
 
 		// Special
@@ -367,13 +367,13 @@
 			"01"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"chance"						"20 30 40"				
+				"chance"						"20 30 40"
 			}
 
 			"02"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"bonus_damage"					"70 80 90"				
+				"bonus_damage"					"70 80 90"
 			}
 
 			"03"
@@ -420,7 +420,7 @@
 			{
 				"var_type"						"FIELD_INTEGER"
 				"pride_drow_duration"			"4 5 6"
-			}			
+			}
 
 			"10"
 			{
@@ -450,8 +450,243 @@
 			{
 				"var_type"						"FIELD_INTEGER"
 				"ranger_frost_duration"			"5"
-			}			
+			}
 		}
 	}
 
+    //=================================================================================================================
+    // Drow Ranger: Talent: Brittle Winds: Frost Arrows attacks apply a stack of Brittle as the Cold to all enemies in x radius around the target.
+    //=================================================================================================================
+    "reimagined_drow_ranger_talent_1"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/drow_ranger/reimagined_drow_ranger_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"drow_ranger_frost_arrows"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_1_search_radius"		"300"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Drow Ranger: Talent: Cryo Surge: Cryo Arrowhead now applies even when Marksmanship is off. Additionally, the chance to proc Cryo Arrowhead increases by x% when Marksmanship is on.
+    //=================================================================================================================
+    "reimagined_drow_ranger_talent_2"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/drow_ranger/reimagined_drow_ranger_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"drow_ranger_frost_arrows"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_2_cryo_chance_bonus"	"10"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Drow Ranger: Talent: Taildraft Breeze: During Tailwind, Drow Ranger fires a small gust projectile backwards every x seconds, which has y width and goes up to z distance, knocking enemies slightly back and silencing them for t seconds.
+    //=================================================================================================================
+    "reimagined_drow_ranger_talent_3"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/drow_ranger/reimagined_drow_ranger_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"drow_ranger_wave_of_silence"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "talent_3_interval" 	"0.5"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_3_distance" 	"400"
+            }
+
+            "03"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_3_width"     	"280"
+            }
+
+            "04"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "talent_3_knockback_duration"     	"0.3"
+            }
+
+            "05"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_3_projectile_speed"     "600"
+            }
+
+            "05"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_3_silence_duration"    "3"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Drow Ranger: Talent: Frozen Bind: Gusts root affected enemies for x seconds after the knockback. If Wave Chill procced, then the root is also extended by the stun duration.
+    //=================================================================================================================
+    "reimagined_drow_ranger_talent_4"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/drow_ranger/reimagined_drow_ranger_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"drow_ranger_wave_of_silence"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_4_root_duration" 	    "1"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Drow Ranger: Talent: Reflex Shot: Drow Ranger performs an instant attack on every enemy unit that was hit by x Multishot arrows. This effect can occur multiple times in a single Multishot cast. This effect counts enemies that were already hit in a wave. The counter resets between casts.
+    //=================================================================================================================
+    "reimagined_drow_ranger_talent_5"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/drow_ranger/reimagined_drow_ranger_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"drow_ranger_multishot"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_5_arrows_for_attack" 	    "4"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Drow Ranger: Talent: Precision Volley: Thrilling Hunt now also applies Marksmanship on x% of each wave's arrows. The arrows for each wave are chosen randomly.
+    //=================================================================================================================
+    "reimagined_drow_ranger_talent_6"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/drow_ranger/reimagined_drow_ranger_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"drow_ranger_multishot"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_6_percentage"   "50"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Drow Ranger: Talent: Prideful Ranger: While Pride of the Drow is not active, being attacked applies Pride of the Drow automatically for x seconds. Has a y seconds internal CD.
+    //=================================================================================================================
+    "reimagined_drow_ranger_talent_7"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/drow_ranger/reimagined_drow_ranger_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"drow_ranger_marksmanship"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_7_pride_duration"   "2"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_7_internal_cd"  "8"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Drow Ranger: Talent: Markswoman's Tempo: Ranger of Frost now also increases attack range by x per stack.
+    //=================================================================================================================
+    "reimagined_drow_ranger_talent_8"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/drow_ranger/reimagined_drow_ranger_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"drow_ranger_marksmanship"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_8_attack_range_per_stack"   "30"
+            }
+        }
+    }
 }

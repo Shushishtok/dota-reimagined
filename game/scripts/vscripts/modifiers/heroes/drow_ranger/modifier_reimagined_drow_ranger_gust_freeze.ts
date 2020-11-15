@@ -7,7 +7,7 @@ export class modifier_reimagined_drow_ranger_gust_freeze extends BaseModifier
     caster: CDOTA_BaseNPC = this.GetCaster()!;
     ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
-    particle_frozen: string = "particles/units/heroes/hero_ancient_apparition/ancient_apparition_cold_feet_frozen.vpcf";
+    particle_frozen: string = "particles/heroes/drow_ranger/wavechill_frozen.vpcf";
 
     IsHidden() {return false}
     IsDebuff() {return true}

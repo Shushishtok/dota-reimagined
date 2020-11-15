@@ -19,13 +19,13 @@ export interface ReflectedAbility
 }
 
 // Type guard - to check if an ability has ReflectAbility stuff
-export function IsReflectedAbility(ability: CDOTABaseAbility): ability is CDOTABaseAbility & ReflectedAbility 
+export function IsReflectedAbility(ability: CDOTABaseAbility): ability is CDOTABaseAbility & ReflectedAbility
 {
     return (ability as any).spell_shield_reflect !== undefined;
 }
 
 // Add the Reflect Ability tag to an existing ability
-export function MakeReflectAbility(ability: CDOTABaseAbility): CDOTABaseAbility & ReflectedAbility 
+export function MakeReflectAbility(ability: CDOTABaseAbility): CDOTABaseAbility & ReflectedAbility
 {
     (ability as unknown as ReflectedAbility).spell_shield_reflect = true;
     return ability as CDOTABaseAbility & ReflectedAbility;
@@ -34,7 +34,7 @@ export function MakeReflectAbility(ability: CDOTABaseAbility): CDOTABaseAbility 
 export function SpellReflect(event: ModifierAbilityEvent, parent: CDOTA_BaseNPC, passive_modifier_name: string): boolean
 {
     // List of unreflectable abilities
-    const exceptionAbilities: String[] = 
+    const exceptionAbilities: String[] =
     ["rubick_spell_steal",
      "dark_seer_ion_shell",
      "morphling_morph",
@@ -46,7 +46,7 @@ export function SpellReflect(event: ModifierAbilityEvent, parent: CDOTA_BaseNPC,
      "item_spirit_vessel"]
 
     const original_caster = event.ability.GetCaster();
-    
+
     // Do not reflect towards allies
     if (original_caster.GetTeamNumber() == parent.GetTeamNumber()) return false;
 
@@ -56,9 +56,9 @@ export function SpellReflect(event: ModifierAbilityEvent, parent: CDOTA_BaseNPC,
     // Do not reflect abilities inside the exception table
     if (exceptionAbilities.includes(event.ability.GetAbilityName())) return false;
 
-    // Do not reflect abilities that have the reflect tag 
+    // Do not reflect abilities that have the reflect tag
     if (IsReflectedAbility(event.ability)) return false;
-    
+
     // If the parent already knows the ability, reference it, otherwise add it
     let reflected_ability_handle;
     if (parent.HasAbility(event.ability.GetAbilityName()))
@@ -71,7 +71,7 @@ export function SpellReflect(event: ModifierAbilityEvent, parent: CDOTA_BaseNPC,
 
         // Set properties of the new ability
         reflected_ability_handle!.SetStolen(true);
-        reflected_ability_handle!.SetHidden(true);            
+        reflected_ability_handle!.SetHidden(true);
         MakeReflectAbility(reflected_ability_handle)
 
         reflected_ability_handle.SetRefCountsModifiers(true);
@@ -79,10 +79,10 @@ export function SpellReflect(event: ModifierAbilityEvent, parent: CDOTA_BaseNPC,
 
     // Update level to match the original's
     reflected_ability_handle!.SetLevel(event.ability.GetLevel());
-    
+
     // Set cursor on original target and cast the ability
     parent.SetCursorCastTarget(original_caster);
-    reflected_ability_handle!.OnSpellStart();        
+    reflected_ability_handle!.OnSpellStart();
 
     // Remove channeling effects
     if (reflected_ability_handle!.OnChannelFinish!)
@@ -112,14 +112,14 @@ export function RemoveReflectedAbilities(modifier: ReflecteableModifier): void
         // Verify ability is valid
         if (IsValidEntity(reflected_ability) && !reflected_ability.IsNull())
         {
-            // Verify ability is a reflected ability so we won't accidentally remove something original 
+            // Verify ability is a reflected ability so we won't accidentally remove something original
             if (IsReflectedAbility(reflected_ability))
             {
                 // If ability can removed, remove it from the caster
                 if (reflected_ability.NumModifiersUsingAbility() == 0 && !reflected_ability.IsChanneling())
                 {
                     reflected_ability.RemoveSelf();
-                    removeable_abilities.push(reflected_ability);                      
+                    removeable_abilities.push(reflected_ability);
                 }
             }
         }
@@ -131,11 +131,11 @@ export function RemoveReflectedAbilities(modifier: ReflecteableModifier): void
         if (modifier.reflected_abilities!.includes(removeable_ability))
         {
             const index = modifier.reflected_abilities!.indexOf(removeable_ability);
-            if (index > -1)                
+            if (index > -1)
             {
                 modifier.reflected_abilities!.splice(index, 1);
             }
-        }   
+        }
     }
 }
 
@@ -189,7 +189,7 @@ export function FindUnitsAroundUnit(caster: CDOTA_BaseNPC, around_unit: CDOTA_Ba
     return units;
 }
 
-export function CanUnitGetOrders(unit: CDOTA_BaseNPC)    
+export function CanUnitGetOrders(unit: CDOTA_BaseNPC)
 {
     if (unit.IsStunned() || unit.IsCommandRestricted() || unit.IsOutOfGame() || unit.IsHexed() || unit.IsFrozen())
     {
@@ -207,24 +207,24 @@ export function FindUnitsInCone(teamNumber: number, vDirection: Vector, vPositio
     let unitTable: CDOTA_BaseNPC[] = []
     if (enemies.length > 0)
     {
-        for (const enemy of enemies) 
+        for (const enemy of enemies)
         {
-            if (enemy != undefined) 
+            if (enemy != undefined)
             {
                 const vToPotentialTarget = (enemy.GetAbsOrigin() - vPosition) as Vector;
                 const flSideAmount = math.abs( vToPotentialTarget.x * vDirectionCone.x + vToPotentialTarget.y * vDirectionCone.y + vToPotentialTarget.z * vDirectionCone.z )
                 const enemy_distance_from_caster = ( vToPotentialTarget.x * vDirection.x + vToPotentialTarget.y * vDirection.y + vToPotentialTarget.z * vDirection.z )
-                
-                // Author of this "increase over distance": Fudge, pretty proud of this :D                     
+
+                // Author of this "increase over distance": Fudge, pretty proud of this :D
                 // Calculate how much the width of the check can be higher than the starting point
                 const max_increased_radius_from_distance = endRadius - startRadius
-                
+
                 // Calculate how close the enemy is to the caster, in comparison to the total distance
                 const pct_distance = enemy_distance_from_caster / flLength
-                
+
                 // Calculate how much the width should be higher due to the distance of the enemy to the caster.
                 const radius_increase_from_distance = max_increased_radius_from_distance * pct_distance
-                
+
                 if (( flSideAmount < startRadius + radius_increase_from_distance ) && ( enemy_distance_from_caster > 0.0 ) && ( enemy_distance_from_caster < flLength ))
                 {
                     unitTable.push(enemy);
@@ -281,32 +281,32 @@ export function SplitAbilityTargetsIntoCircleClusters(ability: CDOTABaseAbility,
     }
 
     return ClusterizePoints(all_points, cluster_radius)
-}  
+}
 
 export function ClusterizePoints(points: Vector[], cluster_radius: number): Vector[][]
 {
-    let all_clusters: Vector[][] = []     
+    let all_clusters: Vector[][] = []
 
-    for (let index_top = 0; index_top < points.length; index_top++) 
+    for (let index_top = 0; index_top < points.length; index_top++)
     {
         const point_top = points[index_top];
         let current_cluster: Vector[] = [];
-        
+
         current_cluster.push(point_top);
         all_clusters.push(current_cluster);
 
-        for (let index_bottom = 0; index_bottom < points.length; index_bottom++) 
+        for (let index_bottom = 0; index_bottom < points.length; index_bottom++)
         {
             const point_bottom = points[index_bottom];
             if (index_top != index_bottom && ((point_bottom - point_top) as Vector).Length2D() <= cluster_radius * 2)
             {
                 current_cluster.push(point_bottom);
-            }        
+            }
         }
-    }       
+    }
 
     return all_clusters
-}    
+}
 
 export function ClusterAverage(cluster: Vector[]): Vector
 {
@@ -330,7 +330,7 @@ export function FindPredictedAbilityTargetsPointsAtLocation(ability: CDOTABaseAb
     let all_points: Vector[] = []
 
     for (const unit of units_in_radius)
-    {            
+    {
         let point = unit.GetAbsOrigin()
 
         if (unit.IsMoving())
@@ -339,7 +339,7 @@ export function FindPredictedAbilityTargetsPointsAtLocation(ability: CDOTABaseAb
         }
 
         all_points.push(point)
-    }        
+    }
 
     return all_points
 }
@@ -371,7 +371,7 @@ export function FindAbilityTargetsAtLocation(ability: CDOTABaseAbility, at_locat
 // All Ability Perks should have IsPerk set to true
 export class AbilityPerk extends BaseAbility
 {
-    IsPerk: boolean = true;   
+    IsPerk: boolean = true;
 }
 
 // Custom cleave attack to prevent inconsistencies and forced behaviors
@@ -392,15 +392,15 @@ export function CustomCleaveAttack(attacker: CDOTA_BaseNPC, start_position: Vect
                                     false);
 
     // Calculate damage
-    const damage = attacker.GetAverageTrueAttackDamage(target) * damage_percent * 0.01;    
+    const damage = attacker.GetAverageTrueAttackDamage(target) * damage_percent * 0.01;
 
     // Deal damage to enemies
     for (const enemy of enemies)
     {
         // Ignore main enemy
         if (enemy == target) continue;
-           
-        // Deal physical damage to enemies        
+
+        // Deal physical damage to enemies
         ApplyDamage(
         {
             attacker: attacker,
@@ -410,8 +410,8 @@ export function CustomCleaveAttack(attacker: CDOTA_BaseNPC, start_position: Vect
             ability: ability,
             damage_flags: DamageFlag.NONE
         });
-    }      
-    
+    }
+
     return enemies.length;
 }
 
@@ -453,15 +453,15 @@ export function IsRoshan(unit: CDOTA_BaseNPC): boolean
         return true
     }
     else
-    {        
+    {
         return false
     }
 }
-	
+
 export function CanOrbEffectBeCast(event: ModifierAttackEvent, ability: CDOTABaseAbility, orb_data: OrbData): boolean
 {
     // Assume it's an orb attack unless otherwise stated
-    let orb_attack = true;        
+    let orb_attack = true;
 
     orb_attack = CanUserCastOrb(event.attacker, ability, orb_data.can_proc_from_illusions, orb_data.can_proc_while_silenced, orb_data.mana_cost);
     if (!orb_attack) return false;
@@ -484,9 +484,9 @@ export function CanUserCastOrb(user: CDOTA_BaseNPC, ability: CDOTABaseAbility, c
         if (user.IsSilenced()) return false;
     }
 
-    // If the caster doesn't have enough mana to cast it, return false    
+    // If the caster doesn't have enough mana to cast it, return false
     if (user.GetMana() < mana_cost) return false;
-    
+
     // If the ability can't be cast due to mana or other limitations, can't proc the orb attacks
     if (!ability.IsFullyCastable()) return false;
 
@@ -526,7 +526,7 @@ export function GetAppliedDuration(caster: CDOTA_BaseNPC, target: CDOTA_BaseNPC,
 {
     // Does nothing if caster and target are on the same team
     if (caster.GetTeamNumber() == target.GetTeamNumber()) return duration;
-    
+
     // Get target's status resistance
     const status_resistance = target.GetStatusResistance(); // Returns a number between 0 and 1
 
@@ -535,12 +535,12 @@ export function GetAppliedDuration(caster: CDOTA_BaseNPC, target: CDOTA_BaseNPC,
     let total_status_amp = 0;
     let status_amp: number[] = [];
     for (const modifier of modifiers)
-    {        
+    {
         if (modifier.GetModifierStatusAmp)
         {
-            status_amp.push(modifier.GetModifierStatusAmp());            
+            status_amp.push(modifier.GetModifierStatusAmp());
         }
-    }    
+    }
 
     // Calculate total status amp
     for (let index = 0; index < status_amp.length; index++) {
@@ -629,24 +629,24 @@ export function GetTalentSpecialValueFor(caster: CDOTA_BaseNPC, name: string, va
         if (HasTalent(caster, name))
         {
             // Form a KeyValue table
-            const keyValue: AbilityKeyValue = 
+            const keyValue: AbilityKeyValue =
             {
                 talent_name: name,
                 special_name: value
-            }        
+            }
 
             // Check if the value doesn't already exist in the map from previous attempts
             if (specialValueTable.has(keyValue.talent_name + keyValue.special_name))
-            {            
+            {
                 return specialValueTable.get(keyValue.talent_name + keyValue.special_name)!;
             }
 
             // Load KVs for the hero
             const abilityKVSpecial = "AbilitySpecial";
             let hero_name = caster.GetUnitName()
-            hero_name = hero_name.replace("npc_dota_hero_", "");    
+            hero_name = hero_name.replace("npc_dota_hero_", "");
             const filepath = "scripts/npc/heroes/" + hero_name + "/abilities.kv";
-            
+
             let abilitiesKV;
             if (abilityKVValueFile.has(filepath))
             {
@@ -657,29 +657,29 @@ export function GetTalentSpecialValueFor(caster: CDOTA_BaseNPC, name: string, va
                 abilitiesKV = LoadKeyValues(filepath) as any;
                 abilityKVValueFile.set(filepath, abilitiesKV);
             }
-        
+
             // "AbilitySpecial" block
             if (abilitiesKV[name][abilityKVSpecial])
             {
                 // "01", "02"... block
-                for (const key in abilitiesKV[name][abilityKVSpecial]) 
-                {                     
-                    // "field, name" block      
+                for (const key in abilitiesKV[name][abilityKVSpecial])
+                {
+                    // "field, name" block
                     for (const key2 in abilitiesKV[name][abilityKVSpecial][key])
-                    {                                
+                    {
                         if (key2 == value)
-                        {                
+                        {
                             // Form the KeyValue objects
                             const keyValue: AbilityKeyValue =
                             {
                                 talent_name: name,
                                 special_name: value
                             }
-                            
+
                             // Put value in the map for future access
-                            const actual_value: number = abilitiesKV[name][abilityKVSpecial][key][key2]                        
+                            const actual_value: number = abilitiesKV[name][abilityKVSpecial][key][key2]
                             specialValueTable.set(keyValue.talent_name + keyValue.special_name, actual_value);
-                            
+
                             return actual_value
                         }
                     }
@@ -701,21 +701,21 @@ export function IsTalentAbility(ability: CDOTABaseAbility)
 
 export function PrepareTalentList(hero: CDOTA_BaseNPC_Hero): Map<number, CDOTABaseAbility>
 {
-    let talentMap: Map<number, CDOTABaseAbility> = new Map();    
-    
-    // Run over all slots, find out how many abilities this hero has    
+    let talentMap: Map<number, CDOTABaseAbility> = new Map();
+
+    // Run over all slots, find out how many abilities this hero has
     let talentsFound = 0;
-    for (let index = 0; index < hero.GetAbilityCount(); index++) 
-    {       
+    for (let index = 0; index < hero.GetAbilityCount(); index++)
+    {
         const ability = hero.GetAbilityByIndex(index);
         if (ability)
         {
             if (IsTalentAbility(ability))
             {
                 talentsFound++;
-                talentMap.set(talentsFound, ability);                
+                talentMap.set(talentsFound, ability);
             }
-        }        
+        }
     }
 
     // Assign the map to the hero
@@ -729,12 +729,12 @@ export function GetTalentNumber(ability: CDOTABaseAbility): number | undefined
     const caster = ability.GetCaster() as CDOTA_BaseNPC_Hero;
 
     // Cycle between the talent map of the caster until the talent number is found
-    for (const talent_number of caster.talentMap.keys()) 
+    for (const talent_number of caster.talentMap.keys())
     {
         if (caster.talentMap.get(talent_number) == ability)
         {
             return talent_number;
-        }    
+        }
     }
 
     return undefined;
@@ -748,4 +748,21 @@ export function GetTalentAbilityFromNumber(hero: CDOTA_BaseNPC_Hero, talent_numb
     }
 
     return undefined;
+}
+
+export function ShuffleNumbersInArray(number_array: number[]): number[]
+{
+    // Fisher-Yates shuffle - modern method
+    const result_array = [...number_array];
+    for (let index = 0; index < number_array.length; index++)
+    {
+        const random_number = RandomInt(index, number_array.length - 1)
+
+        // Swap randomed nr with current index
+        const temp = result_array[index];
+        result_array[index] = result_array[random_number];
+        result_array[random_number] = temp;
+    }
+
+    return result_array;
 }
