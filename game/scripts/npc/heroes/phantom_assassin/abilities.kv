@@ -7,13 +7,13 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"phantom_assassin_stifling_dagger"
     	"ScriptFile"				    "abilities/heroes/phantom_assassin/reimagined_phantom_assassin_stifling_dagger"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
@@ -23,16 +23,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"525 750 975 1200"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-		
-		// Time		
+
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"6"
-	
+
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"30"
 
-		// Special	
+		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
 		{
@@ -51,7 +51,7 @@
 			"03"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"1.75 2.5 3.25 4"				
+				"duration"				"1.75 2.5 3.25 4"
 			}
 
 			"04"
@@ -119,7 +119,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"phantom_assassin_phantom_strike"
     	"ScriptFile"				    "abilities/heroes/phantom_assassin/reimagined_phantom_assassin_phantom_strike"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
@@ -130,17 +130,17 @@
 		"AbilitySound"					"Hero_PhantomAssassin.Strike.Start"
 
 		// Casting
-		//-------------------------------------------------------------------------------------------------------------		
+		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.25"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"11 9 7 5"
-		
+
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"35 40 45 50"
-		
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -150,7 +150,7 @@
 				"var_type"				"FIELD_INTEGER"
 				"bonus_attack_speed"	"100 125 150 175"
 			}
-			
+
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
@@ -160,21 +160,21 @@
 			"03"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"cast_range"				"1000"				
+				"cast_range"				"1000"
 			}
 
 			"04"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"escape_plan_blur_duration"	"2"				
+				"escape_plan_blur_duration"	"2"
 			}
 
 			"05"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"escape_plan_ms_bonus_pct"	"10 15 20 25"				
+				"escape_plan_ms_bonus_pct"	"10 15 20 25"
 			}
-			
+
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -186,7 +186,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"phantom_assassin_blur"
     	"ScriptFile"				    "abilities/heroes/phantom_assassin/reimagined_phantom_assassin_blur"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
@@ -195,7 +195,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"HasScepterUpgrade"				"1"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"60 55 50 45"
 
@@ -206,11 +206,11 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.4"
-		
+
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"50"
-	
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -218,7 +218,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"bonus_evasion"				"20 30 40 50"				
+				"bonus_evasion"				"20 30 40 50"
 			}
 
 			"02"
@@ -286,12 +286,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
     	"AbilityTextureName"			"phantom_assassin_coup_de_grace"
     	"ScriptFile"				    "abilities/heroes/phantom_assassin/reimagined_phantom_assassin_coup_de_grace"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"		
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"AbilityCooldown"				"50 45 45"
 		"AbilityManaCost"				"75 90 115"
 		"AbilityCastPoint"				"0.35"
@@ -303,56 +303,292 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"crit_chance"				"15"				
+				"crit_chance"				"15"
 			}
 
 			"02"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"crit_bonus"				"200 325 450"				
+				"crit_bonus"				"200 325 450"
 			}
 
 			"03"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"kiss_of_death_health_threshold"	"40"				
+				"kiss_of_death_health_threshold"	"40"
 			}
 
 			"04"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"kiss_of_death_kill_chance"		"20"				
+				"kiss_of_death_kill_chance"		"20"
 			}
 
 			"05"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"marked_for_death_damage_increase"		"5"				
+				"marked_for_death_damage_increase"		"5"
 			}
 
 			"06"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"decisive_strike_as_reduction"		"125 150 175"				
+				"decisive_strike_as_reduction"		"125 150 175"
 			}
 
 			"07"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"decisive_strike_crit_chance_increase"		"50 55 60"				
+				"decisive_strike_crit_chance_increase"		"50 55 60"
 			}
 
 			"08"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"decisive_strike_duration"		"8"				
+				"decisive_strike_duration"		"8"
 			}
 
 			"09"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"decisive_strike_crits_to_remove"		"1"				
+				"decisive_strike_crits_to_remove"		"1"
 			}
 		}
-	}	
+	}
+
+    //=================================================================================================================
+    // Phantom Assassin: Talent: Duo Daggers: Each dagger hit causes Phantom Assassin to perform x instant attacks on the target. Does not proc on Fan of Knives daggers.
+    //=================================================================================================================
+    "reimagined_phantom_assassin_talent_1"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/phantom_assassin/reimagined_phantom_assassin_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"phantom_assassin_stifling_dagger"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "total_performed_attacks" "2"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Phantom Assassin: Talent: From The Shadows: If Phantom Assassin has Blur's active effect when she casts Stifling Dagger, the dagger projectile becomes completely invisible to the enemy, and deals x bonus damage. Fan of Knives projectiles deal y damage instead.
+    //=================================================================================================================
+    "reimagined_phantom_assassin_talent_2"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/phantom_assassin/reimagined_phantom_assassin_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"phantom_assassin_stifling_dagger"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_2_dagger_bonus_damage" "120"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_2_fake_dagger_bonus_damage" "50"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Phantom Assassin: Talent: Strikin' Out: Each attack done while Phantom Assassin has the attack speed buff from Phantom Strike increases her damage by x% until the buff ends.
+    //=================================================================================================================
+    "reimagined_phantom_assassin_talent_3"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/phantom_assassin/reimagined_phantom_assassin_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"phantom_assassin_phantom_strike"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_3_bonus_damage_per_stack_pct" "5"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Phantom Assassin: Talent: Secret Blade: All enemies hit by Nothing Personalle are affected with Stifling Dagger's slow debuff and are ministunned. If they are already afflicted with Stifling Dagger's debuff, then the duration is refreshed and extended by x seconds.
+    //=================================================================================================================
+    "reimagined_phantom_assassin_talent_4"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/phantom_assassin/reimagined_phantom_assassin_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"phantom_assassin_phantom_strike"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_4_extend_duration" "3"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Phantom Assassin: Talent: Immaterial Girl: Upon proccing Turned Your Blade on an enemy, grants x% evasion against that enemy for y second.
+    //=================================================================================================================
+    "reimagined_phantom_assassin_talent_5"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/phantom_assassin/reimagined_phantom_assassin_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"phantom_assassin_blur"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_5_evasion_pct"  "100"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "talent_5_evasion_duration"  "2"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Phantom Assassin: Talent: Soft on the Eye: When disjointing a tracking projectile or evading a ranged attack and there are no enemies in x units, grants active Blur's effects for free for y seconds. This effect can only occur once every z seconds. Does not trigger if Blur is already active.
+    //=================================================================================================================
+    "reimagined_phantom_assassin_talent_6"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/phantom_assassin/reimagined_phantom_assassin_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"phantom_assassin_blur"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_6_search_radius"  "400"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_6_blur_duration"  "5"
+            }
+
+            "03"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_6_blur_cooldown"  "10"
+            }
+        }
+    }
+
+	//=================================================================================================================
+    // Phantom Assassin: Talent: Mercy Killing: When Phantom Assassin's current attack target has less than x% health, her next attack on it will guarantee a Coup de Grace proc. This effect can trigger only once every y seconds.
+    //=================================================================================================================
+    "reimagined_phantom_assassin_talent_7"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/phantom_assassin/reimagined_phantom_assassin_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"phantom_assassin_coup_de_grace"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_7_health_threshold"  "25"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "talent_7_proc_cooldown"  "2.5"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Phantom Assassin: Talent: Clean Streak: While Decisive Strike is active, if Phantom Assassin's target is stunned when she begins the attack, the attack speed penalty is reduced by x% and Coup De Grace's critical damage increases by y%.
+    //=================================================================================================================
+    "reimagined_phantom_assassin_talent_8"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/phantom_assassin/reimagined_phantom_assassin_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"phantom_assassin_coup_de_grace"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_8_attack_penalty_reduction_pct"  "40"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "talent_8_crit_damage_bonus"  "75"
+            }
+        }
+    }
 }

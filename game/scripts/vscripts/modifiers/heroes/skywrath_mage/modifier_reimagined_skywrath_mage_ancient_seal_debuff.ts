@@ -7,10 +7,10 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_seal = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_ancient_seal_debuff.vpcf";
-    particle_seal_fx?: ParticleID;    
+    particle_seal_fx?: ParticleID;
 
     // Modifier specials
     resist_debuff?: number;
@@ -19,7 +19,7 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
     sealed_enmity_bonus_reduction = 0;
     sealed_enmity_damage_taken = 0;
 
-    // Reimagind specials
+    // reimagined specials
     rebound_seal_search_radius?: number;
     sealed_enmity_magic_damage_threshold?: number;
     sealed_enmity_magic_reduction_increase?: number;
@@ -33,7 +33,7 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
         // Modifier specials
         this.resist_debuff = this.ability.GetSpecialValueFor("resist_debuff");
 
-        // Reimagind specials
+        // reimagined specials
         this.rebound_seal_search_radius = this.ability.GetSpecialValueFor("rebound_seal_search_radius");
         this.sealed_enmity_magic_damage_threshold = this.ability.GetSpecialValueFor("sealed_enmity_magic_damage_threshold");
         this.sealed_enmity_magic_reduction_increase = this.ability.GetSpecialValueFor("sealed_enmity_magic_reduction_increase");
@@ -69,7 +69,7 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
     {
         // Talent: Seal of Amplification: Sealed Enmity now increases damage taken from all types of damage instead of only magical.
         return this.ReimaginedTalentSealOfAmplification(event);
-        
+
         return 0;
     }
 
@@ -125,10 +125,10 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
         // Only apply on magical damage
         if (event.damage_type != DamageTypes.MAGICAL) return;
 
-        
+
         // Increment damage taken counter
         this.sealed_enmity_damage_taken += event.damage;
-        
+
         // Calculate current sealed enmity percentage
         this.sealed_enmity_bonus_reduction = Math.floor(this.sealed_enmity_damage_taken / this.sealed_enmity_magic_damage_threshold!) * this.sealed_enmity_magic_reduction_increase!;
     }

@@ -1171,6 +1171,96 @@
 		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike_Description"
 		"Slows attack speed by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%, but increases the critical hit chance by %dMODIFIER_PROPERTY_TOOLTIP%%%."
 
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_1"
+        "Duo Daggers"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_1_Description"
+        "Each dagger hit causes Phantom Assassin to perform a total of %total_performed_attacks% instant attacks on the target. Does not proc on Fan of Knives daggers."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_1_Lore"
+        "Victims have reported that they felt being cut in two different spots at the same time, though only one dagger would be found on their bodies."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_2"
+        "From The Shadows"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_2_Description"
+        "Casting Stifling Dagger while under Blur's active effect causes the projectiles to become completely invisible to the enemy. Additionally, the main projectile deals %talent_2_dagger_bonus_damage% bonus damage, while Fan of Knives projectiles deal %talent_2_fake_dagger_bonus_damage% bonus damage."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_2_Lore"
+        "Hiding in the shadows, Mortred launches a dagger at unsuspecting victims, who could never see it coming."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_3"
+        "Strikin' Out"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_3_Description"
+        "Each attack done while Phantom Assassin has the attack speed buff from Phantom Strike increases her base damage by %talent_3_bonus_damage_per_stack_pct%%% until the buff ends."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_3_Lore"
+        "Mortred studies her target while she strikes, finding weak points on every attack until her target gives in."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_4"
+        "Secret Blade"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_4_Description"
+        "All enemies hit by Nothing Personalle are affected with Stifling Dagger's slow debuff and are ministunned. If they are already afflicted with Stifling Dagger's debuff, then the duration is refreshed and extended by %talent_4_extend_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_4_Lore"
+        "Utilizing her lightning fast reflexes, Mortred sticks a secret blade on obstacles that stand on her way to her target."
+
+        "DOTA_Tooltip_modifier_reimagined_phantom_assassin_talent_5_debuff"
+        "Immaterial Girl"
+
+        "DOTA_Tooltip_modifier_reimagined_phantom_assassin_talent_5_debuff_Description"
+        "Phantom Assassin has %dMODIFIER_PROPERTY_TOOLTIP%%% evasion against your attacks for the duration of the debuff."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_5"
+        "Immaterial Girl"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_5_Description"
+        "Upon proccing Turned Your Blade on an enemy unit, grants %talent_5_evasion_pct%%% evasion against that enemy for %talent_5_evasion_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_5_Lore"
+        "Losing sight of Mortred once might mean losing sight of her forever."
+
+        "DOTA_Tooltip_modifier_reimagined_phantom_assassin_talent_6_cooldown"
+        "Soft on the Eye Cooldown"
+
+        "DOTA_Tooltip_modifier_reimagined_phantom_assassin_talent_6_cooldown_Description"
+        "Soft on the Eye would not trigger while this modifier is in effect."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_6"
+        "Soft on the Eye"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_6_Description"
+        "When disjointing a tracking projectile or evading a ranged attack and there are no enemies in %talent_6_search_radius% range, grants active Blur's effects for free for %talent_6_blur_duration% seconds. This effect can only occur once every %talent_6_blur_cooldown% seconds. Does not trigger if Blur is already active."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_6_Lore"
+        "One of the best techniques used by the Veiled Sisters is the ability to blend out of sight in an instant by using misdirection."
+
+        "DOTA_Tooltip_modifier_reimagined_phantom_assassin_talent_7_cooldown"
+        "Mercy Killing Cooldown"
+
+        "DOTA_Tooltip_modifier_reimagined_phantom_assassin_talent_7_cooldown_Description"
+        "Cannot proc Mercy Killing's guaranteed critical strike on weakened enemies for the duration."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_7"
+        "Mercy Killing"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_7_Description"
+        "When Phantom Assassin's attack target has less than %talent_7_health_threshold%%% health, her next attack on it will guarantee a Coup de Grace proc. This effect can trigger only once every %talent_7_proc_cooldown% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_7_Lore"
+        "Mortred waits for the moment of weakness on her enemies and decapitates it with a single swing."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_8"
+        "Clean Streak"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_8_Description"
+        "While Decisive Strike is active, if Phantom Assassin's target is stunned when she begins the attack, the attack speed penalty is reduced by %talent_8_attack_penalty_reduction_pct%%% and Coup De Grace's critical damage increases by %talent_8_crit_damage_bonus%%%."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_8_Lore"
+        "With her enemy bound and its defenses down, Mortred can deliver a perfectly clean streak to it."
+
 		// Drow Ranger
 		// Drow Ranger's Frost Arrows
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows"

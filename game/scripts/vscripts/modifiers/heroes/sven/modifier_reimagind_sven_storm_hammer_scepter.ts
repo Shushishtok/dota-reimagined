@@ -2,12 +2,12 @@ import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util"
 
 @registerModifier()
-export class modifier_reimagind_sven_storm_hammer_scepter extends BaseModifier
+export class modifier_reimagined_sven_storm_hammer_scepter extends BaseModifier
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
-    parent: CDOTA_BaseNPC = this.GetParent();    
+    ability: CDOTABaseAbility = this.GetAbility()!;
+    parent: CDOTA_BaseNPC = this.GetParent();
     projectileID?: ProjectileID;
     target?: CDOTA_BaseNPC;
 
@@ -21,7 +21,7 @@ export class modifier_reimagind_sven_storm_hammer_scepter extends BaseModifier
     OnCreated(): void
     {
         // Modifier properties
-        
+
         this.ability = this.GetAbility()!;
 
         // Modifier specials
@@ -41,7 +41,7 @@ export class modifier_reimagind_sven_storm_hammer_scepter extends BaseModifier
     {
         // Update position based on the projectile ID's location
         if (this.projectileID && this.target)
-        {   
+        {
             const location = ProjectileManager.GetTrackingProjectileLocation(this.projectileID)
 
             // Break transportation if distance is bigger than 2000
@@ -61,7 +61,7 @@ export class modifier_reimagind_sven_storm_hammer_scepter extends BaseModifier
     CheckState(): Partial<Record<ModifierState, boolean>>
     {
         return {[ModifierState.STUNNED]: true,
-                [ModifierState.UNTARGETABLE]: true,                
+                [ModifierState.UNTARGETABLE]: true,
                 [ModifierState.INVULNERABLE]: true,
                 [ModifierState.OUT_OF_GAME]: true}
     }

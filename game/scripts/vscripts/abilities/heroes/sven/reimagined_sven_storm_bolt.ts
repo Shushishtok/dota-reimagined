@@ -1,11 +1,11 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
-import { modifier_reimagind_sven_storm_hammer_scepter } from "../../../modifiers/heroes/sven/modifier_reimagind_sven_storm_hammer_scepter"
+import { modifier_reimagined_sven_storm_hammer_scepter } from "../../../modifiers/heroes/sven/modifier_reimagind_sven_storm_hammer_scepter"
 import { modifier_reimagined_sven_talent_2_buff } from "../../../modifiers/heroes/sven/modifier_reimagined_sven_talent_2_buff";
 import { SvenTalents } from "./reimagined_sven_talents";
 
 interface StormBoltProjectile
-{    
+{
     momentum_punch_current_location: Vector;
     momentum_punch_total_distance: number;
     tracking_projectile: boolean;
@@ -34,11 +34,11 @@ export class reimagined_sven_storm_bolt extends BaseAbility
                                 "sven_sven_ability_stormbolt_06",
                                 "sven_sven_ability_stormbolt_07",
                                 "sven_sven_ability_stormbolt_08",
-                                "sven_sven_ability_stormbolt_09"]; 
+                                "sven_sven_ability_stormbolt_09"];
     impact_responses: string[] = ["sven_sven_ability_teleport_01", // 20% chance on impact, interrupting a teleport
                                   "sven_sven_ability_teleport_02",
-                                  "sven_sven_ability_teleport_03"];                               
-    particle_bolt: string = "particles/units/heroes/hero_sven/sven_spell_storm_bolt.vpcf";    
+                                  "sven_sven_ability_teleport_03"];
+    particle_bolt: string = "particles/units/heroes/hero_sven/sven_spell_storm_bolt.vpcf";
     particle_momentum_explosion: string = "particles/heroes/sven/storm_hammer_momentum_punch_explosion.vpcf";
     particle_momentum_explosion_fx?: ParticleID;
     particle_strong_right: string = "particles/heroes/sven/storm_hammer_strong_right.vpcf";
@@ -55,7 +55,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
     // Reimagined specials
     strong_right_damage?: number;
     strong_right_radius?: number;
-    gatling_gun_count?: number;    
+    gatling_gun_count?: number;
     gatling_gun_behind_max_distance?: number;
     gatling_gun_spawn_min_distance?: number;
     gatling_gun_spawn_max_distance?: number;
@@ -79,7 +79,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_sven/sven_spell_storm_bolt.vpcf", context);
         PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/storm_hammer_gatling_gun.vpcf", context);
         PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/storm_hammer_momentum_punch_explosion.vpcf", context);
-        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/storm_hammer_strong_right.vpcf", context);        
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/sven/storm_hammer_strong_right.vpcf", context);
     }
 
     GetAOERadius()
@@ -114,7 +114,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
         // Reimagined specials
         this.strong_right_damage = this.GetSpecialValueFor("strong_right_damage");
         this.strong_right_radius = this.GetSpecialValueFor("strong_right_radius");
-        this.gatling_gun_count = this.GetSpecialValueFor("gatling_gun_count");        
+        this.gatling_gun_count = this.GetSpecialValueFor("gatling_gun_count");
         this.gatling_gun_behind_max_distance = this.GetSpecialValueFor("gatling_gun_behind_max_distance");
         this.gatling_gun_spawn_min_distance = this.GetSpecialValueFor("gatling_gun_spawn_min_distance");
         this.gatling_gun_spawn_max_distance = this.GetSpecialValueFor("gatling_gun_spawn_max_distance");
@@ -132,9 +132,9 @@ export class reimagined_sven_storm_bolt extends BaseAbility
 
         // Fire main projectile towards the target
         const projectileID = ProjectileManager.CreateTrackingProjectile(
-        {                
+        {
             Ability: this,
-            EffectName: this.particle_bolt,            
+            EffectName: this.particle_bolt,
             Source: this.caster,
             Target: target,
             bDodgeable: true,
@@ -148,67 +148,67 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             iVisionRadius: this.vision_radius,
             iVisionTeamNumber: this.caster.GetTeamNumber(),
             vSourceLoc: this.caster.GetAbsOrigin()
-        });        
+        });
 
         // Define projectile
-        let storm_bolt_projectile: StormBoltProjectile = 
-        {            
+        let storm_bolt_projectile: StormBoltProjectile =
+        {
             momentum_punch_current_location: this.caster.GetAbsOrigin(),
             momentum_punch_total_distance: 0,
             tracking_projectile: true,
             hit_targets: new Set(),
             main_target: target!
         };
-        
+
         // Add projectile into the map
         this.active_projectiles_map.set(projectileID, storm_bolt_projectile);
 
         // Scepter: teleports the caster with the main projectile
         if (this.caster.HasScepter())
         {
-            const modifier = this.caster.AddNewModifier(this.caster, this, modifier_reimagind_sven_storm_hammer_scepter.name, {});
+            const modifier = this.caster.AddNewModifier(this.caster, this, modifier_reimagined_sven_storm_hammer_scepter.name, {});
             if (modifier)
             {
-                (modifier as modifier_reimagind_sven_storm_hammer_scepter).projectileID = projectileID;
-                (modifier as modifier_reimagind_sven_storm_hammer_scepter).target = target;
+                (modifier as modifier_reimagined_sven_storm_hammer_scepter).projectileID = projectileID;
+                (modifier as modifier_reimagined_sven_storm_hammer_scepter).target = target;
             }
         }
 
-        // Reimagined: Gomu Gomu No Gatling Gun: Fires additional mini-Storm Hammer projectiles in random positions next to Sven directly forward in the direction of his target, mini-stunning and dealing minor damage in every hit. Linear projectiles. 
+        // Reimagined: Gomu Gomu No Gatling Gun: Fires additional mini-Storm Hammer projectiles in random positions next to Sven directly forward in the direction of his target, mini-stunning and dealing minor damage in every hit. Linear projectiles.
         // Done on cast, unless you have a scepter which will then be done on modifier removal instead
         if (!this.caster.HasScepter())
         {
             this.ReimaginedGomuGomuNoGatlingGun(direction)
         }
     }
-    
+
     OnProjectileHitHandle(target: CDOTA_BaseNPC | undefined, location: Vector, projectileID: ProjectileID): boolean | void
     {
-        // Reimagined: Gomu Gomu No Gatling Gun: Fires additional mini-Storm Hammer projectiles in random positions next to Sven directly forward in the direction of his target, mini-stunning and dealing minor damage in every hit. Linear projectiles. 
+        // Reimagined: Gomu Gomu No Gatling Gun: Fires additional mini-Storm Hammer projectiles in random positions next to Sven directly forward in the direction of his target, mini-stunning and dealing minor damage in every hit. Linear projectiles.
         if (this.ReimaginedGomuGomuNoGatlingGunImpact(target, location, projectileID)) return true;
 
         // Play impact sound
         EmitSoundOnLocationWithCaster(location, this.sound_impact, this.caster);
 
         // If caster has the scepter transportation modifier, remove it from him
-        if (this.caster.HasModifier(modifier_reimagind_sven_storm_hammer_scepter.name))
+        if (this.caster.HasModifier(modifier_reimagined_sven_storm_hammer_scepter.name))
         {
-            this.caster.RemoveModifierByName(modifier_reimagind_sven_storm_hammer_scepter.name);
+            this.caster.RemoveModifierByName(modifier_reimagined_sven_storm_hammer_scepter.name);
 
-            // Reimagined: Gomu Gomu No Gatling Gun: Fires additional mini-Storm Hammer projectiles in random positions next to Sven directly forward in the direction of his target, mini-stunning and dealing minor damage in every hit. Linear projectiles. 
+            // Reimagined: Gomu Gomu No Gatling Gun: Fires additional mini-Storm Hammer projectiles in random positions next to Sven directly forward in the direction of his target, mini-stunning and dealing minor damage in every hit. Linear projectiles.
             // If the caster has a scepter, waits until reaching the final position to activate.
             this.ReimaginedGomuGomuNoGatlingGun(this.caster.GetForwardVector());
-        }        
+        }
 
         let bolt_stun_duration = this.bolt_stun_duration!;
-        // Talent: Momentum Breaker: Momentum Punch now also increases the stun duration by x for every y units traveled.        
-        bolt_stun_duration += this.ReimaginedTalentMomentumBreaker(projectileID);        
+        // Talent: Momentum Breaker: Momentum Punch now also increases the stun duration by x for every y units traveled.
+        bolt_stun_duration += this.ReimaginedTalentMomentumBreaker(projectileID);
 
         let radius = this.bolt_aoe!;
         // Reimagined: Momentum Punch: For every few units the main projectile traveled until it hit the target or was disjointed, increases the impact's AoE by a small amount.
-        radius = this.ReimaginedMomentumPunchRadiusIncrease(location, projectileID)   
+        radius = this.ReimaginedMomentumPunchRadiusIncrease(location, projectileID)
 
-        // Spell Absorb blocks on the main target            
+        // Spell Absorb blocks on the main target
         if (target && target.TriggerSpellAbsorb(this))
         {
             return;
@@ -232,8 +232,8 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             {
                 EmitSoundOn(this.impact_responses[RandomInt(0, this.impact_responses.length-1)], this.caster);
             }
-         
-            // Deal damage to all enemies            
+
+            // Deal damage to all enemies
             ApplyDamage(
             {
                 attacker: this.caster,
@@ -257,19 +257,19 @@ export class reimagined_sven_storm_bolt extends BaseAbility
         // Only triggers for main projectile, which is a tracking one
         if (this.active_projectiles_map.has(projectileID) && (this.active_projectiles_map.get(projectileID) as StormBoltProjectile).tracking_projectile)
         {
-            this.ReimaginedMomentumPunchThink(projectileID);    
+            this.ReimaginedMomentumPunchThink(projectileID);
 
             // Reimagined: Strong Right: Goes through all units in the projectile's path, dealing damage.
             this.ReimaginedStrongRight(projectileID)
-        }        
+        }
     }
 
     ReimaginedMomentumPunchThink(projectileID: ProjectileID)
     {
-        const location = ProjectileManager.GetTrackingProjectileLocation(projectileID);        
+        const location = ProjectileManager.GetTrackingProjectileLocation(projectileID);
         const projectile: StormBoltProjectile = this.active_projectiles_map.get(projectileID);
 
-        if (!projectile) return;        
+        if (!projectile) return;
 
         // Store current location if there's not any stored yet
         if (!projectile.momentum_punch_current_location)
@@ -279,11 +279,11 @@ export class reimagined_sven_storm_bolt extends BaseAbility
 
         else // Compare location and accumulate distance
         {
-            const distance =  util.CalculateDistanceBetweenPoints(projectile.momentum_punch_current_location, location);            
+            const distance =  util.CalculateDistanceBetweenPoints(projectile.momentum_punch_current_location, location);
             if (distance > 0)
             {
                 projectile.momentum_punch_current_location = location;
-                projectile.momentum_punch_total_distance += distance;                
+                projectile.momentum_punch_total_distance += distance;
             }
         }
 
@@ -291,18 +291,18 @@ export class reimagined_sven_storm_bolt extends BaseAbility
     }
 
     ReimaginedMomentumPunchRadiusIncrease(location: Vector, projectileID: ProjectileID): number
-    {                    
+    {
         // Verify that this is a main projectile
         if (!(this.active_projectiles_map.get(projectileID) as StormBoltProjectile).tracking_projectile)
         {
             return this.bolt_aoe!;
         }
-        
+
         // Calculate radius increase
         const projectile: StormBoltProjectile = this.active_projectiles_map.get(projectileID);
-        const ticks = projectile.momentum_punch_total_distance / this.momentum_punch_units_travel!;                
+        const ticks = projectile.momentum_punch_total_distance / this.momentum_punch_units_travel!;
         const radius = ticks * this.momentum_punch_aoe_increase!;
-        const final_radius = (radius + this.bolt_aoe!);                
+        const final_radius = (radius + this.bolt_aoe!);
 
         // Play Momentum particle effect
         const speed = (final_radius / 0.35 - 1); // Calculate of final radius = initial radius + speed * lifetime, lifetime for this particle is 0.35
@@ -314,7 +314,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
         // Remove projectile from the map
         this.active_projectiles_map.delete(projectileID);
 
-        return final_radius;        
+        return final_radius;
     }
 
     ReimaginedStrongRight(projectileID: ProjectileID)
@@ -335,7 +335,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
         for (const enemy of enemies)
         {
             // If this is the main enemy, ignore it
-            if (projectile.main_target == enemy) continue;            
+            if (projectile.main_target == enemy) continue;
 
             // Talent: Fist Catcher: Enemies hit by Strong Right get dragged along with it.
             this.ReimaginedTalentFistCatcher(projectile, enemy, projectileID);
@@ -346,7 +346,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
                 // Add enemy to the set
                 projectile.hit_targets.add(enemy);
 
-                // Deal damage to the enemy                
+                // Deal damage to the enemy
                 ApplyDamage(
                 {
                     attacker: this.caster,
@@ -358,7 +358,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
                 });
 
                 // Play particle effect
-                this.particle_strong_right_fx = ParticleManager.CreateParticle(this.particle_strong_right, ParticleAttachment.POINT_FOLLOW, enemy);                
+                this.particle_strong_right_fx = ParticleManager.CreateParticle(this.particle_strong_right, ParticleAttachment.POINT_FOLLOW, enemy);
                 ParticleManager.SetParticleControlEnt(this.particle_strong_right_fx, 3, enemy, ParticleAttachment.POINT_FOLLOW, "attach_hitloc", enemy.GetAbsOrigin(), true);
                 ParticleManager.ReleaseParticleIndex(this.particle_strong_right_fx);
 
@@ -368,17 +368,17 @@ export class reimagined_sven_storm_bolt extends BaseAbility
                     util.PerformAttackNoCleave(this.caster, enemy, false, true, true, false, false, false, true);
                 }
             }
-        }                                          
+        }
     }
 
     ReimaginedGomuGomuNoGatlingGun(direction: Vector)
     {
-        // We'll do one punch to the right and one to the left of the caster each time        
+        // We'll do one punch to the right and one to the left of the caster each time
         let right_side = true;
         let count = 0;
         const caster_pos = this.caster.GetAbsOrigin();
 
-        Timers.CreateTimer(this.gatling_gun_spawn_delay! * (count+1), () => 
+        Timers.CreateTimer(this.gatling_gun_spawn_delay! * (count+1), () =>
         {
             count++;
 
@@ -390,7 +390,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             // Define QAngle
             let qangle;
             if (right_side)
-            {  
+            {
                 qangle = QAngle(0, -90, 0);
             }
             else
@@ -399,12 +399,12 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             }
 
             // Rotate the position 90 degrees to either the right or the left
-            const actual_position = RotatePosition(behind_position, qangle, front_cast_position);                        
+            const actual_position = RotatePosition(behind_position, qangle, front_cast_position);
 
             const projectileID = ProjectileManager.CreateLinearProjectile(
             {
                 Ability: this,
-                EffectName: this.particle_gatling_gun,            
+                EffectName: this.particle_gatling_gun,
                 Source: this.caster,
                 bDrawsOnMinimap: false,
                 bHasFrontalCone: false,
@@ -418,17 +418,17 @@ export class reimagined_sven_storm_bolt extends BaseAbility
                 fStartRadius: 80,
                 iUnitTargetFlags: UnitTargetFlags.NONE,
                 iUnitTargetTeam: UnitTargetTeam.ENEMY,
-                iUnitTargetType: UnitTargetType.BASIC | UnitTargetType.HERO,            
+                iUnitTargetType: UnitTargetType.BASIC | UnitTargetType.HERO,
                 vSpawnOrigin: actual_position,
                 vVelocity: (direction * this.bolt_speed!) as Vector
             });
-            
-            const projectile: GatlingGunProjectile = 
+
+            const projectile: GatlingGunProjectile =
             {
                 hit_targets: new Set(),
                 tracking_projectile: false
             };
-    
+
             this.active_projectiles_map.set(projectileID, projectile);
 
             // Flip the side
@@ -446,7 +446,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             {
                 return this.gatling_gun_spawn_delay!;
             }
-            
+
             return undefined;
         })
 
@@ -461,7 +461,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             EmitSoundOnLocationWithCaster(location, "high_five.impact", this.caster);
 
             if (target)
-            {   
+            {
                 // Deal damage to the target
                 ApplyDamage(
                 {
@@ -473,7 +473,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
                     damage_flags: DamageFlag.NONE
                 });
 
-                // Mini stun it!                
+                // Mini stun it!
                 target.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: 0.1});
             }
 
@@ -495,7 +495,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             const properties: StormBoltProjectile = this.active_projectiles_map.get(projectileID);
 
             const total_distance = properties.momentum_punch_total_distance;
-            bonus_stun_duration = total_distance / this.units_travel * this.stun_duration;            
+            bonus_stun_duration = total_distance / this.units_travel * this.stun_duration;
         }
 
         return bonus_stun_duration;
@@ -508,7 +508,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
             // Ignore cases where the enemy is pretty close already
             const distance = util.CalculateDistanceBetweenEntities(enemy, projectile.main_target!);
             if (distance <= projectile.main_target!.GetHullRadius()) return;
-    
+
             // Hook the enemy... with a modifier!
             if (!enemy.HasModifier(modifier_reimagined_sven_talent_2_buff.name))
             {
