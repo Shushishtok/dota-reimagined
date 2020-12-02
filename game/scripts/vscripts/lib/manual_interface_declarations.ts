@@ -31,27 +31,43 @@ declare interface OrbData
     mana_cost: number
 }
 
-interface CDOTA_BaseNPC {
-    AddNewModifier(
-        caster: CDOTA_BaseNPC | undefined,
-        ability: CDOTABaseAbility | undefined,
-        modifierName: string,
-        modifierTable: { duration?: number; [key: string]: any } | undefined,
-    ): CDOTA_Buff;
+interface CDOTA_BaseNPC
+{
+    AddNewModifier(caster: CDOTA_BaseNPC | undefined,
+                ability: CDOTABaseAbility | undefined,
+                modifierName: string,
+                modifierTable: { duration?: number; [key: string]: any } | undefined): CDOTA_Buff;
 }
 
-interface CustomGameEventDeclarations 
+interface CustomGameEventDeclarations
 {
-    learn_talent_event: {ability: EntityIndex};    
-    confirm_talent_learned: {talent_num: number, learned_by_force: 0 | 1};    
+    learn_talent_event: {ability: EntityIndex};
+    confirm_talent_learned: {talent_num: number, learned_by_force: 0 | 1};
     request_currently_selected_unit: {};
     send_currently_selected_unit: {unit: EntityIndex};
-    ping_talent: {ability: EntityIndex, status: TalentStatus}    
+    ping_talent: {ability: EntityIndex, status: TalentStatus}
     custom_chat_message: {isTeam: boolean, textData: string, playerID: PlayerID, ability_name: string | undefined}
+}
+
+interface CustomNetTableDeclarations
+{
+    // Just an example of a nettable, not actually used
+    spider_manager: {spiders: number};
 }
 
 interface CDOTA_BaseNPC_Hero
 {
     talents_learned: Set<CDOTABaseAbility>;
     talentMap: Map<number, CDOTABaseAbility>;
+}
+
+interface CDOTA_Buff
+{
+    GetModifierLifeStealStacking(): number;
+    GetModifierStatusAmp(): number;
+}
+
+interface CDOTABaseAbility
+{
+    RequiresScepterForCharges(): boolean;
 }

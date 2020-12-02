@@ -13,7 +13,8 @@ declare const enum AttachLocation
     WEAPON = "attach_weapon",
     HEAD = "attach_head",
     SWORD_END = "attach_sword_end",
-    ATTACK1 = "attach_attack1"
+    ATTACK1 = "attach_attack1",
+    THORAX = "attach_thorax"
 }
 
 declare const enum GenericModifier
@@ -21,7 +22,8 @@ declare const enum GenericModifier
     NO_OUTGOING_DAMAGE = "modifier_reimagined_no_outgoing_damage",
     IGNORE_ARMOR = "modifier_reimagined_negate_armor",
     CANNOT_MISS = "modifier_reimagined_cannot_miss",
-    DAMAGE_REDUCTION = "modifier_reimagined_damage_penalty"
+    DAMAGE_REDUCTION = "modifier_reimagined_damage_penalty",
+    CHARGES = "modifier_reimagined_charges"
 }
 
 declare const enum PrecacheType

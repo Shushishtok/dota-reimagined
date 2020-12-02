@@ -1,12 +1,7 @@
+import { modifier_reimagined_charges } from "../modifiers/general_mechanics/modifier_reimagined_charges";
 import "../modifiers/general_mechanics/modifier_reimagined_no_outgoing_damage";
 import { BaseAbility, BaseModifier } from "./dota_ts_adapter";
 import { BaseTalent } from "./talents";
-
-export interface ReimaginedModifier extends BaseModifier
-{
-    GetModifierLifeStealStacking(): number;
-    GetModifierStatusAmp(): number;
-}
 
 export interface ReflecteableModifier extends BaseModifier
 {
@@ -531,7 +526,7 @@ export function GetAppliedDuration(caster: CDOTA_BaseNPC, target: CDOTA_BaseNPC,
     const status_resistance = target.GetStatusResistance(); // Returns a number between 0 and 1
 
     // Get caster's status amp
-    const modifiers = caster.FindAllModifiers() as ReimaginedModifier[];
+    const modifiers = caster.FindAllModifiers();
     let total_status_amp = 0;
     let status_amp: number[] = [];
     for (const modifier of modifiers)
@@ -765,4 +760,64 @@ export function ShuffleNumbersInArray(number_array: number[]): number[]
     }
 
     return result_array;
+}
+
+export function IsSpiderlingUnit(unit: CDOTA_BaseNPC, includes_spiderking: boolean): boolean
+{
+    if ((includes_spiderking && unit.GetUnitName() === "npc_dota_broodmother_spiderking") || IsSpiderling(unit) || unit.GetUnitName() === "npc_dota_broodmother_spiderite") return true;
+    else return false;
+}
+
+export function IsSpiderling(unit: CDOTA_BaseNPC): boolean
+{
+    if (unit.GetUnitName() === "npc_dota_broodmother_spiderling") return true
+    else return false;
+}
+
+export function IsNearEntity(entity_name: string, location: Vector, distance: number, owner?: CDOTA_BaseNPC)
+{
+    for (const entity of Entities.FindAllByClassname(entity_name))
+    {
+        if (owner)
+        {
+            if (entity.GetOwner() === owner && CalculateDistanceBetweenPoints(entity.GetAbsOrigin(), location) <= distance)
+            {
+                return true;
+            }
+        }
+        else if (CalculateDistanceBetweenPoints(entity.GetAbsOrigin(), location) <= distance)
+        {
+            return true
+        }
+    }
+
+    return false
+}
+
+export function GetChargeModifierForAbility(ability: CDOTA_Ability_Lua): modifier_reimagined_charges | undefined
+{
+    // Find all charge modifiers
+    const caster = ability.GetCaster();
+    const modifiers = caster.FindAllModifiersByName(GenericModifier.CHARGES) as modifier_reimagined_charges[];
+    for (const modifier of modifiers)
+    {
+        // Find the one for this ability
+        if (modifier.GetAbility() == ability)
+        {
+            return modifier;
+        }
+    }
+
+    return undefined;
+}
+
+export function GetAllChargesModifiersForUnit(caster: CDOTA_BaseNPC): modifier_reimagined_charges[] | undefined
+{
+    const charge_modifiers = caster.FindAllModifiersByName("modifier_reimagined_charges") as modifier_reimagined_charges[];
+    if (charge_modifiers)
+    {
+        return charge_modifiers;
+    }
+
+    return undefined;
 }

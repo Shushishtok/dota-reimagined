@@ -1,18 +1,18 @@
-import { SkywrathMageTalents } from "../../../abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import { GetTalentSpecialValueFor } from "../../../lib/util";
 
 @registerModifier()
-export class modifier_reimagined_skywrath_mage_talent_1_buff extends BaseModifier
+export class modifier_reimagined_broodmother_insatiable_hunger_feed_brood_unit_heal extends BaseModifier
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
     ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
+    particle_heal: string = "particles/heroes/broodmother/broodmother_insatiable_hunger_feed_brood_heal.vpcf";
 
     // Modifier specials
-    int_bonus?: number
-    duration?: number;
+    feed_brood_heal_per_second?: number;
+    feed_brood_heal_interval?: number;
+    feed_brood_heal_duration?: number;
 
     IsHidden() {return false}
     IsDebuff() {return false}
@@ -21,18 +21,21 @@ export class modifier_reimagined_skywrath_mage_talent_1_buff extends BaseModifie
     OnCreated(): void
     {
         // Modifier specials
-        this.int_bonus = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_1, "int_bonus");
-        this.duration = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_1, "duration");
+        this.feed_brood_heal_per_second = this.ability.GetSpecialValueFor("feed_brood_heal_per_second");
+        this.feed_brood_heal_interval = this.ability.GetSpecialValueFor("feed_brood_heal_interval");
+        this.feed_brood_heal_duration = this.ability.GetSpecialValueFor("feed_brood_heal_duration");
+
+        if (!IsServer()) return;
+        this.StartIntervalThink(this.feed_brood_heal_interval);
     }
 
-    DeclareFunctions(): ModifierFunction[]
+    OnIntervalThink(): void
     {
-        return [ModifierFunction.STATS_INTELLECT_BONUS]
-    }
+        // Calculate heal for this instance
+        let heal = this.feed_brood_heal_per_second! * this.feed_brood_heal_interval! * this.GetStackCount();
 
-    GetModifierBonusStats_Intellect(): number
-    {
-        return this.int_bonus! * this.GetStackCount();
+        // Heal the target
+        this.parent.Heal(heal, this.ability);
     }
 
     OnStackCountChanged(previous_stacks: number): void
@@ -49,7 +52,7 @@ export class modifier_reimagined_skywrath_mage_talent_1_buff extends BaseModifie
         this.ForceRefresh();
 
         // Add a new timer for those stack(s)
-        Timers.CreateTimer(this.duration!, () =>
+        Timers.CreateTimer(this.feed_brood_heal_duration!, () =>
         {
             // Verify the caster, the parent, and the modifier still exist as valid entities
             if (IsValidEntity(this.caster) && IsValidEntity(this.parent) && !CBaseEntity.IsNull.call(this as any))
@@ -67,4 +70,23 @@ export class modifier_reimagined_skywrath_mage_talent_1_buff extends BaseModifie
         });
     }
 
+    DeclareFunctions(): ModifierFunction[]
+    {
+        return [ModifierFunction.TOOLTIP]
+    }
+
+    OnTooltip(): number
+    {
+        return this.feed_brood_heal_per_second! * this.GetStackCount();
+    }
+
+    GetEffectName(): string
+    {
+        return this.particle_heal;
+    }
+
+    GetEffectAttachType(): ParticleAttachment
+    {
+        return ParticleAttachment.ABSORIGIN_FOLLOW;
+    }
 }

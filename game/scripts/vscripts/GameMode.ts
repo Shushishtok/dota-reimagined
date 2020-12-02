@@ -1,46 +1,50 @@
 import { BaseTalent } from "./lib/talents";
 import { reloadable } from "./lib/tstl-utils";
-import { GetTalentAbilityFromNumber, GetTalentNumber, IsTalentAbility, PrepareTalentList } from "./lib/util";
+import { GetAllChargesModifiersForUnit, GetTalentAbilityFromNumber, GetTalentNumber, IsTalentAbility, PrepareTalentList } from "./lib/util";
+import "../vscripts/modifiers/general_mechanics/modifier_reimagined_charges";
+import "../vscripts/modifiers/general_mechanics/modifier_reimagined_game_mechanics"
 
 const heroSelectionTime = 30;
 
-declare global 
+declare global
 {
-    interface CDOTAGamerules 
+    interface CDOTAGamerules
     {
         Addon: GameMode;
     }
 }
 
 @reloadable
-export class GameMode 
+export class GameMode
 {
     Game: CDOTABaseGameMode = GameRules.GetGameModeEntity();
     talent_count: number = 8;
     last_waiting_talent_num?: number;
     talent_ping_map: Map<PlayerID, number> = new Map();
+    wtf_mode_enabled: boolean = false;
 
-    public static Precache(this: void, context: CScriptPrecacheContext) 
-    {           
-        print("Precaching sounds");     
+    public static Precache(this: void, context: CScriptPrecacheContext)
+    {
+        print("Precaching sounds");
         PrecacheResource("soundfile", "soundevents/custom_sounds.vsndevts", context);
     }
 
-    public static Activate(this: void) 
+    public static Activate(this: void)
     {
         GameRules.Addon = new GameMode();
     }
 
-    constructor() 
+    constructor()
     {
         this.configure();
-        
+
     }
 
     public configure()
     {
         this.RegisterEvents();
         this.RmgGameRules();
+        this.AssignMechanicsModifier();
     }
 
     RegisterEvents()
@@ -49,18 +53,20 @@ export class GameMode
         ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
         ListenToGameEvent("dota_player_gained_level", event => this.OnPlayerLevelUp(event), undefined);
         ListenToGameEvent("player_chat", event => this.OnPlayerChat(event), undefined);
+        ListenToGameEvent("server_pre_shutdown", event => this.OnServerPreShutdown(event), undefined);
+        ListenToGameEvent("server_shutdown", event => this.OnServerShutdown(event), undefined);
         CustomGameEventManager.RegisterListener("learn_talent_event", (_, event) => this.OnLearnTalent(event, 0));
         CustomGameEventManager.RegisterListener("send_currently_selected_unit", (_,event) => this.OnSentCurrentlySelectedUnit(event))
-        CustomGameEventManager.RegisterListener("ping_talent", (_,event) => this.OnPingTalent(event))        
+        CustomGameEventManager.RegisterListener("ping_talent", (_,event) => this.OnPingTalent(event))
     }
 
     RmgGameRules()
     {
-        // Max level!        
+        // Max level!
         this.Game.SetCustomXPRequiredToReachNextLevel(
-            {             
-                [0]: 0, 
-                [1]: 230, // total XP to level up to level 2                
+            {
+                [0]: 0,
+                [1]: 230, // total XP to level up to level 2
                 [2]: 600,  // total XP to level up to level 3, etc...
                 [3]: 1080,
                 [4]: 1660,
@@ -98,63 +104,73 @@ export class GameMode
                 [36]: 126045,
                 [37]: 136045,
                 [38]: 146045,
-                [39]: 156045,                
+                [39]: 156045,
             }
         );
-        
+
         this.Game.SetUseCustomHeroLevels(true);
         this.Game.SetCustomDireScore(0);
     }
 
-    private OnLearnTalent(event: {ability: EntityIndex; PlayerID: PlayerID}, learned_by_force: 0 | 1)    
-    {     
+    AssignMechanicsModifier(): void
+    {
+        // Find the good team's fountain
+        const fountain = Entities.FindAllByName("ent_dota_fountain_good")[0] as CDOTA_BaseNPC;
+        if (fountain)
+        {
+            fountain.AddNewModifier(fountain, undefined, "modifier_reimagined_game_mechanics", {});
+        }
+    }
+
+    private OnLearnTalent(event: {ability: EntityIndex; PlayerID: PlayerID}, learned_by_force: 0 | 1)
+    {
         const ability_handle = EntIndexToHScript(event.ability) as CDOTABaseAbility;
         const caster = (ability_handle.GetCaster() as CDOTA_BaseNPC_Hero)
-        const player = PlayerResource.GetPlayer(event.PlayerID)!;           
-        
+        const player = PlayerResource.GetPlayer(event.PlayerID)!;
+
         // Serverside verification check. Networking 101: don't trust your client
-        // If ability was already leveled, do nothing.        
+        // If ability was already leveled, do nothing.
         if (ability_handle.GetLevel() > 0) return;
-        
+
         // Verify ability is actually a talent
         if (!IsTalentAbility(ability_handle)) return;
-        
+
         // If the caster is not a real hero, do nothing
-        if (!caster.IsRealHero()) return;                
+        if (!caster.IsRealHero()) return;
 
-        const talent_num = GetTalentNumber(ability_handle);        
-        if (!talent_num) return;        
+        const talent_num = GetTalentNumber(ability_handle);
+        if (!talent_num) return;
 
-        // Only allow to level up talents for yourself, unless this is a forced level, or it is cheat mode        
+        // Only allow to level up talents for yourself, unless this is a forced level, or it is cheat mode
         if (learned_by_force == 1 || ability_handle.GetCaster() == player.GetAssignedHero() || GameRules.IsCheatMode())
-        {                
+        {
             // If caster doesn't have any ability points to spend, do nothing
-            if (learned_by_force == 0 && caster.GetAbilityPoints() == 0) return;    
-            
+            if (learned_by_force == 0 && caster.GetAbilityPoints() == 0) return;
+
             // Finished verification!
             // Level up the ability
             ability_handle.SetLevel(1);
-    
+
             // Do not spend an ability point if talent was learned by force
             if (learned_by_force == 0)
             {
                 // Otherwise reduce as usual
                 caster.SetAbilityPoints(caster.GetAbilityPoints() -1);
             }
-            
-            // Add talent that was legitimately leveled to the set        
+
+            // Add talent that was legitimately leveled to the set
             caster.talents_learned.add(ability_handle);
-            
-            // Send confirmation event to the client        
+
+            // Send confirmation event to the client
             CustomGameEventManager.Send_ServerToPlayer(player, "confirm_talent_learned", {talent_num: talent_num, learned_by_force: learned_by_force})
         }
     }
 
     private ForceLearnTalent(hero: CDOTA_BaseNPC_Hero, talent_num: number, playerID: PlayerID)
     {
-        let event: {ability: EntityIndex; PlayerID: PlayerID};        
+        let event: {ability: EntityIndex; PlayerID: PlayerID};
 
-        // Get ability as talent        
+        // Get ability as talent
         const ability = GetTalentAbilityFromNumber(hero, talent_num);
         if (ability)
         {
@@ -163,7 +179,7 @@ export class GameMode
 
             // Call talent
             this.OnLearnTalent(event, 1);
-        }        
+        }
     }
 
     private ForceUnlearnTalent(hero: CDOTA_BaseNPC_Hero, talent_num: number)
@@ -177,7 +193,7 @@ export class GameMode
         {
             // Remove the ability
             ability.SetLevel(0);
-            
+
             // Remove its associated modifier
             const modifier_name: string = "modifier_" + ability.GetAbilityName();
             if (modifier_name)
@@ -203,7 +219,7 @@ export class GameMode
         // 10 signals "learn all talents"
         if (this.last_waiting_talent_num == 10)
         {
-            for (let index = 1; index <= this.talent_count; index++) 
+            for (let index = 1; index <= this.talent_count; index++)
             {
                 this.ForceLearnTalent(unit, index, event.PlayerID);
             }
@@ -211,7 +227,7 @@ export class GameMode
         // -10 signals "unlearn all talents"
         else if (this.last_waiting_talent_num == -10)
         {
-            for (let index = 1; index < this.talent_count; index++) 
+            for (let index = 1; index < this.talent_count; index++)
             {
                 this.ForceUnlearnTalent(unit, index);
             }
@@ -230,12 +246,12 @@ export class GameMode
         this.last_waiting_talent_num = undefined;
     }
 
-    public OnStateChange(): void 
+    public OnStateChange(): void
     {
-        const state = GameRules.State_Get();     
+        const state = GameRules.State_Get();
     }
 
-    private StartGame(): void 
+    private StartGame(): void
     {
         print("Game starting!");
 
@@ -243,24 +259,24 @@ export class GameMode
     }
 
     // Called on script_reload
-    public Reload() 
+    public Reload()
     {
         print("Script reloaded!");
 
         // Do some stuff here
-    }    
+    }
 
-    private OnNpcSpawned(event: NpcSpawnedEvent) 
+    private OnNpcSpawned(event: NpcSpawnedEvent)
     {
         let unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
 
         if (unit.IsRealHero())
-        {            
+        {
             // Initialize the talents ability map if it's not initialized yet
             if (!(unit as CDOTA_BaseNPC_Hero).talentMap) unit.talentMap = PrepareTalentList(unit);
 
             // Initialize the talents learned set if it's not initialized yet
-            if (!(unit as CDOTA_BaseNPC_Hero).talents_learned) unit.talents_learned = new Set();                    
+            if (!(unit as CDOTA_BaseNPC_Hero).talents_learned) unit.talents_learned = new Set();
         }
     }
 
@@ -268,34 +284,34 @@ export class GameMode
     {
         // Handle the stupid automatic level 30 "HAVE ALL TALENTS FOR FREE" talents. Fucking bullshit I swear
         Timers.CreateTimer(FrameTime(), () =>
-        {            
+        {
             if (event.level == 30)
-            {                
-                const caster = EntIndexToHScript(event.hero_entindex) as CDOTA_BaseNPC_Hero;                
-                
+            {
+                const caster = EntIndexToHScript(event.hero_entindex) as CDOTA_BaseNPC_Hero;
+
                 // Iterate between all caster's abilities
-                for (let index = 0; index < caster.GetAbilityCount(); index++) 
+                for (let index = 0; index < caster.GetAbilityCount(); index++)
                 {
-                    const ability = caster.GetAbilityByIndex(index);                
+                    const ability = caster.GetAbilityByIndex(index);
                     if (ability)
-                    {                        
+                    {
                         if (ability.GetAbilityName().indexOf("special_bonus") !== -1)
-                        {                            
+                        {
                             if (ability.IsTrained() && !caster.talents_learned.has(ability))
-                            {                                
-                                ability.SetLevel(0);                                
+                            {
+                                ability.SetLevel(0);
                             }
                         }
                     }
                 }
-    
+
                 // Iterate between all caster's modifiers
                 for (const modifier of caster.FindAllModifiers())
-                {                    
+                {
                     if (modifier.GetName().indexOf("special_bonus") !== -1)
-                    {                        
+                    {
                         if (!caster.talents_learned.has(modifier.GetAbility()!))
-                        {                            
+                        {
                             modifier.Destroy();
                         }
                     }
@@ -309,15 +325,15 @@ export class GameMode
         if (!GameRules.IsCheatMode()) return;
 
         if (event.text.indexOf("-learntalent") !== -1)
-        {            
-            const numText = event.text.substr(event.text.length-1);            
+        {
+            const numText = event.text.substr(event.text.length-1);
             if (numText !== "" && numText !== undefined && numText !== null)
-            {                
-                const talent_num = Number(numText);                
+            {
+                const talent_num = Number(numText);
                 if (!isNaN(talent_num))
-                {                    
+                {
                     if (talent_num >= 1 && talent_num <= this.talent_count)
-                    {                               
+                    {
                         const player = PlayerResource.GetPlayer(event.playerid)!;
                         this.last_waiting_talent_num = talent_num;
 
@@ -338,14 +354,14 @@ export class GameMode
         // For unlearning a talent, we use negative talent number values
         else if (event.text.indexOf("-unlearntalent") !== -1)
         {
-            const numText = event.text.substr(event.text.length-1);            
+            const numText = event.text.substr(event.text.length-1);
             if (numText !== "" && numText !== undefined && numText !== null)
-            {                
-                const talent_num = Number(numText);            
+            {
+                const talent_num = Number(numText);
                 if (!isNaN(talent_num))
-                {                    
+                {
                     if (talent_num >= 1 && talent_num <= this.talent_count)
-                    {                               
+                    {
                         const player = PlayerResource.GetPlayer(event.playerid)!;
                         this.last_waiting_talent_num = talent_num * (-1);
 
@@ -361,6 +377,52 @@ export class GameMode
             this.last_waiting_talent_num = -10;
 
             CustomGameEventManager.Send_ServerToPlayer(player, "request_currently_selected_unit", {});
+        }
+        // Refresh - extend to charges
+        else if (event.text === "-refresh")
+        {
+            // Get the player's hero
+            const player = PlayerResource.GetPlayer(event.playerid)!;
+            const hero = player.GetAssignedHero();
+
+            // Find all its charges modifiers, if any
+            const charge_modifiers = GetAllChargesModifiersForUnit(hero);
+            if (charge_modifiers)
+            {
+                for (const charge_modifier of charge_modifiers)
+                {
+                    // Refresh them
+                    charge_modifier.MaximizeChargeCount();
+                }
+            }
+        }
+        // Apply the flag for wtf mode
+        else if (event.text === "-wtf")
+        {
+            if (this.wtf_mode_enabled) return;
+
+            this.wtf_mode_enabled = true;
+
+            // Get the player's hero
+            const player = PlayerResource.GetPlayer(event.playerid)!;
+            const hero = player.GetAssignedHero();
+
+            // Find all its charges modifiers, if any
+            const charge_modifiers = GetAllChargesModifiersForUnit(hero);
+            if (charge_modifiers)
+            {
+                for (const charge_modifier of charge_modifiers)
+                {
+                    // Trigger WTF mode on charges
+                    charge_modifier.OnWTFModeTriggered();
+                }
+            }
+        }
+        else if (event.text === "-unwtf")
+        {
+            if (!this.wtf_mode_enabled) return;
+
+            this.wtf_mode_enabled = false;
         }
     }
 
@@ -388,7 +450,7 @@ export class GameMode
                 this.talent_ping_map.set(event.PlayerID, spam_times);
                 if (spam_times >= 3)
                 {
-                    Timers.CreateTimer(3, () => 
+                    Timers.CreateTimer(3, () =>
                     {
                         this.talent_ping_map.set(event.PlayerID, 0);
                     })
@@ -403,7 +465,7 @@ export class GameMode
         // Make the text based on the type of the ability form
         const ability_name = ability_handle.GetAbilityName();
         let talent_status_string;
-        switch (event.status) 
+        switch (event.status)
         {
             case TalentStatus.LEARNED:
                 talent_status_string = "#DOTA_Reimagined_Talent_Learned";
@@ -423,9 +485,9 @@ export class GameMode
             default:
                 break;
         }
-        
+
         // In the custom chat message event, everything in "%%x%%" will be localized clientside
-        let text = "";        
+        let text = "";
         if (caster != player.GetAssignedHero())
         {
             if (caster.GetTeamNumber() != player.GetTeamNumber())
@@ -437,9 +499,19 @@ export class GameMode
                 text = "%%#DOTA_Reimagined_Talent_Ping_Ally%% " + "%%" + caster.GetUnitName() + "%%" + "'s talent ";
             }
         }
-        
+
         // Form the final text and send
-        text += "%%#DOTA_Tooltip_Ability_" + ability_name + "%% " + '<img src="file://{images}/control_icons/chat_wheel_icon.png" style="margin-top: 4px; width:10px;height:10px" width="10" height="10" > ' + " %%" + talent_status_string + "%%";        
+        text += "%%#DOTA_Tooltip_Ability_" + ability_name + "%% " + '<img src="file://{images}/control_icons/chat_wheel_icon.png" style="margin-top: 4px; width:10px;height:10px" width="10" height="10" > ' + " %%" + talent_status_string + "%%";
         CustomGameEventManager.Send_ServerToTeam(player.GetTeamNumber(), "custom_chat_message", {textData: text, playerID: event.PlayerID, isTeam: true, ability_name: ability_name});
-    }    
+    }
+
+    OnServerPreShutdown(event: ServerPreShutdownEvent)
+    {
+        print(event.reason);
+    }
+
+    OnServerShutdown(event: ServerShutdownEvent)
+    {
+        print(event.reason);
+    }
 }

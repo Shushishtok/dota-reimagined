@@ -1,18 +1,17 @@
-import { SkywrathMageTalents } from "../../../abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import { GetTalentSpecialValueFor } from "../../../lib/util";
 
 @registerModifier()
-export class modifier_reimagined_skywrath_mage_talent_1_buff extends BaseModifier
+export class modifier_reimagined_broodmother_avenger_buff extends BaseModifier
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
     ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
+    particle_avenger: string = "particles/heroes/broodmother/broodmother_spawn_spiderling_avenger.vpcf";
 
     // Modifier specials
-    int_bonus?: number
-    duration?: number;
+    avenger_duration?: number;
+    avenger_damage_pct?: number;
 
     IsHidden() {return false}
     IsDebuff() {return false}
@@ -21,35 +20,32 @@ export class modifier_reimagined_skywrath_mage_talent_1_buff extends BaseModifie
     OnCreated(): void
     {
         // Modifier specials
-        this.int_bonus = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_1, "int_bonus");
-        this.duration = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_1, "duration");
+        this.avenger_duration = this.ability.GetSpecialValueFor("avenger_duration");
+        this.avenger_damage_pct = this.ability.GetSpecialValueFor("avenger_damage_pct");
     }
 
     DeclareFunctions(): ModifierFunction[]
     {
-        return [ModifierFunction.STATS_INTELLECT_BONUS]
+        return [ModifierFunction.BASEDAMAGEOUTGOING_PERCENTAGE]
     }
 
-    GetModifierBonusStats_Intellect(): number
+    GetModifierBaseDamageOutgoing_Percentage(): number
     {
-        return this.int_bonus! * this.GetStackCount();
+        return this.avenger_damage_pct! * this.GetStackCount();
     }
 
-    OnStackCountChanged(previous_stacks: number): void
+    OnStackCountChanged(prev_stacks: number)
     {
         if (!IsServer()) return;
 
-        // We only care about incrementals
-        if (previous_stacks > this.GetStackCount()) return;
+        // Only apply if there are new stacks added
+        if (this.GetStackCount() < prev_stacks) return;
 
-        // Get the amount of new stacks that we just got
-        const new_stacks = this.GetStackCount() - previous_stacks;
-
-        // Refresh the duration of the modifier
-        this.ForceRefresh();
+        // Get amount of new stacks added
+        const new_stacks = this.GetStackCount() - prev_stacks;
 
         // Add a new timer for those stack(s)
-        Timers.CreateTimer(this.duration!, () =>
+        Timers.CreateTimer(this.avenger_duration!, () =>
         {
             // Verify the caster, the parent, and the modifier still exist as valid entities
             if (IsValidEntity(this.caster) && IsValidEntity(this.parent) && !CBaseEntity.IsNull.call(this as any))
@@ -67,4 +63,13 @@ export class modifier_reimagined_skywrath_mage_talent_1_buff extends BaseModifie
         });
     }
 
+    GetEffectName(): string
+    {
+        return this.particle_avenger;
+    }
+
+    GetEffectAttachType(): ParticleAttachment
+    {
+        return ParticleAttachment.ABSORIGIN_FOLLOW;
+    }
 }

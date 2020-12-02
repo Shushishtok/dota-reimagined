@@ -1,0 +1,39 @@
+{
+	"Adds a timer for indepenedent stacks": {
+        "prefix": "IndependentStacksTimer",
+        "body": [
+        "OnStackCountChanged(previous_stacks: number): void",
+        "{",
+        "\tif (!IsServer()) return;",
+        "",
+        "\t// We only care about incrementals",
+        "\tif (previous_stacks > this.GetStackCount()) return;",
+        "",
+        "\t// Get the amount of new stacks that we just got",
+        "\tconst new_stacks = this.GetStackCount() - previous_stacks;",
+        "",
+        "\t// Refresh the duration of the modifier",
+        "\tthis.ForceRefresh();",
+        "",
+        "\t// Add a new timer for those stack(s)",
+        "\tTimers.CreateTimer(this.brittle_cold_duration!, () =>",
+        "\t{",
+        "\t\t// Verify the caster, the parent, and the modifier still exist as valid entities",
+        "\t\tif (IsValidEntity(this.caster) && IsValidEntity(this.parent) && !CBaseEntity.IsNull.call(this as any))",
+        "\t\t{",
+        "\t\t\t// Decrement stacks, or destroy modifier is there are no more stacks",
+        "\t\t\tif (this.GetStackCount() == new_stacks)",
+        "\t\t\t{",
+        "\t\t\t\tthis.Destroy();",
+        "\t\t\t}",
+        "\t\t\telse",
+        "\t\t\t{",
+        "\t\t\t\tthis.SetStackCount(this.GetStackCount() - new_stacks);",
+        "\t\t\t}",
+        "\t\t}",
+        "\t});",
+        "}"
+        ],
+        "description": "Adds a timer for indepenedent stacks"
+      }
+}

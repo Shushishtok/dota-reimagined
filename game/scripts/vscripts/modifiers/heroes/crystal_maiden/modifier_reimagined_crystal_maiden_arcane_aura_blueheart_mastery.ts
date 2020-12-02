@@ -59,10 +59,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery ex
                 }
                 else
                 {
-                    for (let index = 0; index < new_stacks; index++)
-                    {
-                        this.DecrementStackCount();
-                    }
+                    this.SetStackCount(this.GetStackCount() - new_stacks);
                 }
             }
         });

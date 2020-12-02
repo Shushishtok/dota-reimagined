@@ -57,10 +57,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost extend
                 }
                 else
                 {
-                    for (let index = 0; index < new_stacks; index++)
-                    {
-                        this.DecrementStackCount();
-                    }
+                    this.SetStackCount(this.GetStackCount() - new_stacks);
                 }
             }
         });

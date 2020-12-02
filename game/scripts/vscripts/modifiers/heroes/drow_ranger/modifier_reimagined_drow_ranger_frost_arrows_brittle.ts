@@ -5,7 +5,7 @@ export class modifier_reimagined_drow_ranger_frost_arrows_brittle extends BaseMo
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     lock: boolean = false;
 
@@ -40,7 +40,7 @@ export class modifier_reimagined_drow_ranger_frost_arrows_brittle extends BaseMo
         this.ForceRefresh();
 
         // Add a new timer for those stack(s)
-        Timers.CreateTimer(this.brittle_cold_duration!, () => 
+        Timers.CreateTimer(this.brittle_cold_duration!, () =>
         {
             // Verify the caster, the parent, and the modifier still exist as valid entities
             if (IsValidEntity(this.caster) && IsValidEntity(this.parent) && !CBaseEntity.IsNull.call(this as any))
@@ -52,10 +52,7 @@ export class modifier_reimagined_drow_ranger_frost_arrows_brittle extends BaseMo
                 }
                 else
                 {
-                    for (let index = 0; index < new_stacks; index++)
-                    {
-                        this.DecrementStackCount();
-                    }
+                    this.SetStackCount(this.GetStackCount() - new_stacks);
                 }
             }
         });
@@ -76,16 +73,16 @@ export class modifier_reimagined_drow_ranger_frost_arrows_brittle extends BaseMo
     {
         // Check for locked behavior for infinite responses
         if (this.lock) return 0;
-        
+
         // Apply lock
         this.lock = true;
 
         // Get current strength value, without this bonus (as it's locked)
         const armor = this.parent.GetPhysicalArmorValue(false);
-        
+
         // Release lock
         this.lock = false;
-        
+
         // Calculate strength bonus
         const armor_reduction = armor * this.brittle_cold_armor_loss_pct! * 0.01 * this.GetStackCount() * (-1);
 
