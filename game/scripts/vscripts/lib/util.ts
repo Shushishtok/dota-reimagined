@@ -764,7 +764,7 @@ export function ShuffleNumbersInArray(number_array: number[]): number[]
 
 export function IsSpiderlingUnit(unit: CDOTA_BaseNPC, includes_spiderking: boolean): boolean
 {
-    if ((includes_spiderking && unit.GetUnitName() === "npc_dota_broodmother_spiderking") || IsSpiderling(unit) || unit.GetUnitName() === "npc_dota_broodmother_spiderite") return true;
+    if ((includes_spiderking && unit.GetUnitName() === "npc_dota_reimagined_broodmother_spiderking") || IsSpiderling(unit) || unit.GetUnitName() === "npc_dota_broodmother_spiderite") return true;
     else return false;
 }
 
