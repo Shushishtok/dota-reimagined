@@ -496,6 +496,7 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"2"
+        "LinkedAbility"                 "reimagined_broodmother_spawn_spiderking"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -581,5 +582,137 @@
 				"feed_brood_heal_duration"    "8"
 			}
 		}
+	}
+
+    //=================================================================================================================
+	// Broodmother: Spawn Spiderking
+	//=================================================================================================================
+	"reimagined_broodmother_spawn_spiderking"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+        "BaseClass"						"ability_lua"
+        "ScriptFile"					"abilities/heroes/broodmother/reimagined_broodmother_spawn_spiderking"
+		"AbilityTextureName"			"broodmother/broodmother_spawn_spiderking"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"2"
+        "MaxLevel"                      "3"
+        "LinkedAbility"                 "reimagined_broodmother_insatiable_hunger"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.2"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		"AbilityCooldown"				"90 80 70"
+		"AbilityManaCost"				"200 225 250"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_spiderkings"		"1"
+			}
+
+            "02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"spawn_distance"		"200"
+			}
+
+            "03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"hatch_duration"		"10"
+			}
+
+            "04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"model_size"  	    	"1.1"
+			}
+		}
+	}
+
+    //=================================================================================================================
+	// Broodmother's Spiderking: Venom Stinger
+	//=================================================================================================================
+	"reimagined_spiderking_venom_stinger"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"AbilityTextureName"			"broodmother/broodmother_spiderking_venom_stinger"
+		"ScriptFile"					"abilities/heroes/broodmother/spiderking/reimagined_spiderking_venom_stinger"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"explosion_interval"	"1"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"movement_speed_slow"	"10 12 14"
+			}
+
+			"03"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"			    "3"
+			}
+
+            "04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"explosion_damage"	    "50 70 90"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+    //=================================================================================================================
+	// Broodmother's Spiderking: Hardened Brood Aura
+	//=================================================================================================================
+	"reimagined_spiderking_hardened_brood_aura"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"AbilityTextureName"			"broodmother/broodmother_spiderking_hardened_brood_aura"
+		"ScriptFile"					"abilities/heroes/broodmother/spiderking/reimagined_spiderking_hardened_brood_aura"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
+        "AbilityCastRange"              "300 350 400"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"radius"            	"300 350 400"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_reduction"	    "30 40 50"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 }

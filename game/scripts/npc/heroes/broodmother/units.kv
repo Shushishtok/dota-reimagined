@@ -90,7 +90,6 @@
 		"UnitLabel"					"spiderite"
 		"wearable"				    "746"
 
-
 		// Abilities
 		//----------------------------------------------------------------
 		"Ability1"					"reimagined_broodmother_spiderite_volatile_spiderite"			// Ability 1.
@@ -157,106 +156,27 @@
 		"VisionNighttimeRange"		"700"		// Range of vision at night time.
 	}
 
-	"npc_dota_reimagined_broodmother_cocoon"
-	{
-		// General
-		//
-		"BaseClass"					"npc_dota_broodmother_spiderling"	// Class of entity of link to.
-		"Model"						"models/items/broodmother/lycosidae_back/lycosidae_back.vmdl"	// Model.
-		"SoundSet"					"0"					// Name of sound set.
-		"ModelScale"				"1"								// old 0.7
-		"Level"						"4"
-		"IsSummoned"				"1"
-		"SelectionGroup"			"spiderking"
-		"UnitLabel"					"Spiderking Cocoon"
-
-
-		// Abilities
-		//----------------------------------------------------------------
-
-		"Ability1"					""			// Ability 1.
-		"Ability2"					""			// Ability 2.
-
-
-		// Armor
-		//----------------------------------------------------------------
-		"ArmorPhysical"				"10"			// Physical protection.
-		"MagicalResistance"			"25"			// Magical protection.
-
-		// Attack
-		//----------------------------------------------------------------
-		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
-		"AttackDamageMin"			"0"		// Damage range min.
-		"AttackDamageMax"			"0"		// Damage range max.
-		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
-		"AttackRate"				"1.15"		// Speed of attack.
-		"AttackAnimationPoint"		"0.5"		// Normalized time in animation cycle to attack.
-		"AttackAcquisitionRange"	"0"			// Range within a target can be acquired.
-		"AttackRange"				"0"			// Range within a target can be attacked.
-		"ProjectileModel"			""			// Particle system model for projectile.
-		"ProjectileSpeed"			""			// Speed of projectile.
-
-		// Bounty
-		//----------------------------------------------------------------
-		"BountyXP"					"150"		// Experience earn.
-		"BountyGoldMin"				"100"		// Gold earned min.
-		"BountyGoldMax"				"100"		// Gold earned max.
-
-		// Bounds
-		//----------------------------------------------------------------
-		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"			// Hull type used for navigation/locomotion.
-		"HealthBarOffset"			"140"
-
-		// Movement
-		//----------------------------------------------------------------
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"			// Type of locomotion - ground, air
-		"MovementSpeed"				"0"		// Speed
-		"MovementTurnRate"			"0"		// Turning rate.
-
-		// Status
-		//----------------------------------------------------------------
-		"StatusHealth"				"500"		// Base health.
-		"StatusHealthRegen"			"0.5"		// Health regeneration rate.
-		"StatusMana"				"0"			// Base mana.
-		"StatusManaRegen"			"0"			// Mana regeneration rate.
-
-		// Team
-		//----------------------------------------------------------------
-		"TeamName"					"DOTA_TEAM_GOODGUYS"			// Team name.
-		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
-		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
-		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
-
-		// Vision
-		//----------------------------------------------------------------
-		"VisionDaytimeRange"		"600"		// Range of vision during day light.
-		"VisionNighttimeRange"		"600"		// Range of vision at night time.
-	}
-
 	"npc_dota_reimagined_broodmother_spiderking"
 	{
 		// General
 		//
 		"BaseClass"					"npc_dota_broodmother_spiderling"	// Class of entity of link to.
-		"Model"						"models/heroes/broodmother/spiderling.vmdl"	// Model.
+		"Model"						"models/items/broodmother/spiderling/elder_blood_heir_of_elder_blood/elder_blood_heir_of_elder_blood.vmdl"	// Model.
 		"SoundSet"					"0"					// Name of sound set.
-		"ModelScale"				"1.2"								// old 0.7
+		"ModelScale"				"0.01"								// old 0.7
 		"Level"						"8"
 		"IsSummoned"				"1"
 		"SelectionGroup"			"spiderking"
 		"UnitLabel"					"Spiderking"
 
-
 		// Abilities
 		//----------------------------------------------------------------
-
-		"Ability1"					"imba_broodmother_spiderking_poison_sting"			// Ability 1.
-		"Ability2"					"imba_broodmother_spiderking_volatile"			// Ability 2.
-		"Ability3"					"imba_broodmother_spiderking_hardened_brood_aura" // Ability 3.
+		"Ability1"					"reimagined_spiderking_venom_stinger"			// Ability 1.
+		"Ability2"					"reimagined_spiderking_hardened_brood_aura"			// Ability 2.
 
 		// Armor
 		//----------------------------------------------------------------
-		"ArmorPhysical"				"22"			// Physical protection.
+		"ArmorPhysical"				"20"			// Physical protection.
 		"MagicalResistance"			"60"		// Magical protection.
 
 		// Attack
@@ -274,19 +194,19 @@
 
 		// Bounty
 		//----------------------------------------------------------------
-		"BountyXP"					"60"		// Experience earn.
-		"BountyGoldMin"				"50"		// Gold earned min.
-		"BountyGoldMax"				"50"		// Gold earned max.
+		"BountyXP"					"200"		// Experience earn.
+		"BountyGoldMin"				"120"		// Gold earned min.
+		"BountyGoldMax"				"120"		// Gold earned max.
 
 		// Bounds
 		//----------------------------------------------------------------
-		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// Hull type used for navigation/locomotion.
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"			// Hull type used for navigation/locomotion.
 		"HealthBarOffset"			"140"
 
 		// Movement
 		//----------------------------------------------------------------
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"			// Type of locomotion - ground, air
-		"MovementSpeed"				"350"		// Speed
+		"MovementSpeed"				"375"		// Speed
 		"MovementTurnRate"			"0.5"		// Turning rate.
 
 		// Status
@@ -299,7 +219,7 @@
 		// Team
 		//----------------------------------------------------------------
 		"TeamName"					"DOTA_TEAM_GOODGUYS"			// Team name.
-		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
 		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
 

@@ -10,6 +10,7 @@ export class modifier_reimagined_broodmother_spiderling_poison_sting_passive ext
     ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     sound_volatile_spiderling: string = "Hero_Snapfire.MortimerBlob.Impact";
+    sound_death: string = "Hero_Broodmother.SpawnSpiderlingsDeath";
     particle_volatile_spiderling: string = "particles/heroes/broodmother/broodmother_spiderling_volatile_spiderling.vpcf";
     particle_volatile_spiderling_fx?: ParticleID;
     modifier_poison_sting_debuff = "modifier_reimagined_broodmother_spiderling_poison_sting_debuff";
@@ -81,14 +82,20 @@ export class modifier_reimagined_broodmother_spiderling_poison_sting_passive ext
 
     OnDeath(event: ModifierAttackEvent): void
     {
+        if (!IsServer()) return;
+
         // Reimagined: Volatile Spiderlings: Spiderlings explode on death, dealing 60 damage in 300 AoE around them. Enemies in range are afflicted with the Spiderling's poison (or add one stack of it, if they already have it).
         this.ReimaginedVolatileSpiderlings(event);
+
+        // Only apply if the dead unit is the parent
+        if (event.unit != this.parent) return;
+
+        // Play death sound
+        EmitSoundOn(this.sound_death, this.parent);
     }
 
     ReimaginedVolatileSpiderlings(event: ModifierAttackEvent): void
     {
-        if (!IsServer()) return;
-
         // Only apply if the dead unit is the parent
         if (event.unit! != this.parent) return;
 

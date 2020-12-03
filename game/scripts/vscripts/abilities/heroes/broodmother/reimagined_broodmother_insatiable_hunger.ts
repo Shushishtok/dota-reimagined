@@ -12,6 +12,7 @@ export class reimagined_broodmother_insatiable_hunger extends BaseAbility
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
     modifier_insatiable: string = "modifier_reimagined_broodmother_insatiable_hunger_buff";
+    ability_spiderking: string = "reimagined_broodmother_spawn_spiderking";
 
     // Ability specials
     duration?: number;

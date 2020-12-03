@@ -558,7 +558,7 @@ export function GetAppliedDuration(caster: CDOTA_BaseNPC, target: CDOTA_BaseNPC,
 
 export function HasBit(checker: number, value: number)
 {
-    return bit.band(checker, value) == value
+    return (checker & value) == value;
 }
 
 export function GenerateRandomPositionAroundPosition(position: Vector, min_distance: number, max_distance: number): Vector

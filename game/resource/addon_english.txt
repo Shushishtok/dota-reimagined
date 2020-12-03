@@ -1797,6 +1797,8 @@
 		"When Dragonus unleashes his ultimate power, the left over energies propel his wings upwards, allowing him to fly over terrain for a short while."
 
         // Broodmother
+        "npc_dota_reimagined_broodmother_spiderking" "Spiderking"
+
         // Broodmother's Spawn Spiderlings
         "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings"
         "Spawn Spiderlings"
@@ -2082,6 +2084,84 @@
 
         "DOTA_Tooltip_modifier_reimagined_broodmother_insatiable_hunger_queen_of_brood_buff_Description"
         "Damage increased by %dMODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE% and lifestealing %dMODIFIER_PROPERTY_TOOLTIP%%%."
+
+        // Broodmother's Spawn Spiderking
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking"
+        "Spawn Spiderking"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking_Description"
+        "Broodmother plants her genes in her position, causing a mutation that rapidly creates a Spiderking to serve her. While it is being mutated into existence, the Spiderking slowly grows in size until reaching its full size, but it cannot act during this time. Spiderkings are permanent, but only %max_spiderkings% can exist at a time. Spiderkings have vastly increased stats, an extremely potent poison, and emit an aura that protect nearby Spiderlings and Spiderites."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking_Lore"
+        "Every queen needs a king, and that's no different for the Black Arachnia."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking_Note0"
+        "This ability levels up automatically when leveling Insatiable Hunger."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking_Note1"
+        "Spiderking's abilities match the level of the ability, and immediately align when leveling it up."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking_Note2"
+        "Spiderking has the Venom Stinger and Hardened Brood abilities."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking_hatch_duration"
+        "GROW DURATION:"
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_spiderking_hatch"
+        "Spawn Spiderking"
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_spiderking_hatch_Description"
+        "This Spiderking is growing into full power, and is stunned during this process."
+
+        // Broodmother's Spiderking's Venom Stinger
+        "DOTA_Tooltip_Ability_reimagined_spiderking_venom_stinger"
+        "Venom Stinger"
+
+        "DOTA_Tooltip_Ability_reimagined_spiderking_venom_stinger_Description"
+        "Spiderking's attacks inflict its deadly venom unto the target, which slows it and causes its veins to periodically burst, causing it to take damage on each burst."
+
+        "DOTA_Tooltip_Ability_reimagined_spiderking_venom_stinger_Note0"
+        "Additional attacks refresh the duration, but does not affect the burst timer."
+
+        "DOTA_Tooltip_Ability_reimagined_spiderking_venom_stinger_explosion_interval"
+        "BURST INTERVAL:"
+
+        "DOTA_Tooltip_Ability_reimagined_spiderking_venom_stinger_movement_speed_slow"
+        "%MOVE SPEED SLOW:"
+
+        "DOTA_Tooltip_Ability_reimagined_spiderking_venom_stinger_duration"
+        "DEBUFF DURATION:"
+
+        "DOTA_Tooltip_Ability_reimagined_spiderking_venom_stinger_explosion_damage"
+        "BURST DAMAGE:"
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_spiderking_venom_stinger_debuff"
+        "Venom Stinger"
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_spiderking_venom_stinger_debuff_Description"
+        "Slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and bursting every %dMODIFIER_PROPERTY_TOOLTIP% seconds."
+
+        // Broodmother's Spiderking's Hardened Brood Aura
+        "DOTA_Tooltip_Ability_reimagined_spiderking_hardened_brood_aura"
+        "Hardened Brood Aura"
+
+        "DOTA_Tooltip_Ability_reimagined_spiderking_hardened_brood_aura_Description"
+        "Increases the damage resistance of nearby Spiderlings and Spiderites."
+
+        "DOTA_Tooltip_Ability_reimagined_spiderking_hardened_brood_aura_Note0"
+        "Does not apply on Broodmother and on the Spiderking."
+
+        "DOTA_Tooltip_Ability_reimagined_spiderking_hardened_brood_aura_radius"
+        "RADIUS:"
+
+        "DOTA_Tooltip_Ability_reimagined_spiderking_hardened_brood_aura_damage_reduction"
+        "%DAMAGE REDUCTION:"
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_spiderking_hardened_brood_buff"
+        "Hardened Brood Aura"
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_spiderking_hardened_brood_buff_Description"
+        "Damage resistance increased by %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%%."
 
 		// ITEMS
 		// Reimagined Enchanted Mango
