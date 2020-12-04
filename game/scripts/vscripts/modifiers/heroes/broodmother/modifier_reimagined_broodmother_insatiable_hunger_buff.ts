@@ -1,6 +1,8 @@
-import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import { FindUnitsAroundUnit, IsSpiderling, IsSpiderlingUnit } from "../../../lib/util";
+import { BroodmotherTalents } from "../../../abilities/heroes/broodmother/reimagined_broodmother_talents";
+import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
+import { FindUnitsAroundUnit, GetTalentSpecialValueFor, HasTalent, IsSpiderlingUnit } from "../../../lib/util";
 import { modifier_reimagined_broodmother_insatiable_hunger_feed_brood_health_buff } from "./modifier_reimagined_broodmother_insatiable_hunger_feed_brood_health_buff";
+import "./modifier_reimagined_broodmother_talent_8_buff"
 
 @registerModifier()
 export class modifier_reimagined_broodmother_insatiable_hunger_buff extends BaseModifier
@@ -29,6 +31,14 @@ export class modifier_reimagined_broodmother_insatiable_hunger_buff extends Base
     feed_brood_brood_hero_health?: number;
     feed_brood_brood_unit_health?: number;
     feed_brood_heal_duration?: number;
+
+    // Reimagined talent properties
+    talent_8_proc: boolean = false;
+    modifier_talent_8_buff: string = "modifier_reimagined_broodmother_talent_8_buff";
+
+    // Reimagined talent specials
+    talent_8_health_minimum_pct?: number;
+    talent_8_duration?: number;
 
     IsHidden() {return false}
     IsDebuff() {return false}
@@ -82,6 +92,46 @@ export class modifier_reimagined_broodmother_insatiable_hunger_buff extends Base
 
         // Reimagined: Feed The Brood: While Insatiable Hunger is active, Broodmother's attacks apply a debuff on it. If the target dies while the debuff is still active, Broodmother's current and max health increases by x for each hero killed, or by y for each unit killed. Upon killing an enemy unit, all spider units under her control in Queen of the Brood range are healed by z health every second for t seconds. Stacks have independent timers. Brood's health bonus is removed when Insatiable Hunger ends.
         this.ReimaginedFeedTheBroodApplyDebuff(event);
+
+        // Talent: Feast Frenzy: While Insatiable Hunger is active, attacking an enemy unit while Broodmother's health is under x% of her max health grants her y attack speed and t% lifesteal amplification. The buff lasts for z seconds, or until Broodmother fully heals after attacking. This effect can only occur once per cast.
+        this.ReimaginedTalentFeastFrenzy(event);
+    }
+
+    ReimaginedTalentFeastFrenzy(event: ModifierAttackEvent)
+    {
+        if (!IsServer()) return;
+
+        HasTalent(this.caster, BroodmotherTalents.BroodmotherTalent_8)
+        {
+            // Initialize values
+            if (!this.talent_8_health_minimum_pct) this.talent_8_health_minimum_pct = GetTalentSpecialValueFor(this.caster, BroodmotherTalents.BroodmotherTalent_8, "health_minimum_pct");
+            if (!this.talent_8_duration) this.talent_8_duration = GetTalentSpecialValueFor(this.caster, BroodmotherTalents.BroodmotherTalent_8, "duration");
+
+            // Only apply if the attacker is the parent
+            if (event.attacker != this.parent) return;
+
+            // Ignore buildings or wards
+            if (event.target.IsBuilding() || event.target.IsOther()) return;
+
+            // Check if this effect already triggered this cast
+            if (this.talent_8_proc) return;
+
+            // Check that the caster doesn't already have the attack speed buff
+            if (this.parent.HasModifier(this.modifier_talent_8_buff))
+            {
+                this.talent_8_proc = true;
+                return;
+            }
+
+            // Check if the caster is below the health threshold
+            if (this.parent.GetHealthPercent() > this.talent_8_health_minimum_pct) return;
+
+            // Mark this cast as one that triggered the buff
+            this.talent_8_proc = true;
+
+            // Grant the parent the attack speed buff
+            this.parent.AddNewModifier(this.caster, this.ability, this.modifier_talent_8_buff, {duration: this.talent_8_duration});
+        }
     }
 
     OnDeath(event: ModifierAttackEvent)

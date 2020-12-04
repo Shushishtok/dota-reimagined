@@ -5,6 +5,7 @@ import "../../../modifiers/heroes/broodmother/modifier_reimagined_broodmother_in
 import "../../../modifiers/heroes/broodmother/modifier_reimagined_broodmother_insatiable_hunger_feed_brood_health_buff"
 import "../../../modifiers/heroes/broodmother/modifier_reimagined_broodmother_insatiable_hunger_feed_brood_unit_heal"
 import "../../../modifiers/heroes/broodmother/modifier_reimagined_broodmother_insatiable_hunger_queen_of_brood_buff"
+import "../../../modifiers/heroes/broodmother/modifier_reimagined_broodmother_talent_7_cooldown"
 
 @registerAbility()
 export class reimagined_broodmother_insatiable_hunger extends BaseAbility

@@ -458,7 +458,7 @@
 			"08"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"web_up_duration"		"2"
+				"web_up_duration"		"1.25"
 			}
 
 			"09"
@@ -635,7 +635,20 @@
 				"var_type"				"FIELD_FLOAT"
 				"model_size"  	    	"1.1"
 			}
+
+            "05"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"starting_model_size"  	"0.25"
+			}
+
+            "06"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"starting_health_pct"  	"25"
+			}
 		}
+
 	}
 
     //=================================================================================================================
@@ -715,4 +728,264 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
+
+    //=================================================================================================================
+    // Brooodmother: Talent: Poison Popper: Spiderlings and Spiderites have a x% chance to burst when taking damage, dealing their Volatile Poison damage around them. The damage instance must be greater than y after reductions in order to roll the chance to pop.
+    //=================================================================================================================
+    "reimagined_broodmother_talent_1"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/broodmother/reimagined_broodmother_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"broodmother_spawn_spiderlings"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "pop_chance"			"15"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "min_damage"			"40"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Brooodmother: Talent: Broodfather: Spiderking's Hardened Brood Aura now also prevents the death of affected Spiderlings and Spiderites.
+    //=================================================================================================================
+    "reimagined_broodmother_talent_2"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/broodmother/reimagined_broodmother_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"broodmother_spawn_spiderlings"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "value"     			"1"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Brooodmother: Talent: Tangled: Enemies that move while inside of a web gain a stack for every t seconds they accumulate moving in a web. Each stack reduces move speed by x, up to a maximum of y stacks up. Checks in z seconds intervals.
+    //=================================================================================================================
+    "reimagined_broodmother_talent_3"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/broodmother/reimagined_broodmother_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"broodmother_spin_web"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "move_speed_slow_per_stack"  "10"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "max_stacks"            "25"
+            }
+
+            "03"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "check_interval"        "0.1"
+            }
+
+            "04"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "time_threshold"        "1"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Brooodmother: Talent: Silken Bind: Casting Spin Web in radius of an enemy unit causes it to become rooted and disarmed for x seconds. Each enemy can only be afflicted by this effect once every y seconds.
+    //=================================================================================================================
+    "reimagined_broodmother_talent_4"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/broodmother/reimagined_broodmother_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"broodmother_spin_web"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "bound_duration"        "3"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "trigger_immunity_duration"     "12"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Brooodmother: Talent: Weblings: Spiderlings and Spiderites now apply x additional Webbed Up stacks, and gain y attack speed when attacking a target with the Webbed Up counter or debuff. The attack speed buff lasts z seconds.
+    //=================================================================================================================
+    "reimagined_broodmother_talent_5"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/broodmother/reimagined_broodmother_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"broodmother_incapacitating_bite"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "additional_stacks"     "1"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "attack_speed_bonus"    "30"
+            }
+
+            "03"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "attack_speed_duration" "1.5"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Brooodmother: Talent: Necrotic Venom: Incapacitating Bite's debuff now also stops all health regeneration of the target.
+    //=================================================================================================================
+    "reimagined_broodmother_talent_6"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/broodmother/reimagined_broodmother_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"broodmother_incapacitating_bite"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_INTEGER"
+                "health_regen_reduction"     "100"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Brooodmother: Talent: Hunger Pangs: When killing an enemy unit and Insatiable Hunger is not currently active, grants the Insatiable Hunger buff for x seconds.
+    //=================================================================================================================
+    "reimagined_broodmother_talent_7"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/broodmother/reimagined_broodmother_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"broodmother_insatiable_hunger"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "duration"              "2.5"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Brooodmother: Talent: Feast Frenzy: While Insatiable Hunger is active, attacking an enemy unit while Broodmother's health is under x% of her max health grants her y attack speed and t% lifesteal amplification. The buff lasts for z seconds, or until Broodmother fully heals. This effect can only occur once per cast.
+    //=================================================================================================================
+    "reimagined_broodmother_talent_8"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/broodmother/reimagined_broodmother_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"broodmother_insatiable_hunger"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "health_minimum_pct"    "20"
+            }
+
+            "02"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "attack_speed_bonus"    "200"
+            }
+
+            "03"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "duration"              "5"
+            }
+
+            "04"
+            {
+                "var_type"				"FIELD_FLOAT"
+                "lifesteal_amp"  "50"
+            }
+        }
+    }
 }

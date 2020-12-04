@@ -30,7 +30,8 @@ export class modifier_reimagined_broodmother_spiderking_venom_stinger_passive ex
 
     DeclareFunctions(): ModifierFunction[]
     {
-        return [ModifierFunction.ON_ATTACK_LANDED]
+        return [ModifierFunction.ON_ATTACK_LANDED,
+                ModifierFunction.ON_DEATH]
     }
 
     OnAttackLanded(event: ModifierAttackEvent)

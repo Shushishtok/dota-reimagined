@@ -1,4 +1,6 @@
+import { BroodmotherTalents } from "../../../abilities/heroes/broodmother/reimagined_broodmother_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
+import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 
 @registerModifier()
 export class modifier_reimagined_broodmother_incapacitating_bite_debuff extends BaseModifier
@@ -16,6 +18,9 @@ export class modifier_reimagined_broodmother_incapacitating_bite_debuff extends 
     // Reimagined specials
     paralytic_cast_speed_slow_pct?: number;
     paralytic_attack_speed_slow?: number;
+
+    // Reimagined talent specials
+    talent_6_health_regen_reduction?: number;
 
     IsHidden() {return false}
     IsDebuff() {return true}
@@ -39,7 +44,11 @@ export class modifier_reimagined_broodmother_incapacitating_bite_debuff extends 
 
                 // Reimagined: Paralytic Toxics: Attack speed is reduced by x and cast speed y% for affected units for the duration.
                 ModifierFunction.CASTTIME_PERCENTAGE,
-                ModifierFunction.ATTACKSPEED_BONUS_CONSTANT]
+                ModifierFunction.ATTACKSPEED_BONUS_CONSTANT,
+
+                // Talent: Necrotic Venom: Incapacitating Bite's debuff now also stops all health regeneration of the target.
+                ModifierFunction.HEALTH_REGEN_PERCENTAGE
+            ]
     }
 
     GetModifierMiss_Percentage(): number
@@ -67,6 +76,25 @@ export class modifier_reimagined_broodmother_incapacitating_bite_debuff extends 
     {
         // Reimagined: Paralytic Toxics: Attack speed is reduced by x and cast speed y% for affected units for the duration.
         return this.ReimaginedParalyticToxinsAttackSpeed();
+    }
+
+    GetModifierHealthRegenPercentage(): number
+    {
+        // Talent: Necrotic Venom: Incapacitating Bite's debuff now also stops all health regeneration of the target.
+        return this.ReimaginedTalentNecroticVenom()
+    }
+
+    ReimaginedTalentNecroticVenom(): number
+    {
+        if (HasTalent(this.caster, BroodmotherTalents.BroodmotherTalent_6))
+        {
+            // Initialize values
+            if (!this.talent_6_health_regen_reduction) this.talent_6_health_regen_reduction = GetTalentSpecialValueFor(this.caster, BroodmotherTalents.BroodmotherTalent_6, "health_regen_reduction");
+
+            return this.talent_6_health_regen_reduction * (-1);
+        }
+
+        return 0;
     }
 
     ReimaginedParalyticToxinsAttackSpeed(): number

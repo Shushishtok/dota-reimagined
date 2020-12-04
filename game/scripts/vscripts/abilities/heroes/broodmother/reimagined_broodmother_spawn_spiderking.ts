@@ -21,6 +21,7 @@ export class reimagined_broodmother_spawn_spiderking extends BaseAbility
     Precache(context: CScriptPrecacheContext)
     {
         PrecacheResource(PrecacheType.MODEL, "models/items/broodmother/spiderling/elder_blood_heir_of_elder_blood/elder_blood_heir_of_elder_blood.vmdl", context);
+        PrecacheResource(PrecacheType.SOUNDFILE, "soundevents/game_sounds_items.vsndevts", context);
     }
 
     OnSpellStart(): void
@@ -66,7 +67,7 @@ export class reimagined_broodmother_spawn_spiderking extends BaseAbility
             if (this.spiderkings_array.length > this.max_spiderkings!)
             {
                 const old_spiderking = this.spiderkings_array.shift();
-                if (old_spiderking)
+                if (old_spiderking && IsValidEntity(old_spiderking) && !old_spiderking.IsNull())
                 {
                     old_spiderking.ForceKill(false);
                 }

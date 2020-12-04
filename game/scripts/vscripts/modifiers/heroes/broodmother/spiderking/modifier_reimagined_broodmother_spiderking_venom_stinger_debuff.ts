@@ -47,7 +47,7 @@ export class modifier_reimagined_broodmother_spiderking_venom_stinger_debuff ext
         {
             attacker: this.caster,
             damage: this.explosion_damage!,
-            damage_type: this.ability.GetAbilityDamageType(),
+            damage_type: DamageTypes.MAGICAL,
             victim: this.parent,
             ability: this.ability,
             damage_flags: DamageFlag.NONE

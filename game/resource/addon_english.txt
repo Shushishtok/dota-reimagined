@@ -2090,7 +2090,7 @@
         "Spawn Spiderking"
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking_Description"
-        "Broodmother plants her genes in her position, causing a mutation that rapidly creates a Spiderking to serve her. While it is being mutated into existence, the Spiderking slowly grows in size until reaching its full size, but it cannot act during this time. Spiderkings are permanent, but only %max_spiderkings% can exist at a time. Spiderkings have vastly increased stats, an extremely potent poison, and emit an aura that protect nearby Spiderlings and Spiderites."
+        "Broodmother plants a cocoon in her position, causing a mutation that rapidly creates a Spiderking to serve her. While it is being mutated into existence, it cannot act and slowly gains health. Spiderkings are permanent, but only %max_spiderkings% can exist at a time. Spiderkings have significantly increased stats, an extremely potent poison, and emit an aura that protect nearby Spiderlings and Spiderites."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking_Lore"
         "Every queen needs a king, and that's no different for the Black Arachnia."
@@ -2099,10 +2099,10 @@
         "This ability levels up automatically when leveling Insatiable Hunger."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking_Note1"
-        "Spiderking's abilities match the level of the ability, and immediately align when leveling it up."
+        "Spiderking has the Venom Stinger and Hardened Brood Aura abilities, which are set to the level of the Spawn Spiderking ability, and immediately align when leveling it up."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking_Note2"
-        "Spiderking has the Venom Stinger and Hardened Brood abilities."
+        "While hatching, the Spiderking is stunned and cannot be healed."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderking_hatch_duration"
         "GROW DURATION:"
@@ -2162,6 +2162,102 @@
 
         "DOTA_Tooltip_modifier_reimagined_broodmother_spiderking_hardened_brood_buff_Description"
         "Damage resistance increased by %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%%."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_1"
+        "Poison Popper"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_1_Description"
+        "Spiderlings and Spiderites have a %pop_chance%%% chance to pop when taking damage, triggering their Volatile Poison effect around them. The damage instance must be greater than %min_damage% after reductions in order to roll the chance to pop."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_1_Lore"
+        "Black Arachnia's young has a habit to spread lethal poison on whoever attempts to harm them."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_2"
+        "Broodfather"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_2_Description"
+        "Spiderking's Hardened Brood Aura now also prevents the death of affected Spiderlings and Spiderites."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_2_Lore"
+        "As they keep close to the father figure of the brood, the young are protected from deadly hazards."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_3"
+        "Tangled"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_3_Description"
+        "Enemy units that move while inside of a web gain a stack for every %time_threshold% seconds they accumulate. Each stack reduces move speed by %move_speed_slow_per_stack%, up to a maximum of %max_stacks% stacks."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_3_Lore"
+        "The silken strings woven by the Broodmother slowly become tangled around her prey's body, slowly stopping it from moving as effectively."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_4"
+        "Silken Bind"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_4_Description"
+        "Casting Spin Web causes all enemies in Spin Web's radius to become rooted and disarmed for %bound_duration% seconds. Each enemy can only be afflicted by this effect once every %trigger_immunity_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_4_Lore"
+        "It is foolish for one to be standing right where Black Arachnia is marking her new territory."
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_talent_4_debuff"
+        "Silken Bind"
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_talent_4_debuff_Description"
+        "Rooted and disarmed."
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_talent_4_immunity"
+        "Silken Bind Immunity"
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_talent_4_immunity_Description"
+        "Cannot be affected by successive casts of Silken Bind."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_5"
+        "Weblings"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_5_Description"
+        "Spiderlings and Spiderites now apply %additional_stacks% additional Webbed Up stacks, and gain %attack_speed_bonus% attack speed when attacking a target with the Webbed Up counter or debuff. The attack speed buff lasts %attack_speed_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_5_Lore"
+        "Black Arachnia's spiderlings have good control on their spinnerets, improving their ability to wrap their prey in webs."
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_talent_5_buff"
+        "Weblings"
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_talent_5_buff_Description"
+        "Attack speed increased by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_6"
+        "Necrotic Venom"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_6_Description"
+        "Incapacitating Bite's debuff now also stops all health regeneration of the target."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_6_Lore"
+        "Black Arachnia's venom has a component that blocks blood from reaching the infected area, preventing the regeneration of dead body cells."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_7"
+        "Hunger Pangs"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_7_Description"
+        "When killing an enemy unit and Insatiable Hunger is not currently active, grants the Insatiable Hunger buff for %duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_7_Lore"
+        "After having a taste of her prey, Black Arachnia often goes into a rage induced by hunger pangs."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_8"
+        "Feast Frenzy"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_8_Description"
+        "While Insatiable Hunger is active, attacking an enemy unit while Broodmother's health is under %health_minimum_pct%%% of her max health grants her %attack_speed_bonus% attack speed and %lifesteal_amp%%% lifesteal amplification. The buff lasts for %duration% seconds, or until Broodmother fully heals. This effect can only occur once per trigger of the Insatiable Hunger buff."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_talent_8_Lore"
+        "Being on her last legs, Black Arachnia instinctively goes into a frenzy, ripping her enemies apart from limb to limb, feeding herself to recover her wounds."
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_talent_8_buff"
+        "Feast Frenzy"
+
+        "DOTA_Tooltip_modifier_reimagined_broodmother_talent_8_buff_Description"
+        "Attack speed increased by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and lifesteal amplification increased by %dMODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE%%%."
 
 		// ITEMS
 		// Reimagined Enchanted Mango

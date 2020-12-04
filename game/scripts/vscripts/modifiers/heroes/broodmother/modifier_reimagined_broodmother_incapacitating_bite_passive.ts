@@ -1,8 +1,10 @@
 import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
-import { IsSpiderlingUnit } from "../../../lib/util";
+import { GetTalentSpecialValueFor, HasTalent, IsSpiderlingUnit } from "../../../lib/util";
 import "./modifier_reimagined_broodmother_incapacitating_bite_debuff";
 import "./modifier_reimagined_broodmother_spin_web_debuff"
 import "./modifier_reimagined_broodmother_incapacitating_bite_webbed_up_counter"
+import "./modifier_reimagined_broodmother_talent_5_buff"
+import { BroodmotherTalents } from "../../../abilities/heroes/broodmother/reimagined_broodmother_talents";
 
 @registerModifier()
 export class modifier_reimagined_broodmother_incapacitating_bite_passive extends BaseModifier
@@ -14,6 +16,7 @@ export class modifier_reimagined_broodmother_incapacitating_bite_passive extends
     modifier_debuff: string = "modifier_reimagined_broodmother_incapacitating_bite_debuff";
     modifier_enemy_web: string = "modifier_reimagined_broodmother_spin_web_debuff";
     modifier_webbed_up_counter: string = "modifier_reimagined_broodmother_incapacitating_bite_webbed_up_counter";
+    modifier_webbed_up_debuff: string = "modifier_reimagined_broodmother_incapacitating_bite_webbed_up_debuff";
 
     // Modifier specials
     duration?: number;
@@ -22,6 +25,13 @@ export class modifier_reimagined_broodmother_incapacitating_bite_passive extends
     web_up_stacks_hero?: number;
     web_up_stacks_spider?: number;
     web_up_counter_duration?: number;
+
+    // Reimagined talent properties
+    modifier_talent_5_buff: string = "modifier_reimagined_broodmother_talent_5_buff";
+
+    // Reimagined talent specials
+    talent_5_additional_stacks?: number;
+    talent_5_attack_speed_duration?: number;
 
     IsHidden() {return true}
     IsDebuff() {return false}
@@ -79,6 +89,9 @@ export class modifier_reimagined_broodmother_incapacitating_bite_passive extends
             if (event.attacker == this.parent) stacks = this.web_up_stacks_hero!;
             else stacks = this.web_up_stacks_spider!;
 
+            // Talent: Weblings: Spiderlings and Spiderites now apply x additional Webbed Up stacks, and gain y attack speed when attacking a target with the Webbed Up counter or debuff.
+            stacks = this.ReimaginedTalentWeblings(event, stacks);
+
             // If the target doesn't have the modifier, give it to it
             if (!event.target.HasModifier(this.modifier_webbed_up_counter))
             {
@@ -93,5 +106,31 @@ export class modifier_reimagined_broodmother_incapacitating_bite_passive extends
                 modifier.ForceRefresh();
             }
         }
+    }
+
+    ReimaginedTalentWeblings(event: ModifierAttackEvent, stacks: number): number
+    {
+        if (HasTalent(this.caster, BroodmotherTalents.BroodmotherTalent_5))
+        {
+            // Initialize talent specials
+            if (!this.talent_5_additional_stacks) this.talent_5_additional_stacks = GetTalentSpecialValueFor(this.caster, BroodmotherTalents.BroodmotherTalent_5, "additional_stacks");
+            if (!this.talent_5_attack_speed_duration) this.talent_5_attack_speed_duration = GetTalentSpecialValueFor(this.caster, BroodmotherTalents.BroodmotherTalent_5, "attack_speed_duration");
+
+            // Check if the attack is a spiderling or a spiderite - does not count Spiderkings
+            if (IsSpiderlingUnit(event.attacker, false))
+            {
+                // Increase applied stacks
+                stacks += this.talent_5_additional_stacks;
+
+                // Check if the target already has the Webbed Up counter or the debuff
+                if (event.target.HasModifier(this.modifier_webbed_up_counter) || event.target.HasModifier(this.modifier_webbed_up_debuff))
+                {
+                    // Grant the Spiderling/Spiderite attack speed bonus modifier
+                    event.attacker.AddNewModifier(this.caster, this.ability, this.modifier_talent_5_buff, {duration: this.talent_5_attack_speed_duration});
+                }
+            }
+        }
+
+        return stacks;
     }
 }

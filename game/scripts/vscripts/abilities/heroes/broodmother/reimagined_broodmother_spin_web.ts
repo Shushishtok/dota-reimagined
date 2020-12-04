@@ -1,6 +1,9 @@
 import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
 import "../../../modifiers/heroes/broodmother/modifier_reimagined_broodmother_spin_web_aura";
+import "../../../modifiers/heroes/broodmother/modifier_reimagined_broodmother_talent_4_debuff";
+import "../../../modifiers/heroes/broodmother/modifier_reimagined_broodmother_talent_4_immunity";
+import { BroodmotherTalents } from "./reimagined_broodmother_talents";
 
 @registerAbility()
 export class reimagined_broodmother_spin_web extends BaseAbility
@@ -19,6 +22,14 @@ export class reimagined_broodmother_spin_web extends BaseAbility
     radius?: number;
     count?: number;
     count_scepter?: number;
+
+    // Reimagined talent properties
+    modifier_talent_4_debuff: string = "modifier_reimagined_broodmother_talent_4_debuff";
+    modifier_talent_4_immunity: string = "modifier_reimagined_broodmother_talent_4_immunity";
+
+    // Reimagined talent specials
+    talent_4_bound_duration?: number;
+    talent_4_trigger_immunity_duration?: number;
 
     GetIntrinsicModifierName(): string
     {
@@ -107,6 +118,7 @@ export class reimagined_broodmother_spin_web extends BaseAbility
         // Ability specials
         this.count = this.GetSpecialValueFor("count");
         this.count_scepter = this.GetSpecialValueFor("count_scepter");
+        this.radius = this.GetSpecialValueFor("radius");
 
         // Play sound
         EmitSoundOn(this.sound_cast, this.caster);
@@ -155,5 +167,39 @@ export class reimagined_broodmother_spin_web extends BaseAbility
                 removed_web.RemoveModifierByName(this.modifier_web_aura);
             }
         });
+
+        // Talent: Silken Bind: Casting Spin Web in radius of an enemy unit causes it to become rooted and disarmed for x seconds. Each enemy can only be afflicted by this effect once every y seconds.
+        this.ReimaginedTalentSilkenBind(target_point);
+    }
+
+    ReimaginedTalentSilkenBind(target_point: Vector)
+    {
+        if (util.HasTalent(this.caster, BroodmotherTalents.BroodmotherTalent_4))
+        {
+            // Initialize variables
+            if (!this.talent_4_bound_duration) this.talent_4_bound_duration = util.GetTalentSpecialValueFor(this.caster, BroodmotherTalents.BroodmotherTalent_4, "bound_duration");
+            if (!this.talent_4_trigger_immunity_duration) this.talent_4_trigger_immunity_duration = util.GetTalentSpecialValueFor(this.caster, BroodmotherTalents.BroodmotherTalent_4, "trigger_immunity_duration");
+
+            // Find all enemies in the radius of the ability
+            let enemies = FindUnitsInRadius(this.caster.GetTeamNumber(),
+                                              target_point,
+                                              undefined,
+                                              this.radius!,
+                                              UnitTargetTeam.ENEMY,
+                                              UnitTargetType.HERO + UnitTargetType.BASIC,
+                                              UnitTargetFlags.NONE,
+                                              FindOrder.ANY,
+                                              false);
+
+            // Filter enemies in the list to only include enemies that don't have the immunity modifier
+            enemies = enemies.filter(enemy => !enemy.HasModifier(this.modifier_talent_4_immunity))
+
+            // Apply the debuff and the immunity for the remaining enemies
+            for (const enemy of enemies)
+            {
+                enemy.AddNewModifier(this.caster, this, this.modifier_talent_4_debuff, {duration: this.talent_4_bound_duration});
+                enemy.AddNewModifier(this.caster, this, this.modifier_talent_4_immunity, {duration: this.talent_4_trigger_immunity_duration});
+            }
+        }
     }
 }

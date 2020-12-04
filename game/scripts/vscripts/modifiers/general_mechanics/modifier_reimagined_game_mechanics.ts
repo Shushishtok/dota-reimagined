@@ -4,6 +4,7 @@ import { BaseModifier, registerModifier, } from "../../lib/dota_ts_adapter";
 export class modifier_reimagined_game_mechanics extends BaseModifier
 {
     particle_lifesteal: string = "particles/generic_gameplay/generic_lifesteal.vpcf";
+    sound_spiderking_death: string = "Broodmother.Spiderking.Death";
 
     IsHidden() {return true}
     IsDebuff() {return false}
@@ -16,13 +17,13 @@ export class modifier_reimagined_game_mechanics extends BaseModifier
 
     DeclareFunctions(): ModifierFunction[]
     {
-        return [ModifierFunction.ON_ATTACK_LANDED]
+        return [ModifierFunction.ON_ATTACK_LANDED,
+                ModifierFunction.ON_DEATH]
     }
 
     OnAttackLanded(event: ModifierAttackEvent): void
     {
         this.ApplyLifesteal(event);
-
     }
 
     ApplyLifesteal(event: ModifierAttackEvent): void
@@ -73,6 +74,25 @@ export class modifier_reimagined_game_mechanics extends BaseModifier
                 const pfx = ParticleManager.CreateParticle(this.particle_lifesteal, ParticleAttachment.ABSORIGIN_FOLLOW, event.attacker);
                 ParticleManager.SetParticleControl(pfx, 0, event.attacker.GetAbsOrigin());
                 ParticleManager.ReleaseParticleIndex(pfx);
+            }
+        }
+    }
+
+    OnDeath(event: ModifierAttackEvent)
+    {
+        if (!IsServer()) return;
+
+        // Play death sounds for custom units
+        if (event.unit)
+        {
+            switch (event.unit.GetUnitName())
+            {
+                case "npc_dota_reimagined_broodmother_spiderking":
+                    event.unit.EmitSoundParams(this.sound_spiderking_death, 0, 0.6, 0);
+                    break;
+
+                default:
+                    break;
             }
         }
     }
