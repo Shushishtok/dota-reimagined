@@ -443,14 +443,8 @@ export function PrintEventTable(event: any)
 
 export function IsRoshan(unit: CDOTA_BaseNPC): boolean
 {
-    if (unit.GetName() == "npc_dota_roshan")
-    {
-        return true
-    }
-    else
-    {
-        return false
-    }
+    if (unit.GetName() == "npc_dota_roshan") return true;
+    else return false;
 }
 
 export function CanOrbEffectBeCast(event: ModifierAttackEvent, ability: CDOTABaseAbility, orb_data: OrbData): boolean
@@ -820,4 +814,23 @@ export function GetAllChargesModifiersForUnit(caster: CDOTA_BaseNPC): modifier_r
     }
 
     return undefined;
+}
+
+export function GetAllPlayers(): CDOTAPlayer[]
+{
+    const players: CDOTAPlayer[] = [];
+
+    for (let playerID = 0; playerID < DOTA_MAX_TEAM_PLAYERS; playerID++)
+    {
+        if (PlayerResource.IsValidPlayer(playerID))
+        {
+            const player = PlayerResource.GetPlayer(playerID);
+            if (player)
+            {
+                players.push(player);
+            }
+        }
+    }
+
+    return players;
 }

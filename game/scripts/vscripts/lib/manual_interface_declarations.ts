@@ -59,6 +59,7 @@ interface CDOTA_BaseNPC_Hero
 {
     talents_learned: Set<CDOTABaseAbility>;
     talentMap: Map<number, CDOTABaseAbility>;
+    recently_buyback: boolean;
 }
 
 interface CDOTA_Buff

@@ -1,10 +1,8 @@
 import { BaseTalent } from "./lib/talents";
 import { reloadable } from "./lib/tstl-utils";
-import { GetAllChargesModifiersForUnit, GetTalentAbilityFromNumber, GetTalentNumber, IsTalentAbility, PrepareTalentList } from "./lib/util";
+import { GetAllChargesModifiersForUnit, GetAllPlayers, GetTalentAbilityFromNumber, GetTalentNumber, IsRoshan, IsTalentAbility, PrepareTalentList } from "./lib/util";
 import "../vscripts/modifiers/general_mechanics/modifier_reimagined_charges";
 import "../vscripts/modifiers/general_mechanics/modifier_reimagined_game_mechanics"
-
-const heroSelectionTime = 30;
 
 declare global
 {
@@ -23,6 +21,16 @@ export class GameMode
     talent_ping_map: Map<PlayerID, number> = new Map();
     wtf_mode_enabled: boolean = false;
 
+    // Respawn rules
+    minimum_respawn_timer_neutral_death: number = 26;
+    respawn_increase_interval: number = 5; // Minutes
+    respawn_increase_scale: number = 3;
+    level_respawn_time: Map<number, number> = new Map();
+    buyback_respawn_timer_increase = 15;
+
+    // Buyback rules
+    buyback_cooldown: number = 240;
+
     public static Precache(this: void, context: CScriptPrecacheContext)
     {
         print("Precaching sounds");
@@ -37,7 +45,6 @@ export class GameMode
     constructor()
     {
         this.configure();
-
     }
 
     public configure()
@@ -45,6 +52,7 @@ export class GameMode
         this.RegisterEvents();
         this.RmgGameRules();
         this.AssignMechanicsModifier();
+        this.PrepareRespawnTimers();
     }
 
     RegisterEvents()
@@ -55,6 +63,7 @@ export class GameMode
         ListenToGameEvent("player_chat", event => this.OnPlayerChat(event), undefined);
         ListenToGameEvent("server_pre_shutdown", event => this.OnServerPreShutdown(event), undefined);
         ListenToGameEvent("server_shutdown", event => this.OnServerShutdown(event), undefined);
+        ListenToGameEvent("entity_killed", event => this.OnEntityKilled(event), undefined);
         CustomGameEventManager.RegisterListener("learn_talent_event", (_, event) => this.OnLearnTalent(event, 0));
         CustomGameEventManager.RegisterListener("send_currently_selected_unit", (_,event) => this.OnSentCurrentlySelectedUnit(event))
         CustomGameEventManager.RegisterListener("ping_talent", (_,event) => this.OnPingTalent(event))
@@ -119,6 +128,135 @@ export class GameMode
         if (fountain)
         {
             fountain.AddNewModifier(fountain, undefined, "modifier_reimagined_game_mechanics", {});
+        }
+    }
+
+    PrepareRespawnTimers()
+    {
+        const level_respawn_times =
+        [
+            3, // level 1
+            4, // level 2
+            5, // level 3
+            6, // level 4
+            7, // level 5
+            8, // level 6
+            9, // level 7
+            10, // level 8
+            11, // level 9
+            12, // level 10
+            14, // level 11
+            16, // level 12
+            18, // level 13
+            20, // level 14
+            22, // level 15
+            24, // level 16
+            26, // level 17
+            28, // level 18
+            30, // level 19
+            32, // level 20
+            35, // level 21
+            38, // level 22
+            41, // level 23
+            44, // level 24
+            47, // level 25
+            50, // level 26
+            53, // level 27
+            56, // level 28
+            59, // level 29
+            60, // level 30
+            60, // level 31
+            60, // level 32
+            60, // level 33
+            60, // level 34
+            60, // level 35
+            60, // level 36
+            60, // level 37
+            60, // level 38
+            60, // level 39
+            60 // level 40
+        ]
+
+        // Set the map
+        for (let level = 1; level <= level_respawn_times.length; level++)
+        {
+            const respawn_time = level_respawn_times[level - 1];
+            this.level_respawn_time.set(level, respawn_time);
+        }
+    }
+
+    GetTimeToRespawn(level: number): number
+    {
+        let respawn_time: number = 3;
+
+        // Fetch value based on level
+        if (this.level_respawn_time.has(level))
+        {
+            respawn_time = this.level_respawn_time.get(level)!;
+        }
+
+        // Increase respawn timer based on game time
+        let gametime = GameRules.GetGameTime();
+        gametime = gametime / 60; // Turn into minutes
+
+        // Check how many instances of game time has elapsed, rounded down.
+        const instances = math.floor(gametime / this.respawn_increase_interval);
+
+        // Calculate how many seconds should be added to the respawn time
+        const game_time_increase = instances * this.respawn_increase_scale;
+        respawn_time += game_time_increase;
+
+        return respawn_time;
+    }
+
+    SetRespawnTimeForHero(hero: CDOTA_BaseNPC_Hero, attacker: EntityIndex)
+    {
+        // If hero is going to reincarnate, leave it alone
+        if (hero.IsReincarnating()) return;
+
+        // Set the death timer
+        const hero_level = hero.GetLevel();
+        let respawn_time = this.GetTimeToRespawn(hero_level);
+
+        // Check if the death was due to a neutral creep: if so, set the minimum value
+        let killer
+        if (attacker)
+        {
+            killer = EntIndexToHScript(attacker);
+
+            if (killer && killer.IsBaseNPC())
+            {
+                if (killer.IsNeutralUnitType() || IsRoshan(killer))
+                {
+                    respawn_time = math.max(respawn_time, this.minimum_respawn_timer_neutral_death);
+                }
+            }
+        }
+
+        // If the hero recently bought back, increase timer and remove the tag
+        if (hero.recently_buyback)
+        {
+            respawn_time += this.buyback_respawn_timer_increase;
+            hero.recently_buyback = false;
+        }
+
+        hero.SetTimeUntilRespawn(respawn_time);
+    }
+
+    OnEntityKilled(event: EntityKilledEvent)
+    {
+        if (event.entindex_killed)
+        {
+            const killed_unit = EntIndexToHScript(event.entindex_killed);
+            if (!killed_unit) return;
+
+            if (killed_unit.IsBaseNPC())
+            {
+                if (killed_unit.IsRealHero())
+                {
+                    this.SetRespawnTimeForHero(killed_unit, event.entindex_attacker);
+                }
+            }
         }
     }
 
@@ -249,6 +387,11 @@ export class GameMode
     public OnStateChange(): void
     {
         const state = GameRules.State_Get();
+
+        if (state == GameState.PRE_GAME)
+        {
+            this.BuybackRules();
+        }
     }
 
     private StartGame(): void
@@ -513,5 +656,16 @@ export class GameMode
     OnServerShutdown(event: ServerShutdownEvent)
     {
         print(event.reason);
+    }
+
+    BuybackRules()
+    {
+        this.Game.SetBuybackEnabled(true);
+        this.Game.SetCustomBuybackCooldownEnabled(true);
+
+        for (const player of GetAllPlayers())
+        {
+            PlayerResource.SetCustomBuybackCooldown(player.GetPlayerID(), this.buyback_cooldown);
+        }
     }
 }

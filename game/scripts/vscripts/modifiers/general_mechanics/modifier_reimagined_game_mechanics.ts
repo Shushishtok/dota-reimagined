@@ -18,7 +18,8 @@ export class modifier_reimagined_game_mechanics extends BaseModifier
     DeclareFunctions(): ModifierFunction[]
     {
         return [ModifierFunction.ON_ATTACK_LANDED,
-                ModifierFunction.ON_DEATH]
+                ModifierFunction.ON_DEATH,
+                ModifierFunction.ON_ORDER]
     }
 
     OnAttackLanded(event: ModifierAttackEvent): void
@@ -93,6 +94,20 @@ export class modifier_reimagined_game_mechanics extends BaseModifier
 
                 default:
                     break;
+            }
+        }
+    }
+
+    OnOrder(event: ModifierUnitEvent)
+    {
+        if (!IsServer()) return;
+
+        // Buyback: listen to buyback events, turn on the hero's buyback tag
+        if (event.order_type == UnitOrder.BUYBACK && event.unit)
+        {
+            if (event.unit.IsRealHero())
+            {
+                event.unit.recently_buyback = true;
             }
         }
     }
