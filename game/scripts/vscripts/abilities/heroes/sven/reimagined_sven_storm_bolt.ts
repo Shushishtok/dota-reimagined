@@ -1,6 +1,6 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
-import { modifier_reimagined_sven_storm_hammer_scepter } from "../../../modifiers/heroes/sven/modifier_reimagind_sven_storm_hammer_scepter"
+import { modifier_reimagined_sven_storm_hammer_scepter } from "../../../modifiers/heroes/sven/modifier_reimagined_sven_storm_hammer_scepter"
 import { modifier_reimagined_sven_talent_2_buff } from "../../../modifiers/heroes/sven/modifier_reimagined_sven_talent_2_buff";
 import { SvenTalents } from "./reimagined_sven_talents";
 

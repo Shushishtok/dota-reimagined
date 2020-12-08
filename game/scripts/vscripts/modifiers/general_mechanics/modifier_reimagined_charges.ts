@@ -4,6 +4,7 @@ import { GetChargeModifierForAbility } from "../../lib/util";
 // Generic Charges Library created by Elfansoer (with modifications) from dota IMBA
 // See the reference at https://github.com/Elfansoer/dota-2-lua-abilities/blob/master/scripts/vscripts/lua_abilities/generic/modifier_generic_charges.lua
 
+
 @registerModifier()
 export class modifier_reimagined_charges extends BaseModifier
 {

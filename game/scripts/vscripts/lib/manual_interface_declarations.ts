@@ -33,10 +33,14 @@ declare interface OrbData
 
 interface CDOTA_BaseNPC
 {
-    AddNewModifier(caster: CDOTA_BaseNPC | undefined,
-                ability: CDOTABaseAbility | undefined,
-                modifierName: string,
-                modifierTable: { duration?: number; [key: string]: any } | undefined): CDOTA_Buff;
+    oldAddNewModifier: <TThis>(this: TThis, caster: CDOTA_BaseNPC | undefined, ability: CDOTABaseAbility | undefined, modifierName: string, modifierTable: object | undefined) => CDOTA_Buff;
+}
+
+interface NewModifierProperties
+{
+    duration?: number;
+    ignoreStatusResistance?: 1,
+    [key: string]: any
 }
 
 interface CustomGameEventDeclarations
@@ -60,6 +64,7 @@ interface CDOTA_BaseNPC_Hero
     talents_learned: Set<CDOTABaseAbility>;
     talentMap: Map<number, CDOTABaseAbility>;
     recently_buyback: boolean;
+    courier: CDOTA_Unit_Courier;
 }
 
 interface CDOTA_Buff

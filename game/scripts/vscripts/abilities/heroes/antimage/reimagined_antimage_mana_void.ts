@@ -1,6 +1,6 @@
-import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
-import { GetTalentAbilityFromNumber, GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
-import { modifier_reimagined_antimage_mana_void_kill_debuff } from "../../../modifiers/heroes/antimage/modifier_reimagined_antimage_mana_void_kill_debuff";
+import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
+import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
+import "../../../modifiers/heroes/antimage/modifier_reimagined_antimage_mana_void_kill_debuff";
 import { AntiMageTalents } from "./reimagined_antimage_talents";
 
 @registerAbility()
@@ -12,6 +12,7 @@ export class reimagined_antimage_mana_void extends BaseAbility
     sound_cast: string = "Hero_Antimage.ManaVoid";
     particle_void: string = "particles/units/heroes/hero_antimage/antimage_manavoid.vpcf";
     particle_void_fx?: ParticleID;
+    modifier_void_kill_debuff: string = "modifier_reimagined_antimage_mana_void_kill_debuff";
 
     // Ability specials
     mana_void_damage_per_mana?: number;
@@ -37,14 +38,14 @@ export class reimagined_antimage_mana_void extends BaseAbility
     }
 
     OnAbilityPhaseStart(): boolean
-    {        
+    {
         EmitSoundOn(this.sound_start, this.caster);
-        return true;     
+        return true;
     }
 
     OnAbilityPhaseInterrupted(): void
     {
-        StopSoundOn(this.sound_start, this.caster);        
+        StopSoundOn(this.sound_start, this.caster);
     }
 
     GetAOERadius(): number
@@ -117,21 +118,21 @@ export class reimagined_antimage_mana_void extends BaseAbility
                                           UnitTargetType.HERO + UnitTargetType.BASIC,
                                           UnitTargetFlags.NONE,
                                           FindOrder.ANY,
-                                          false);        
+                                          false);
 
         let mana_calculation_target = target!;
 
         // Reimagined: Calculated Combustion: Calculates the damage based on the enemy unit missing the most mana in the radius.
-        mana_calculation_target = this.ReimaginedCalculatedCombustion(enemies);        
+        mana_calculation_target = this.ReimaginedCalculatedCombustion(enemies);
 
         // Calculate damage
         let damage = this.CalculateDamage(mana_calculation_target);
-        
-        // Talent: Violent Circuits: Mana Void adds x% of the main target's max mana to the damage calculation.        
-        damage += this.ReimaginedTalentViolentCircuits(target);                
+
+        // Talent: Violent Circuits: Mana Void adds x% of the main target's max mana to the damage calculation.
+        damage += this.ReimaginedTalentViolentCircuits(target);
 
         // Deal damage to all targets in the AoE
-        for (const enemy of enemies) 
+        for (const enemy of enemies)
         {
             this.DealDamageToEnemy(enemy, damage);
         }
@@ -141,7 +142,7 @@ export class reimagined_antimage_mana_void extends BaseAbility
     {
         let enemy_missing_the_most_mana: CDOTA_BaseNPC | undefined = undefined;
         let most_missing_mana: number = 0;
-        for (const enemy of enemies) 
+        for (const enemy of enemies)
         {
             const missing_mana = enemy.GetMaxMana() - enemy.GetMana();
             if (enemy_missing_the_most_mana == undefined)
@@ -164,16 +165,15 @@ export class reimagined_antimage_mana_void extends BaseAbility
 
     ReimaginedVoidFeedback(target: CDOTA_BaseNPC, damage: number): number
     {
-        let actual_damage = damage;        
+        let actual_damage = damage;
         // Check for mana percentage threshold
-        print(target.GetManaPercent(), actual_damage);
         if (target.GetManaPercent() <= this.void_feedback_mana_threshold_pct!)
         {
             // Multiply damage
-            actual_damage = actual_damage * this.void_feedback_damage_multiplier!;                        
+            actual_damage = actual_damage * this.void_feedback_damage_multiplier!;
 
             // Talent: Void of Emptyness: Void Feedback now deals x times the damage when the target has less than x% of its max mana. Overrides Void Feedback's damage.
-            actual_damage = math.max(this.ReimaginedTalentVoidOfEmptiness(target, damage), actual_damage);            
+            actual_damage = math.max(this.ReimaginedTalentVoidOfEmptiness(target, damage), actual_damage);
         }
 
         return actual_damage;
@@ -207,12 +207,12 @@ export class reimagined_antimage_mana_void extends BaseAbility
     ApplyStunAndDebuff(target: CDOTA_BaseNPC, stun_duration: number, trigger_scepter_debuff: boolean)
     {
         // Apply a stun on the main target
-        target!.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: stun_duration});
+        target.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: stun_duration});
 
         // If viable, add the kill debuff on the target
         if (trigger_scepter_debuff)
         {
-            target!.AddNewModifier(this.caster, this, modifier_reimagined_antimage_mana_void_kill_debuff.name, {duration: stun_duration})
+            target.AddNewModifier(this.caster, this, this.modifier_void_kill_debuff, {duration: stun_duration, ignoreStatusResistance: 1})
         }
     }
 

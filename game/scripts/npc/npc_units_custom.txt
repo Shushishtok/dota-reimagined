@@ -2,5 +2,10 @@
 
 "DOTAUnits"
 {
-
+    "npc_dota_courier"
+    {
+        "StatusHealth"				"150"
+        "StatusHealthRegen"			"1.5"
+        "MovementSpeed"				"800"
+    }
 }

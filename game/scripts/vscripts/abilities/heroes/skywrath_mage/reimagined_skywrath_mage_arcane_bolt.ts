@@ -2,7 +2,7 @@ import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
 import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 import { modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt";
 import { modifier_reimagined_skywrath_mage_arcane_bolt_wrath } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_arcane_bolt_wrath";
-import { modifier_reimagined_skywrath_mage_talent_1_buff } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_talent_1_buff"
+import { modifier_reimagined_skywrath_mage_talent_1_buff } from "../../../modifiers/heroes/skywrath_mage/modifier_reimagined_skywrath_mage_talent_1_buff";
 import { SkywrathMageTalents } from "./reimagined_skywrath_mage_talents";
 
 @registerAbility()
@@ -14,7 +14,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
     sound_impact: string = "Hero_SkywrathMage.ArcaneBolt.Impact";
     responses: string[] = ["skywrath_mage_drag_arcanebolt_02", "skywrath_mage_drag_arcanebolt_03"];
     response_rare: string = "skywrath_mage_drag_arcanebolt_01";
-    projectile_arcane_bolt: string = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_arcane_bolt.vpcf";    
+    projectile_arcane_bolt: string = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_arcane_bolt.vpcf";
     projectile_wrath_bolt: string = "particles/heroes/skywrath_mage/wrath_bolt.vpcf";
 
     // Ability specials
@@ -43,7 +43,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_skywrath_mage/skywrath_mage_arcane_bolt.vpcf", context);
         PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/wrath_bolt.vpcf", context);
         PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/blank_bolt.vpcf", context);
-        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/blank_bolt_endcap.vpcf", context);        
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/blank_bolt_endcap.vpcf", context);
     }
 
     OnSpellStart(): void
@@ -72,7 +72,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
         // Roll for rare response sound
         if (RollPercentage(5))
         {
-            EmitSoundOn(this.response_rare, this.caster);   
+            EmitSoundOn(this.response_rare, this.caster);
         }
         // If not, roll for standard response sound
         else if (RollPercentage(25))
@@ -85,7 +85,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
 
         // Talent: Unending Proficiency: Casting Arcane Bolt increases your intelligence by x for y seconds. Has independent stacks.
         this.ReimaginedTalentUnendingProficiency();
-        
+
         // Reimagined: Wrath of Dragonus: After Skywrath casts x Arcane Bolts, the next Arcane Bolt will become a Wrath Bolt. Wrath Bolts are twice as fast, the damage includes the intelligence of all nearby allied heroes in 1200 range, and the caster's intelligence is calculated twice. Wrath Bolts are also duplicated by Aghanim's Scepter upgrade. The counter modifier lasts y seconds and refreshes itself when casting Arcane Bolt.
         const wrath_bolt = this.ReimaginedWrathOfDragonusCounter();
 
@@ -94,7 +94,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
 
         // Scepter effect: Arcane Bolt is launched at a secondary enemy unit, heroes prioritzed
         if (this.caster.HasScepter())
-        {            
+        {
             // Look for heroes only around the target
             const enemies = FindUnitsInRadius(this.caster.GetTeamNumber(),
                                               target.GetAbsOrigin(),
@@ -112,13 +112,13 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
                 for (const enemy of enemies)
                 {
                     // Ignore main target
-                    if (enemy == target) continue;    
+                    if (enemy == target) continue;
 
                     this.LaunchArcaneBolt(enemy, wrath_bolt);
                     return;
                 }
             }
-            
+
             // If no heroes were found, look for creeps and creep heroes
             const creeps = FindUnitsInRadius(this.caster.GetTeamNumber(),
                                             target.GetAbsOrigin(),
@@ -129,7 +129,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
                                             UnitTargetFlags.MAGIC_IMMUNE_ENEMIES + UnitTargetFlags.NO_INVIS + UnitTargetFlags.FOW_VISIBLE,
                                             FindOrder.ANY,
                                             false);
-            
+
             // Fire Arcane Bolt at random creep
             if (creeps && creeps.length > 0)
             {
@@ -137,7 +137,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
                 {
                     // Ignore main target
                     if (creep == target) continue;
-                    
+
                     this.LaunchArcaneBolt(creep, wrath_bolt);
                     return;
                 }
@@ -164,13 +164,13 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
                 damage = wrath_data.damage;
                 bolt_speed = wrath_data.speed;
             }
-            
+
             projectile = this.projectile_wrath_bolt;
         }
 
         // Fire tracking projectile
         ProjectileManager.CreateTrackingProjectile(
-        {                
+        {
             Ability: this,
             EffectName: projectile,
             ExtraData: {damage: damage},
@@ -182,10 +182,10 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
             bProvidesVision: true,
             bReplaceExisting: false,
             bVisibleToEnemies: true,
-            iMoveSpeed: bolt_speed,            
+            iMoveSpeed: bolt_speed,
             iVisionRadius: this.bolt_vision,
             iVisionTeamNumber: this.caster.GetTeamNumber(),
-            vSourceLoc: this.caster.GetAbsOrigin(),            
+            vSourceLoc: this.caster.GetAbsOrigin(),
         });
     }
 
@@ -201,7 +201,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
             this.ReimaginedBlankBolt(target, extraData.damage);
             return;
         }
-            
+
 
         // If Linken's Sphere is triggered and absorbs, do nothing
         if (target.GetTeamNumber() != this.caster.GetTeamNumber())
@@ -279,7 +279,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
 
         // Multiply projectile speed
         speed *= this.wrath_bolt_speed_multiplier!;
-        
+
         // Find all nearby allied heroes
         const allies = FindUnitsInRadius(this.caster.GetTeamNumber(),
                                         this.caster.GetAbsOrigin(),
@@ -296,7 +296,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
         {
             // Ignore caster
             if (ally == this.caster) continue;
-            
+
             damage += (ally as CDOTA_BaseNPC_Hero).GetIntellect();
         }
 
@@ -315,7 +315,7 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
 
     ReimaginedBlankBolt(target: CDOTA_BaseNPC, damage: number): void
     {
-        // If the target doesn't have the Blank Bolt modifier, add it        
+        // If the target doesn't have the Blank Bolt modifier, add it
         if (!target.HasModifier(modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt.name))
         {
             target.AddNewModifier(this.caster, this, modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt.name, {duration: this.blank_bolt_duration!});
@@ -330,13 +330,13 @@ export class reimagined_skywrath_mage_arcane_bolt extends BaseAbility
 
             // Get current stack count of the modifier
             const current_stacks = modifier_blank_bolt.GetStackCount();
-    
+
             // If the stacks to set is higher than the current stack count, set it
             if (stacks > current_stacks)
             {
                 modifier_blank_bolt.SetStackCount(stacks);
             }
-    
+
             // Refresh modifier
             modifier_blank_bolt.ForceRefresh();
         }

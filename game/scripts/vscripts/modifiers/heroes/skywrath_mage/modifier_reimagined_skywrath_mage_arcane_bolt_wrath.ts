@@ -1,12 +1,11 @@
-import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import * as util from "../../../lib/util"
+import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 
 @registerModifier()
 export class modifier_reimagined_skywrath_mage_arcane_bolt_wrath extends BaseModifier
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Modifier specials
@@ -19,7 +18,7 @@ export class modifier_reimagined_skywrath_mage_arcane_bolt_wrath extends BaseMod
     OnCreated(): void
     {
         // Modifier specials
-        this.wrath_arcane_bolt_casts = this.ability.GetSpecialValueFor("wrath_arcane_bolt_casts");        
+        this.wrath_arcane_bolt_casts = this.ability.GetSpecialValueFor("wrath_arcane_bolt_casts");
     }
 
     DeclareFunctions(): ModifierFunction[]

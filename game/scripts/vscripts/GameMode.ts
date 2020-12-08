@@ -1,8 +1,9 @@
+import "../vscripts/modifiers/general_mechanics/modifier_reimagined_charges";
+import "../vscripts/modifiers/general_mechanics/modifier_reimagined_game_mechanics";
+import "../vscripts/modifiers/general_mechanics/modifier_reimagined_courier_passive_bonuses"
 import { BaseTalent } from "./lib/talents";
 import { reloadable } from "./lib/tstl-utils";
-import { GetAllChargesModifiersForUnit, GetAllPlayers, GetTalentAbilityFromNumber, GetTalentNumber, IsRoshan, IsTalentAbility, PrepareTalentList } from "./lib/util";
-import "../vscripts/modifiers/general_mechanics/modifier_reimagined_charges";
-import "../vscripts/modifiers/general_mechanics/modifier_reimagined_game_mechanics"
+import { GetAllChargesModifiersForUnit, GetAllPlayers, GetTalentAbilityFromNumber, GetTalentNumber, IsRoshan, IsTalentAbility, PrepareTalentList, RegisterFunctionOverrides } from "./lib/util";
 
 declare global
 {
@@ -15,11 +16,18 @@ declare global
 @reloadable
 export class GameMode
 {
+    // Game Properties
     Game: CDOTABaseGameMode = GameRules.GetGameModeEntity();
+    wtf_mode_enabled: boolean = false;
+
+    // Talents
     talent_count: number = 8;
     last_waiting_talent_num?: number;
     talent_ping_map: Map<PlayerID, number> = new Map();
-    wtf_mode_enabled: boolean = false;
+
+    // XP and gold multipliers
+    xp_multiplier = 250;
+    gold_multiplier = 250;
 
     // Respawn rules
     minimum_respawn_timer_neutral_death: number = 26;
@@ -27,6 +35,13 @@ export class GameMode
     respawn_increase_scale: number = 3;
     level_respawn_time: Map<number, number> = new Map();
     buyback_respawn_timer_increase = 15;
+
+    // Rune rules
+    bounty_runes_spawn_interval = 5 // Minutes
+    power_runes_spawn_interval = 2 // Minutes
+    power_runes_next_spawner: number = RandomInt(1, 2);
+    first_power_runes_time: number = 4 // Minutes
+    runespawnerMap: Map<EntityIndex, number> = new Map();
 
     // Buyback rules
     buyback_cooldown: number = 240;
@@ -53,6 +68,8 @@ export class GameMode
         this.RmgGameRules();
         this.AssignMechanicsModifier();
         this.PrepareRespawnTimers();
+        this.RegisterFilters();
+        RegisterFunctionOverrides();
     }
 
     RegisterEvents()
@@ -67,6 +84,79 @@ export class GameMode
         CustomGameEventManager.RegisterListener("learn_talent_event", (_, event) => this.OnLearnTalent(event, 0));
         CustomGameEventManager.RegisterListener("send_currently_selected_unit", (_,event) => this.OnSentCurrentlySelectedUnit(event))
         CustomGameEventManager.RegisterListener("ping_talent", (_,event) => this.OnPingTalent(event))
+    }
+
+    RegisterFilters()
+    {
+        this.Game.SetModifyExperienceFilter(event => this.ExperienceModifiedFilter(event), this);
+        this.Game.SetModifyGoldFilter(event => this.GoldModifiedFilter(event), this);
+        this.Game.SetRuneSpawnFilter(event => this.RuneSpawnFilter(event), this);
+
+        // NOT ACTUALLY USED right now! But a good example of a working filter.
+        //this.Game.SetModifierGainedFilter(event => this.ModifierGainedFilter(event), this);
+    }
+
+    ModifierGainedFilter(event: ModifierGainedFilterEvent): boolean
+    {
+        // Status resistance rules
+        // const caster = EntIndexToHScript(event.entindex_caster_const);
+        // const target = EntIndexToHScript(event.entindex_parent_const);
+
+        // if (caster && caster.IsBaseNPC() && target && target.IsBaseNPC())
+        // {
+        //     event.duration = GetAppliedDuration(caster, target, event.duration, event.name_const);
+        // }
+
+        return true;
+    }
+
+    ExperienceModifiedFilter(event: ModifyExperienceFilterEvent): boolean
+    {
+        // Only multiply XP given by kills
+        if (event.reason_const == ModifyXpReason.CREEP_KILL || event.reason_const == ModifyXpReason.HERO_KILL || event.reason_const == ModifyXpReason.ROSHAN_KILL)
+        {
+            event.experience = event.experience * this.xp_multiplier * 0.01;
+        }
+
+        return true;
+    }
+
+    GoldModifiedFilter(event: ModifyGoldFilterEvent): boolean
+    {
+        // Only multiply gold given by kills
+        if (event.reason_const == ModifyGoldReason.HERO_KILL || event.reason_const == ModifyGoldReason.WARD_KILL || event.reason_const == ModifyGoldReason.CREEP_KILL || event.reason_const == ModifyGoldReason.ROSHAN_KILL || event.reason_const == ModifyGoldReason.COURIER_KILL || event.reason_const == ModifyGoldReason.NEUTRAL_KILL)
+        {
+            event.gold = event.gold * this.gold_multiplier * 0.01;
+        }
+
+        return true;
+    }
+
+    // This actually seems to completely ignore bounty runes, which sucks
+    RuneSpawnFilter(event: RuneSpawnFilterEvent): boolean
+    {
+        const spawner = EntIndexToHScript(event.spawner_entindex_const);
+        let classname;
+        if (spawner) classname = spawner.GetClassname();
+        if (classname) print(Entities.FindAllByClassname(classname).length);
+
+        // Map the power rune spawners
+        if (!this.runespawnerMap.has(event.spawner_entindex_const))
+        {
+            this.runespawnerMap.set(event.spawner_entindex_const, this.runespawnerMap.size + 1);
+        }
+
+        // Ignore any power runes that try to appear before the first runes should show up
+        if (GameRules.GetGameTime() < this.first_power_runes_time * 60) return false;
+
+        // Get the mapped index
+        const spawnerIndex = this.runespawnerMap.get(event.spawner_entindex_const);
+        if (spawnerIndex != this.power_runes_next_spawner) return false;
+
+        // Generate a new location for the next rune
+        this.power_runes_next_spawner = RandomInt(1, 2);
+
+        return true;
     }
 
     RmgGameRules()
@@ -119,6 +209,15 @@ export class GameMode
 
         this.Game.SetUseCustomHeroLevels(true);
         this.Game.SetCustomDireScore(0);
+        this.Game.SetFreeCourierModeEnabled(true);
+        this.Game.SetRuneEnabled(RuneType.BOUNTY, true);
+        this.Game.SetRuneEnabled(RuneType.ARCANE, true);
+        this.Game.SetRuneEnabled(RuneType.DOUBLEDAMAGE, true);
+        this.Game.SetRuneEnabled(RuneType.HASTE, true);
+        this.Game.SetRuneEnabled(RuneType.ILLUSION, true);
+        this.Game.SetRuneEnabled(RuneType.INVISIBILITY, true);
+        this.Game.SetRuneEnabled(RuneType.REGENERATION, true);
+        this.Game.SetRuneEnabled(RuneType.XP, false);
     }
 
     AssignMechanicsModifier(): void
@@ -258,6 +357,23 @@ export class GameMode
                 }
             }
         }
+
+        if (event.entindex_attacker)
+        {
+            const killing_unit = EntIndexToHScript(event.entindex_attacker)
+            if (!killing_unit) return;
+
+            if (killing_unit.IsBaseNPC())
+            {
+                if (killing_unit.IsRealHero())
+                {
+                    if (killing_unit.GetTeamNumber() == DotaTeam.BADGUYS)
+                    {
+                        GameRules.GetGameModeEntity().SetCustomDireScore(GetTeamHeroKills(DotaTeam.BADGUYS));
+                    }
+                }
+            }
+        }
     }
 
     private OnLearnTalent(event: {ability: EntityIndex; PlayerID: PlayerID}, learned_by_force: 0 | 1)
@@ -388,9 +504,50 @@ export class GameMode
     {
         const state = GameRules.State_Get();
 
+        if (state == GameState.TEAM_SHOWCASE)
+        {
+            this.ForceRandomHeroForPlayersWithoutHeroes();
+        }
+
         if (state == GameState.PRE_GAME)
         {
             this.BuybackRules();
+        }
+
+        if (state == GameState.GAME_IN_PROGRESS)
+        {
+            this.Game.SetBountyRuneSpawnInterval(this.bounty_runes_spawn_interval * 60);
+            this.Game.SetPowerRuneSpawnInterval(this.power_runes_spawn_interval * 60);
+
+            Timers.CreateTimer(() =>
+            {
+                this.RevealBountyRunes();
+                return this.bounty_runes_spawn_interval;
+            })
+        }
+    }
+
+    ForceRandomHeroForPlayersWithoutHeroes(): void
+    {
+        for (const player of GetAllPlayers())
+        {
+            if (player)
+            {
+                if (!player.GetAssignedHero())
+                {
+                    player.MakeRandomHeroSelection();
+                }
+            }
+        }
+    }
+
+    RevealBountyRunes(): void
+    {
+        const bounty_spawners = Entities.FindAllByClassname("dota_item_rune_spawner_bounty");
+        for (const bounty_spawner of bounty_spawners)
+        {
+            AddFOWViewer(DotaTeam.GOODGUYS, bounty_spawner.GetAbsOrigin(), 100, FrameTime(), true);
+            AddFOWViewer(DotaTeam.BADGUYS, bounty_spawner.GetAbsOrigin(), 100, FrameTime(), true);
         }
     }
 
@@ -420,6 +577,32 @@ export class GameMode
 
             // Initialize the talents learned set if it's not initialized yet
             if (!(unit as CDOTA_BaseNPC_Hero).talents_learned) unit.talents_learned = new Set();
+        }
+
+        // Couriers
+        if (unit.IsCourier())
+        {
+            Timers.CreateTimer(FrameTime(), () =>
+            {
+                // Assign to hero of the same player
+                const playerID = unit.GetPlayerOwnerID();
+                if (playerID && PlayerResource.IsValidTeamPlayer(playerID))
+                {
+                    const player = PlayerResource.GetPlayer(playerID);
+                    if (player)
+                    {
+                        const hero = player.GetAssignedHero();
+                        if (!hero.courier) hero.courier = unit;
+                    }
+                }
+
+                // Replace the passive bonuses modifiers with the reimagined modifier
+                if (unit.HasModifier("modifier_courier_passive_bonus"))
+                {
+                    unit.RemoveModifierByName("modifier_courier_passive_bonus");
+                    unit.AddNewModifier(undefined, undefined, "modifier_reimagined_courier_passive_bonuses", {});
+                }
+            })
         }
     }
 
@@ -461,6 +644,20 @@ export class GameMode
                 }
             }
         })
+
+        // Refresh the modifier of the courier assigned to the hero
+        const hero = EntIndexToHScript(event.hero_entindex) as CDOTA_BaseNPC;
+        if (hero.IsRealHero())
+        {
+            if (hero.courier)
+            {
+                const modifier = hero.courier.FindModifierByName("modifier_reimagined_courier_passive_bonuses");
+                if (modifier)
+                {
+                    modifier.ForceRefresh();
+                }
+            }
+        }
     }
 
     OnPlayerChat(event: PlayerChatEvent)

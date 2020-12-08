@@ -2,6 +2,7 @@ import { modifier_reimagined_charges } from "../modifiers/general_mechanics/modi
 import "../modifiers/general_mechanics/modifier_reimagined_no_outgoing_damage";
 import { BaseAbility, BaseModifier } from "./dota_ts_adapter";
 import { BaseTalent } from "./talents";
+import { reloadable } from "./tstl-utils";
 
 export interface ReflecteableModifier extends BaseModifier
 {
@@ -511,42 +512,49 @@ export function CanOrbBeCastOnTarget(target: CDOTA_BaseNPC, can_proc_on_building
 
  * @returns The duration of a modifier that should be applied, taking into account status resistance and status amp.
  */
-export function GetAppliedDuration(caster: CDOTA_BaseNPC, target: CDOTA_BaseNPC, duration: number)
+export function GetAppliedDuration(caster: CDOTA_BaseNPC | undefined, target: CDOTA_BaseNPC, duration: number, modifier_name: string): number
 {
     // Does nothing if caster and target are on the same team
-    if (caster.GetTeamNumber() == target.GetTeamNumber()) return duration;
+    if (caster && caster.GetTeamNumber() == target.GetTeamNumber()) return duration;
 
     // Get target's status resistance
     const status_resistance = target.GetStatusResistance(); // Returns a number between 0 and 1
 
     // Get caster's status amp
-    const modifiers = caster.FindAllModifiers();
-    let total_status_amp = 0;
-    let status_amp: number[] = [];
-    for (const modifier of modifiers)
+    let total_status_amp = 1;
+    if (caster)
     {
-        if (modifier.GetModifierStatusAmp)
+        const modifiers = caster.FindAllModifiers() as BaseModifier[];
+        let status_amp: number[] = [];
+        for (const modifier of modifiers)
         {
-            status_amp.push(modifier.GetModifierStatusAmp());
-        }
-    }
+            if (modifier.GetModifierStatusResistanceCaster)
+            {
+                status_amp.push(modifier.GetModifierStatusResistanceCaster());
+            }
 
-    // Calculate total status amp
-    for (let index = 0; index < status_amp.length; index++) {
-        const status_amp_instance = status_amp[index];
-        if (total_status_amp == 0)
-        {
-            total_status_amp = 1 - status_amp_instance * 0.01
+            // Hardcoded because I can't figure out how Timeless Relic actually works for that, sue me. Only two debuff duration amplifiers anyway
+            if (modifier.GetName() == "modifier_item_timeless_relic")
+            {
+                const debuff_amp = modifier.GetAbility()!.GetSpecialValueFor("debuff_amp");
+                status_amp.push(debuff_amp);
+            }
+            else if (modifier.GetName() == "modifier_rubick_arcane_supremacy")
+            {
+                const debuff_amp = modifier.GetAbility()!.GetSpecialValueFor("status_resistance");
+                status_amp.push(debuff_amp);
+            }
         }
-        else
-        {
-            total_status_amp *= (1 - status_amp_instance * 0.01)
+
+        // Calculate total status amp
+        for (let index = 0; index < status_amp.length; index++) {
+            const status_amp_instance = status_amp[index];
+            total_status_amp *= 1 - status_amp_instance * 0.01;
         }
     }
     total_status_amp = 1 - total_status_amp;
 
     duration = duration * ((1 + (total_status_amp - status_resistance)));
-
     return duration
 }
 
@@ -833,4 +841,30 @@ export function GetAllPlayers(): CDOTAPlayer[]
     }
 
     return players;
+}
+
+export function RegisterFunctionOverrides()
+{
+    CDOTA_BaseNPC.oldAddNewModifier = CDOTA_BaseNPC.AddNewModifier;
+    CDOTA_BaseNPC.AddNewModifier = AddNewModifier;
+}
+
+export function AddNewModifier<TThis extends CDOTA_BaseNPC>(this: TThis, caster: CDOTA_BaseNPC | undefined, ability: CDOTABaseAbility | undefined, modifierName: string, modifierTable: {duration?: number; ignoreStatusResistance?: 1; [key: string]: any } | undefined)
+{
+    // Check if the modifier table has anything in it
+    if (modifierTable)
+    {
+        // Check if it doesn't have the ignoreStatusResistance attribute initialized
+        if (!modifierTable.ignoreStatusResistance)
+        {
+            // Check if it has a duration defined
+            if (modifierTable.duration)
+            {
+                // Apply the actual duration based on the target's status resistance
+                modifierTable.duration = GetAppliedDuration(caster, this, modifierTable.duration, modifierName);
+            }
+        }
+    }
+
+    return this.oldAddNewModifier(caster, ability, modifierName, modifierTable);
 }
