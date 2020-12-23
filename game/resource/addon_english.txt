@@ -1,4 +1,5 @@
-"lang" {
+"lang"
+{
 	"Language" "English"
 	"Tokens"
 	{
@@ -23,10 +24,25 @@
 		"Mana Break"
 
 		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Description"
-		"Burns an opponent's mana on each attack based on a flat amount and the target's max mana. Mana Break deals %percent_damage_per_burn%%% of the mana burned as damage to the target.
-		<font color='#B25266'><b>Mana Cleave:</b> Also burns %mana_cleave_mana_burn% mana for all enemy units in %mana_cleave_distance% radius in a cone in front of Anti Mage, but does not deal damage.</font>
-		<font color='#B25266'><b>Mana Convergence:</b> when an enemy unit is hit %mana_convergence_hit_threshold% times with Mana Break, Mana Convergence triggers for %mana_convergence_debuff_duration% seconds, reducing the target's manaloss reduction by %mana_convergence_manaloss_reduction_pct%%.</font>
-		<font color='#B25266'><b>Energy Blast:</b> Mana Break can be activated to trigger an Energy Blast, burning up to %energy_blast_max_mana_burn% mana to all enemies in %energy_blast_radius% range and dealing %percent_damage_per_burn%%% of it as magical damage. Disables Mana Break's passive effects for %energy_blast_passive_disable_duration% seconds after use.</font>"
+		"Burns an opponent's mana on each attack based on a flat amount and the target's max mana. Mana Break deals %percent_damage_per_burn%%% of the mana burned as damage to the target."
+
+        "DOTA_Tooltip_ability_reimagined_antimage_mana_break_rmg_title_1"
+        "Mana Cleave"
+
+        "DOTA_Tooltip_ability_reimagined_antimage_mana_break_rmg_description_1"
+        "Also burns %mana_cleave_mana_burn% mana for all enemy units in %mana_cleave_distance% radius in a cone in front of Anti Mage, but does not deal damage."
+
+        "DOTA_Tooltip_ability_reimagined_antimage_mana_break_rmg_title_2"
+        "Mana Convergence"
+
+        "DOTA_Tooltip_ability_reimagined_antimage_mana_break_rmg_description_2"
+        "When an enemy unit is hit %mana_convergence_hit_threshold% times with Mana Break, Mana Convergence triggers for %mana_convergence_debuff_duration% seconds, reducing the target's manaloss reduction by %mana_convergence_manaloss_reduction_pct%%%."
+
+        "DOTA_Tooltip_ability_reimagined_antimage_mana_break_rmg_title_3"
+        "Energy Blast"
+
+        "DOTA_Tooltip_ability_reimagined_antimage_mana_break_rmg_description_3"
+        "Mana Break can be activated to trigger an Energy Blast, burning up to %energy_blast_max_mana_burn% mana to all enemies in %energy_blast_radius% range and dealing %percent_damage_per_burn%%% of it as magical damage. Disables Mana Break's passive effects for %energy_blast_passive_disable_duration% seconds after use."
 
 		"DOTA_Tooltip_ability_reimagined_antimage_mana_break_Lore"
 		"A modified technique of the Turstarkuri monks' peaceful ways is to turn magical energies on their owner."
@@ -69,10 +85,25 @@
 		"Blink"
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_blink_Description"
-		"Short distance teleportation that allows Anti-Mage to move in and out of combat.
-		<font color='#B25266'><b>Reaction:</b> Causes nearby enemies to trigger a stop command upon blinking %reaction_radius% radius near them.
-		<font color='#B25266'><b>Interference:</b> Removes %interference_curr_mana_rdct_pct%%% of the target's current mana in %interference_radius% radius around the start and end positions. Deals the amount of mana burned as physical damage to affected enemies.
-		<font color='#B25266'><b>Magic Nullity:</b> Increases the caster's magic resistance by %magic_nullity_magic_res%%% for %magic_nullity_duration% seconds after blinking."
+		"Short distance teleportation that allows Anti-Mage to move in and out of combat."
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_blink_rmg_title_1"
+        "Reaction"
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_blink_rmg_description_1"
+        "Causes nearby enemies to trigger a stop command upon blinking %reaction_radius% radius near them."
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_blink_rmg_title_2"
+        "Interference"
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_blink_rmg_description_2"
+        "Removes %interference_curr_mana_rdct_pct%%% of the target's current mana in %interference_radius% radius around the start and end positions. Deals the amount of mana burned as physical damage to affected enemies."
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_blink_rmg_title_3"
+        "Magic Nullity"
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_blink_rmg_description_3"
+        "Increases the caster's magic resistance by %magic_nullity_magic_res%%% for %magic_nullity_duration% seconds after blinking."
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_blink_Lore"
 		"In his encounter with the Dead Gods, Anti-Mage learned the value of being elusive."
@@ -94,10 +125,25 @@
 		"Counterspell"
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell_Description"
-		"Passively grants you magic resistance. Can be activated to create an anti-magic shell around you that sends any targeted spells back towards enemies instead of affecting you.
-		<font color='#B25266'><b>The Magic Ends Here:</b> Burns %magic_ends_mana_burn% mana of the original casters of reflected spells.
-		<font color='#B25266'><b>Anti Magic Shell:</b> Increases Counterspell's current duration by %anti_magic_duration_inc% second for every reflected spell.
-		<font color='#B25266'><b>Instinctive Counter:</b> Counterspell can be set to auto cast, allowing it to trigger automatically whenever an ability is fired towards the caster. However, automatic triggers consume %instinctive_counter_trigger_multiplier% times the cooldown and the mana cost of Counterspell."
+		"Passively grants you magic resistance. Can be activated to create an anti-magic shell around you that sends any targeted spells back towards enemies instead of affecting you."
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_counterspell_rmg_title_1"
+        "The Magic Ends Here"
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_counterspell_rmg_description_1"
+        "Burns %magic_ends_mana_burn% mana of the original casters of reflected spells."
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_counterspell_rmg_title_2"
+        "Anti Magic Shell"
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_counterspell_rmg_description_2"
+        "Increases Counterspell's current duration by %anti_magic_duration_inc% second for every reflected spell."
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_counterspell_rmg_title_3"
+        "Instinctive Counter"
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_counterspell_rmg_description_3"
+        "Counterspell can be set to auto cast, allowing it to trigger automatically whenever an ability is fired towards the caster. However, automatic triggers consume %instinctive_counter_trigger_multiplier% times the cooldown and the mana cost of Counterspell."
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell_Lore"
 		"With the proper focus, Anti-Mage turns innate resistance into calculated retaliation."
@@ -107,6 +153,9 @@
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell_Note1"
 		"Even when the auto cast is on, manually activating Counterspell will consume the original mana cost and cooldown."
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_counterspell_shard_description"
+        "Successful Counterspell creates an illusion attacking the caster for %shard_illusion_duration% seconds. Removes Counterspell manacost."
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_counterspell_magic_resistance"
 		"%MAGIC RESISTANCE:"
@@ -125,10 +174,25 @@
 		"Mana Void"
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_Description"
-		"For each point of mana missing by the target unit, damage is dealt to it and surrounding enemies. The main target is also mini-stunned.
-		<font color='#B25266'><b>Void Feedback:</b> If the main target has less than %void_feedback_mana_threshold_pct%%% of its max mana, the damage per mana point is multiplied by %void_feedback_damage_multiplier%.
-		<font color='#B25266'><b>Calculated Combustion:</b> Calculates the damage based on the enemy unit missing the most mana in the radius.
-		<font color='#B25266'><b>Purity of Will:</b> Can be set to auto cast. Doing so causes the spell to only deal damage on the main target, but also to increase the stun it receives by %purity_of_will_stun_per_instance% for every %purity_of_will_missing_mana_for_instance% points of missing mana, up to a limit of %purity_of_will_max_stun_increased% additional seconds."
+		"For each point of mana missing by the target unit, damage is dealt to it and surrounding enemies. The main target is also mini-stunned."
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_mana_void_rmg_title_1"
+        "Void Feedback"
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_mana_void_rmg_description_1"
+        "If the main target has less than %void_feedback_mana_threshold_pct%%% of its max mana, the damage per mana point is multiplied by %void_feedback_damage_multiplier%."
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_mana_void_rmg_title_2"
+        "Calculated Combustion"
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_mana_void_rmg_description_2"
+        "Calculates the damage based on the enemy unit missing the most mana in the radius."
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_mana_void_rmg_title_3"
+        "Purity of Will"
+
+        "DOTA_Tooltip_Ability_reimagined_antimage_mana_void_rmg_description_3"
+        "Can be set to auto cast. Doing so causes the spell to only deal damage on the main target, but also to increase the stun it receives by %purity_of_will_stun_per_instance% for every %purity_of_will_missing_mana_for_instance% points of missing mana, up to a limit of %purity_of_will_max_stun_increased% additional seconds."
 
 		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_Lore"
 		"After bringing enemies to their knees, Anti-Mage punishes them for their use of the arcane arts."
@@ -139,9 +203,6 @@
 		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_Note1"
 		"Purity of Will's stun duration slightly increases by each point of missing mana, even if it doesn't reach an instance of %purity_of_will_missing_mana_for_instance% mana."
 
-		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_aghanim_description"
-		"Increases stun duration. Mana Void kills cause the enemy's highest cooldown ability to take longer to cool down upon respawning."
-
 		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_mana_void_damage_per_mana"
 		"DAMAGE:"
 
@@ -151,18 +212,14 @@
 		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_mana_void_aoe_radius"
 		"RADIUS:"
 
-		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_scepter_cooldown_increase"
-		"SCEPTER COOLDOWN INCREASE:"
+        // Anti Mage's Blink Fragment
+        "DOTA_Tooltip_Ability_reimagined_antimage_mana_overload"
+        "Blink Fragment"
 
-		"DOTA_Tooltip_Ability_reimagined_antimage_mana_void_scepter_ministun"
-		"SCEPTER STUN DURATION:"
+        "DOTA_Tooltip_Ability_reimagined_antimage_mana_overload_Description"
+        "Blinks an illusion at the target enemy or location and attack them for 7 seconds. Counterspell is replicated on the Blink Fragment illusion."
 
-		"DOTA_Tooltip_modifier_reimagined_antimage_mana_void_kill_debuff"
-		"Cooldown Increased"
-
-		"DOTA_Tooltip_modifier_reimagined_antimage_mana_void_kill_debuff_Description"
-		"Ability cooldown increased due to scepter Mana Void."
-
+        // Anti Mage's Talents
 		"DOTA_Tooltip_Ability_reimagined_antimage_talent_1"
 		"Feedback Pulse"
 
@@ -247,9 +304,19 @@
 		"Void"
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_Description"
-		"Creates a damaging void that slows an enemy unit and deals damage. Void also mini-stuns, interrupting channeling abilities. The slowing effect lasts longer at night.
-		<font color='#B25266'><b>Darkness Hungers:</b> Void sets targets' vision to %vision_day% if cast during the day or to %vision_night% if cast during the night.
-		<font color='#B25266'><b>Stalking:</b> Night Stalker gains a bonus of %stalking_ms_bonus%%% move speed while facing towards enemies affected by Void. Stalked enemies are visible through the fog of war."
+		"Creates a damaging void that slows an enemy unit and deals damage. Void also mini-stuns, interrupting channeling abilities. The slowing effect lasts longer at night."
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_void_rmg_title_1"
+        "Darkness Hungers"
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_void_rmg_description_1"
+        "Void sets targets' vision to %vision_day% if cast during the day or to %vision_night% if cast during the night."
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_void_rmg_title_2"
+        "Stalking"
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_void_rmg_description_2"
+        "Night Stalker gains a bonus of %stalking_ms_bonus%%% move speed while facing towards enemies affected by Void. Stalked enemies are visible through the fog of war."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_Lore"
 		"Balanar creates a vortex of infinite night, tearing opponents violently into the eternal darkness that once was."
@@ -263,7 +330,7 @@
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_Note2"
 		"While stalking, the caster will have a visible modifier."
 
-		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_aghanim_description"
+		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_scepter_description"
 		"Causes Void to be an AoE ability. Increases ministun duration."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_void_damage"
@@ -304,10 +371,25 @@
 		"Crippling Fear"
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_Description"
-		"Night Stalker horrifies all nearby enemies, causing them to become silenced while near him. The effect lasts longer at night.
-		<font color='#B25266'><b>Roll Back The Light:</b> The aura's radius increases over time at a rate of %roll_back_light_radius_inc_sec% additional units per second.
-		<font color='#B25266'><b>Crippling Crippling Fear:</b> Causes enemies afflicted by the silence debuff to miss %crippling_crippling_fear_miss_rate%%% of their attacks.
-		<font color='#B25266'><b>Night Terror:</b> May be set to autocast to fear enemies inside the aura, causing them to run away from you."
+		"Night Stalker horrifies all nearby enemies, causing them to become silenced while near him. The effect lasts longer at night."
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_rmg_title_1"
+        "Roll Back The Light"
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_rmg_description_1"
+        "The aura's radius increases over time at a rate of %roll_back_light_radius_inc_sec% additional units per second."
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_rmg_title_2"
+        "Crippling Crippling Fear"
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_rmg_description_2"
+        "Causes enemies afflicted by the silence debuff to miss %crippling_crippling_fear_miss_rate%%% of their attacks."
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_rmg_title_3"
+        "Night Terror"
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_rmg_description_3"
+        "May be set to autocast to fear enemies inside the aura, causing them to run away from you."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_crippling_fear_Lore"
 		"A vision of the twisted maw of Balanar etches itself into the minds of the poor souls unlucky enough to cross his path."
@@ -353,10 +435,25 @@
 		"Hunter in the Night"
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_Description"
-		"Night Stalker is in his element at night, attacking and moving with great swiftness.
-		<font color='#B25266'><b>Dead of Night:</b> Grants a bonus to Night Stalker's stats and abilities for every %dead_of_night_interval% second interval that the current night has lasted. The bonus reaches its peak in the middle of the night and then begins to decay at the same rate. For every %dead_of_night_interval% seconds, increases strength, agility and intelligence by %dead_of_night_stats_per_stack%, movement speed, attack speed and damage by %dead_of_night_bonuses_per_stack%, and Void's and Crippling Fear's durations by %dead_of_night_durations_per_stack% seconds.
-		<font color='#B25266'><b>As Quick As a Shadow:</b> Unlocks movespeed limit during the night.
-		<font color='#B25266'><b>Everlasting Night:</b> Each natural night lasts %everlasting_night_duration% seconds longer than the one before it."
+		"Night Stalker is in his element at night, attacking and moving with great swiftness."
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_rmg_title_1"
+        "Dead of Night"
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_rmg_description_1"
+        "Grants a bonus to Night Stalker's stats and abilities for every %dead_of_night_interval% second interval that the current night has lasted. The bonus reaches its peak in the middle of the night and then begins to decay at the same rate. For every %dead_of_night_interval% seconds, increases strength, agility and intelligence by %dead_of_night_stats_per_stack%, movement speed, attack speed and damage by %dead_of_night_bonuses_per_stack%, and Void's and Crippling Fear's durations by %dead_of_night_durations_per_stack% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_rmg_title_2"
+        "As Quick As a Shadow"
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_rmg_description_2"
+        "Unlocks movespeed limit during the night."
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_rmg_title_3"
+        "Everlasting Night"
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_rmg_description_3"
+        "Each natural night lasts %everlasting_night_duration% seconds longer than the one before it."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_Note0"
 		"Dead of Night only triggers during natural nights. Nights caused by abilities such as Dark Ascension do not trigger Dead of Night."
@@ -393,8 +490,13 @@
 		"Dark Ascension"
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_dark_ascension_Description"
-		"Night Stalker smothers the sun and summons instant darkness, so that he might use his powers at their fullest. Nightstalker gains flight and bonus damage during this time. Has unobstructed vision.
-		<font color='#B25266'><b>Wings Out:</b> Passively applies Dark Ascension's bonuses when Dead of Night's power scale is at least %wings_out_stack_threshold% stacks. The bonus damage granted by Wings Out is %wings_out_damage_pct%%% of Dark Ascension's damage."
+		"Night Stalker smothers the sun and summons instant darkness, so that he might use his powers at their fullest. Nightstalker gains flight and bonus damage during this time. Has unobstructed vision."
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_dark_ascension_rmg_title_1"
+        "Wings Out"
+
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_dark_ascension_rmg_description_1"
+        "Passively applies Dark Ascension's bonuses when Dead of Night's power scale is at least %wings_out_stack_threshold% stacks. The bonus damage granted by Wings Out is %wings_out_damage_pct%%% of Dark Ascension's damage."
 
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_dark_ascension_Note0"
 		"Wings Out is disabled when Dark Ascension is active."
@@ -516,12 +618,27 @@
 		"Storm Hammer"
 
 		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_Description"
-		"Sven unleashes his magical gauntlet that deals damage and stuns enemy units in a small area around the target.
-		<font color='#B25266'><b>Strong Right:</b> The main projectile goes through all units in the projectile's path, dealing %strong_right_damage% damage.
-		<font color='#B25266'><b>Momentum Punch:</b> For every %momentum_punch_units_travel% units the main projectile traveled until it hit the target or was disjointed, increases the impact's AoE by %momentum_punch_aoe_increase%.
-		<font color='#B25266'><b>Gomu Gomu No Gatling Gun:</b> Fires additional %gatling_gun_count% mini-Storm Hammer projectiles in random positions next to Sven which travel forward in the direction of his target, mini-stunning and dealing %gatling_gun_damage% damage to enemies it comes in contact with."
+		"Sven unleashes his magical gauntlet that deals damage and stuns enemy units in a small area around the target."
 
-		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_aghanim_description"
+        "DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_rmg_title_1"
+        "Strong Right"
+
+        "DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_rmg_description_1"
+        "The main projectile goes through all units in the projectile's path, dealing %strong_right_damage% damage."
+
+        "DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_rmg_title_2"
+        "Momentum Punch"
+
+        "DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_rmg_description_2"
+        "For every %momentum_punch_units_travel% units the main projectile traveled until it hit the target or was disjointed, increases the impact's AoE by %momentum_punch_aoe_increase%."
+
+        "DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_rmg_title_3"
+        "Gomu Gomu No Gatling Gun"
+
+        "DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_rmg_description_3"
+        "Fires additional %gatling_gun_count% mini-Storm Hammer projectiles in random positions next to Sven which travel forward in the direction of his target, mini-stunning and dealing %gatling_gun_damage% damage to enemies it comes in contact with."
+
+		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_scepter_description"
 		"Increases cast range and transports you along the Storm Hammer, attacking every enemy on impact. Strong Right instant attacks enemies you go through, and Gomu Gomu No Gatling Gun triggers after reaching the destination."
 
 		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_Lore"
@@ -550,9 +667,19 @@
 		"Great Cleave"
 
 		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_Description"
-		"Sven strikes with great force, cleaving all nearby enemy units with his attack.
-		<font color='#B25266'><b>Epic Cleave:</b> Every %epic_cleave_attacks% attacks, Sven's attack becomes an Epic Cleave which multiplies the cleave's radius and distance by %epic_cleave_distance_multiplier%, deals %epic_cleave_damage_pct%%% cleave damage, and ignores %epic_cleave_armor_ignore_pct%%% of the main target's armor. The counter resets after %epic_cleave_counter_duration% seconds.
-		<font color='#B25266'><b>Overhead Slam:</b> Can be cast on a target position to strike the Outcast Blade, firing a fast moving shockwave that travels up to %overhead_slam_max_distance% units. Instant attacks all targets hit by the shockwave."
+		"Sven strikes with great force, cleaving all nearby enemy units with his attack."
+
+        "DOTA_Tooltip_Ability_reimagined_sven_great_cleave_rmg_title_1"
+        "Epic Cleave"
+
+        "DOTA_Tooltip_Ability_reimagined_sven_great_cleave_rmg_description_1"
+        "Every %epic_cleave_attacks% attacks, Sven's attack becomes an Epic Cleave which multiplies the cleave's radius and distance by %epic_cleave_distance_multiplier%, deals %epic_cleave_damage_pct%%% cleave damage, and ignores %epic_cleave_armor_ignore_pct%%% of the main target's armor. The counter resets after %epic_cleave_counter_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_sven_great_cleave_rmg_title_2"
+        "Overhead Slam"
+
+        "DOTA_Tooltip_Ability_reimagined_sven_great_cleave_rmg_description_2"
+        "Can be cast on a target position to strike the Outcast Blade, firing a fast moving shockwave that travels up to %overhead_slam_max_distance% units. Instant attacks all targets hit by the shockwave."
 
 		"DOTA_Tooltip_Ability_reimagined_sven_great_cleave_Lore"
 		"The Vigil Knights still seek to reclaim the stolen Outcast Blade from Sven, a weapon capable of cutting wide swaths through lesser warriors."
@@ -580,10 +707,25 @@
 		"Warcry"
 
 		"DOTA_Tooltip_Ability_reimagined_sven_warcry_Description"
-		"Sven's Warcry heartens his allied heroes for battle, increasing their armor and movement speed. Lasts %duration% seconds.
-		<font color='#B25266'><b>Heart of Valor:</b> Grants Sven and his allies a shield that absorbs up to %heart_valor_current_hp_shield_pct%%% of Sven's current health. Lasts until the shield is depleted or until Warcry's duration ends.
-		<font color='#B25266'><b>Chaaaaarge:</b> Warcry's duration is increased by %chaaarge_duration_increase% seconds for every allied hero in the radius on cast.
-		<font color='#B25266'><b>Power Overwhelming:</b> When God's Strength is active, Sven and all allies affected by Warcry gain %power_overwhelming_damage_pct%%% attack damage bonus."
+		"Sven's Warcry heartens his allied heroes for battle, increasing their armor and movement speed. Lasts %duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_sven_warcry_rmg_title_1"
+        "Heart of Valor"
+
+        "DOTA_Tooltip_Ability_reimagined_sven_warcry_rmg_description_1"
+        "Grants Sven and his allies a shield that absorbs up to %heart_valor_current_hp_shield_pct%%% of Sven's current health. Lasts until the shield is depleted or until Warcry's duration ends."
+
+        "DOTA_Tooltip_Ability_reimagined_sven_warcry_rmg_title_2"
+        "Chaaaaarge"
+
+        "DOTA_Tooltip_Ability_reimagined_sven_warcry_rmg_description_2"
+        "Warcry's duration is increased by %chaaarge_duration_increase% seconds for every allied hero in the radius on cast."
+
+        "DOTA_Tooltip_Ability_reimagined_sven_warcry_rmg_title_3"
+        "Power Overwhelming"
+
+        "DOTA_Tooltip_Ability_reimagined_sven_warcry_rmg_description_3"
+        "When God's Strength is active, Sven and all allies affected by Warcry gain %power_overwhelming_damage_pct%%% attack damage bonus."
 
 		"DOTA_Tooltip_Ability_reimagined_sven_warcry_Lore"
 		"Calling a few lines from the Vigil Codex fortifies Sven's obedience to his rogue code. So poetic!"
@@ -619,10 +761,25 @@
 		"God's Strength"
 
 		"DOTA_Tooltip_Ability_reimagined_sven_gods_strength_Description"
-		"Sven channels his rogue strength, granting bonus damage for %duration% seconds.
-		<font color='#B25266'><b>Shattering Strength:</b> Increases Sven's strength by %shattering_strength_str_bonus_pct%%%.
-		<font color='#B25266'><b>Buff Fish:</b> Passively increases Sven's next attack's damage by %buff_fish_bonus_damage_pct%%%. Has an internal cooldown of %buff_fish_cooldown% seconds.
-		<font color='#B25266'><b>Rogue Knight:</b> Killing an enemy unit while in God's Strength improves the current God's Strength bonus damage percentage by %rough_knight_unit_kill_damage_bonus%%%. Hero kills grant %rough_knight_hero_kill_damage_bonus%%% instead."
+		"Sven channels his rogue strength, granting bonus damage for %duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_sven_gods_strength_rmg_title_1"
+        "Shattering Strength"
+
+        "DOTA_Tooltip_Ability_reimagined_sven_gods_strength_rmg_description_1"
+        "Increases Sven's strength by %shattering_strength_str_bonus_pct%%%."
+
+        "DOTA_Tooltip_Ability_reimagined_sven_gods_strength_rmg_title_2"
+        "Buff Fish"
+
+        "DOTA_Tooltip_Ability_reimagined_sven_gods_strength_rmg_description_2"
+        "Passively increases Sven's next attack's damage by %buff_fish_bonus_damage_pct%%%. Has an internal cooldown of %buff_fish_cooldown% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_sven_gods_strength_rmg_title_3"
+        "Rogue Knight"
+
+        "DOTA_Tooltip_Ability_reimagined_sven_gods_strength_rmg_description_3"
+        "Killing an enemy unit while in God's Strength improves the current God's Strength bonus damage percentage by %rough_knight_unit_kill_damage_bonus%%%. Hero kills grant %rough_knight_hero_kill_damage_bonus%%% instead."
 
 		"DOTA_Tooltip_Ability_reimagined_sven_gods_strength_Lore"
 		"With the strength that shattered the Sacred Helm, the Rogue Knight stands unopposed in melee combat."
@@ -732,10 +889,25 @@
 		"Crystal Nova"
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_Description"
-		"A burst of damaging frost slows enemy movement and attack rate in the targeted area.
-		<font color='#B25266'><b>Snowstorm Field:</b> Leaves a field on the ground where Crystal Nova was cast for %snowstorm_duration% seconds. Allies standing on the field are granted %snowstorm_damage_reduction%%% damage reduction and %snowstorm_status_reduction%%% status resistance.
-		<font color='#B25266'><b>Snowbite:</b> When an enemy is under both Frostbite's debuff and standing on the Snowstorm Field, Crystal Nova's slow modifier's timer refreshes itself.
-		<font color='#B25266'><b>Hail Winds:</b> While Snowstorm Field is up, frozen shards are released with extreme force from the center of the field, dealing %hailwind_damage% to all enemies in %hailwind_radius% range and slowing them by %hailwind_slow_pct%%% for %hailwind_duration% second. Repeats every %hailwind_interval% seconds until Snowstorm Field dissipates."
+		"A burst of damaging frost slows enemy movement and attack rate in the targeted area."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_rmg_title_1"
+        "Snowstorm Field"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_rmg_description_1"
+        "Leaves a field on the ground where Crystal Nova was cast for %snowstorm_duration% seconds. Allies standing on the field are granted %snowstorm_damage_reduction%%% damage reduction and %snowstorm_status_reduction%%% status resistance."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_rmg_title_2"
+        "Snowbite"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_rmg_description_2"
+        "When an enemy is under both Frostbite's debuff and standing on the Snowstorm Field, Crystal Nova's slow modifier's timer refreshes itself."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_rmg_title_3"
+        "Hail Winds"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_rmg_description_3"
+        "While Snowstorm Field is up, frozen shards are released with extreme force from the center of the field, dealing %hailwind_damage% to all enemies in %hailwind_radius% range and slowing them by %hailwind_slow_pct%%% for %hailwind_duration% second. Repeats every %hailwind_interval% seconds until Snowstorm Field dissipates."
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_crystal_nova_Lore"
 		"The air temperature around Rylai drops rapidly, chilling all around her to the core."
@@ -787,10 +959,25 @@
 		"Frostbite"
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_Description"
-		"Encases an enemy unit in ice, prohibiting movement and attack, while dealing damage over time.
-		<font color='#B25266'><b>Eternal Cold:</b> Lasts infinitely on creeps, dealing %eternal_cold_fixed_damage% damage per tick. Can still be dispellable.
-		<font color='#B25266'><b>Frost Emanation:</b> While a unit is afflicted with Frostbite, on every tick, the closest enemy in %frost_emanation_search_radius% radius will also be afflicted with a %frost_emanation_duration% seconds Frostbite.
-		<font color='#B25266'><b>Igloo Frosting:</b> Can be cast on an ally, rooting and disarming it and increasing Arcane Aura's effect on that ally by %igloo_frosting_arcane_aura_multiplier% times. Does not deals damage to the target ally."
+		"Encases an enemy unit in ice, prohibiting movement and attack, while dealing damage over time."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_rmg_title_1"
+        "Eternal Cold"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_rmg_description_1"
+        "Lasts infinitely on creeps, dealing %eternal_cold_fixed_damage% damage per tick. Can still be dispellable."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_rmg_title_2"
+        "Frost Emanation"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_rmg_description_2"
+        "While a unit is afflicted with Frostbite, on every tick, the closest enemy in %frost_emanation_search_radius% radius will also be afflicted with a %frost_emanation_duration% seconds Frostbite."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_rmg_title_3"
+        "Igloo Frosting"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_rmg_description_3"
+        "Can be cast on an ally, rooting and disarming it and increasing Arcane Aura's effect on that ally by %igloo_frosting_arcane_aura_multiplier% times. Does not deals damage to the target ally."
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_Lore"
 		"Rylai channels winds from the Blueheart Glacier, imprisoning attackers in thick blocks of ice."
@@ -833,10 +1020,25 @@
 		"Arcane Aura"
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_Description"
-		"Gives additional mana regeneration to all friendly units on the map. This bonus is increased for Crystal Maiden.
-		<font color='#B25266'><b>Focused Arcane:</b> Can be cast as a no target spell to reduce the aura range from global to %focused_arcane_radius%, but increase allies' magical resistance by %focused_arcane_magic_res%%% and spell amp by %focused_arcane_spell_amp%%%. Those bonuses are not multiplied by Crystal Maiden's self bonus. Lasts %focused_arcane_duration% seconds.
-		<font color='#B25266'><b>Ice Never Dies:</b> Aura persists even when Crystal Maiden is dead or hidden.
-		<font color='#B25266'><b>Blueheart Mastery:</b> Dealing damage to enemy units improves Arcane Aura's mana regeneration by %blueheart_mastery_mana_regen% for all allies for each damage instance she inflicts. Stacks infinitely and has independent stack durations. Each stack lasts %blueheart_mastery_duration% seconds."
+		"Gives additional mana regeneration to all friendly units on the map. This bonus is increased for Crystal Maiden."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_rmg_title_1"
+        "Focused Arcane"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_rmg_description_1"
+        "Can be cast as a no target spell to reduce the aura range from global to %focused_arcane_radius%, but increase allies' magical resistance by %focused_arcane_magic_res%%% and spell amp by %focused_arcane_spell_amp%%%. Those bonuses are not multiplied by Crystal Maiden's self bonus. Lasts %focused_arcane_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_rmg_title_2"
+        "Ice Never Dies"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_rmg_description_2"
+        "Aura persists even when Crystal Maiden is dead or hidden."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_rmg_title_3"
+        "Blueheart Mastery"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_rmg_description_3"
+        "Dealing damage to enemy units improves Arcane Aura's mana regeneration by %blueheart_mastery_mana_regen% for all allies for each damage instance she inflicts. Stacks infinitely and has independent stack durations. Each stack lasts %blueheart_mastery_duration% seconds."
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_brilliance_aura_Lore"
 		"Cold temperatures promote the essence of magic, causing Rylai's presence to allow spell usage in abundance."
@@ -873,12 +1075,27 @@
 		"Freezing Field"
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_Description"
-		"CHANNELED - Surrounds Crystal Maiden with random icy explosions that slow enemies and deal massive damage. Grants bonus armor while channeling. Lasts %abilitychanneltime% seconds.
-		<font color='#B25266'><b>Arcane Glacier:</b> For every %arcane_glacier_interval% seconds that Freezing Field is still channeling, Crystal Maiden's damage resistance increases by %arcane_glacier_damage_res_per_tick%%%. Lasts %arcane_glacier_linger_duration% seconds after the channeling of Freezing Field ends.
-		<font color='#B25266'><b>Subzero Crystal:</b> Freezing Field's explosions have a %subzero_crystal_chance%%% chance to leave a Snowstorm Field on the impact location for %subzero_crystal_duration% seconds, applying the reimaginations of Crystal Nova.
-		<font color='#B25266'><b>Numbing Cold:</b> Frostbitten enemies take %numbing_cold_bonus_dmg_pct%%% increased damage from Freezing Field explosions and become ministunned."
+		"CHANNELED - Surrounds Crystal Maiden with random icy explosions that slow enemies and deal massive damage. Grants bonus armor while channeling. Lasts %abilitychanneltime% seconds."
 
-		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_aghanim_description"
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_rmg_title_1"
+        "Arcane Glacier"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_rmg_description_1"
+        "For every %arcane_glacier_interval% seconds that Freezing Field is still channeling, Crystal Maiden's damage resistance increases by %arcane_glacier_damage_res_per_tick%%%. Lasts %arcane_glacier_linger_duration% seconds after the channeling of Freezing Field ends."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_rmg_title_2"
+        "Subzero Crystal"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_rmg_description_2"
+        "Freezing Field's explosions have a %subzero_crystal_chance%%% chance to leave a Snowstorm Field on the impact location for %subzero_crystal_duration% seconds, applying the reimaginations of Crystal Nova."
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_rmg_title_3"
+        "Numbing Cold"
+
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_rmg_description_3"
+        "Frostbitten enemies take %numbing_cold_bonus_dmg_pct%%% increased damage from Freezing Field explosions and become ministunned."
+
+		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_scepter_description"
 		"Applies Frostbite to any unit that has been standing in the Freezing Field for over %scepter_delay% seconds."
 
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_freezing_field_Lore"
@@ -1017,10 +1234,25 @@
 		"Stifling Dagger"
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_Description"
-		"Throws a dagger slowing the enemy unit's movement speed, dealing %base_damage% + %attack_factor_tooltip%%% of Phantom Assassin's attack damage as physical damage and applying attack effects from items and abilities.
-		<font color='#B25266'><b>Fan of Knives:</b> Throws %fan_of_knives_add_daggers% additional daggers on random targets in Stifling Dagger's cast range that are not the main target that deal %fan_of_knives_fixed_damage% physical damage and do not proc on-hit effects. If there is at least one dagger that was not used, one additional dagger is thrown at the main target. Additional daggers still apply the slow debuff.
-		<font color='#B25266'><b>Sharp and Quiet:</b> Stifling Dagger's chance to proc Coup de Grace increases by %sharp_and_quite_crit_per_stack%%% chance for every %sharp_and_quite_hp_threshold_per_stack%%% health that the enemy unit has.
-		<font color='#B25266'><b>Stifling Blade:</b> The slow debuff also reduces the outgoing damage of the target by %stifling_blade_outgoing_damage%%% for the duration of the debuff."
+		"Throws a dagger slowing the enemy unit's movement speed, dealing %base_damage% + %attack_factor_tooltip%%% of Phantom Assassin's attack damage as physical damage and applying attack effects from items and abilities."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_rmg_title_1"
+        "Fan of Knives"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_rmg_description_1"
+        "Throws %fan_of_knives_add_daggers% additional daggers on random targets in Stifling Dagger's cast range that are not the main target that deal %fan_of_knives_fixed_damage% physical damage and do not proc on-hit effects. If there is at least one dagger that was not used, one additional dagger is thrown at the main target. Additional daggers still apply the slow debuff."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_rmg_title_2"
+        "Sharp and Quiet"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_rmg_description_2"
+        "Stifling Dagger's chance to proc Coup de Grace increases by %sharp_and_quite_crit_per_stack%%% chance for every %sharp_and_quite_hp_threshold_per_stack%%% health that the enemy unit has."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_rmg_title_3"
+        "Stifling Blade"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_rmg_description_3"
+        "The slow debuff also reduces the outgoing damage of the target by %stifling_blade_outgoing_damage%%% for the duration of the debuff."
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_stifling_dagger_Lore"
 		"The first skill learned by the Sisters of the Veil often signals an incoming hit."
@@ -1060,10 +1292,25 @@
 		"Phantom Strike"
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_Description"
-		"Teleports to a unit, friendly or enemy, and grants bonus attack speed while attacking if it's an enemy unit.
-		<font color='#B25266'><b>Nothin Personalle:</b> Applies instant attacks on all enemies between the caster and her target.
-		<font color='#B25266'><b>Relentless Assassin:</b> The attack speed buff refreshes itself when Phantom Assassin lands an attack on Phantom Strike's target.
-		<font color='#B25266'><b>Escape Plan:</b> After blinking to an ally, Phantom Assassin gains Blur's invisibility for %escape_plan_blur_duration% seconds, and gets a %escape_plan_ms_bonus_pct%%% move speed bonus as well for the same duration."
+		"Teleports to a unit, friendly or enemy, and grants bonus attack speed while attacking if it's an enemy unit."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_rmg_title_1"
+        "Nothin Personalle"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_rmg_description_1"
+        "Applies instant attacks on all enemies between the caster and her target."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_rmg_title_2"
+        "Relentless Assassin"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_rmg_description_2"
+        "The attack speed buff refreshes itself when Phantom Assassin lands an attack on Phantom Strike's target."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_rmg_title_3"
+        "Escape Plan"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_rmg_description_3"
+        "After blinking to an ally, Phantom Assassin gains Blur's invisibility for %escape_plan_blur_duration% seconds, and gets a %escape_plan_ms_bonus_pct%%% move speed bonus as well for the same duration."
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_phantom_strike_Lore"
 		"Mortred's silken veil is the last thing her unfortunate target sees."
@@ -1103,13 +1350,28 @@
 		"Blur"
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_Description"
-		"Phantom Assassin focuses inward, increasing her ability to evade enemy attacks. Can be activated to blur her body, causing her to be impossible to see until near enemy heroes.
-		<font color='#B25266'><b>Turned Your Blade:</b> Phantom Assassin instantly attacks any enemy within her attack range that misses her with an auto attack. Each enemy that procs this effect has its own independent cooldown of %turned_blade_internal_cooldown% seconds.
-		<font color='#B25266'><b>Quick and Quiet:</b> While Blur is active, grants %quick_quiet_ms_per_interval%%% move speed for every %quick_quiet_interval% second it is on. Lingers for %quick_quiet_linger_duration% additional seconds after Blur is dispelled or expires.
-		<font color='#B25266'><b>From the Veils:</b> Attacking while Blur is active grants Phantom Assassin an additional %from_veils_pure_damage_pct%%% of her total damage as bonus pure damage."
+		"Phantom Assassin focuses inward, increasing her ability to evade enemy attacks. Can be activated to blur her body, causing her to be impossible to see until near enemy heroes."
 
-		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_aghanim_description"
+		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_scepter_description"
 		"Causes Blur to have instant cast time and applies a dispel. Anytime you get a hero kill, your abilities are refreshed. Reduces Blur cooldown."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_rmg_title_1"
+        "Turned Your Blade"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_rmg_description_1"
+        "Phantom Assassin instantly attacks any enemy within her attack range that misses her with an auto attack. Each enemy that procs this effect has its own independent cooldown of %turned_blade_internal_cooldown% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_rmg_title_2"
+        "Quick and Quiet"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_rmg_description_2"
+        "While Blur is active, grants %quick_quiet_ms_per_interval%%% move speed for every %quick_quiet_interval% second it is on. Lingers for %quick_quiet_linger_duration% additional seconds after Blur is dispelled or expires."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_rmg_title_3"
+        "From The Veils"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_rmg_description_3"
+        "Attacking while Blur is active grants Phantom Assassin an additional %from_veils_pure_damage_pct%%% of her total damage as bonus pure damage."
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_blur_Lore"
 		"Meditation allows a Veiled Sister to carefully anticipate her opponents in combat."
@@ -1155,10 +1417,25 @@
 		"Coup de Grace"
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_Description"
-		"Phantom Assassin refines her combat abilities, gaining a chance of delivering a devastating critical strike to enemy units. Stifling Dagger shares the same critical strike chance.
-		<font color='#B25266'><b>Kiss of Death:</b> When Phantom Assassin delivers a critical strike from Coup de Grace to a target with less than %kiss_of_death_health_threshold%%% health, there is a %kiss_of_death_kill_chance%%% chance that the critical damage will deal extremely massive damage.
-		<font color='#B25266'><b>Marked For Death:</b> Each attack that doesn't proc Coup De Grace increases its crit damage by %marked_for_death_damage_increase%%%. Resets when Coup de Grace is triggered.
-		<font color='#B25266'><b>Decisive Strike:</b> Coup de Grace can be cast as a no target ability. Doing so reduces Phantom Assassin's attack speed by %decisive_strike_as_reduction%, but increases the chance to proc Coup de Grace by %decisive_strike_crit_chance_increase%%%. Lasts for %decisive_strike_duration% seconds, or until Phantom Assassin crits %decisive_strike_crits_to_remove% times."
+		"Phantom Assassin refines her combat abilities, gaining a chance of delivering a devastating critical strike to enemy units. Stifling Dagger shares the same critical strike chance."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_rmg_title_1"
+        "Kiss of Death"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_rmg_description_1"
+        "When Phantom Assassin delivers a critical strike from Coup de Grace to a target with less than %kiss_of_death_health_threshold%%% health, there is a %kiss_of_death_kill_chance%%% chance that the critical damage will deal extremely massive damage."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_rmg_title_2"
+        "Marked For Death"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_rmg_description_2"
+        "Each attack that doesn't proc Coup De Grace increases its crit damage by %marked_for_death_damage_increase%%%. Resets when Coup de Grace is triggered."
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_rmg_title_3"
+        "Decisive Strike"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_rmg_description_3"
+        "Coup de Grace can be cast as a no target ability. Doing so reduces Phantom Assassin's attack speed by %decisive_strike_as_reduction%, but increases the chance to proc Coup de Grace by %decisive_strike_crit_chance_increase%%%. Lasts for %decisive_strike_duration% seconds, or until Phantom Assassin crits %decisive_strike_crits_to_remove% times."
 
 		"DOTA_Tooltip_Ability_reimagined_phantom_assassin_coup_de_grace_Lore"
 		"A divine strike, Mortred honors her opponent by choosing them for death."
@@ -1274,10 +1551,25 @@
 		"Frost Arrows"
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_Description"
-		"Adds a freezing effect to Drow's attacks, slowing enemy movement and dealing bonus damage. Slow lasts %duration% seconds.
-		<font color='#B25266'><b>Brittle as the Cold:</b> Frost Arrows causes the target to lose %brittle_cold_armor_loss_pct%%% of its total armor and %brittle_cold_aspd_loss% attack speed for %brittle_cold_duration% seconds. Stacks indefinitely. Stacks have independent duration.
-		<font color='#B25266'><b>Freezing Offensive:</b> Each Frost Arrow extends the current slow debuff timer by %duration% seconds, instead of refreshing it. The timer can only be extended up to a maximum of %freezing_offensive_max_duration% seconds.
-		<font color='#B25266'><b>Cryo Arrowhead:</b> While Marksmanship is active, grants a %cryo_arrowhead_chance%%% chance to have Frost Arrows explode on impact, dealing bonus %cryo_arrowhead_damage% magical damage to all enemies in %cryo_arrowhead_radius% radius of the target. All enemies hit are afflicted with Frost Arrow's slow debuff for %cryo_arrowhead_duration% seconds."
+		"Adds a freezing effect to Drow's attacks, slowing enemy movement and dealing bonus damage. Slow lasts %duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_rmg_title_1"
+        "Brittle as the Cold"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_rmg_description_1"
+        "Frost Arrows causes the target to lose %brittle_cold_armor_loss_pct%%% of its total armor and %brittle_cold_aspd_loss% attack speed for %brittle_cold_duration% seconds. Stacks indefinitely. Stacks have independent duration."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_rmg_title_2"
+        "Freezing Offensive"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_rmg_description_2"
+        "Each Frost Arrow extends the current slow debuff timer by %duration% seconds, instead of refreshing it. The timer can only be extended up to a maximum of %freezing_offensive_max_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_rmg_title_3"
+        "Cryo Arrowhead"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_rmg_description_3"
+        "While Marksmanship is active, grants a %cryo_arrowhead_chance%%% chance to have Frost Arrows explode on impact, dealing bonus %cryo_arrowhead_damage% magical damage to all enemies in %cryo_arrowhead_radius% radius of the target. All enemies hit are afflicted with Frost Arrow's slow debuff for %cryo_arrowhead_duration% seconds."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_Lore"
 		"Ice-encased arrows pierce the silence, chilling their victims to the core."
@@ -1311,10 +1603,25 @@
 		"Gust"
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_Description"
-		"Releases a wave that silences and knocks back enemy units. Knockback distance is relative to how close they are to you.
-		<font color='#B25266'><b>X Gust:</b> Launches %xgust_projectiles% Gust projectiles in every %xgust_angle% degrees of Drow Ranger, pushing all enemies away from her.
-		<font color='#B25266'><b>Wave Chill:</b> Enemies that are in %wave_chill_range% range of Drow Ranger are also frozen, becoming stunned during the Gust's knockback plus %wave_chill_freeze_duration% additional seconds.
-		<font color='#B25266'><b>Tailwind:</b> Drow can cast Gust on herself to constantly push her on the direction she's currently facing, silencing enemies in %tailwind_silence_radius% radius around her. Drow Ranger can rotate herself to change the direction the gust pushes her. Lasts %tailwind_duration% seconds."
+		"Releases a wave that silences and knocks back enemy units. Knockback distance is relative to how close they are to you."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_rmg_title_1"
+        "X Gust"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_rmg_description_1"
+        "Launches %xgust_projectiles% Gust projectiles in every %xgust_angle% degrees of Drow Ranger, pushing all enemies away from her."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_rmg_title_2"
+        "Wave Chill"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_rmg_description_2"
+        "Enemies that are in %wave_chill_range% range of Drow Ranger are also frozen, becoming stunned during the Gust's knockback plus %wave_chill_freeze_duration% additional seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_rmg_title_3"
+        "Tailwind"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_rmg_description_3"
+        "Drow can cast Gust on herself to constantly push her on the direction she's currently facing, silencing enemies in %tailwind_silence_radius% radius around her. Drow Ranger can rotate herself to change the direction the gust pushes her. Lasts %tailwind_duration% seconds."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence_Lore"
 		"Traxex is rather fond of the tranquility of physical combat, calling on her Drow heritage to end the incantations of opposing magi."
@@ -1363,10 +1670,25 @@
 		"Multishot"
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_multishot_Description"
-		"Drow releases a flurry of arrows in continuous salvos, hitting enemies for extra damage and applying longer duration Frost Arrows. Lasts up to %abilitychanneltime% seconds.
-		<font color='#B25266'><b>Quick Quiver:</b> For every %quick_quiver_aspd% attack speed that Drow Ranger has, increases the amount of arrows fired in each wave by %quick_quiver_bonus_arrows%.
-		<font color='#B25266'><b>Endless Barrage:</b> Can be set to auto cast to increase the max channel time to %endless_barrage_channel_time% seconds, firing a wave of arrows every %endless_barrage_delay_between_waves% seconds, but causes each wave to drain %endless_barrage_mana_per_wave% mana. Lasts until no mana is left to fire an additional wave, the channeling is interrupted, or the duration elapses.
-		<font color='#B25266'><b>Thrilling Hunt:</b> While Marksmanship is enabled, the first wave's arrows trigger Marksmanship's bonuses. In addition, each enemy hit with a Multishot projectile increases the projectile speed of all further projectiles of this cast by %thrilling_hunt_projectile_speed%."
+		"Drow releases a flurry of arrows in continuous salvos, hitting enemies for extra damage and applying longer duration Frost Arrows. Lasts up to %abilitychanneltime% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_multishot_rmg_title_1"
+        "Quick Quiver"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_multishot_rmg_description_1"
+        "For every %quick_quiver_aspd% attack speed that Drow Ranger has, increases the amount of arrows fired in each wave by %quick_quiver_bonus_arrows%."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_multishot_rmg_title_2"
+        "Endless Barrage"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_multishot_rmg_description_2"
+        "Can be set to auto cast to increase the max channel time to %endless_barrage_channel_time% seconds, firing a wave of arrows every %endless_barrage_delay_between_waves% seconds, but causes each wave to drain %endless_barrage_mana_per_wave% mana. Lasts until no mana is left to fire an additional wave, the channeling is interrupted, or the duration elapses."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_multishot_rmg_title_3"
+        "Thrilling Hunt"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_multishot_rmg_description_3"
+        "While Marksmanship is enabled, the first wave's arrows trigger Marksmanship's bonuses. In addition, each enemy hit with a Multishot projectile increases the projectile speed of all further projectiles of this cast by %thrilling_hunt_projectile_speed%."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_multishot_Lore"
 		"In the ranger's youth, learning to fire multiple arrows at once was considered a distracting frivolity. In the war of the Ancients, such technique has become strange necessity."
@@ -1396,10 +1718,25 @@
 		"Marksmanship"
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_Description"
-		"Drow's experience in battle grant her a chance to launch arrows with incredible accuracy and effectiveness. Pierces through the enemy's defenses, ignoring their base armor. Grants Drow and nearby ranged heroes with bonus agility based on Drow's current agility. This ability is disabled if there is an enemy hero within %disable_range% range.
-		<font color='#B25266'><b>Pride of the Drow!:</b> Can be activated to prevent Marksmanship from being disabled by nearby enemies for %pride_drow_duration% seconds.
-		<font color='#B25266'><b>Ambush from the Forests:</b> While Marksmanship is active and Drow Ranger did not attack for %ambush_forest_no_attack_period% seconds, Drow Ranger's next arrow is guaranteed to proc Marksmanship.
-		<font color='#B25266'><b>Ranger of Frost:</b> While Marksmanship is active, attacking targets that are afflicted with Frost Arrows' slow debuff grants Drow Ranger's a stack to the Ranger of Frost buff. Each stack increases Drow Ranger's attack speed by %ranger_frost_attack_speed%, her projectile speed by %ranger_frost_projectile_speed%, and decreases the distance where Marksmanship is disabled by %ranger_frost_disable_distance_decrease%. Stacks infinitely. Each stack has its own independent duration, and lasts %ranger_frost_duration% seconds."
+		"Drow's experience in battle grant her a chance to launch arrows with incredible accuracy and effectiveness. Pierces through the enemy's defenses, ignoring their base armor. Grants Drow and nearby ranged heroes with bonus agility based on Drow's current agility. This ability is disabled if there is an enemy hero within %disable_range% range."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_rmg_title_1"
+        "Pride of the Drow"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_rmg_description_1"
+        "Can be activated to prevent Marksmanship from being disabled by nearby enemies for %pride_drow_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_rmg_title_2"
+        "Ambush from the Forests"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_rmg_description_2"
+        "While Marksmanship is active and Drow Ranger did not attack for %ambush_forest_no_attack_period% seconds, Drow Ranger's next arrow is guaranteed to proc Marksmanship."
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_rmg_title_3"
+        "Ranger of Frost"
+
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_rmg_description_3"
+        "While Marksmanship is active, attacking targets that are afflicted with Frost Arrows' slow debuff grants Drow Ranger's a stack to the Ranger of Frost buff. Each stack increases Drow Ranger's attack speed by %ranger_frost_attack_speed%, her projectile speed by %ranger_frost_projectile_speed%, and decreases the distance where Marksmanship is disabled by %ranger_frost_disable_distance_decrease%. Stacks infinitely. Each stack has its own independent duration, and lasts %ranger_frost_duration% seconds."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_Lore"
 		"The Drow Ranger's is the epitome of archery prowess."
@@ -1407,7 +1744,7 @@
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_Note0"
 		"Ranger of Frost will also give a stack if the attack is a Frost Arrow, which applies the slow."
 
-		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_aghanim_description"
+		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_scepter_description"
 		"Causes Drow Ranger's attacks to splinter on the target, hitting nearby units with normal attacks that deal reduced damage."
 
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_marksmanship_chance"
@@ -1536,10 +1873,25 @@
 		"Arcane Bolt"
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_Description"
-		"Skywrath Mage launches a slow-moving bolt of arcane magic, dealing damage to an enemy unit based on Skywrath Mage's intelligence.
-		<font color='#B25266'><b>Arcane Infusion:</b> Grants bonus %arcane_infusion_speed_per_int% projectile speed for each point of intelligence Skywrath has when casting Arcane Bolt.
-		<font color='#B25266'><b>Wrath of Dragonus:</b> After Skywrath Mage casts %wrath_arcane_bolt_casts% Arcane Bolts, the next Arcane Bolt cast will become a Wrath Bolt, which travels %wrath_bolt_speed_multiplier% times as fast, the damage includes the intelligence of nearby allied heroes in %wrath_int_calculate_range% range, and Skywrath's intelligence is calculated %wrath_caster_calculations% times. The counter modifier lasts %wrath_duration% seconds.
-		<font color='#B25266'><b>Blank Bolt:</b> Arcane Bolt can be cast on spell immune enemies. When the projectile hits a spell immune enemy, it deals no damage, and instead sets a debuff that has a stack count equal to %blank_bolt_damage_pct%%% of the damage the unit would've taken. When the unit takes magic damage with an ability and it is not spell immune, the debuff is consumed and the damage it had stored is dealt in a separate instance. The debuff lasts %blank_bolt_duration% seconds."
+		"Skywrath Mage launches a slow-moving bolt of arcane magic, dealing damage to an enemy unit based on Skywrath Mage's intelligence."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_rmg_title_1"
+        "Arcane Infusion"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_rmg_description_1"
+        "Grants bonus %arcane_infusion_speed_per_int% projectile speed for each point of intelligence Skywrath has when casting Arcane Bolt."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_rmg_title_2"
+        "Wrath of Dragonus"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_rmg_description_2"
+        "After Skywrath Mage casts %wrath_arcane_bolt_casts% Arcane Bolts, the next Arcane Bolt cast will become a Wrath Bolt, which travels %wrath_bolt_speed_multiplier% times as fast, the damage includes the intelligence of nearby allied heroes in %wrath_int_calculate_range% range, and Skywrath's intelligence is calculated %wrath_caster_calculations% times. The counter modifier lasts %wrath_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_rmg_title_3"
+        "Blank Bolt"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_rmg_description_3"
+        "Arcane Bolt can be cast on spell immune enemies. When the projectile hits a spell immune enemy, it deals no damage, and instead sets a debuff that has a stack count equal to %blank_bolt_damage_pct%%% of the damage the unit would've taken. When the unit takes magic damage with an ability and it is not spell immune, the debuff is consumed and the damage it had stored is dealt in a separate instance. The debuff lasts %blank_bolt_duration% seconds."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_Lore"
 		"Within the Ghastly Eyrie's endless intrigue, only the clever and calm can hope to survive."
@@ -1553,7 +1905,7 @@
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_Note2"
 		"Blank Bolt can refresh itself with additional Arcane Bolt hits on a spell immune enemy. The damage will be adjusted when the new cast deals more damage."
 
-		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_aghanim_description"
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_scepter_description"
 		"When Skywrath Mage casts Arcane Bolt, a different random target within %scepter_radius% range will be hit with the same ability. Heroes will take priority."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_arcane_bolt_bolt_damage"
@@ -1594,10 +1946,25 @@
 		"Concussive Shot"
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_Description"
-		"Skywrath Mage sets off a long range shot that hits the closest hero within a long range.  Upon impact, it deals damage and slows in an area of effect.
-		<font color='#B25266'><b>Conjured Relay:</b> Concussive Shot bounces %conjured_relay_bounce_count% times towards the closest enemy that was not hit by Concussive Shot this cast. Looks in %conjured_relay_search_radius% units around the last bounce target.
-		<font color='#B25266'><b>Brain Concussion:</b> The main target hit by Concussive Shot is also affected by a %brain_concussion_spell_amp_rdct%%% spell amp reduction for the duration of the slow.
-		<font color='#B25266'><b>Ghastly Eerie:</b> If the main target of Concussive Shot is afflicted by Ancient Seal's debuff when the projectile hits, the radius of Concussive Shot increases by %ghastly_eerie_radius_pct%%% and the slow duration increases by %ghastly_eerie_duration_pct%%% for all enemies in the blast range."
+		"Skywrath Mage sets off a long range shot that hits the closest hero within a long range.  Upon impact, it deals damage and slows in an area of effect."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_rmg_title_1"
+        "Conjured Relay"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_rmg_description_1"
+        "Concussive Shot bounces %conjured_relay_bounce_count% times towards the closest enemy that was not hit by Concussive Shot this cast. Looks in %conjured_relay_search_radius% units around the last bounce target."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_rmg_title_2"
+        "Brain Concussion"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_rmg_description_2"
+        "The main target hit by Concussive Shot is also affected by a %brain_concussion_spell_amp_rdct%%% spell amp reduction for the duration of the slow."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_rmg_title_3"
+        "Ghastly Eerie"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_rmg_description_3"
+        "If the main target of Concussive Shot is afflicted by Ancient Seal's debuff when the projectile hits, the radius of Concussive Shot increases by %ghastly_eerie_radius_pct%%% and the slow duration increases by %ghastly_eerie_duration_pct%%% for all enemies in the blast range."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_Lore"
 		"Those who serve the court of the Ghastly Eyrie are ever locked in covert war. One must always know where danger lurks nearest."
@@ -1611,7 +1978,7 @@
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_Note2"
 		"Provides %shot_vision% vision around the projectile, and reveals the target area for %vision_duration% seconds upon impact."
 
-		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_aghanim_description"
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_scepter_description"
 		"When Skywrath Mage casts Concussive Shot, a different random target within cast range will be hit with the same ability. Heroes will take priority."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_concussive_shot_launch_radius"
@@ -1640,10 +2007,25 @@
 		"Ancient Seal"
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_Description"
-		"Skywrath Mage seals the targeted unit with an ancient rune, silencing it and causing it to take additional damage from spells.
-		<font color='#B25266'><b>Seal of Scree'auk:</b> Can be cast on an ally to set the seal within it, granting it a %seal_screeauk_spell_amp%%% spell amp, and causes it to emit an aura that applies Ancient Seal's debuff on any enemy in %seal_screeauk_radius% radius near it.
-		<font color='#B25266'><b>Rebounding Seal:</b> When the seal expires prematurely, it is applied to the closest enemy in %rebound_seal_search_radius% radius around it with its remaining duration. This effects also applies on allies affected by Seal of the Scree'auk seals. This process can repeat infinitely.
-		<font color='#B25266'><b>Sealed Enmity:</b> Every %sealed_enmity_magic_damage_threshold% magical damage accumulated by the target during the debuff increases the magic reduction by %sealed_enmity_magic_reduction_increase%%% for the reminder of the duration."
+		"Skywrath Mage seals the targeted unit with an ancient rune, silencing it and causing it to take additional damage from spells."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_rmg_title_1"
+        "Seal of Scree'auk"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_rmg_description_1"
+        "Can be cast on an ally to set the seal within it, granting it a %seal_screeauk_spell_amp%%% spell amp, and causes it to emit an aura that applies Ancient Seal's debuff on any enemy in %seal_screeauk_radius% radius near it."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_rmg_title_2"
+        "Rebounding Seal"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_rmg_description_2"
+        "When the seal expires prematurely, it is applied to the closest enemy in %rebound_seal_search_radius% radius around it with its remaining duration. This effects also applies on allies affected by Seal of the Scree'auk seals. This process can repeat infinitely."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_rmg_title_3"
+        "Sealed Enmity"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_rmg_description_3"
+        "Every %sealed_enmity_magic_damage_threshold% magical damage accumulated by the target during the debuff increases the magic reduction by %sealed_enmity_magic_reduction_increase%%% for the reminder of the duration."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_Lore"
 		"A holy incantation, whosoever finds themselves touched by Avilliva's sigil must suffer in penitent silence."
@@ -1654,7 +2036,7 @@
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_Note1"
 		"Scepter effect will also also be applied when casting Seal of Scree'auk on an ally, casting it on a random ally in its range."
 
-		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_aghanim_description"
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_scepter_description"
 		"Anytime Skywrath Mage casts Ancient Seal, a different random target within %scepter_radius% range will be affected by the same ability. Heroes will take priority."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_resist_debuff"
@@ -1683,10 +2065,25 @@
 		"Mystic Flare"
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_Description"
-		"Skywrath Mage uses his ultimate magical ability to conjure a precise and violent mystical field that lays waste to his adversaries. Deals massive damage distributed evenly among any Heroes in the area over %duration% seconds.
-		<font color='#B25266'><b>Mystical Bombardment:</b> Every interval also fires %mystical_bombardment_hits_per_interval% small instances of Mystic Flare in random locations around the target point up between %mystical_bombardment_min_range% and %mystical_bombardment_max_range% units away from it, dealing an instance damage to all enemies in a %mystical_bombardment_radius% radius where it landed. Damage is distributed evenly between enemies in the hit radius.
-		<font color='#B25266'><b>Flare of Divinity:</b> Mystic Flare automatically moves towards the closest enemy in %flare_divinity_search_radius% range of its center, moving at %flare_divinity_move_speed% speed.
-		<font color='#B25266'><b>Skywrath's High Mage:</b> Each point of intelligence the caster has reduces the duration of Mystic Flare by %high_mage_duration_per_int_pct%%%, up to %high_mage_max_duration_reduction_pct%%% duration reduction. The damage scales accordingly."
+		"Skywrath Mage uses his ultimate magical ability to conjure a precise and violent mystical field that lays waste to his adversaries. Deals massive damage distributed evenly among any Heroes in the area over %duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_rmg_title_1"
+        "Mystical Bombardment"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_rmg_description_1"
+        "Every interval also fires %mystical_bombardment_hits_per_interval% small instances of Mystic Flare in random locations around the target point up between %mystical_bombardment_min_range% and %mystical_bombardment_max_range% units away from it, dealing an instance damage to all enemies in a %mystical_bombardment_radius% radius where it landed. Damage is distributed evenly between enemies in the hit radius."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_rmg_title_2"
+        "Flare of Divinity"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_rmg_description_2"
+        "Mystic Flare automatically moves towards the closest enemy in %flare_divinity_search_radius% range of its center, moving at %flare_divinity_move_speed% speed."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_rmg_title_3"
+        "Skywrath's High Mage"
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_rmg_description_3"
+        "Each point of intelligence the caster has reduces the duration of Mystic Flare by %high_mage_duration_per_int_pct%%%, up to %high_mage_max_duration_reduction_pct%%% duration reduction. The damage scales accordingly."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_Lore"
 		"Only the most practiced of Skywrath sorcerers could hope to shape the skies into such a storm."
@@ -1700,7 +2097,7 @@
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_Note2"
 		"Mystic Flare will damage enemy creeps if no enemy heroes are present."
 
-		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_aghanim_description"
+		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_scepter_description"
 		"When Skywrath Mage casts Mystic Flare, another Mystic Flare will be created on the position of a different random target enemy within %scepter_radius% range. Heroes will take priority."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_mystic_flare_radius"
@@ -1804,12 +2201,37 @@
         "Spawn Spiderlings"
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_Description"
-        "Broodmother injects her young into an enemy unit, dealing damage. The spiderlings will hatch if the target is killed while under this influence, which lasts %buff_duration% seconds.
-        <font color='#B25266'><b>Avenger:</b> Whenever any Spider unit dies in %avenger_radius% radius of Broodmother, Broodmother gains a stack of Avenger. Each stack increases her base damage by %avenger_damage_pct%%% for %avenger_duration% seconds. Has independent stacks.
-		<font color='#B25266'><b>Spiderlings Academy:</b> For each level of Broodmother, Spiderlings gain %spiderlings_academy_damage_per_level% damage, %spiderlings_academy_health_per_level% health, %spiderlings_academy_armor_per_level% armor and %spiderlings_academy_magic_res_per_level%%% magic resistance. Spiderites gain %spiderlings_academy_spiderites_pct%%% of the values.
-		<font color='#B25266'><b>Ticking Poison:</b> Spiderlings' Poison Sting accumulates within a target and explodes when going through the threshold, dealing bonus damage.
-        <font color='#B25266'><b>Volatile Spiderlings:</b> Spiderlings explode on death, dealing damage and spreading their poison. Spiderites have a lesser version of this ability.
-        <font color='#B25266'><b>Spider Genes:</b> When enough Spiderlings attack a target, it will spawn a Spiderling instead of Spiderite on death."
+        "Broodmother injects her young into an enemy unit, dealing damage. The spiderlings will hatch if the target is killed while under this influence, which lasts %buff_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_title_1"
+        "Avenger"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_description_1"
+        "Whenever any Spider unit dies in %avenger_radius% radius of Broodmother, Broodmother gains a stack of Avenger. Each stack increases her base damage by %avenger_damage_pct%%% for %avenger_duration% seconds. Has independent stacks."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_title_2"
+        "Spiderlings Academy"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_description_2"
+        "For each level of Broodmother, Spiderlings gain %spiderlings_academy_damage_per_level% damage, %spiderlings_academy_health_per_level% health, %spiderlings_academy_armor_per_level% armor and %spiderlings_academy_magic_res_per_level%%% magic resistance. Spiderites gain %spiderlings_academy_spiderites_pct%%% of the values."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_title_3"
+        "Ticking Poison"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_description_3"
+        "Spiderlings' Poison Sting accumulates within a target and explodes when going through the threshold, dealing bonus damage."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_title_4"
+        "Volatile Spiderlings"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_description_4"
+        "Spiderlings explode on death, dealing damage and spreading their poison. Spiderites have a lesser version of this ability."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_title_5"
+        "Spider Genes"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_description_5"
+        "When enough Spiderlings attack a target, it will spawn a Spiderling instead of Spiderite on death."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_Lore"
         "Black Arachnia continues to raise her young, even amidst the field of combat. The brood quickly learns how to support their mother."
@@ -1852,9 +2274,19 @@
         "Poison Sting"
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spiderling_poison_sting_Description"
-        "Poisons and slows enemies with each attack.
-        <font color='#B25266'><b>Ticking Poison:</b> Poison Sting accumulates stacks on the target each time it is attacked by a Spiderling. When the target reaches %ticking_poison_stacks% stacks, all stacks are consumed, causing the target to burst and take %ticking_poison_damage% magical damage.
-        <font color='#B25266'><b>Volatile Spiderlings:</b> Spiderlings explode on death, dealing %volatile_spiderling_damage% magical damage in %volatile_spiderling_radius% radius around them and applying Poison Sting to enemies in the area of effect."
+        "Poisons and slows enemies with each attack."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spiderling_poison_sting_rmg_title_1"
+        "Ticking Poison"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spiderling_poison_sting_rmg_description_1"
+        "Poison Sting accumulates stacks on the target each time it is attacked by a Spiderling. When the target reaches %ticking_poison_stacks% stacks, all stacks are consumed, causing the target to burst and take %ticking_poison_damage% magical damage."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spiderling_poison_sting_rmg_title_2"
+        "Volatile Spiderlings"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spiderling_poison_sting_rmg_description_2"
+        "Spiderlings explode on death, dealing %volatile_spiderling_damage% magical damage in %volatile_spiderling_radius% radius around them and applying Poison Sting to enemies in the area of effect."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spiderling_poison_sting_Note0"
         "Volatile Spiderlings does not trigger from expiring."
@@ -1882,8 +2314,13 @@
         "Spawn Spiderite"
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spiderling_spawn_spiderite_Description"
-        "Applies debuff on attack. If debuffed unit dies, a spiderite will spawn.
-        <font color='#B25266'><b>Spider Genes:</b> Each unique Spiderling that attacks the target adds a stack. If the target dies with at least %spider_genes_stacks% stacks, it will birth a Spiderling instead of a Spiderite."
+        "Applies debuff on attack. If debuffed unit dies, a spiderite will spawn."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spiderling_spawn_spiderite_rmg_title_1"
+        "Spider Genes"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spiderling_spawn_spiderite_rmg_description_1"
+        "Each unique Spiderling that attacks the target adds a stack. If the target dies with at least %spider_genes_stacks% stacks, it will birth a Spiderling instead of a Spiderite."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spiderling_spawn_spiderite_spiderite_duration"
         "LIFETIME:"
@@ -1918,15 +2355,25 @@
         "Spin Web"
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spin_web_Description"
-        "Spins a large web that grants Broodmother a passive movement speed increase, gives free movement, and boosts regeneration while in its vicinity. Spin Web charges restore every 45 seconds. Spin Web can be cast from anywhere as long as the new web touches an existing web. Webs never expire, and can be manually destroyed. When the maximum limit of webs is exceeded, the oldest web disappears.
-        <font color='#B25266'><b>Web Manuever:</b> Increases Spiderlings' and Spiderites' damage reduction by %web_menuever_dmg_pct%%% while they are on a web. In addition, Broodmother and all her spider units gain %web_menuever_attack_speed% attack speed bonus while on a web.
-        <font color='#B25266'><b>Web Sense:</b> Enemies entering a web have their models shown through Fog of War for %web_sense_duration% seconds. This can only occur once per entrance to each web."
+        "Spins a large web that grants Broodmother a passive movement speed increase, gives free movement, and boosts regeneration while in its vicinity. Spin Web charges restore every %charge_restore_time% seconds. Spin Web can be cast from anywhere as long as the new web touches an existing web. Webs never expire, and can be manually destroyed. When the maximum limit of webs is exceeded, the oldest web disappears."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spin_web_rmg_title_1"
+        "Web Manuever"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spin_web_rmg_description_1"
+        "Increases Spiderlings' and Spiderites' damage reduction by %web_menuever_dmg_pct%%% while they are on a web. In addition, Broodmother and all her spider units gain %web_menuever_attack_speed% attack speed bonus while on a web."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spin_web_rmg_title_2"
+        "Web Sense"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spin_web_rmg_description_2"
+        "Enemies entering a web have their models shown through Fog of War for %web_sense_duration% seconds. This can only occur once per entrance to each web."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spin_web_Lore"
         "Weaving a bed of silken fibers, Arachnia's web both protects her and her offspring, as well as giving advancing opponents a sense of forboding."
 
-        "DOTA_Tooltip_Ability_reimagined_broodmother_spin_web_aghanim_description"
-        "Increases movement speed, removes movement speed limit, and increases Spin Web max count"
+        "DOTA_Tooltip_Ability_reimagined_broodmother_spin_web_scepter_description"
+        "Increases movement speed, removes movement speed limit, and increases Spin Web max count."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spin_web_Note0"
         "Also affects Spiderlings, Spiderites and the Spiderking."
@@ -1985,9 +2432,19 @@
         "Incapacitating Bite"
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_incapacitating_bite_Description"
-        "Broodmother's venom cripples enemy units, causing her attacks to slow and give the affected unit a chance to miss its attacks.
-        <font color='#B25266'><b>Webbed Up:</b> When Broodmother or a spider unit under her control attack an enemy standing in a web, that enemy gets a stack of Webbed Up. When it reaches %web_up_stacks_threshold% stacks, stacks are consumed, causing the enemy to become rooted and to have %web_up_miss_chance_pct%%% miss chance for %web_up_duration% second. Broodmother's attacks increase the stacks by %web_up_stacks_hero%. Spiderlings', Spiderites and Spiderking's attacks increase it by %web_up_stacks_spider% stack instead.
-        <font color='#B25266'><b>Paralytic Toxics:</b> Also reduces attack speed by %paralytic_attack_speed_slow% and cast speed by %paralytic_cast_speed_slow_pct%%% for affected units."
+        "Broodmother's venom cripples enemy units, causing her attacks to slow and give the affected unit a chance to miss its attacks."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_incapacitating_bite_rmg_title_1"
+        "Webbed Up"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_incapacitating_bite_rmg_description_1"
+        "When Broodmother or a spider unit under her control attack an enemy standing in a web, that enemy gets a stack of Webbed Up. When it reaches %web_up_stacks_threshold% stacks, stacks are consumed, causing the enemy to become rooted and to have %web_up_miss_chance_pct%%% miss chance for %web_up_duration% second. Broodmother's attacks increase the stacks by %web_up_stacks_hero%. Spiderlings', Spiderites and Spiderking's attacks increase it by %web_up_stacks_spider% stack instead."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_incapacitating_bite_rmg_title_2"
+        "Paralytic Toxics"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_incapacitating_bite_rmg_description_2"
+        "Also reduces attack speed by %paralytic_attack_speed_slow% and cast speed by %paralytic_cast_speed_slow_pct%%% for affected units."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_incapacitating_bite_Lore"
         "Paralytic toxins come from Black Arachnia's fangs, causing a slow and painful death to those who intrude on her webs."
@@ -2027,9 +2484,19 @@
         "Insatiable Hunger"
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_insatiable_hunger_Description"
-        "A violent lust for vital fluids increases Broodmother's attack damage and gives her a vampiric attack.
-        <font color='#B25266'><b>Queen of the Brood:</b> While Insatiable Hunger is active, Broodmother emits an aura that increases the damage of nearby spider units under her control in %queen_brood_radius% range by %queen_brood_damage_bonus%, and grants them %queen_brood_lifesteal_pct%%% lifesteal.
-        <font color='#B25266'><b>Feed The Brood:</b> While Insatiable Hunger is active, Broodmother's attacks apply a debuff on her target for %feed_brood_debuff_duration% seconds. If the target dies while the debuff is still active, Broodmother's health increases by %feed_brood_brood_hero_health% for each hero killed and by %feed_brood_brood_unit_health% for each unit killed. Additionally, when killing an enemy unit with the debuff, all spider units under her control %queen_brood_radius% range gain a buff that heals them by %feed_brood_heal_per_second% health every second for %feed_brood_heal_duration% seconds."
+        "A violent lust for vital fluids increases Broodmother's attack damage and gives her a vampiric attack."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_insatiable_hunger_rmg_title_1"
+        "Queen of the Brood"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_insatiable_hunger_rmg_description_1"
+        "While Insatiable Hunger is active, Broodmother emits an aura that increases the damage of nearby spider units under her control in %queen_brood_radius% range by %queen_brood_damage_bonus%, and grants them %queen_brood_lifesteal_pct%%% lifesteal."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_insatiable_hunger_rmg_title_2"
+        "Feed The Brood"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_insatiable_hunger_rmg_description_2"
+        "While Insatiable Hunger is active, Broodmother's attacks apply a debuff on her target for %feed_brood_debuff_duration% seconds. If the target dies while the debuff is still active, Broodmother's health increases by %feed_brood_brood_hero_health% for each hero killed and by %feed_brood_brood_unit_health% for each unit killed. Additionally, when killing an enemy unit with the debuff, all spider units under her control %queen_brood_radius% range gain a buff that heals them by %feed_brood_heal_per_second% health every second for %feed_brood_heal_duration% seconds."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_insatiable_hunger_Lore"
         "While most of her prey is wrapped in silken cocoons and saved for her young, the Broodmother herself has a taste for wandering heroes."
@@ -2043,7 +2510,7 @@
         "DOTA_Tooltip_Ability_reimagined_broodmother_insatiable_hunger_Note2"
         "Feed the Brood's unit heal modifier fully stacks with itself. Each stack has independent timers."
 
-        DOTA_Tooltip_Ability_reimagined_broodmother_insatiable_hunger_Note3"
+        "DOTA_Tooltip_Ability_reimagined_broodmother_insatiable_hunger_Note3"
         "Feed the Brood's unit heal modifier heals the unit every %feed_brood_heal_interval% seconds."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_insatiable_hunger_bonus_damage"
@@ -2258,6 +2725,312 @@
 
         "DOTA_Tooltip_modifier_reimagined_broodmother_talent_8_buff_Description"
         "Attack speed increased by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and lifesteal amplification increased by %dMODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE%%%."
+
+        // Bristleback
+        // Bristleback's Viscous Nasal Goo
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo"
+        "Viscous Nasal Goo"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_Description"
+        "Covers a target in snot, causing it to have reduced armor and movement speed. Multiple casts stack and refresh the duration."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_rmg_title_1"
+        "Sneezer Pound"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_rmg_description_1"
+        "When attacking an enemy unit, grants a %sneezer_pound_chance%%% chance to automatically cast Nasal Goo on it for free, regardless of current cooldown and mana."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_rmg_title_2"
+        "Running Nose"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_rmg_description_2"
+        "Units afflicted with at least %running_nose_stacks_threshold% stacks of Nasal Goo sneeze every %running_nose_sneeze_interval% seconds, sending Nasal Goo projectiles towards their allies in %running_nose_radius% radius of them."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_rmg_title_3"
+        "Raging Snot"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_rmg_description_3"
+        "If Bristleback has at least %raging_snot_warpath_stacks% Warpath stacks, Nasal Goo refreshes its cooldown immediately when cast. Has an internal cooldown of %raging_snot_internal_cooldown% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_Lore"
+        "Having caught a cold while stuck in the snow, Bristleback turns it to his advantage."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_scepter_description"
+        "Viscous Nasal Goo becomes a no target area of effect ability, applying to all enemies within range. Increases Stack Limit to %stack_limit_scepter%."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_goo_duration"
+        "DURATION:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_base_armor"
+        "BASE ARMOR LOSS:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_armor_per_stack"
+        "ARMOR LOSS PER STACK:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_base_move_slow"
+        "%BASE MOVEMENT SLOW:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_move_slow_per_stack"
+        "%MOVE SLOW PER STACK:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_stack_limit"
+        "STACK LIMIT:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_radius_scepter"
+        "SCEPTER RADIUS:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_viscous_nasal_goo_stack_limit_scepter"
+        "SCEPTER STACK LIMIT:"
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_nasal_goo_debuff"
+        "Viscous Nasal Goo"
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_nasal_goo_debuff_Description"
+        "Losing %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS% armor and slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%."
+
+        // Bristleback's Quill Spray
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray"
+        "Quill Spray"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_Description"
+        "Sprays enemy units with quills dealing damage in an area of effect around Bristleback. Deals bonus damage for every time a unit was hit by Quill Spray in the last %quill_stack_duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_rmg_title_1"
+        "Needle Spreader"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_rmg_description_1"
+        "Quill Spray can be set to auto cast. When cast with auto cast, Bristleback continually sprays quills around him, firing a wave of quills every %needle_spreader_interval% seconds for a total of %needle_spreader_total_instances% waves. Increases Quill Spray's mana cost to %needle_spreader_manacost% and cooldown to %needle_spreader_cooldown%. Bristleback is rooted and disarmed during the effect."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_rmg_title_2"
+        "Spiked Edge"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_rmg_description_2"
+        "If an enemy is closer than %spiked_edge_distance% units to Bristleback, the damage dealt to it increases by %spiked_edge_damage_bonus_pct%%%."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_rmg_title_3"
+        "Raging Quills"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_rmg_description_3"
+        "Casting Quill Spray while Bristleback has at least 5 stacks of Warpath multiplies Quill Spray's radius by %raging_quills_radius_multiplier%, and the projectile speed increases by %raging_quills_projectile_speed_bonus_pct%%%."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_Lore"
+        "An enforcer's honor can be a prickly thing. So can his quills."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_Note0"
+        "Quill Spray damage is not reduced by damage block abilities."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_Note1"
+        "Spiked Edge's damage increase is still capped under the maximum damage cap."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_radius"
+        "RADIUS:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_quill_base_damage"
+        "QUILL BASE DAMAGE:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_quill_stack_damage"
+        "QUILL STACK DAMAGE:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_quill_stack_duration"
+        "STACK DURATION:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_quill_spray_max_damage"
+        "MAX DAMAGE:"
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_quill_spray_stacks"
+        "Quill Spray"
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_quill_spray_stacks_Description"
+        "Each stack increases damage taken from Quill Spray by %dMODIFIER_PROPERTY_TOOLTIP%."
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_quill_spray_needle_spreader"
+        "Needle Spreader"
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_quill_spray_needle_spreader_Description"
+        "Rooted and disarmed. Firing a wave of quills at nearby enemies every %fMODIFIER_PROPERTY_TOOLTIP% seconds."
+
+        // Bristleback's Bristleback
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback"
+        "Bristleback"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_Description"
+        "Bristleback takes less damage if hit on the sides or rear.  If Bristleback takes %quill_release_threshold% damage from the rear, he releases a Quill Spray of the current level."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_rmg_title_1"
+        "Turtleback"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_rmg_description_1"
+        "When Bristleback takes damage from the rear, the damage reduction granted by the ability increases by %turtleback_back_dmg_reduction%%% per damage instance, or by %turtleback_side_dmg_reduction%%% if the damage was taken from the side. This bonus resets when being attacked from the front, or after Bristleback doesn't take damage for %turtleback_reset_time% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_rmg_title_2"
+        "Moving Fortress"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_rmg_description_2"
+        "Can be toggled on to apply the damage reduction from the rear to the sides and grant an additional %moving_fortress_damage_reduction_bonus%%% damage reduction. However, Bristleback is slowed by %moving_fortress_move_slow_pct%%% move speed and %moving_fortress_attack_speed_slow% attack speed while this effect is active."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_rmg_title_3"
+        "Prickly Sensations"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_rmg_description_3"
+        "Damage done to enemies by Quill Spray also adds %prickly_sensations_trigger_pct%%% of it to the threshold counter."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_Lore"
+        "Turning his back to a fight might be just the thing."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_Note0"
+        "Bristleback's rear is considered to be within %back_angle% degrees from the back."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_Note1"
+        "Bristleback's side is considered to be within %side_angle% degrees from the back."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_Note2"
+        "Prickly Sensations can immediately trigger an additional Quill Spray burst if the damage counter goes through the threshold."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_side_damage_reduction"
+        "%SIDE DAMAGE REDUCTION:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_back_damage_reduction"
+        "%BACK DAMAGE REDUCTION:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_bristleback_quill_release_threshold"
+        "DAMAGE THRESHOLD:"
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_bristleback_moving_fortress"
+        "Moving Fortress"
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_bristleback_moving_fortress_Description"
+        "Uses back's damage reduction values for attacks on the side. Slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% movespeed and %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% attack speed, but gains %dMODIFIER_PROPERTY_TOOLTIP%%% additional bonus damage reduction."
+
+        // Bristleback's Warpath
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath"
+        "Warpath"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_Description"
+        "Bristleback works himself up into a fury every time he casts a spell, increasing his movement speed and damage."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_rmg_title_1"
+        "Simmer Down"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_rmg_description_1"
+        "Warpath can be activated to consume all current Warpath stacks. Each stack consumed grants Bristleback %simmer_down_damage_resistance_bonus_per_stack%%% damage resistance from all directions for %simmer_down_duration% seconds. While Simmer Down is active, Warpath stacks cannot be generated."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_rmg_title_2"
+        "Anger Burst"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_rmg_description_2"
+        "When Bristleback accumulates over %anger_burst_damage_threshold% damage after reductions, he generates a Warpath stack. The damage counter resets after not taking any damage over %anger_burst_reset_time% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_rmg_title_3"
+        "Tantrum"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_rmg_description_3"
+        "Warpath's stack count can keep increasing above the maximum limit. However, those additional stacks only last for %tantrum_stack_duration% seconds and provide %tantrum_stack_bonuses_pct%%% of the bonuses."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_Lore"
+        "'Temper, temper,' his mum always chided.  But in a fight, a temper can come in handy."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_Note0"
+        "Bristleback's illusions will receive the bonuses."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_Note1"
+        "Items will not trigger Warpath."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_Note2"
+        "Anger Burst will not accumulate stacks when Bristleback's passives are broken, or while Simmer Down is active."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_damage_per_stack"
+        "DAMAGE PER STACK:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_move_speed_per_stack"
+        "%MOVEMENT PER STACK:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_stack_duration"
+        "STACK DURATION:"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_warpath_max_stacks"
+        "MAX STACKS:"
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_warpath"
+        "Warpath"
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_warpath_Description"
+        "Moving %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% faster and dealing %dMODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE% bonus damage."
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_warpath_passive"
+        "Anger Burst Counter"
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_warpath_passive_Description"
+        "Taking %dMODIFIER_PROPERTY_TOOLTIP% accumulated damage generates a Warpath stack."
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_warpath_simmer_down"
+        "Simmer Down"
+
+        "DOTA_Tooltip_modifier_reimagined_bristleback_warpath_simmer_down_Description"
+        "Increases damage resistance from all directions by %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%%, but cannot generate Warpath stacks while this buff is active."
+
+        // Bristleback's Talents
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_1"
+        "Mucus Goo"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_1_Description"
+        "Each Viscous Nasal Goo projectile that hits its target increases the stack count of its Quill Spray's debuff by %stacks%. Adds the debuff if it does not exist yet on the target."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_1_Lore"
+        "Rigwarl spits a goo made of mucus that has weakening properties on his adversaries which mesh well with his quills."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_2"
+        "Snot Artillery"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_2_Description"
+        "Increases Viscous Nasal Goo's cast range, or search range, by %cast_range_bonus_per_stack% per Warpath stack."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_2_Lore"
+        "The more deteremined Bristleback is, the further he can spit."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_3"
+        "Quillgun"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_3_Description"
+        "When there is only one enemy in the cast range, fires additional %additional_quills% quills at that enemy. Those quills do not increase the debuff's stack count, but do bonus damage based on it."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_3_Lore"
+        "When focusing on a single enemy, Rigwarl learned to focus all his quills towards it to maximize the damage it can cause."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_4"
+        "Drill Quills"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_4_Description"
+        "Quill Spray's stacks no longer have an independent duration, and each stack added refreshes the entire modifier."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_4_Lore"
+        "Reinforcing Rigwal's quills, he makes sure they pierce and hold on even when his targets are riddled with them."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_5"
+        "Bristlefront"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_5_Description"
+        "While Moving Fortress is active, %damage_taken_to_threshold_pct%%% of damage taken from the front and the sides also counts toward the passive Quill Spray damage trigger."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_5_Lore"
+        "Rigwarl turns himself into a truly impenetrable fortress that fires at anyone who tries to barge in."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_6"
+        "Barbed Exterior"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_6_Description"
+        "Attackers that hit Bristleback on the back have %damage_reflection_pct%%% of their own damage before reductions reflected back at them. This damage is flagged as reflection damage."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_6_Lore"
+        "Rigwarl grows tiny quills on his rear that hurt anyone who tries to hit him from the back."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_7"
+        "Hot Temper"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_7_Description"
+        "When Warpath's Anger Burst procs, Bristleback also gains %attack_speed_bonus% attack speed for %duration% seconds."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_7_Lore"
+        "When Rigwarl gets angry, he mauls and maims everyone around him."
 
 		// ITEMS
 		// Reimagined Enchanted Mango

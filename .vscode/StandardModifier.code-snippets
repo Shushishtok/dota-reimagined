@@ -10,7 +10,7 @@
 		  "\t// Modifier properties",
 		  "\tcaster: CDOTA_BaseNPC = this.GetCaster()!;",
 		  "\tability: CDOTABaseAbility = this.GetAbility()!; ",
-		  "\tparent: CDOTA_BaseNPC = this.GetParent();"
+		  "\tparent: CDOTA_BaseNPC = this.GetParent();",
 		  "",
 		  "\t// Modifier specials",
 		  "\t$1",
@@ -20,7 +20,7 @@
 		  "\tIsPurgable() {return false}",
 		  "",
 		  "\tOnCreated(): void",
-		  "\t{",		  		  
+		  "\t{",
 		  "\t\t// Modifier specials",
 		  "\t\t$2",
 		  "\t}",

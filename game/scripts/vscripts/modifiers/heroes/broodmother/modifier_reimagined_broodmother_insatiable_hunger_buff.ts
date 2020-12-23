@@ -205,7 +205,7 @@ export class modifier_reimagined_broodmother_insatiable_hunger_buff extends Base
             modifier_buff.SetStackCount(modifier_buff.GetStackCount() + health_bonus);
 
             // Force recalculation of stats
-            (this.parent as CDOTA_BaseNPC_Hero).CalculateStatBonus();
+            (this.parent as CDOTA_BaseNPC_Hero).CalculateStatBonus(true);
         }
 
         // Feed the brood!

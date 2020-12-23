@@ -1,6 +1,5 @@
 import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
 import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
-import "../../../modifiers/heroes/antimage/modifier_reimagined_antimage_mana_void_kill_debuff";
 import { AntiMageTalents } from "./reimagined_antimage_talents";
 
 @registerAbility()
@@ -12,13 +11,11 @@ export class reimagined_antimage_mana_void extends BaseAbility
     sound_cast: string = "Hero_Antimage.ManaVoid";
     particle_void: string = "particles/units/heroes/hero_antimage/antimage_manavoid.vpcf";
     particle_void_fx?: ParticleID;
-    modifier_void_kill_debuff: string = "modifier_reimagined_antimage_mana_void_kill_debuff";
 
     // Ability specials
     mana_void_damage_per_mana?: number;
     mana_void_ministun?: number;
     mana_void_aoe_radius?: number;
-    scepter_ministun?: number;
 
     // Reimagined specials
     void_feedback_mana_threshold_pct?: number;
@@ -62,7 +59,6 @@ export class reimagined_antimage_mana_void extends BaseAbility
         this.mana_void_damage_per_mana = this.GetSpecialValueFor("mana_void_damage_per_mana");
         this.mana_void_ministun = this.GetSpecialValueFor("mana_void_ministun");
         this.mana_void_aoe_radius = this.GetSpecialValueFor("mana_void_aoe_radius");
-        this.scepter_ministun = this.GetSpecialValueFor("scepter_ministun");
 
         // Reimagined specials
         this.void_feedback_mana_threshold_pct = this.GetSpecialValueFor("void_feedback_mana_threshold_pct");
@@ -89,25 +85,16 @@ export class reimagined_antimage_mana_void extends BaseAbility
         ParticleManager.SetParticleControl(this.particle_void_fx, 1, Vector(this.mana_void_aoe_radius!,0,0));
         ParticleManager.ReleaseParticleIndex(this.particle_void_fx);
 
-        // Scepter upgrade: Improves stun duration and sets a debuff on target to check for kills: grants 100 cooldown on highest cooldown ability
-        let stun_duration = this.mana_void_ministun;
-        let trigger_scepter_debuff = false;
-        if (this.caster.HasScepter())
-        {
-            stun_duration = this.scepter_ministun;
-            trigger_scepter_debuff = true;
-        }
-
-        // Purity of Will: Can be set to auto cast. Doing so causes the spell to only apply on the main target, but also increase the stun it receives based on lack of mana.
+        // Reimagined: Purity of Will: Can be set to auto cast. Doing so causes the spell to only apply on the main target, but also increase the stun it receives based on lack of mana.
         if (this.GetAutoCastState())
         {
             // Triggering Purity of Will stops the rest of the code
-            this.ReimaginedPurityOfWill(target!, stun_duration, trigger_scepter_debuff);
+            this.ReimaginedPurityOfWill(target!, this.mana_void_ministun);
             return;
         }
 
         // Apply stun on target
-        this.ApplyStunAndDebuff(target!, stun_duration, trigger_scepter_debuff);
+        this.ApplyStunAndDebuff(target!, this.mana_void_ministun);
 
         // Find all enemies in the AoE
         const enemies = FindUnitsInRadius(this.caster.GetTeamNumber(),
@@ -166,6 +153,7 @@ export class reimagined_antimage_mana_void extends BaseAbility
     ReimaginedVoidFeedback(target: CDOTA_BaseNPC, damage: number): number
     {
         let actual_damage = damage;
+
         // Check for mana percentage threshold
         if (target.GetManaPercent() <= this.void_feedback_mana_threshold_pct!)
         {
@@ -198,25 +186,19 @@ export class reimagined_antimage_mana_void extends BaseAbility
         // Calculate damage based on missing mana
         let damage: number = (target.GetMaxMana() - target.GetMana()) * this.mana_void_damage_per_mana!;
 
-        // Void Feedback: If the main target has less than the threshold of its max mana, the damage per mana point increases by a multiplier.
+        // Reimagined: Void Feedback: If the main target has less than the threshold of its max mana, the damage per mana point increases by a multiplier.
         damage = this.ReimaginedVoidFeedback(target!, damage)
 
         return damage;
     }
 
-    ApplyStunAndDebuff(target: CDOTA_BaseNPC, stun_duration: number, trigger_scepter_debuff: boolean)
+    ApplyStunAndDebuff(target: CDOTA_BaseNPC, stun_duration: number)
     {
         // Apply a stun on the main target
         target.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: stun_duration});
-
-        // If viable, add the kill debuff on the target
-        if (trigger_scepter_debuff)
-        {
-            target.AddNewModifier(this.caster, this, this.modifier_void_kill_debuff, {duration: stun_duration, ignoreStatusResistance: 1})
-        }
     }
 
-    ReimaginedPurityOfWill(target: CDOTA_BaseNPC, stun_duration: number, trigger_scepter_debuff: boolean)
+    ReimaginedPurityOfWill(target: CDOTA_BaseNPC, stun_duration: number)
     {
         // Calculate stun duration increase for missing mana, up to a limit.
         let additional_stun = ((target.GetMaxMana() - target.GetMana()) / this.purity_of_will_missing_mana_for_instance!) * this.purity_of_will_stun_per_instance!;
@@ -228,7 +210,7 @@ export class reimagined_antimage_mana_void extends BaseAbility
         // Increase stun duration
         stun_duration = stun_duration + additional_stun;
 
-        this.ApplyStunAndDebuff(target, stun_duration, trigger_scepter_debuff);
+        this.ApplyStunAndDebuff(target, stun_duration);
 
         const damage = this.CalculateDamage(target);
         this.DealDamageToEnemy(target, damage);

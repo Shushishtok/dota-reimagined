@@ -6,14 +6,14 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     base_night_duration: number = 300;
     everlasting_night_stacks: number = 0;
     actual_night_duration?: number;
     peak_of_the_night_time?: number;
-    bonus_instances: number = 0;    
-    elapsed_time: number = 0;    
+    bonus_instances: number = 0;
+    elapsed_time: number = 0;
 
     // Reimagined specials
     dead_of_night_interval?: number;
@@ -30,7 +30,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night
     OnCreated(): void
     {
         // Modifier properties
-        
+
         this.ability = this.GetAbility()!;
 
         // Reimagined specials
@@ -41,16 +41,16 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night
         this.everlasting_night_duration = this.ability.GetSpecialValueFor("everlasting_night_duration");
 
         // Get amount of Everlasting Nights stacks and calculate extra
-        this.everlasting_night_stacks = this.parent.GetModifierStackCount(modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name, this.parent);        
+        this.everlasting_night_stacks = this.parent.GetModifierStackCount(modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights.name, this.parent);
 
         // Calculate actual night duration by using Everlasting Nights stacks
-        this.actual_night_duration = this.base_night_duration + this.everlasting_night_stacks * this.everlasting_night_duration;        
+        this.actual_night_duration = this.base_night_duration + this.everlasting_night_stacks * this.everlasting_night_duration;
 
         // Set duration of the buff to match the duration of the night
         this.SetDuration(this.actual_night_duration!, true);
 
         // Calculate "peak" of the night
-        this.peak_of_the_night_time = this.actual_night_duration / 2;                
+        this.peak_of_the_night_time = this.actual_night_duration / 2;
 
         // Start thinking
         this.StartIntervalThink(this.dead_of_night_interval);
@@ -60,9 +60,9 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night
     {
         // Every think interval, increase bonus instance by 1, which will be referenced to determine how much to strengthen the stats
         this.bonus_instances++;
-        
+
         // Increase elapsed time
-        this.elapsed_time = this.elapsed_time + this.dead_of_night_interval!;        
+        this.elapsed_time = this.elapsed_time + this.dead_of_night_interval!;
 
         if (this.elapsed_time <= this.peak_of_the_night_time!)
         {
@@ -78,7 +78,7 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night
         // Calculate stats
         if (IsServer())
         {
-            ((this.parent) as CDOTA_BaseNPC_Hero).CalculateStatBonus();
+            ((this.parent) as CDOTA_BaseNPC_Hero).CalculateStatBonus(true);
 
             // If elapsed time surprassed the entire duration, remove this modifier
             if (this.elapsed_time >= this.actual_night_duration!)
@@ -139,17 +139,17 @@ export class modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night
     CalculateDurationBonuses(): number
     {
         // Does nothing when broken
-        if (this.parent.PassivesDisabled()) return 0;        
+        if (this.parent.PassivesDisabled()) return 0;
 
         // Does nothing if this is currently a day (e.g. Phoenix' Supernova)
         if (this.parent.GetModifierStackCount("modifier_reimagined_night_stalker_hunter_in_the_night_passive", this.parent) == 0)
         {
             return 0;
-        }        
+        }
 
         // If one of the parameters are not defined yet, return 0
         if (!this.elapsed_time || !this.peak_of_the_night_time || !this.dead_of_night_interval || !this.dead_of_night_durations_per_stack)
-        {            
+        {
             return 0;
         }
 

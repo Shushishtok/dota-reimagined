@@ -14,6 +14,8 @@ declare const enum AttachLocation
     HEAD = "attach_head",
     SWORD_END = "attach_sword_end",
     ATTACK1 = "attach_attack1",
+    ATTACK2 = "attach_attack2",
+    ATTACK3 = "attach_attack3",
     THORAX = "attach_thorax"
 }
 

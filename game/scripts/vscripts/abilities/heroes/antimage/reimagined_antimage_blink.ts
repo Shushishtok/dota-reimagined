@@ -8,9 +8,9 @@ import { AntiMageTalents } from "./reimagined_antimage_talents";
 export class reimagined_antimage_blink extends BaseAbility
 {
     // Ability properties
-    caster: CDOTA_BaseNPC = this.GetCaster();    
+    caster: CDOTA_BaseNPC = this.GetCaster();
     sound_blink_out: string = "Hero_Antimage.Blink_out";
-    sound_blink_in: string = "Hero_Antimage.Blink_in";    
+    sound_blink_in: string = "Hero_Antimage.Blink_in";
     particle_blink_start: string = "particles/units/heroes/hero_antimage/antimage_blink_start.vpcf";
     particle_blink_start_fx?: ParticleID;
     particle_blink_end: string = "particles/units/heroes/hero_antimage/antimage_blink_end.vpcf";
@@ -46,7 +46,7 @@ export class reimagined_antimage_blink extends BaseAbility
     {
         if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4))
         {
-            return AbilityBehavior.POINT + AbilityBehavior.ROOT_DISABLES + AbilityBehavior.AUTOCAST;            
+            return AbilityBehavior.POINT + AbilityBehavior.ROOT_DISABLES + AbilityBehavior.AUTOCAST;
         }
         else
         {
@@ -71,10 +71,10 @@ export class reimagined_antimage_blink extends BaseAbility
         this.magic_nullity_duration = this.GetSpecialValueFor("magic_nullity_duration");
 
         // Disjoint projectile
-        ProjectileManager.ProjectileDodge(this.caster);        
+        ProjectileManager.ProjectileDodge(this.caster);
 
         // Check distance and calculate Blink position accordingly
-        const distance = util.CalculateDistanceBetweenPoints(this.caster.GetAbsOrigin(), target_position);        
+        const distance = util.CalculateDistanceBetweenPoints(this.caster.GetAbsOrigin(), target_position);
         let blink_range = this.blink_range;
 
         // Talent: Overblink: Blink can now be set to auto cast. Triples Blink's max range, but causes Anti Mage to be stunned for up to y seconds after blinking. Scales by z for each x units above the regular cast range.
@@ -133,12 +133,12 @@ export class reimagined_antimage_blink extends BaseAbility
                                                  UnitTargetTeam.ENEMY,
                                                  UnitTargetType.HERO + UnitTargetType.BASIC,
                                                  UnitTargetFlags.NONE)
-        
+
         // Issue a stop command for every enemy
         for (const enemy of enemies)
         {
-            enemy.Stop();   
-        }                                                 
+            enemy.Stop();
+        }
     }
 
     ReimaginationInterference(start_pos: Vector)
@@ -162,8 +162,8 @@ export class reimagined_antimage_blink extends BaseAbility
                                                 UnitTargetType.HERO + UnitTargetType.BASIC,
                                                 UnitTargetFlags.MANA_ONLY,
                                                 FindOrder.ANY,
-                                                false);                    
-             
+                                                false);
+
         // Combine the arrays
         const enemies = enemies_start.concat(enemies_end);
 
@@ -179,8 +179,8 @@ export class reimagined_antimage_blink extends BaseAbility
             {
                 const mana_burn = enemy.GetMana() * this.interference_curr_mana_rdct_pct! * 0.01;
                 enemy.ReduceMana(mana_burn);
-                
-                // Deal mana burn as physical damage                
+
+                // Deal mana burn as physical damage
                 ApplyDamage(
                 {
                     attacker: this.caster,

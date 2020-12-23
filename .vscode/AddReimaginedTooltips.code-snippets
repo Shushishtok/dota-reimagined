@@ -1,0 +1,25 @@
+{
+	"Adds Reimagined Effects Tooltips": {
+        "prefix": "AddReimaginedTooltips",
+        "body": [
+          "\"DOTA_Tooltip_Ability_$1_rmg_title_1\"",
+          "\"\"",
+          "",
+          "\"DOTA_Tooltip_Ability_$1_rmg_description_1\"",
+          "\"\"",
+          "",
+          "\"DOTA_Tooltip_Ability_$1_rmg_title_2\"",
+          "\"\"",
+          "",
+          "\"DOTA_Tooltip_Ability_$1_rmg_description_2\"",
+          "\"\"",
+          "",
+          "\"DOTA_Tooltip_Ability_$1_rmg_title_3\"",
+          "\"\"",
+          "",
+          "\"DOTA_Tooltip_Ability_$1_rmg_description_3\"",
+          "\"\""
+        ],
+        "description": "Adds Reimagined Effects Tooltips"
+      }
+}

@@ -1,11 +1,6 @@
+#base game_mechanics/units.kv
 #base heroes/broodmother/units.kv
 
 "DOTAUnits"
 {
-    "npc_dota_courier"
-    {
-        "StatusHealth"				"150"
-        "StatusHealthRegen"			"1.5"
-        "MovementSpeed"				"800"
-    }
 }

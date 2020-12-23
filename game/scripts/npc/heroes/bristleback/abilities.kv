@@ -1,0 +1,694 @@
+"DOTAAbilities"
+{
+    //=================================================================================================================
+	// Reimagined Bristleback: Viscous Nasal Goo
+	//=================================================================================================================
+	"reimagined_bristleback_viscous_nasal_goo"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+        "BaseClass"             		"ability_lua"
+        "AbilityTextureName"			"bristleback_viscous_nasal_goo"
+        "ScriptFile"				    "abilities/heroes/bristleback/reimagined_bristleback_viscous_nasal_goo"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Bristleback.ViscousGoo.Cast"
+		"HasScepterUpgrade"			    "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.3"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"1.5 1.5 1.5 1.5"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"12 16 20 24"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"goo_speed"				"1000"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"goo_duration"			"5.0"
+			}
+
+			"03"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"base_armor"		    "2"
+			}
+
+			"04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"armor_per_stack"		"1.4 1.9 2.4 2.9"
+			}
+
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"base_move_slow"		"20"
+			}
+
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"move_slow_per_stack"	"3 6 9 12"
+			}
+
+			"07"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stack_limit"			"4"
+			}
+
+			"08"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"goo_duration_creep"			"10.0"
+			}
+
+			"09"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius_scepter"		"950"
+				"RequiresScepter"	    "1"
+			}
+
+            "10"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"stack_limit_scepter"	"8"
+                "RequiresScepter"	    "1"
+			}
+
+            "11"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"sneezer_pound_chance"		"20"
+			}
+
+            "12"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"running_nose_sneeze_interval"		"2.25"
+			}
+
+            "13"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"running_nose_stacks_threshold"		"3"
+			}
+
+            "14"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"running_nose_radius"		"500"
+			}
+
+            "15"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"raging_snot_warpath_stacks"		"5"
+			}
+
+            "16"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"raging_snot_internal_cooldown"		"5"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+    //=================================================================================================================
+	// Reimagined Bristleback: Quill Spray
+	//=================================================================================================================
+	"reimagined_bristleback_quill_spray"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"
+        "AbilityTextureName"			"bristleback_quill_spray"
+        "ScriptFile"				    "abilities/heroes/bristleback/reimagined_bristleback_quill_spray"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Bristleback.QuillSpray"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"3"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"35 35 35 35"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"700"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"quill_base_damage"		"20 40 60 80"
+			}
+
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"quill_stack_damage"	"30 32 34 36"
+			}
+
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"quill_stack_duration"	"14"
+			}
+
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_damage"			"550"
+			}
+
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"projectile_speed"		"2400"
+			}
+
+            "07"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"needle_spreader_cooldown"		"12"
+			}
+
+            "08"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"needle_spreader_manacost"	"90"
+			}
+
+            "09"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"needle_spreader_total_instances"	"5 6 7 8"
+			}
+
+            "10"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"needle_spreader_interval"	"0.5"
+			}
+
+            "11"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"spiked_edge_distance"	"200"
+			}
+
+            "12"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"spiked_edge_damage_bonus_pct"	"30"
+			}
+
+            "13"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"raging_quills_warpath_stacks"	"5"
+			}
+
+            "14"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"raging_quills_radius_multiplier"	"2"
+			}
+
+            "15"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"raging_quills_projectile_speed_bonus_pct"	"50"
+			}
+		}
+	}
+
+    //=================================================================================================================
+	// Bristleback: Bristleback
+	//=================================================================================================================
+	"reimagined_bristleback_bristleback"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"
+        "AbilityTextureName"			"bristleback_bristleback"
+        "ScriptFile"				    "abilities/heroes/bristleback/reimagined_bristleback_bristleback"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_TOGGLE"
+		"AbilitySound"					"Hero_Bristleback.Bristleback"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"side_damage_reduction"			"8 12 16 20"
+			}
+
+			"02"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"back_damage_reduction"			"16 24 32 40"
+			}
+
+			"03"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"side_angle"					"110"
+			}
+
+			"04"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"back_angle"					"70"
+			}
+
+			"05"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"quill_release_threshold"		"210"
+			}
+
+            "06"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"turtleback_back_dmg_reduction"		"3"
+			}
+
+            "07"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"turtleback_side_dmg_reduction"		"1"
+			}
+
+            "08"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"turtleback_reset_time"		    "5"
+			}
+
+            "09"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"moving_fortress_move_slow_pct"		"25"
+			}
+
+            "10"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"moving_fortress_attack_speed_slow"		"25"
+			}
+
+            "11"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"moving_fortress_damage_reduction_bonus"		"10"
+			}
+
+            "12"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"prickly_sensations_trigger_pct"		"10"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+    //=================================================================================================================
+	// Reimagined Bristleback: Warpath
+	//=================================================================================================================
+	"reimagined_bristleback_warpath"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"
+        "AbilityTextureName"			"bristleback_warpath"
+        "ScriptFile"				    "abilities/heroes/bristleback/reimagined_bristleback_warpath"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+        // Casting
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilityCooldown"               "30"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"damage_per_stack"				"25 30 35"
+			}
+
+			"02"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"move_speed_per_stack"				"3 4 5"
+			}
+
+			"03"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"stack_duration"				"14.0"
+			}
+
+			"04"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"max_stacks"					"5 7 9"
+			}
+
+            "05"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"simmer_down_duration"			"8"
+			}
+
+            "06"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"simmer_down_damage_resistance_bonus_per_stack"		"3 5 7"
+			}
+
+            "07"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"anger_burst_damage_threshold"	"500"
+			}
+
+            "08"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"anger_burst_reset_time"    	"5"
+			}
+
+            "09"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"tantrum_stack_duration"        "5"
+			}
+
+            "10"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"tantrum_stack_bonuses_pct"     "50"
+			}
+		}
+	}
+
+    //=================================================================================================================
+	// Reimagined Bristleback: Hairball (Shard)
+	//=================================================================================================================
+	"reimagined_bristleback_hairball"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"
+        "AbilityTextureName"			"bristleback_hairball"
+        "ScriptFile"				    "abilities/heroes/bristleback/reimagined_bristleback_hairball"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"1"
+		"FightRecapLevel"				"1"
+		"IsGrantedByShard"			    "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1500"
+		"AbilityCastPoint"				"0.1"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"20"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"projectile_speed"	"1200"
+			}
+
+            "02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"		    "700"
+			}
+
+            "03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"nasal_goo_count"	"1"
+			}
+
+            "04"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"quill_spray_count"	"2"
+			}
+		}
+	}
+
+    //=================================================================================================================
+    // Bristleback: Talent: Mucus Goo: Each Viscous Nasal Goo projectile that hits its target increases the stack count of its Quill Spray's debuff by x. Adds the debuff if it does not exist yet on the target.
+    //=================================================================================================================
+    "reimagined_bristleback_talent_1"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/bristleback/reimagined_bristleback_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"bristleback_viscous_nasal_goo"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "stacks"			"1"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Bristleback: Talent: Snot Artillery: Increases Viscous Nasal Goo's cast range (or search range) by x per Warpath stack.
+    //=================================================================================================================
+    "reimagined_bristleback_talent_2"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/bristleback/reimagined_bristleback_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"bristleback_viscous_nasal_goo"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "cast_range_bonus_per_stack"			"50"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Bristleback: Talent: Quillgun: When there is only one enemy in the cast range, fires additional x tracking quills at that enemy. Those quills do not increase the debuff's stack count, but do bonus damage based on it.
+    //=================================================================================================================
+    "reimagined_bristleback_talent_3"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/bristleback/reimagined_bristleback_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"bristleback_quill_spray"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "additional_quills"			"3"
+            }
+
+            "02"
+            {
+                "var_type"			"FIELD_FLOAT"
+                "quill_interval"    "0.2"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Bristleback: Talent: Drill Quills: Quill Spray's stacks no longer have an independent duration, and each stack added refreshes the entire modifier.
+    //=================================================================================================================
+    "reimagined_bristleback_talent_4"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/bristleback/reimagined_bristleback_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"bristleback_quill_spray"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "value"			"1"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Bristleback: Talent: Bristlefront: While Moving Fortress is active, x% of damage taken from the front and the sides also counts toward the passive Quill Spray damage trigger
+    //=================================================================================================================
+    "reimagined_bristleback_talent_5"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/bristleback/reimagined_bristleback_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"bristleback_bristleback"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "damage_taken_to_threshold_pct"			"40"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Bristleback: Talent: Barbed Exterior: Attackers that hit Bristleback on the back take x% of their own damage before reductions. Flagged as a reflection damage.
+    //=================================================================================================================
+    "reimagined_bristleback_talent_6"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/bristleback/reimagined_bristleback_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"bristleback_bristleback"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "damage_reflection_pct"		"20"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Bristleback: Talent: Hot Temper: When Anger Burst procs, Bristleback also gains x attack speed for y seconds.
+    //=================================================================================================================
+    "reimagined_bristleback_talent_7"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/bristleback/reimagined_bristleback_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"bristleback_warpath"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "attack_speed_bonus"		"75"
+            }
+
+            "02"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "duration"  		"3"
+            }
+        }
+    }
+}

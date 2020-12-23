@@ -1,0 +1,41 @@
+.CustomTooltipContainer
+{
+    flow-children: down;
+    width: 330px;
+    padding-left: 6px;
+}
+
+.CustomTooltipContainer Label.Header
+{
+    margin-bottom: 0px;
+    padding-top: 4px;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-image: url("s2r://panorama/images/hud/item_tooltip_passive_psd.vtex");
+    color: #B25266;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 2px 2px 0px 1.0 #00000090;
+}
+
+.CustomTooltipContainer Label
+{
+    width: 330px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 6px;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    background-color: #172026;
+    color: #8294ad;
+    text-shadow: 2px 2px 0px 1.0 #00000090;
+}
+
+.CustomTooltipValue
+{
+    color: #D7AD53;
+    font-weight: bolder;
+    font-size: 18px;
+    text-shadow: 1px 1px 1px 1.0 #00000090;
+}

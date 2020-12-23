@@ -1,19 +1,16 @@
 import { BaseModifier, registerModifier, } from "../../lib/dota_ts_adapter";
+import { GetAllPlayers } from "../../lib/util";
 
 @registerModifier()
 export class modifier_reimagined_game_mechanics extends BaseModifier
 {
     particle_lifesteal: string = "particles/generic_gameplay/generic_lifesteal.vpcf";
     sound_spiderking_death: string = "Broodmother.Spiderking.Death";
+    gold_elapsed_time: number = 0;
 
     IsHidden() {return true}
     IsDebuff() {return false}
     IsPurgable() {return false}
-
-    OnCreated(): void
-    {
-
-    }
 
     DeclareFunctions(): ModifierFunction[]
     {

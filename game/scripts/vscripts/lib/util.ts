@@ -845,11 +845,12 @@ export function GetAllPlayers(): CDOTAPlayer[]
 
 export function RegisterFunctionOverrides()
 {
+    // Override AddNewModifier
     CDOTA_BaseNPC.oldAddNewModifier = CDOTA_BaseNPC.AddNewModifier;
     CDOTA_BaseNPC.AddNewModifier = AddNewModifier;
 }
 
-export function AddNewModifier<TThis extends CDOTA_BaseNPC>(this: TThis, caster: CDOTA_BaseNPC | undefined, ability: CDOTABaseAbility | undefined, modifierName: string, modifierTable: {duration?: number; ignoreStatusResistance?: 1; [key: string]: any } | undefined)
+export function AddNewModifier<TThis extends CDOTA_BaseNPC>(this: TThis, caster: CDOTA_BaseNPC | undefined, ability: CDOTABaseAbility | undefined, modifierName: string, modifierTable: {duration?: number; ignoreStatusResistance?: 1; [key: string]: any } | undefined): CDOTA_Buff
 {
     // Check if the modifier table has anything in it
     if (modifierTable)
@@ -867,4 +868,110 @@ export function AddNewModifier<TThis extends CDOTA_BaseNPC>(this: TThis, caster:
     }
 
     return this.oldAddNewModifier(caster, ability, modifierName, modifierTable);
+}
+
+export function GetIllusionOwner(illusion_unit: CDOTA_BaseNPC): CDOTA_BaseNPC | undefined
+{
+    if (!illusion_unit.IsIllusion()) return undefined;
+
+    let possible_owners = Entities.FindAllByName(illusion_unit.GetUnitName()) as CDOTA_BaseNPC[];
+    possible_owners = possible_owners.filter(possible_owner => IsValidEntity(possible_owner) && !possible_owner.IsIllusion() && possible_owner.GetPlayerOwnerID() == illusion_unit.GetPlayerOwnerID());
+
+    // At the end of the process, only one "real" unit should emerge
+    if (possible_owners.length == 1)
+    {
+        return possible_owners[0];
+    }
+    else
+    {
+        return undefined;
+    }
+}
+
+export function GetIllusions(unit: CDOTA_BaseNPC): CDOTA_BaseNPC[] | undefined
+{
+    if (unit.IsIllusion()) return undefined;
+
+    let possible_illusions = Entities.FindAllByName(unit.GetUnitName()) as CDOTA_BaseNPC[];
+    possible_illusions = possible_illusions.filter(possible_illusion => possible_illusion.IsIllusion() && possible_illusion.GetPlayerOwnerID() == unit.GetPlayerOwnerID());
+    possible_illusions = possible_illusions.filter(possible_illusion => IsValidEntity(possible_illusion) && possible_illusion.IsAlive());
+
+    if (possible_illusions.length > 0)
+    {
+        return possible_illusions;
+    }
+    else
+    {
+        return undefined;
+    }
+}
+
+export function ConvertRadiansToEffectiveDotRange(radians: number): number
+{
+    const effectiveDot = math.cos(radians);
+    return effectiveDot;
+}
+
+// Rotate a 2D Vector clockwise by x degrees
+export function RotateVector2D(direction: Vector, degree: number):Vector {
+	let theta = ConvertDegreesToRadians(degree);
+	let xp: number = direction.x * Math.cos(theta) - direction.y * Math.sin(theta);
+	let yp: number = direction.x * Math.sin(theta) + direction.y * Math.cos(theta);
+	return Vector(xp, yp, direction.z).Normalized();
+}
+
+// Calculate the angle between two vectors as degrees (with sign as side indicator)
+export function AngleCalculationWithSide(vectorA: Vector, vectorB: Vector):number {
+	let a2 = Math.atan2(vectorA.y, vectorA.x);
+	let a1 = Math.atan2(vectorB.y, vectorB.x);
+	let sign = a1 > a2 ? 1 : -1;
+	let angle = a1 - a2;
+	let K = -sign * Math.PI * 2;
+	angle = (Math.abs(K + angle) < Math.abs(angle))? K + angle : angle;
+	return ConvertRadiansToDegrees(angle);
+}
+
+// Return the side of a test point in reference to another direction (with start location)
+export function GetVectorSide(direction: Vector, origin: Vector, point: Vector): 1 | 0 | -1 {
+	let goal = (origin + direction * 1000) as Vector;
+	let a = (goal.x - origin.x) * (point.y - origin.y) - (goal.y - origin.y) * (point.x - origin.x)
+	return sign(a);
+}
+
+// Calculate the minimal distance to a line segment from a point (in 2D)
+export function MinimumDistanceToLine(startLoc: Vector, endLoc: Vector, testLoc: Vector):number {
+	let l2 = sqrDist(startLoc, endLoc);
+	if (l2 == 0) return  sqrDist(startLoc, testLoc);
+	let t = ((testLoc.x - startLoc.x) * (endLoc.x - startLoc.x) + (testLoc.y - startLoc.y) * (endLoc.y - startLoc.y)) / l2;
+	t = Math.max(0, Math.min(1, t));
+	return sqrDist(testLoc, Vector(
+		startLoc.x + t * (endLoc.x - startLoc.x),
+		startLoc.y + t * (endLoc.y - startLoc.y),
+		0
+	));
+}
+
+function sqrDist(vectorA: Vector, vectorB: Vector):number {
+	return sqr(vectorA.x - vectorB.x) + sqr(vectorA.y - vectorB.y)
+}
+
+function sqr(x: number):number {
+	return x * x;
+}
+
+function sign(x: number):1 | 0 | -1 {
+	return x > 0 ? 1 : x < 0 ? -1 : 0;
+}
+
+export function ConvertDegreesToRadians(deg: number):number {
+	return deg * (Math.PI / 180);
+}
+
+export function ConvertRadiansToDegrees(rad: number):number {
+	return 360 * rad / (Math.PI * 2);
+}
+
+export function HasScepterShard(unit: CDOTA_BaseNPC): boolean
+{
+    return unit.HasModifier("modifier_item_aghanims_shard");
 }

@@ -1,0 +1,14 @@
+<root>
+    <scripts>
+    </scripts>
+    <styles>
+        <include src="file://{resources}/styles/custom_game/tooltips.css" />
+        <include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+    </styles>
+    <snippets>
+
+    </snippets>
+    <Panel>
+
+    </Panel>
+</root>

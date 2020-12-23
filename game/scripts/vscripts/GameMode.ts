@@ -25,15 +25,18 @@ export class GameMode
     last_waiting_talent_num?: number;
     talent_ping_map: Map<PlayerID, number> = new Map();
 
-    // XP and gold multipliers
+    // XP and gold
     xp_multiplier = 250;
     gold_multiplier = 250;
+    gold_per_tick: number = 1;
+    gold_interval: number = 0.35;
 
     // Respawn rules
     minimum_respawn_timer_neutral_death: number = 26;
     respawn_increase_interval: number = 5; // Minutes
     respawn_increase_scale: number = 3;
     level_respawn_time: Map<number, number> = new Map();
+    max_respawn_time: number = 100; // Does not includes buyback or Reaper's Scythe respawn increase
     buyback_respawn_timer_increase = 15;
 
     // Rune rules
@@ -138,7 +141,6 @@ export class GameMode
         const spawner = EntIndexToHScript(event.spawner_entindex_const);
         let classname;
         if (spawner) classname = spawner.GetClassname();
-        if (classname) print(Entities.FindAllByClassname(classname).length);
 
         // Map the power rune spawners
         if (!this.runespawnerMap.has(event.spawner_entindex_const))
@@ -218,6 +220,27 @@ export class GameMode
         this.Game.SetRuneEnabled(RuneType.INVISIBILITY, true);
         this.Game.SetRuneEnabled(RuneType.REGENERATION, true);
         this.Game.SetRuneEnabled(RuneType.XP, false);
+        this.Game.SetMaximumAttackSpeed(1400);
+        this.Game.SetMinimumAttackSpeed(75);
+        this.Game.SetCustomScanCooldown(120);
+        this.Game.SetFountainPercentageHealthRegen(10);
+        this.Game.SetFountainPercentageManaRegen(20);
+        this.Game.SetRandomHeroBonusItemGrantDisabled(true);
+        this.Game.SetUseDefaultDOTARuneSpawnLogic(true);
+        GameRules.SetStartingGold(1200);
+        GameRules.EnableCustomGameSetupAutoLaunch(true);
+        GameRules.SetCustomGameSetupAutoLaunchDelay(0);
+        GameRules.SetCustomGameSetupRemainingTime(0);
+        GameRules.SetCustomGameSetupTimeout(30);
+        GameRules.SetHeroSelectionTime(30);
+        GameRules.SetHeroSelectPenaltyTime(15);
+        GameRules.SetCustomGameBansPerTeam(5);
+        GameRules.SetPostGameTime(30);
+        GameRules.SetPreGameTime(30);
+        GameRules.SetSameHeroSelectionEnabled(false);
+        GameRules.SetShowcaseTime(0);
+        GameRules.SetStrategyTime(10);
+        GameRules.SetTreeRegrowTime(240);
     }
 
     AssignMechanicsModifier(): void
@@ -305,6 +328,9 @@ export class GameMode
         const game_time_increase = instances * this.respawn_increase_scale;
         respawn_time += game_time_increase;
 
+        // Up to a maximum value
+        respawn_time = math.min(respawn_time, this.max_respawn_time);
+
         return respawn_time;
     }
 
@@ -318,7 +344,7 @@ export class GameMode
         let respawn_time = this.GetTimeToRespawn(hero_level);
 
         // Check if the death was due to a neutral creep: if so, set the minimum value
-        let killer
+        let killer;
         if (attacker)
         {
             killer = EntIndexToHScript(attacker);
@@ -512,6 +538,7 @@ export class GameMode
         if (state == GameState.PRE_GAME)
         {
             this.BuybackRules();
+            this.GrantItemsForRandomHeroes();
         }
 
         if (state == GameState.GAME_IN_PROGRESS)
@@ -519,12 +546,38 @@ export class GameMode
             this.Game.SetBountyRuneSpawnInterval(this.bounty_runes_spawn_interval * 60);
             this.Game.SetPowerRuneSpawnInterval(this.power_runes_spawn_interval * 60);
 
+            // Rune reveal
             Timers.CreateTimer(() =>
             {
                 this.RevealBountyRunes();
                 return this.bounty_runes_spawn_interval;
             })
+
+            // Gold Tick system
+            this.StartGoldTick();
         }
+    }
+
+    StartGoldTick()
+    {
+        Timers.CreateTimer(this.gold_interval, () =>
+        {
+            const players = GetAllPlayers();
+            const heroes = players.map(player => player.GetAssignedHero());
+            for (const hero of heroes)
+            {
+                // Just some verifications, can't be too sure
+                if (hero && IsValidEntity(hero) && hero.IsRealHero() && !hero.IsNull())
+                {
+                    if (hero.courier && hero.courier.IsAlive())
+                    {
+                        hero.ModifyGold(this.gold_per_tick, true, ModifyGoldReason.GAME_TICK);
+                    }
+                }
+            }
+
+            return this.gold_interval;
+        })
     }
 
     ForceRandomHeroForPlayersWithoutHeroes(): void
@@ -536,6 +589,33 @@ export class GameMode
                 if (!player.GetAssignedHero())
                 {
                     player.MakeRandomHeroSelection();
+                    PlayerResource.SetHasRandomed(player.GetPlayerID());
+                }
+            }
+        }
+    }
+
+    GrantItemsForRandomHeroes(): void
+    {
+        for (const player of GetAllPlayers())
+        {
+            if (player)
+            {
+                if (PlayerResource.HasRandomed(player.GetPlayerID()))
+                {
+                    Timers.CreateTimer(FrameTime(), () =>
+                    {
+                        if (player.GetAssignedHero())
+                        {
+                            player.GetAssignedHero().AddItemByName("item_reimagined_enchanted_mango");
+                            player.GetAssignedHero().AddItemByName("item_reimagined_enchanted_mango");
+                            player.GetAssignedHero().AddItemByName("item_faerie_fire");
+
+                            return undefined;
+                        }
+
+                        return FrameTime();
+                    })
                 }
             }
         }

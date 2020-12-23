@@ -8,13 +8,18 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     sound_reflect: string = "Hero_Antimage.Counterspell.Target";
     particle_shield: string = "particles/units/heroes/hero_antimage/antimage_counter.vpcf";
     particle_shield_fx?: ParticleID;
     particle_absorb: string = "particles/units/heroes/hero_antimage/antimage_spellshield.vpcf";
     particle_absorb_fx?: ParticleID;
+
+    // Modifier specials
+    shard_illusion_duration?: number;
+    shard_illusion_incoming_damage?: number;
+    shard_illusion_outgoing_damage?: number;
 
     // Reimagined specials
     magic_ends_mana_burn?: number;
@@ -23,7 +28,7 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
 
     // Reimagined talent specials
     silence_duration?: number;
-    magic_cannot_harm_me_duration?: number;    
+    magic_cannot_harm_me_duration?: number;
 
     IsHidden() {return false}
     IsDebuff() {return false}
@@ -31,8 +36,13 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
 
     OnCreated(): void
     {
-        // Modifier properties        
+        // Modifier properties
         this.ability = this.GetAbility()!;
+
+        // Modifier specials
+        this.shard_illusion_duration = this.ability.GetSpecialValueFor("shard_illusion_duration");
+        this.shard_illusion_incoming_damage = this.ability.GetSpecialValueFor("shard_illusion_incoming_damage");
+        this.shard_illusion_outgoing_damage = this.ability.GetSpecialValueFor("shard_illusion_outgoing_damage");
 
         // Reimagined specials
         this.magic_ends_mana_burn = this.ability?.GetSpecialValueFor("magic_ends_mana_burn");
@@ -52,9 +62,9 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
                 ModifierFunction.REFLECT_SPELL]
     }
 
-    
+
     GetAbsorbSpell(event: ModifierAbilityEvent): 0 | 1
-    {        
+    {
         if (!IsServer()) return 0;
 
         // Do not absorb allies' spells
@@ -81,8 +91,30 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
         // Play reflect sound
         EmitSoundOn(this.sound_reflect, event.ability.GetCaster());
 
-        // Talent: Magic Cannot Harm Me!: Magic resistance increases by x% for each enemy unit target spell that was cast at Anti Mage. Lasts y seconds. Stacks and refreshes itself.                
-        this.ReimaginedTalentMagicCannotHarmMe();        
+        // Scepter Shard: Successful Counterspell creates an illusion attacking the caster for 5 seconds. Removes Counterspell manacost.
+        if (util.HasScepterShard(this.caster))
+        {
+            const original_caster_pos = event.ability.GetCaster().GetAbsOrigin();
+
+            // Create illusion
+            const illusion = CreateIllusions(this.caster,
+                                             this.caster as CDOTA_BaseNPC_Hero,
+                                             {duration: this.shard_illusion_duration!,
+                                              incoming_damage: this.shard_illusion_incoming_damage!,
+                                              outgoing_damage: this.shard_illusion_outgoing_damage!},
+                                              1,
+                                              this.caster.GetHullRadius(),
+                                              false,
+                                              true)[0];
+
+            // Set illusion at target point
+            illusion.SetAbsOrigin(original_caster_pos);
+            FindClearSpaceForUnit(illusion, original_caster_pos, true);
+            ResolveNPCPositions(original_caster_pos, illusion.GetHullRadius());
+        }
+
+        // Talent: Magic Cannot Harm Me!: Magic resistance increases by x% for each enemy unit target spell that was cast at Anti Mage. Lasts y seconds. Stacks and refreshes itself.
+        this.ReimaginedTalentMagicCannotHarmMe();
 
         // Reimagined: The Magic Ends Here: Burns a flat amount of mana of the original casters of reflected spells.
         this.ReimaginedTheMagicEndsHere(event.ability.GetCaster());
@@ -118,20 +150,20 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
     ReimaginedTalentMagicCannotHarmMe()
     {
         if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_6))
-        {            
-            if (!this.magic_cannot_harm_me_duration) this.magic_cannot_harm_me_duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_6, "duration");            
+        {
+            if (!this.magic_cannot_harm_me_duration) this.magic_cannot_harm_me_duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_6, "duration");
             let talent_modifier;
             if (!this.caster.HasModifier("modifier_reimagined_antimage_talent_6_buff"))
-            {                
-                talent_modifier = this.caster.AddNewModifier(this.caster, this.ability, "modifier_reimagined_antimage_talent_6_buff", {duration: this.magic_cannot_harm_me_duration});                
+            {
+                talent_modifier = this.caster.AddNewModifier(this.caster, this.ability, "modifier_reimagined_antimage_talent_6_buff", {duration: this.magic_cannot_harm_me_duration});
             }
             else
-            {                
+            {
                 talent_modifier = this.caster.FindModifierByName("modifier_reimagined_antimage_talent_6_buff");
             }
-            
+
             if (talent_modifier)
-            {                
+            {
                 talent_modifier.IncrementStackCount();
                 talent_modifier.ForceRefresh();
             }
