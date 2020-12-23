@@ -180,8 +180,9 @@ class OverrideAbilityTooltips
         const afterNumber = "</span>";
 
         let number_regex = /\d+\.?\d*\%?/g;
-        let numbers = text.match((number_regex));
+        let numbers = text.match(number_regex);
         let currentMultiLevelValueCount = 0;
+
         if (numbers)
         {
             let lastNumberPosition = 0;

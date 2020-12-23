@@ -2216,22 +2216,10 @@
         "For each level of Broodmother, Spiderlings gain %spiderlings_academy_damage_per_level% damage, %spiderlings_academy_health_per_level% health, %spiderlings_academy_armor_per_level% armor and %spiderlings_academy_magic_res_per_level%%% magic resistance. Spiderites gain %spiderlings_academy_spiderites_pct%%% of the values."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_title_3"
-        "Ticking Poison"
+        "Reimagined Spiderling"
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_description_3"
-        "Spiderlings' Poison Sting accumulates within a target and explodes when going through the threshold, dealing bonus damage."
-
-        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_title_4"
-        "Volatile Spiderlings"
-
-        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_description_4"
-        "Spiderlings explode on death, dealing damage and spreading their poison. Spiderites have a lesser version of this ability."
-
-        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_title_5"
-        "Spider Genes"
-
-        "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_rmg_description_5"
-        "When enough Spiderlings attack a target, it will spawn a Spiderling instead of Spiderite on death."
+        "Spiderlings have the Ticking Poison, Volatile Spiderlings and the Spider Genes abilities. Spiderites have a lesser version of the Volatile Spiderling ability as well."
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_spawn_spiderlings_Lore"
         "Black Arachnia continues to raise her young, even amidst the field of combat. The brood quickly learns how to support their mother."

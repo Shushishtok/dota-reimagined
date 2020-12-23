@@ -659,6 +659,34 @@ class RmgTalentWindow
 
     FormatTooltip(description: string, lore: string): string
     {
+        const beforeNumber = "<font color='#5B93D1'><b>";
+        const afterNumber = "</b></font>";
+
+        let regex = /\d+\.?\d*\%?/g;
+        let numbers = description.match(regex);
+
+        if (numbers)
+        {
+            let lastNumberPosition = 0;
+            for (let index = 0; index < numbers.length; index++)
+            {
+                const number = numbers[index];
+
+                // Find the number's index in the string
+                const numberPosition = description.indexOf(number, lastNumberPosition);
+
+                // Get number's digit length
+                const numberLength = number.length;
+
+                // Add the span before and after the number
+                description = description.slice(0, numberPosition + numberLength) + afterNumber + description.slice(numberPosition + numberLength);
+                description = description.slice(0, numberPosition) + beforeNumber + description.slice(numberPosition);
+
+                // Update the last number position for next iterations of indexOf
+                lastNumberPosition = numberPosition + numberLength + beforeNumber.length;
+            }
+        }
+
         if (lore != "")
         {
             // Italicize the lore

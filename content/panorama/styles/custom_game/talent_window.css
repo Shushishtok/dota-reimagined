@@ -1,15 +1,15 @@
 .Rmg_Talent_Window
 {
-    horizontal-align: left;    
+    horizontal-align: left;
     vertical-align: middle;
-    margin-bottom: 75px;    
+    margin-bottom: 75px;
     width: 350px;
-    height: 450px;  
+    height: 450px;
     background-color: #000000da;
 
     transform: translateX( -750px );
     transition-property: transform;
-    transition-duration: 0.1s;    
+    transition-duration: 0.1s;
     flow-children: down;
 }
 
@@ -27,7 +27,7 @@
     horizontal-align: middle;
     text-shadow: 0px 0px 8px #906127;
     margin-top: 10px;
-    margin-left: 70px;      
+    margin-left: 70px;
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 2px;
@@ -37,34 +37,34 @@
 {
     width: 100%;
     height: 75px;
-    margin-top: 22px;    
-    flow-children: right;        
+    margin-top: 22px;
+    flow-children: right;
 }
 
 .talentLevels
-{    
-    horizontal-align: left;        
+{
+    horizontal-align: left;
     width: 80px;
-    height: 100%;    
+    height: 100%;
     margin-left: 10px;
 }
 
 .talentLevelContainer
 {
     width: 55px;
-    height: 55px;        
+    height: 55px;
     horizontal-align: center;
     vertical-align: center;
     border: 5px solid #906127;
-    border-radius: 50px;    
+    border-radius: 50px;
 }
 
 .talentLevel
 {
     horizontal-align: center;
-    vertical-align: center;        
+    vertical-align: center;
     width: 100%;
-    height: 100%;        
+    height: 100%;
     font-family: "RadianceM";
     color: #d9b284;
     text-shadow: 0px 0px 8px #906127;
@@ -75,17 +75,17 @@
 }
 
 .leftTalent
-{    
+{
     width: 80px;
     height: 100%;
     margin-left: 20px;
 }
 
 .rightTalent
-{    
+{
     width: 80px;
-    height: 100%;  
-    margin-left: 30px;  
+    height: 100%;
+    margin-left: 30px;
 }
 
 .talentImage
@@ -101,7 +101,7 @@
 
 .talentImage:hover:not(.talentImageUnlearnable)
 {
-    box-shadow: fill gold 0px 0px 6px 0px;    
+    box-shadow: fill gold 0px 0px 6px 0px;
 }
 
 .talentImageLearned
@@ -111,7 +111,7 @@
 
 .talentImageUnlearnable
 {
-    saturation: 0;    
+    saturation: 0;
 }
 
 .talentLearnableGlow

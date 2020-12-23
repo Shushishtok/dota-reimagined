@@ -10,7 +10,7 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
 
     // Modifier specials
@@ -20,7 +20,7 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
 
     // Reimagined talent specials
     talent_stacks_threshold?: number;
-    dark_ascension_bonus_ms_pct?: number;    
+    dark_ascension_bonus_ms_pct?: number;
 
     IsHidden(): boolean
     {
@@ -29,7 +29,7 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
         {
             return false;
         }
-        
+
         return true;
     }
 
@@ -40,14 +40,14 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
     OnCreated(): void
     {
         // Modifier properties
-        
+
         this.ability = this.GetAbility()!;
 
         // Modifier specials
         this.bonus_damage = this.ability.GetSpecialValueFor("bonus_damage");
         this.wings_out_stack_threshold = this.ability.GetSpecialValueFor("wings_out_stack_threshold");
         this.wings_out_damage_pct = this.ability.GetSpecialValueFor("wings_out_damage_pct");
-        
+
         if (IsServer()) this.StartIntervalThink(FrameTime());
     }
 
@@ -70,10 +70,10 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
         return [ModifierFunction.PREATTACK_BONUS_DAMAGE,
                 ModifierFunction.TRANSLATE_ACTIVITY_MODIFIERS,
                 ModifierFunction.MOVESPEED_BONUS_PERCENTAGE]
-    } 
+    }
 
     CheckState(): Partial<Record<ModifierState, boolean>>
-    {               
+    {
         return {[ModifierState.FLYING]: this.ShouldModifierBeActive()}
     }
 
@@ -88,7 +88,7 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
         {
             return this.bonus_damage! * this.wings_out_damage_pct! * 0.01;
         }
-        
+
         return 0;
     }
 
@@ -98,7 +98,7 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
         {
             return "hunter_night";
         }
-        
+
         return;
     }
 
@@ -134,8 +134,8 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
         // Talent: Wings Out's is applied when Night Stalker has at least x Dead of Night stacks. While Dark Ascension is active, his move speed also increases by an additional y%.
         if (this.ReimaginedTalentFlightMuscles()) return true;
 
-        // Otherwise, it should not trigger and be hidden.        
-        return false;        
+        // Otherwise, it should not trigger and be hidden.
+        return false;
     }
 
     ReimaginedTalentFlightMuscles(): boolean
@@ -162,7 +162,7 @@ export class modifier_reimagined_night_stalker_dark_ascension_wings_out extends 
             if (this.parent.HasModifier(modifier_reimagined_night_stalker_dark_ascension_active.name))
             {
                 return this.dark_ascension_bonus_ms_pct;
-            }            
+            }
         }
 
         return 0;

@@ -4,7 +4,7 @@
         "target": "esnext",
         "lib": ["esnext"],
         "types": ["dota-lua-types/normalized"],
-        "plugins": [{ "transform": "dota-lua-types/transformer" }],
+        "plugins": [{ "transform": "@moddota/dota-lua-types/transformer" }],
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "strict": true

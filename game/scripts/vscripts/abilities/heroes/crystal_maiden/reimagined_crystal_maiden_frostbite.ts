@@ -7,14 +7,14 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
 {
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
-    sound_cast: string = "Hero_Crystal.Frostbite";    
+    sound_cast: string = "Hero_Crystal.Frostbite";
 
     // Ability specials
-    duration?: number;    
+    duration?: number;
 
     Precache(context: CScriptPrecacheContext)
     {
-        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf", context);        
+        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf", context);
     }
 
     CastFilterResultTarget(target: CDOTA_BaseNPC): UnitFilterResult | undefined
@@ -31,9 +31,9 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
             if (PlayerResource.IsDisableHelpSetForPlayerID(target.GetPlayerOwnerID(), this.caster.GetPlayerOwnerID()))
             {
                 return UnitFilterResult.FAIL_DISABLE_HELP;
-            }            
+            }
 
-            return UnitFilter(target, this.GetAbilityTargetTeam(), this.GetAbilityTargetType(), this.GetAbilityTargetFlags(), this.caster.GetTeamNumber());            
+            return UnitFilter(target, this.GetAbilityTargetTeam(), this.GetAbilityTargetType(), this.GetAbilityTargetFlags(), this.caster.GetTeamNumber());
         }
     }
 
@@ -44,7 +44,7 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
 
         // Ability specials
         this.duration = this.GetSpecialValueFor("duration");
-        
+
         // Play cast sound
         EmitSoundOn(this.sound_cast, target);
 
@@ -58,7 +58,7 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
                 if (target.TriggerSpellAbsorb(this)) return;
             }
 
-            // Ancients, Roshan, Creep Heroes or Real Heroes are assigned the regular duration            
+            // Ancients, Roshan, Creep Heroes or Real Heroes are assigned the regular duration
             if (target.IsAncient() || target.IsConsideredHero() || target.IsHero())
             {
                 target.AddNewModifier(this.caster, this, modifier_reimagined_crystal_maiden_frostbite_debuff.name, {duration: this.duration})
@@ -67,9 +67,9 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
             {
                 // Eternal Cold: Lasts infinitely on creeps. Can still be dispellable.
                 this.ReimaginationEternalCold(target);
-            }            
-        }   
-        else // Reimagination: Igloo Frosting: Can be cast on an ally, rooting it and increasing Arcane's Auras effect on that ally by 10 times. Can be help-disabled. No damage is done to a rooted ally. Procs Frost Emanation on nearby enemies.     
+            }
+        }
+        else // Reimagination: Igloo Frosting: Can be cast on an ally, rooting it and increasing Arcane's Auras effect on that ally by 10 times. Can be help-disabled. No damage is done to a rooted ally. Procs Frost Emanation on nearby enemies.
         {
             this.ReimaginationIglooFrosting(target);
         }
