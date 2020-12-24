@@ -1,9 +1,6 @@
 import { CrystalMaidenTalents } from "../../../abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
-import { modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery } from "./modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery";
-import { modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane } from "./modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane";
-import { modifier_reimagined_crystal_maiden_frostbite_buff } from "./modifier_reimagined_crystal_maiden_frostbite_buff"
 
 @registerModifier()
 export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseModifier
@@ -12,6 +9,9 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
     caster: CDOTA_BaseNPC = this.GetCaster()!;
     ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
+    modifier_blueheart: string = "modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery";
+    modifier_focused_arcane: string = "modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane";
+    modifier_frostbite_buff: string = "modifier_reimagined_crystal_maiden_frostbite_buff";
 
     // Modifier specials
     mana_regen?: number;
@@ -94,7 +94,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
     {
         let multiplier = 1;
         // If parent has the allied Frostbite modifier, increase by the multiplier
-        if (this.parent.HasModifier(modifier_reimagined_crystal_maiden_frostbite_buff.name))
+        if (this.parent.HasModifier(this.modifier_frostbite_buff))
         {
             multiplier = this.igloo_frosting_arcane_aura_multiplier!;
         }
@@ -106,9 +106,9 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
     {
         let bonus = 0;
 
-        if (this.caster!.HasModifier(modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name))
+        if (this.caster!.HasModifier(this.modifier_blueheart))
         {
-            const stacks = this.caster!.GetModifierStackCount(modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name, this.caster!);
+            const stacks = this.caster!.GetModifierStackCount(this.modifier_blueheart, this.caster!);
             if (stacks && stacks > 0)
             {
                 bonus = stacks * this.blueheart_mastery_mana_regen!;
@@ -121,7 +121,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
     GetModifierMagicalResistanceBonus(): number
     {
         // Only applies if the parent has Focused Arcane
-        if (this.caster!.HasModifier(modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane.name))
+        if (this.caster!.HasModifier(this.modifier_focused_arcane))
         {
             let focused_arcane_magic_res = this.focused_arcane_magic_res!
             focused_arcane_magic_res = focused_arcane_magic_res * this.ReimaginationIglooFrosting();
@@ -133,7 +133,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
 
     GetModifierSpellAmplify_Percentage(): number
     {
-        if (this.caster!.HasModifier(modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane.name))
+        if (this.caster!.HasModifier(this.modifier_focused_arcane))
         {
             let focused_arcane_spell_amp = this.focused_arcane_spell_amp!;
             focused_arcane_spell_amp = focused_arcane_spell_amp * this.ReimaginationIglooFrosting();
@@ -152,7 +152,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_buff extends BaseMod
     {
         if (HasTalent(this.caster, CrystalMaidenTalents.CrystalMaidenTalent_6))
         {
-            if (this.caster.HasModifier(modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane.name))
+            if (this.caster.HasModifier(this.modifier_focused_arcane))
             {
                 if (mana_multiplier)
                 {

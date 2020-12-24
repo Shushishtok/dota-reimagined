@@ -979,6 +979,9 @@
         "DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_rmg_description_3"
         "Can be cast on an ally, rooting and disarming it and increasing Arcane Aura's effect on that ally by %igloo_frosting_arcane_aura_multiplier% times. Does not deals damage to the target ally."
 
+        "DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_shard_description"
+        "Casting Frosbite on yourself also reduces incoming damage by %shard_damage_reduction_pct%%% for the duration. Allows casting Frostbite while channeling as long as the target is in range.<br><br>Reduces cooldown by %shard_cooldown_reudction% seconds."
+
 		"DOTA_Tooltip_Ability_reimagined_crystal_maiden_frostbite_Lore"
 		"Rylai channels winds from the Blueheart Glacier, imprisoning attackers in thick blocks of ice."
 
@@ -1571,6 +1574,9 @@
         "DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_rmg_description_3"
         "While Marksmanship is active, grants a %cryo_arrowhead_chance%%% chance to have Frost Arrows explode on impact, dealing bonus %cryo_arrowhead_damage% magical damage to all enemies in %cryo_arrowhead_radius% radius of the target. All enemies hit are afflicted with Frost Arrow's slow debuff for %cryo_arrowhead_duration% seconds."
 
+        "DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_shard_description"
+        "Frost Arrows now apply a Hypothermia stack to enemy heroes, reducing their regeneration by %shard_health_regen_reduction_stack%%% per stack. Lasts %shard_hypothermia_duration% seconds. If an enemy hero dies with Hypothermia stacks, they burst and deal %shard_burst_damage% magic damage per stack and %shard_burst_slow_pct%%% slow for %shard_burst_slow_duration% seconds to enemies within %shard_burst_damage_radius% radius. Max Stacks: %shard_max_stacks%."
+
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_frost_arrows_Lore"
 		"Ice-encased arrows pierce the silence, chilling their victims to the core."
 
@@ -1597,6 +1603,18 @@
 
 		"DOTA_Tooltip_modifier_reimagined_drow_ranger_frost_arrows_brittle_Description"
 		"Attack speed reduced by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% and armor reduced by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%."
+
+        "DOTA_Tooltip_modifier_reimagined_drow_ranger_hypothermia"
+        "Hypothermia"
+
+        "DOTA_Tooltip_modifier_reimagined_drow_ranger_hypothermia_Description"
+        "Health regeneration reduced by %dMODIFIER_PROPERTY_TOOLTIP%%%. On death, burst and deals damage to nearby allies."
+
+        "DOTA_Tooltip_modifier_reimagined_drow_ranger_hypothermia_slow"
+        "Hypothermia Slow"
+
+        "DOTA_Tooltip_modifier_reimagined_drow_ranger_hypothermia_slow_Description"
+        "Slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%."
 
 		// Drow Ranger's Gust (Wave of Silence)
 		"DOTA_Tooltip_Ability_reimagined_drow_ranger_wave_of_silence"

@@ -1,11 +1,12 @@
 import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
 import { HasTalent } from "../../../lib/util";
 import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow";
-import { modifier_reimagined_crystal_maiden_crystal_nova_slow } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_slow";
-import { modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_slow";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura";
 import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff";
 import { CrystalMaidenTalents } from "./reimagined_crystal_maiden_talents";
-import { modifier_reimagined_crystal_maiden_talent_2_debuff } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_talent_2_debuff"
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_talent_1_debuff"
+import { modifier_reimagined_crystal_maiden_talent_2_debuff } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_talent_2_debuff";
 
 @registerAbility()
 export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
@@ -16,6 +17,8 @@ export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
     sound_cast: string = "Hero_Crystal.CrystalNova";
     particle_crystal_nova: string = "particles/units/heroes/hero_crystalmaiden/maiden_crystal_nova.vpcf";
     particle_crystal_nova_fx?: ParticleID;
+    modifier_slow: string = "modifier_reimagined_crystal_maiden_crystal_nova_slow";
+    modifier_snowstorm_aura: string = "modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura";
 
     // Ability specials
     radius?: number;
@@ -24,8 +27,12 @@ export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
     vision_radius?: number;
     nova_damage?: number;
 
+
     // Reimagined specials
     snowstorm_duration?: number;
+
+    // Reimagined talents properties
+    modifier_talent_2_debuff: string = "modifier_reimagined_crystal_maiden_talent_2_debuff";
 
     Precache(context: CScriptPrecacheContext)
     {
@@ -105,7 +112,7 @@ export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
             });
 
             // Apply slow modifier to each enemy
-            enemy.AddNewModifier(this.caster, this, modifier_reimagined_crystal_maiden_crystal_nova_slow.name, {duration: this.duration});
+            enemy.AddNewModifier(this.caster, this, this.modifier_slow, {duration: this.duration});
 
             // Talent: Dense Ice: Crystal Nova's move and attack speed slow scales with the the enemy's distance to the Snowstorm Field, up to x% additional slow when standing in the center. Every y units of distance reduces the slow slightly.
             this.ReimaginedTalentDenseIce(enemy, target_position);
@@ -118,14 +125,14 @@ export class reimagined_crystal_maiden_crystal_nova extends BaseAbility
     ReimaginedSnowstormField(target_position: Vector)
     {
         // Apply Snowstorm Field modifier thinker on cast position
-        CreateModifierThinker(this.caster, this, modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura.name, {duration: this.snowstorm_duration}, target_position, this.caster.GetTeamNumber(), false);
+        CreateModifierThinker(this.caster, this, this.modifier_snowstorm_aura, {duration: this.snowstorm_duration}, target_position, this.caster.GetTeamNumber(), false);
     }
 
     ReimaginedTalentDenseIce(target: CDOTA_BaseNPC, target_position: Vector)
     {
         if (HasTalent(this.caster, CrystalMaidenTalents.CrystalMaidenTalent_2))
         {
-            const talent_modifier = target.AddNewModifier(this.caster, this, modifier_reimagined_crystal_maiden_talent_2_debuff.name, {duration: this.duration});
+            const talent_modifier = target.AddNewModifier(this.caster, this, this.modifier_talent_2_debuff, {duration: this.duration});
             if (talent_modifier)
             {
                 (talent_modifier as modifier_reimagined_crystal_maiden_talent_2_debuff).cast_center = target_position;

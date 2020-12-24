@@ -76,4 +76,5 @@ interface CDOTA_Buff
 interface CDOTABaseAbility
 {
     RequiresScepterForCharges(): boolean;
+    ExecuteOrderFilter(event: ExecuteOrderFilterEvent): boolean
 }

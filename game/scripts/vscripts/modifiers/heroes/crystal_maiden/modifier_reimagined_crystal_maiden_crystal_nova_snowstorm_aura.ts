@@ -1,18 +1,18 @@
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import { modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff } from "./modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff";
-import { modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow } from "./modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow"
 
 @registerModifier()
 export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura extends BaseModifier
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
-    parent: CDOTA_BaseNPC = this.GetParent();    
+    ability: CDOTABaseAbility = this.GetAbility()!;
+    parent: CDOTA_BaseNPC = this.GetParent();
     particle_snowstorm: string = "particles/heroes/crystal_maiden/snowstorm_field.vpcf";
     particle_snowstorm_fx?: ParticleID;
     particle_hailwinds: string = "particles/heroes/crystal_maiden/hailwind_shards.vpcf";
     particle_hailwinds_fx?: ParticleID;
+    modifier_snowstorm_buff: string = "modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff";
+    modifier_hailwind_slow: string = "modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow";
 
     // Modifier specials
     radius?: number;
@@ -21,7 +21,7 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura exte
     hailwind_radius?: number;
     hailwind_interval?: number;
     hailwind_damage?: number;
-    hailwind_duration?: number;    
+    hailwind_duration?: number;
 
     IsHidden() {return true}
     IsDebuff() {return false}
@@ -30,7 +30,7 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura exte
     OnCreated(): void
     {
         // Modifier properties
-        
+
         this.ability = this.GetAbility()!;
 
         // Modifier specials
@@ -48,12 +48,12 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura exte
             const ground_position = GetGroundPosition(this.parent.GetAbsOrigin(), undefined);
             this.particle_snowstorm_fx = ParticleManager.CreateParticle(this.particle_snowstorm, ParticleAttachment.WORLDORIGIN, undefined);
             ParticleManager.SetParticleControl(this.particle_snowstorm_fx, 0, ground_position);
-            ParticleManager.SetParticleControl(this.particle_snowstorm_fx, 1, Vector(this.radius!, 0, 0));                
+            ParticleManager.SetParticleControl(this.particle_snowstorm_fx, 1, Vector(this.radius!, 0, 0));
             this.AddParticle(this.particle_snowstorm_fx, false, false, -1, false, false);
         }
 
         // Reimagined: Hail Winds: While the field where Crystal Nova was cast is up, it periodically releases chilly winds that extend to 1200 range around the center, dealing additional minor damage and slowing enemies in range.
-        this.ReimaginedHailWinds();        
+        this.ReimaginedHailWinds();
     }
 
     ReimaginedHailWinds(): void
@@ -62,7 +62,7 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura exte
         {
             this.StartIntervalThink(this.hailwind_interval!);
         }
-    }    
+    }
 
     OnIntervalThink(): void
     {
@@ -89,7 +89,7 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura exte
 
         for (const enemy of enemies)
         {
-            // Deal damage            
+            // Deal damage
             ApplyDamage(
             {
                 attacker: this.caster!,
@@ -101,7 +101,7 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura exte
             });
 
             // Apply Hailwind slow modifier
-            enemy.AddNewModifier(this.caster!, this.ability, modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow.name, {duration: this.hailwind_duration!});
+            enemy.AddNewModifier(this.caster!, this.ability, this.modifier_hailwind_slow, {duration: this.hailwind_duration!});
         }
     }
 
@@ -111,5 +111,5 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura exte
     GetAuraSearchFlags() {return UnitTargetFlags.NONE}
     GetAuraSearchTeam() {return UnitTargetTeam.BOTH}
     GetAuraSearchType() {return UnitTargetType.HERO + UnitTargetType.BASIC}
-    GetModifierAura() {return modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff.name}
+    GetModifierAura() {return this.modifier_snowstorm_buff}
 }

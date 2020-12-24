@@ -5,9 +5,9 @@ export class modifier_reimagined_drow_ranger_frost_arrows_slow extends BaseModif
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
-    status_effect: string = "particles/status_fx/status_effect_frost.vpcf";
+    status_effect: string = "particles/status_fx/status_effect_drow_frost_arrow.vpcf";
 
     // Modifier specials
     frost_arrows_movement_speed?: number;
@@ -36,7 +36,4 @@ export class modifier_reimagined_drow_ranger_frost_arrows_slow extends BaseModif
     {
         return this.status_effect;
     }
-
-
-
 }

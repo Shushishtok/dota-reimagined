@@ -1,6 +1,6 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
-import { modifier_reimagined_crystal_maiden_frostbite_debuff } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_frostbite_debuff";
-import { modifier_reimagined_crystal_maiden_frostbite_buff } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_frostbite_buff";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_frostbite_debuff";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_frostbite_buff";
 import { HasScepterShard } from "../../../lib/util";
 
 @registerAbility()
@@ -9,6 +9,8 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
     sound_cast: string = "Hero_Crystal.Frostbite";
+    modifier_debuff: string = "modifier_reimagined_crystal_maiden_frostbite_debuff";
+    modifier_buff: string = "modifier_reimagined_crystal_maiden_frostbite_buff";
 
     // Ability specials
     duration?: number;
@@ -36,6 +38,18 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
 
             return UnitFilter(target, this.GetAbilityTargetTeam(), this.GetAbilityTargetType(), this.GetAbilityTargetFlags(), this.caster.GetTeamNumber());
         }
+    }
+
+    GetBehavior(): AbilityBehavior
+    {
+        let behaviors = AbilityBehavior.UNIT_TARGET;
+
+        if (IsServer() && HasScepterShard(this.caster) && this.caster.IsChanneling())
+        {
+            behaviors += AbilityBehavior.IGNORE_CHANNEL;
+        }
+
+        return behaviors;
     }
 
     GetCooldown(level: number): number
@@ -75,7 +89,7 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
             // Ancients, Roshan, Creep Heroes or Real Heroes are assigned the regular duration
             if (target.IsAncient() || target.IsConsideredHero() || target.IsHero())
             {
-                target.AddNewModifier(this.caster, this, modifier_reimagined_crystal_maiden_frostbite_debuff.name, {duration: this.duration})
+                target.AddNewModifier(this.caster, this, this.modifier_debuff, {duration: this.duration})
             }
             else
             {
@@ -91,11 +105,25 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
 
     ReimaginationIglooFrosting(target: CDOTA_BaseNPC)
     {
-        target.AddNewModifier(this.caster, this, modifier_reimagined_crystal_maiden_frostbite_buff.name, {duration: this.duration});
+        target.AddNewModifier(this.caster, this, this.modifier_buff, {duration: this.duration});
     }
 
     ReimaginationEternalCold(target: CDOTA_BaseNPC)
     {
-        target.AddNewModifier(this.caster, this, modifier_reimagined_crystal_maiden_frostbite_debuff.name, {})
+        target.AddNewModifier(this.caster, this, this.modifier_debuff, {})
+    }
+
+    ExecuteOrderFilter(event: ExecuteOrderFilterEvent): boolean
+    {
+        // Prevent casting if the caster is currently TPing
+        if (event.order_type == UnitOrder.CAST_TARGET)
+        {
+            if (HasScepterShard(this.caster))
+            {
+                if (this.caster.HasModifier("modifier_teleporting")) return false;
+            }
+        }
+
+        return true;
     }
 }

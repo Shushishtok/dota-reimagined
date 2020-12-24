@@ -1,10 +1,9 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
-import { modifier_reimagined_drow_ranger_marksmanship_passive } from "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_marksmanship_passive"
-import "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_projectile_handler"
-import "../../../modifiers/general_mechanics/modifier_reimagined_damage_penalty"
-import "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_marksmanship_pride_drow"
-import "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_talent_7_counter"
-
+import "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_marksmanship_passive";
+import "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_projectile_handler";
+import "../../../modifiers/general_mechanics/modifier_reimagined_damage_penalty";
+import "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_marksmanship_pride_drow";
+import "../../../modifiers/heroes/drow_ranger/modifier_reimagined_drow_ranger_talent_7_counter";
 
 @registerAbility()
 export class reimagined_drow_ranger_marksmanship extends BaseAbility
@@ -12,6 +11,7 @@ export class reimagined_drow_ranger_marksmanship extends BaseAbility
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
     sound_cast: string = "DrowRanger.Marksmanship.PrideOfTheDrow";
+    modifier_passive: string = "modifier_reimagined_drow_ranger_marksmanship_passive";
 
     // Ability specials
     damage_reduction_scepter?: number;
@@ -45,7 +45,7 @@ export class reimagined_drow_ranger_marksmanship extends BaseAbility
 
     GetIntrinsicModifierName(): string
     {
-        return modifier_reimagined_drow_ranger_marksmanship_passive.name;
+        return this.modifier_passive;
     }
 
     OnSpellStart(): void

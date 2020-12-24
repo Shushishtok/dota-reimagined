@@ -11,13 +11,13 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
 {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
+    ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     sound_hit_target: string = "Hero_DrowRanger.Marksmanship.Target";
     particle_start: string = "particles/units/heroes/hero_drow/drow_marksmanship_start.vpcf";
     particle_start_fx?: ParticleID;
     particle_marksmanship: string = "particles/units/heroes/hero_drow/drow_marksmanship.vpcf";
-    particle_marksmanship_fx?: ParticleID;    
+    particle_marksmanship_fx?: ParticleID;
     base_projectile: string = "particles/units/heroes/hero_drow/drow_base_attack.vpcf";
     projectile_frost: string = "particles/units/heroes/hero_drow/drow_frost_arrow.vpcf";
     marksmanship_enabled: boolean = true;
@@ -25,18 +25,18 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
     first_time: boolean = true;
     projectile_map: Map<number, boolean> = new Map();
 
-    // Reimagined properties    
-    last_attack_time: number = 0;    
+    // Reimagined properties
+    last_attack_time: number = 0;
     ambush_forest_guaranteed_proc: boolean = false;
 
     // Modifier specials
     chance?: number;
-    bonus_damage?: number;    
+    bonus_damage?: number;
     agility_range?: number;
     split_count_scepter?: number;
     scepter_range?: number;
     damage_reduction_scepter?: number;
-    disable_range?: number;    
+    disable_range?: number;
 
     // Reimagined specials
     ambush_forest_no_attack_period?: number;
@@ -66,14 +66,14 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         // Start thinking, enable Marksmanship, and roll for proc
         this.StartIntervalThink(0.1);
         this.EnableMarksmanship();
-        this.RollForMarksmanship();        
+        this.RollForMarksmanship();
     }
 
     GetAbilitySpecials()
     {
         // Modifier specials
         this.chance = this.ability.GetSpecialValueFor("chance")
-        this.bonus_damage = this.ability.GetSpecialValueFor("bonus_damage")        
+        this.bonus_damage = this.ability.GetSpecialValueFor("bonus_damage")
         this.agility_range = this.ability.GetSpecialValueFor("agility_range")
         this.split_count_scepter = this.ability.GetSpecialValueFor("split_count_scepter")
         this.scepter_range = this.ability.GetSpecialValueFor("scepter_range")
@@ -87,7 +87,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
     }
 
     OnRefresh(): void
-    {        
+    {
         this.GetAbilitySpecials();
     }
 
@@ -120,14 +120,14 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
             }
         }
         else
-        {            
+        {
             // Otherwise, if Marksmanship is disabled, enable it.
             if (!this.marksmanship_enabled)
-            {                                
+            {
                 this.EnableMarksmanship();
             }
         }
-    }    
+    }
 
     DisableMarksmanship(): void
     {
@@ -168,7 +168,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
     GetAuraSearchFlags() {return UnitTargetFlags.INVULNERABLE}
     GetAuraSearchTeam() {return UnitTargetTeam.FRIENDLY}
     GetAuraSearchType() {return UnitTargetType.HERO}
-    GetModifierAura() {return modifier_reimagined_drow_ranger_marksmanship_agility_buff.name}    
+    GetModifierAura() {return modifier_reimagined_drow_ranger_marksmanship_agility_buff.name}
     GetAuraEntityReject(target: CDOTA_BaseNPC): boolean
     {
         if (target.IsRangedAttacker()) return false;
@@ -177,29 +177,29 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
 
     DeclareFunctions(): ModifierFunction[]
     {
-        return [ModifierFunction.ON_ATTACK_RECORD,                  
+        return [ModifierFunction.ON_ATTACK_RECORD,
                 ModifierFunction.ON_ATTACK_LANDED,
-                ModifierFunction.ON_ATTACK_RECORD_DESTROY,                
-                ModifierFunction.PROCATTACK_BONUS_DAMAGE_PHYSICAL,                
+                ModifierFunction.ON_ATTACK_RECORD_DESTROY,
+                ModifierFunction.PROCATTACK_BONUS_DAMAGE_PHYSICAL,
                 ModifierFunction.IGNORE_PHYSICAL_ARMOR]
     }
 
     RollForMarksmanship(): void
     {
-        // Roll chance to fire a Marksmanship proc on the next attack       
+        // Roll chance to fire a Marksmanship proc on the next attack
         if (this.ambush_forest_guaranteed_proc || RollPercentage(this.chance!))
-        {            
+        {
             this.proc_attack = true;
         }
         else
-        {                        
+        {
             this.proc_attack = false;
         }
-    }    
+    }
 
     OnAttackRecord(event: ModifierAttackEvent): void
     {
-        if (!IsServer()) return;        
+        if (!IsServer()) return;
 
         // Only apply on attacks coming from the parent
         if (event.attacker != this.parent) return;
@@ -207,11 +207,14 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         // Does nothing if the parent is either broken or the ability isn't active
         if (!this.marksmanship_enabled || this.parent.PassivesDisabled()) return;
 
+        // Make sure target is a BaseNPC
+        if (!event.target.IsBaseNPC()) return;
+
         // If the target is a ward or a building, do nothing
         if (event.target.IsBuilding() || event.target.IsOther()) return;
 
         // Record the attack with the proc in it
-        this.projectile_map.set(event.record, this.proc_attack);     
+        this.projectile_map.set(event.record, this.proc_attack);
 
         // Reimagined: Ambush from the Forests: While Marksmanship is active and Drow Ranger did not attack for x seconds, Drow Ranger's next arrow is guaranteed to proc.
         // Reset values from the reimagination
@@ -223,10 +226,10 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
 
     OnAttackLanded(event: ModifierAttackEvent): void
     {
-        if (!IsServer()) return;        
+        if (!IsServer()) return;
 
         // Only apply on attacks coming from the parent
-        if (event.attacker != this.parent) return;        
+        if (event.attacker != this.parent) return;
 
         // Only apply on actual attacks: performed attacks are not counted
         if (event.no_attack_cooldown) return;
@@ -248,7 +251,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
 
         // Scepter effect: Splinter: Check if caster has scepter
         if (this.parent.HasScepter())
-        {            
+        {
             let enemies_found = 0;
             // Find two enemies that aren't the main target
             const enemies = FindUnitsInRadius(this.parent.GetTeamNumber(),
@@ -258,7 +261,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
                                              UnitTargetTeam.ENEMY,
                                              UnitTargetType.HERO + UnitTargetType.BASIC,
                                              UnitTargetFlags.MAGIC_IMMUNE_ENEMIES + UnitTargetFlags.FOW_VISIBLE + UnitTargetFlags.NO_INVIS,
-                                             FindOrder.ANY, 
+                                             FindOrder.ANY,
                                              false);
 
             // If Drow has Frost Arrows set to auto cast, change projectile to Frost Arrows and spend mana
@@ -269,47 +272,43 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
                 if (modifier_frost_arrows)
                 {
                     if (modifier_frost_arrows.FiresFrostProjectiles())
-                    {                        
+                    {
                         projectile_name = this.projectile_frost;
                         modifier_frost_arrows.GetAbility()!.UseResources(true, false, false);
                     }
                 }
-            }            
+            }
 
             for (const enemy of enemies)
             {
                 // Ignore the main target
-                if (enemy == event.target) continue;    
+                if (enemy == event.target) continue;
 
                 // If we already found two enemies to fire at, stop
-                if (enemies_found >= this.split_count_scepter!) return;                
-                
+                if (enemies_found >= this.split_count_scepter!) break;
+
                 // Create tracking projectile using Drow's base/frost projectile
-                ProjectileManager.CreateTrackingProjectile(
+                ProjectileManager.CreateTrackingProjectile
+                (
                     {
-                        bIgnoreObstructions: true,
-                        bSuppressTargetCheck: true,                        
                         Ability: this.ability,
                         EffectName: projectile_name,
-                        ExtraData: {},
                         Source: event.target,
                         Target: enemy,
                         bDodgeable: true,
-                        bDrawsOnMinimap: false,
-                        bIsAttack: false,
                         bProvidesVision: false,
                         bReplaceExisting: false,
                         bVisibleToEnemies: true,
                         flExpireTime: GameRules.GetGameTime() + 10,
                         iMoveSpeed: this.parent.GetProjectileSpeed(),
-                        iSourceAttachment: event.target.ScriptLookupAttachment(AttachLocation.HITLOC),
+                        iSourceAttachment: ProjectileAttachment.HITLOCATION,
                         vSourceLoc: event.target.GetAbsOrigin()
                     }
                 );
 
                 enemies_found++;
-            }                            
-        }                
+            }
+        }
     }
 
     OnAttackRecordDestroy(event: ModifierAttackEvent): void
@@ -317,33 +316,34 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         if (!IsServer()) return;
 
         // Only apply on attacks coming from the parent
-        if (event.attacker != this.parent) return;        
+        if (event.attacker != this.parent) return;
 
         // Delete the record
         if (this.projectile_map.has(event.record))
-        {            
+        {
             this.projectile_map.delete(event.record);
         }
     }
 
     GetModifierProcAttack_BonusDamage_Physical(event: ModifierAttackEvent): number
-    {        
+    {
         if (this.projectile_map.has(event.record))
-        {            
+        {
             if (this.projectile_map.get(event.record))
-            {                
+            {
                 return this.bonus_damage!;
             }
-        }        
+        }
 
         return 0;
-    }    
+    }
 
     FiresMarksmanshipArrow(): boolean
     {
-        // Check if this is going to be a Marksmanship 
+        // Check if this is going to be a Marksmanship
         const attack_target = this.parent.GetAttackTarget();
-        if (attack_target)
+
+        if (attack_target && attack_target.IsBaseNPC())
         {
             if (attack_target.IsBuilding() || attack_target.IsOther())
             {
@@ -352,10 +352,10 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         }
 
         if (this.proc_attack && this.marksmanship_enabled && !this.parent.PassivesDisabled())
-        {                       
+        {
             return true;
         }
-        
+
         return false;
     }
 
@@ -377,14 +377,14 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
             {
                 // If not, enable it
                 this.EnableMarksmanship();
-            }    
-    
+            }
+
             // Either way, return true to ignore the rest of the interval check
             return true;
         }
 
         return false;
-    }   
+    }
 
     ReimaginedAmbushFromTheForestInitialize(): void
     {
@@ -397,7 +397,7 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         if (this.ambush_forest_guaranteed_proc) return;
 
         // Check the time elapsed between last attack time and current time
-        const current_time = GameRules.GetGameTime();        
+        const current_time = GameRules.GetGameTime();
         if (current_time - this.last_attack_time > this.ambush_forest_no_attack_period!)
         {
             this.ambush_forest_guaranteed_proc = true;
@@ -421,13 +421,13 @@ export class modifier_reimagined_drow_ranger_marksmanship_passive extends BaseMo
         {
 
             if (target.HasModifier("modifier_reimagined_drow_ranger_frost_arrows_slow"))
-            {            
+            {
                 // Add Ranger of Frost if target doesn't have it already
-                if (!this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost"))   
-                {                
+                if (!this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost"))
+                {
                     this.parent.AddNewModifier(this.caster, this.ability, "modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost", {duration: this.ranger_frost_duration});
                 }
-                
+
                 // Grant a stack of Ranger of Frost and refresh
                 const modifier_ranger = this.parent.FindModifierByName("modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost");
                 if (modifier_ranger)

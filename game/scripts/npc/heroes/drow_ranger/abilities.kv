@@ -17,6 +17,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_DrowRanger.FrostArrows"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+        "HasShardUpgrade"               "1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -38,7 +39,7 @@
 			"01"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"frost_arrows_movement_speed"	"16 32 48 64"
+				"frost_arrows_movement_speed"	"15 30 45 60"
 			}
 
 			"02"
@@ -99,6 +100,54 @@
 			{
 				"var_type"						"FIELD_FLOAT"
 				"freezing_offensive_max_duration"	"5"
+			}
+
+            "12"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"shard_health_regen_reduction_stack"	            "10"
+			}
+
+            "13"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"shard_hypothermia_duration"    "7"
+			}
+
+            "14"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"shard_burst_damage"           "60"
+			}
+
+            "15"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"shard_burst_slow_pct"              "25"
+			}
+
+            "16"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"shard_burst_slow_duration"     "2"
+			}
+
+            "17"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"shard_burst_damage_radius"     "650"
+			}
+
+            "18"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"shard_max_stacks"	            "7"
+			}
+
+            "19"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"shard_burst_projectile_speed"	"1500"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -373,13 +422,13 @@
 			"02"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"bonus_damage"					"70 80 90"
+				"bonus_damage"					"50 70 90"
 			}
 
 			"03"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"agility_multiplier"			"28 36 44"
+				"agility_multiplier"			"25 35 45"
 			}
 
 			"04"

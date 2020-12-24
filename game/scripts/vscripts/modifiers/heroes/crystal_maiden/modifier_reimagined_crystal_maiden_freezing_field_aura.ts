@@ -1,8 +1,4 @@
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import { modifier_reimagined_crystal_maiden_frostbite_debuff } from "./modifier_reimagined_crystal_maiden_frostbite_debuff"
-import { modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier } from "./modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier"
-import { modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura } from "./modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura"
-import { reimagined_crystal_maiden_crystal_nova } from "../../../abilities/heroes/crystal_maiden/reimagined_crystal_maiden_crystal_nova"
 import { CalculateDirectionToPosition, GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 import { CrystalMaidenTalents } from "../../../abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents";
 
@@ -22,6 +18,10 @@ export class modifier_reimagined_crystal_maiden_freezing_field_aura extends Base
     scepter_enemy_list: Set<CDOTA_BaseNPC> = new Set();
     quadrant: number = 1;
     elapsed_time: number = 0;
+    modifier_frostbite_debuff: string = "modifier_reimagined_crystal_maiden_frostbite_debuff";
+    modifier_arcane_glacier: string = "modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier";
+    modifier_snowstorm_aura: string = "modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura";
+    ability_crystal_nova: string = "reimagined_crystal_maiden_crystal_nova";
 
     // Modifier specials
     radius?: number;
@@ -159,7 +159,7 @@ export class modifier_reimagined_crystal_maiden_freezing_field_aura extends Base
 
     ReimaginationNumbingCold(enemy: CDOTA_BaseNPC, damage: number): number
     {
-        if (enemy.HasModifier(modifier_reimagined_crystal_maiden_frostbite_debuff.name))
+        if (enemy.HasModifier(this.modifier_frostbite_debuff))
         {
             // Apply stun modifier to the target
             enemy.AddNewModifier(this.caster, this.ability, BuiltInModifier.STUN, {duration: 0.1});
@@ -182,12 +182,12 @@ export class modifier_reimagined_crystal_maiden_freezing_field_aura extends Base
             this.elapsed_time = 0;
 
             // Add the damage resistance modifier if caster doesn't have it already
-            if (!this.parent.HasModifier(modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier.name))
+            if (!this.parent.HasModifier(this.modifier_arcane_glacier))
             {
-                this.parent.AddNewModifier(this.parent, this.ability, modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier.name, {duration: this.arcane_glacier_linger_duration!});
+                this.parent.AddNewModifier(this.parent, this.ability, this.modifier_arcane_glacier, {duration: this.arcane_glacier_linger_duration!});
             }
 
-            const modifier = this.parent.FindModifierByName(modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier.name);
+            const modifier = this.parent.FindModifierByName(this.modifier_arcane_glacier);
             if (modifier)
             {
                 // Increment a stack
@@ -203,11 +203,11 @@ export class modifier_reimagined_crystal_maiden_freezing_field_aura extends Base
         if (RollPseudoRandomPercentage(this.subzero_crystal_chance!, PseudoRandom.CUSTOM_GAME_1, this.parent))
         {
             // Find ability
-            const nova_ability = this.parent.FindAbilityByName(reimagined_crystal_maiden_crystal_nova.name)
+            const nova_ability = this.parent.FindAbilityByName(this.ability_crystal_nova)
             if (nova_ability && nova_ability.IsTrained())
             {
                 // Create thinker on position
-                CreateModifierThinker(this.parent, nova_ability, modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_aura.name, {duration: this.subzero_crystal_duration!}, explosion_position, this.parent.GetTeamNumber(), false);
+                CreateModifierThinker(this.parent, nova_ability, this.modifier_snowstorm_aura, {duration: this.subzero_crystal_duration!}, explosion_position, this.parent.GetTeamNumber(), false);
             }
         }
     }

@@ -1,7 +1,4 @@
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import { modifier_reimagined_crystal_maiden_arcane_aura_buff } from "./modifier_reimagined_crystal_maiden_arcane_aura_buff";
-import { modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane } from "./modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane"
-import { modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery } from "./modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery";
 
 @registerModifier()
 export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseModifier
@@ -11,6 +8,9 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseMod
     ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     radius: number = 25000;
+    modifier_aura_buff: string = "modifier_reimagined_crystal_maiden_arcane_aura_buff";
+    modifier_aura_focused_arcane: string = "modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane";
+    modifier_aura_blueheart: string = "modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery";
 
     // Reimagined specials
     focused_arcane_radius?: number
@@ -53,7 +53,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseMod
 
     ReimaginationFocusedArcane(): boolean
     {
-        if (this.parent.HasModifier(modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane.name))
+        if (this.parent.HasModifier(this.modifier_aura_focused_arcane))
         {
             return true;
         }
@@ -64,7 +64,7 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseMod
     GetAuraSearchFlags(): UnitTargetFlags {return UnitTargetFlags.NONE}
     GetAuraSearchTeam(): UnitTargetTeam {return UnitTargetTeam.FRIENDLY;}
     GetAuraSearchType(): UnitTargetType {return UnitTargetType.HERO + UnitTargetType.BASIC}
-    GetModifierAura(): string {return modifier_reimagined_crystal_maiden_arcane_aura_buff.name;}
+    GetModifierAura(): string {return this.modifier_aura_buff;}
 
     DeclareFunctions(): ModifierFunction[]
     {
@@ -86,12 +86,12 @@ export class modifier_reimagined_crystal_maiden_arcane_aura_aura extends BaseMod
         if (this.parent.GetTeamNumber() == event.unit!.GetTeamNumber() || event.unit!.IsBuilding() || event.unit!.IsOther()) {return;}
 
         // Add and increment a stack for Blueheart Mastery
-        if (!this.parent.HasModifier(modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name))
+        if (!this.parent.HasModifier(this.modifier_aura_blueheart))
         {
-            this.parent.AddNewModifier(this.caster!, this.ability, modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name, {duration: this.blueheart_mastery_duration!});
+            this.parent.AddNewModifier(this.caster!, this.ability, this.modifier_aura_blueheart, {duration: this.blueheart_mastery_duration!});
         }
 
-        const modifier = this.parent.FindModifierByName(modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery.name)
+        const modifier = this.parent.FindModifierByName(this.modifier_aura_blueheart)
         if (modifier)
         {
             modifier.IncrementStackCount();

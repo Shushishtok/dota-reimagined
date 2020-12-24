@@ -1,8 +1,6 @@
 import { CrystalMaidenTalents } from "../../../abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents";
 import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 import { HasTalent } from "../../../lib/util";
-import { modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff } from "./modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff";
-import { modifier_reimagined_crystal_maiden_frostbite_debuff } from "./modifier_reimagined_crystal_maiden_frostbite_debuff";
 
 @registerModifier()
 export class modifier_reimagined_crystal_maiden_crystal_nova_slow extends BaseModifier
@@ -12,6 +10,8 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_slow extends BaseMo
     ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     particle_slowed = "particles/generic_gameplay/generic_slowed_cold.vpcf";
+    modifier_snowstorm_buff: string = "modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff";
+    modifier_frostbite_debuff: string = "modifier_reimagined_crystal_maiden_frostbite_debuff";
 
     // Modifier specials
     movespeed_slow?: number;
@@ -48,7 +48,7 @@ export class modifier_reimagined_crystal_maiden_crystal_nova_slow extends BaseMo
     OnIntervalThink(): void
     {
         // Only applies if the parent has both Frostbite's and Snowstorm Field's modifiers
-        if (this.parent.HasModifier(modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff.name) && this.parent.HasModifier(modifier_reimagined_crystal_maiden_frostbite_debuff.name))
+        if (this.parent.HasModifier(this.modifier_snowstorm_buff) && this.parent.HasModifier(this.modifier_frostbite_debuff))
         {
             this.ForceRefresh();
         }

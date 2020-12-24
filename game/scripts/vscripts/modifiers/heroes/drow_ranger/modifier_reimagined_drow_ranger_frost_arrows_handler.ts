@@ -1,9 +1,9 @@
-import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import * as util from "../../../lib/util"
-import { modifier_reimagined_drow_ranger_frost_arrows_slow } from "./modifier_reimagined_drow_ranger_frost_arrows_slow"
-import { modifier_reimagined_drow_ranger_frost_arrows_brittle } from "./modifier_reimagined_drow_ranger_frost_arrows_brittle"
-import { modifier_reimagined_drow_ranger_marksmanship_passive } from "../.././heroes/drow_ranger/modifier_reimagined_drow_ranger_marksmanship_passive"
 import { DrowRangerTalents } from "../../../abilities/heroes/drow_ranger/reimagined_drow_ranger_talents";
+import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
+import * as util from "../../../lib/util";
+import "./modifier_reimagined_drow_ranger_frost_arrows_brittle";
+import "./modifier_reimagined_drow_ranger_frost_arrows_slow";
+import { modifier_reimagined_drow_ranger_marksmanship_passive } from "./modifier_reimagined_drow_ranger_marksmanship_passive";
 
 @registerModifier()
 export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseModifier
@@ -16,10 +16,16 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
     firing_frost_arrows: boolean = false;
     cast_command: boolean = false;
     projectile_map: Map<number, boolean> = new Map();
+    modifier_slow: string = "modifier_reimagined_drow_ranger_frost_arrows_slow";
+    modifier_brittle: string = "modifier_reimagined_drow_ranger_frost_arrows_brittle";
+    modifier_marksmanship: string = "modifier_reimagined_drow_ranger_marksmanship_passive";
+    modifier_hypothermia: string = "modifier_reimagined_drow_ranger_hypothermia";
 
     // Modifier specials
     duration?: number;
     damage?: number;
+    shard_hypothermia_duration?: number;
+    shard_max_stacks?: number;
 
     // Reimagined properties
     sound_cryo: string = "DrowRanger.FrostArrow.CryoArrowhead";
@@ -45,17 +51,7 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
 
     OnCreated(): void
     {
-        // Modifier specials
-        this.duration = this.ability.GetSpecialValueFor("duration");
-        this.damage = this.ability.GetSpecialValueFor("damage");
-
-        // Reimagined specials
-        this.brittle_cold_duration = this.ability.GetSpecialValueFor("brittle_cold_duration");
-        this.cryo_arrowhead_chance = this.ability.GetSpecialValueFor("cryo_arrowhead_chance");
-        this.cryo_arrowhead_radius = this.ability.GetSpecialValueFor("cryo_arrowhead_radius");
-        this.cryo_arrowhead_damage = this.ability.GetSpecialValueFor("cryo_arrowhead_damage");
-        this.cryo_arrowhead_duration = this.ability.GetSpecialValueFor("cryo_arrowhead_duration");
-        this.freezing_offensive_max_duration = this.ability.GetSpecialValueFor("freezing_offensive_max_duration");
+        this.GetAbilitySpecialValues();
 
         if (IsServer())
         {
@@ -65,6 +61,28 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
                 this.parent.AddNewModifier(this.caster, this.ability, "modifier_reimagined_drow_ranger_projectile_handler", {});
             }
         }
+    }
+
+    OnRefresh()
+    {
+        this.GetAbilitySpecialValues();
+    }
+
+    GetAbilitySpecialValues()
+    {
+        // Modifier specials
+        this.duration = this.ability.GetSpecialValueFor("duration");
+        this.damage = this.ability.GetSpecialValueFor("damage");
+        this.shard_hypothermia_duration = this.ability.GetSpecialValueFor("shard_hypothermia_duration");
+        this.shard_max_stacks = this.ability.GetSpecialValueFor("shard_max_stacks");
+
+        // Reimagined specials
+        this.brittle_cold_duration = this.ability.GetSpecialValueFor("brittle_cold_duration");
+        this.cryo_arrowhead_chance = this.ability.GetSpecialValueFor("cryo_arrowhead_chance");
+        this.cryo_arrowhead_radius = this.ability.GetSpecialValueFor("cryo_arrowhead_radius");
+        this.cryo_arrowhead_damage = this.ability.GetSpecialValueFor("cryo_arrowhead_damage");
+        this.cryo_arrowhead_duration = this.ability.GetSpecialValueFor("cryo_arrowhead_duration");
+        this.freezing_offensive_max_duration = this.ability.GetSpecialValueFor("freezing_offensive_max_duration");
     }
 
     DeclareFunctions(): ModifierFunction[]
@@ -165,14 +183,14 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
     ApplyFrostArrows(target: CDOTA_BaseNPC, duration: number)
     {
         // If the target doesn't have the slow debuff, add it to him
-        if (!target.HasModifier(modifier_reimagined_drow_ranger_frost_arrows_slow.name))
+        if (!target.HasModifier(this.modifier_slow))
         {
-            target.AddNewModifier(this.parent, this.ability, modifier_reimagined_drow_ranger_frost_arrows_slow.name, {duration: duration});
+            target.AddNewModifier(this.parent, this.ability, this.modifier_slow, {duration: duration});
         }
         else
         {
             // Reimagined: Freezing Offensive: Each Frost Arrow hitting the enemy extends the current debuff timer instead of refreshing it.
-            const modifier = target.FindModifierByName(modifier_reimagined_drow_ranger_frost_arrows_slow.name)!;
+            const modifier = target.FindModifierByName(this.modifier_slow)!;
             if (modifier)
             {
                 // Reimagined: Freezing Offensive: Each Frost Arrow hitting the enemy extends the current debuff timer instead of refreshing it, up to a maximum of x seconds.
@@ -180,6 +198,31 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
 
                 // Refresh modifier timer
                 modifier.ForceRefresh();
+            }
+        }
+
+        // Scepter Shard effect: Adds a stack of Hypothermia
+        if (util.HasScepterShard(this.caster) && target.IsHero())
+        {
+            let modifier;
+            if (!target.HasModifier(this.modifier_hypothermia))
+            {
+                modifier = target.AddNewModifier(this.caster, this.ability, this.modifier_hypothermia, {duration: this.shard_hypothermia_duration});
+            }
+            else
+            {
+                modifier = target.FindModifierByName(this.modifier_hypothermia);
+            }
+
+            if (modifier)
+            {
+                modifier.ForceRefresh();
+
+                // Only increment if the stacks aren't at max value
+                if (modifier.GetStackCount() < this.shard_max_stacks!)
+                {
+                    modifier.IncrementStackCount();
+                }
             }
         }
 
@@ -325,13 +368,13 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
         let modifier;
 
         // Add modifier if needed
-        if (!target.HasModifier(modifier_reimagined_drow_ranger_frost_arrows_brittle.name))
+        if (!target.HasModifier(this.modifier_brittle))
         {
-            modifier = target.AddNewModifier(this.parent, this.ability, modifier_reimagined_drow_ranger_frost_arrows_brittle.name, {duration: this.brittle_cold_duration});
+            modifier = target.AddNewModifier(this.parent, this.ability, this.modifier_brittle, {duration: this.brittle_cold_duration});
         }
         else
         {
-            modifier = target.FindModifierByName(modifier_reimagined_drow_ranger_frost_arrows_brittle.name);
+            modifier = target.FindModifierByName(this.modifier_brittle);
         }
 
         if (modifier)
@@ -344,9 +387,9 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
     ReimaginedCryoArrowhead(target: CDOTA_BaseNPC): void
     {
         // Check if Marksmanship is active
-        if (this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_passive"))
+        if (this.parent.HasModifier(this.modifier_marksmanship))
         {
-            const modifier_marksmanship = this.parent.FindModifierByName("modifier_reimagined_drow_ranger_marksmanship_passive") as modifier_reimagined_drow_ranger_marksmanship_passive;
+            const modifier_marksmanship = this.parent.FindModifierByName(this.modifier_marksmanship) as modifier_reimagined_drow_ranger_marksmanship_passive;
             if (modifier_marksmanship)
             {
                 let cryo_arrowhead_chance = this.cryo_arrowhead_chance!
@@ -384,13 +427,13 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
                             });
 
                             // Apply or extend Frost Arrows slow modifier
-                            if (!enemy.HasModifier(modifier_reimagined_drow_ranger_frost_arrows_slow.name))
+                            if (!enemy.HasModifier(this.modifier_slow))
                             {
-                                enemy.AddNewModifier(this.parent, this.ability, modifier_reimagined_drow_ranger_frost_arrows_slow.name, {duration: this.cryo_arrowhead_duration});
+                                enemy.AddNewModifier(this.parent, this.ability, this.modifier_slow, {duration: this.cryo_arrowhead_duration});
                             }
                             else
                             {
-                                const modifier = enemy.FindModifierByName(modifier_reimagined_drow_ranger_frost_arrows_slow.name);
+                                const modifier = enemy.FindModifierByName(this.modifier_slow);
                                 if (modifier)
                                 {
                                     this.ReimaginedFreezingOffensive(modifier, this.cryo_arrowhead_duration!);

@@ -52,11 +52,11 @@ export class modifier_reimagined_crystal_maiden_frostbite_debuff extends BaseMod
         // Deal damage according to type of unit
         if (this.parent.IsHero() || this.parent.IsConsideredHero())
         {
-            this.damage_per_tick = this.damage_per_second;
+            this.damage_per_tick = this.damage_per_second * this.tick_interval;
         }
         else
         {
-            this.damage_per_tick = this.creep_damage_per_second;
+            this.damage_per_tick = this.creep_damage_per_second * this.tick_interval;
         }
 
         if (IsServer())

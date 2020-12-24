@@ -1,7 +1,8 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { HasTalent } from "../../../lib/util";
-import { modifier_reimagined_crystal_maiden_freezing_field_aura } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_freezing_field_aura";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_freezing_field_aura";
 import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_freezing_field_slow";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier"
 import { CrystalMaidenTalents } from "./reimagined_crystal_maiden_talents";
 
 @registerAbility()
@@ -10,6 +11,7 @@ export class reimagined_crystal_maiden_freezing_field extends BaseAbility
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
     sound_channel: string = "hero_Crystal.freezingField.wind";
+    modifier_freezing_field_aura: string = "modifier_reimagined_crystal_maiden_freezing_field_aura";
 
     // Ability specials
     max_duration?: number;
@@ -48,7 +50,7 @@ export class reimagined_crystal_maiden_freezing_field extends BaseAbility
         EmitSoundOn(this.sound_channel, this.caster)
 
         // Apply Freezing Field aura on self
-        this.caster.AddNewModifier(this.caster, this, modifier_reimagined_crystal_maiden_freezing_field_aura.name, {duration: this.max_duration});
+        this.caster.AddNewModifier(this.caster, this, this.modifier_freezing_field_aura, {duration: this.max_duration});
     }
 
     OnChannelFinish(interrupted: boolean)
@@ -56,9 +58,9 @@ export class reimagined_crystal_maiden_freezing_field extends BaseAbility
         // Stop sound
         StopSoundOn(this.sound_channel, this.caster);
 
-        if (this.caster.HasModifier(modifier_reimagined_crystal_maiden_freezing_field_aura.name))
+        if (this.caster.HasModifier(this.modifier_freezing_field_aura))
         {
-            this.caster.RemoveModifierByName(modifier_reimagined_crystal_maiden_freezing_field_aura.name);
+            this.caster.RemoveModifierByName(this.modifier_freezing_field_aura);
         }
     }
 

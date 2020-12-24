@@ -1,7 +1,6 @@
 import { CrystalMaidenTalents } from "../../../abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
-import "./modifier_reimagined_crystal_maiden_talent_1_debuff";
 
 @registerModifier()
 export class modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff extends BaseModifier

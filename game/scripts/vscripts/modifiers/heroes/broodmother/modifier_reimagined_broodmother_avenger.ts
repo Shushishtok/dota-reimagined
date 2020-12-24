@@ -1,6 +1,6 @@
-import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import { CalculateDistanceBetweenEntities, IsSpiderlingUnit, PrintEventTable } from "../../../lib/util";
-import "./modifier_reimagined_broodmother_avenger_buff"
+import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
+import { CalculateDistanceBetweenEntities, IsSpiderlingUnit } from "../../../lib/util";
+import "./modifier_reimagined_broodmother_avenger_buff";
 
 @registerModifier()
 export class modifier_reimagined_broodmother_avenger extends BaseModifier

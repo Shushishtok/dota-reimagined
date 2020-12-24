@@ -1,5 +1,3 @@
-
-
 import { CrystalMaidenTalents } from "../../../abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 import { GetTalentSpecialValueFor } from "../../../lib/util";

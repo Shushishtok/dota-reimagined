@@ -1,7 +1,8 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
-import { modifier_reimagined_crystal_maiden_arcane_aura_aura } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_aura";
-import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery"
-import { modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane"
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_aura";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane";
+import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_arcane_aura_buff";
 
 @registerAbility()
 export class reimagined_crystal_maiden_brilliance_aura extends BaseAbility
@@ -11,6 +12,8 @@ export class reimagined_crystal_maiden_brilliance_aura extends BaseAbility
     sound_cast: string = "Hero_Crystal.CrystalNova.Yulsaria";
     particle_cast: string = "particles/heroes/crystal_maiden/arcane_aura_focused_arcane_cast.vpcf";
     particle_cast_fx?: ParticleID;
+    modifier_aura: string = "modifier_reimagined_crystal_maiden_arcane_aura_aura";
+    modifier_focused_arcane: string = "modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane";
 
     // Reimagined specials
     focused_arcane_duration?: number;
@@ -23,7 +26,7 @@ export class reimagined_crystal_maiden_brilliance_aura extends BaseAbility
 
     GetIntrinsicModifierName()
     {
-        return modifier_reimagined_crystal_maiden_arcane_aura_aura.name;
+        return this.modifier_aura;
     }
 
     OnAbilityPhaseStart(): boolean
@@ -38,7 +41,7 @@ export class reimagined_crystal_maiden_brilliance_aura extends BaseAbility
     }
 
     OnSpellStart(): void
-    {        
+    {
         this.caster.ClearActivityModifiers();
 
         // Reimagined specials
@@ -60,6 +63,6 @@ export class reimagined_crystal_maiden_brilliance_aura extends BaseAbility
         ParticleManager.ReleaseParticleIndex(this.particle_cast_fx);
 
         // Apply Focused Arcane modifier on self
-        this.caster.AddNewModifier(this.caster, this, modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane.name, {duration: this.focused_arcane_duration});
+        this.caster.AddNewModifier(this.caster, this, this.modifier_focused_arcane, {duration: this.focused_arcane_duration});
     }
 }

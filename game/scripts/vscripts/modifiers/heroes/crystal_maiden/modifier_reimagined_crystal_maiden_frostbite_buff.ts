@@ -1,7 +1,6 @@
 import { CrystalMaidenTalents } from "../../../abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
 import { GetTalentSpecialValueFor, HasScepterShard, HasTalent } from "../../../lib/util";
-import { modifier_reimagined_crystal_maiden_frostbite_debuff } from "./modifier_reimagined_crystal_maiden_frostbite_debuff"
 
 
 @registerModifier()
@@ -15,6 +14,7 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
     particle_frostbite: string = "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf";
     particle_shard: string = "particles/units/heroes/hero_crystalmaiden/maiden_shard_frostbite.vpcf"
     particle_shard_fx?: ParticleID;
+    modifier_debuff: string = "modifier_reimagined_crystal_maiden_frostbite_debuff";
 
     // Modifier specials
     tick_interval?: number;
@@ -91,7 +91,7 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
         for (const enemy of enemies)
         {
             // Only apply on the first (closest) enemy
-            enemy.AddNewModifier(this.caster!, this.ability, modifier_reimagined_crystal_maiden_frostbite_debuff.name , {duration: this.frost_emanation_duration!});
+            enemy.AddNewModifier(this.caster!, this.ability, this.modifier_debuff , {duration: this.frost_emanation_duration!});
             break;
         }
     }

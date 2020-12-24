@@ -4,6 +4,7 @@ import "../vscripts/modifiers/general_mechanics/modifier_reimagined_courier_pass
 import { BaseTalent } from "./lib/talents";
 import { reloadable } from "./lib/tstl-utils";
 import { GetAllChargesModifiersForUnit, GetAllPlayers, GetTalentAbilityFromNumber, GetTalentNumber, IsRoshan, IsTalentAbility, PrepareTalentList, RegisterFunctionOverrides } from "./lib/util";
+import { BaseAbility } from "./lib/dota_ts_adapter";
 
 declare global
 {
@@ -148,6 +149,33 @@ export class GameMode
 
     ExecuteOrderFilter(event: ExecuteOrderFilterEvent): boolean
     {
+        const units: CDOTA_BaseNPC[] = []
+        for (const [string, entityIndex] of Object.entries(event.units))
+        {
+            const unit = EntIndexToHScript(entityIndex) as CDOTA_BaseNPC;
+            if (unit)
+            {
+                units.push(unit);
+            }
+        }
+
+        // Abilities: Check if ability exists in the order
+        if (event.entindex_ability)
+        {
+            // Ability-specific orders - only triggerd on single units
+            if (units.length == 1)
+            {
+                // Transform into ability entity
+                const ability = EntIndexToHScript(event.entindex_ability) as CDOTABaseAbility;
+
+                // Check if the ability has ExecuteOrderFilter defined, if so, return its result
+                if (ability && ability.ExecuteOrderFilter)
+                {
+                    return ability.ExecuteOrderFilter(event);
+                }
+            }
+        }
+
         return true;
     }
 
