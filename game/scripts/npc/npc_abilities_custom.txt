@@ -1,4 +1,4 @@
-#base game_mechanics/abilites.kv
+#base game_mechanics/abilities.kv
 #base heroes/antimage/abilities.kv
 #base heroes/night_stalker/abilities.kv
 #base heroes/sven/abilities.kv

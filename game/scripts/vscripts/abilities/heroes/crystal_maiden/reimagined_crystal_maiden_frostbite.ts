@@ -1,6 +1,7 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_crystal_maiden_frostbite_debuff } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_frostbite_debuff";
 import { modifier_reimagined_crystal_maiden_frostbite_buff } from "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_frostbite_buff";
+import { HasScepterShard } from "../../../lib/util";
 
 @registerAbility()
 export class reimagined_crystal_maiden_frostbite extends BaseAbility
@@ -35,6 +36,19 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
 
             return UnitFilter(target, this.GetAbilityTargetTeam(), this.GetAbilityTargetType(), this.GetAbilityTargetFlags(), this.caster.GetTeamNumber());
         }
+    }
+
+    GetCooldown(level: number): number
+    {
+        let cooldown = super.GetCooldown(level);
+
+        // Scepter Shard effect: Reduces cooldown
+        if (HasScepterShard(this.caster))
+        {
+            cooldown -= this.GetSpecialValueFor("shard_cooldown_reudction");
+        }
+
+        return cooldown;
     }
 
     OnSpellStart(scepter?: boolean): void

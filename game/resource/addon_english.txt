@@ -2618,6 +2618,36 @@
         "DOTA_Tooltip_modifier_reimagined_broodmother_spiderking_hardened_brood_buff_Description"
         "Damage resistance increased by %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%%."
 
+        "DOTA_Tooltip_Ability_reimagined_broodmother_silken_bola"
+        "Silken Bola"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_silken_bola_Description"
+        "Consumes %spin_web_charges_spend% Spin Web charges and roots the target enemy for %duration% seconds, dealing damage over time."
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_silken_bola_Note0"
+        "Silken Bola is also stolen when "
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_silken_bola_duration"
+        "DURATION:"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_silken_bola_damage_per_second"
+        "DAMAGE PER SECOND:"
+
+        "DOTA_Tooltip_Ability_reimagined_broodmother_silken_bola_damage_interval"
+        "DAMAGE INTERVAL:"
+
+        "DOTA_Tooltip_broodmother_silken_bola_no_spin_web"
+        "Caster doesn't have the Spin Web ability"
+
+        "DOTA_Tooltip_broodmother_silken_bola_spin_web_unleveled"
+        "Spin Web is not yet leveled"
+
+        "DOTA_Tooltip_broodmother_silken_bola_no_spin_web_charge_modifier"
+        "No charges modifier exists for Spin Web"
+
+        "DOTA_Tooltip_broodmother_silken_bola_no_spin_web_charges"
+        "Not enough Spin Web charges to consume"
+
         "DOTA_Tooltip_Ability_reimagined_broodmother_talent_1"
         "Poison Popper"
 
@@ -2956,6 +2986,13 @@
         "DOTA_Tooltip_modifier_reimagined_bristleback_warpath_simmer_down_Description"
         "Increases damage resistance from all directions by %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%%, but cannot generate Warpath stacks while this buff is active."
 
+        // Bristleback's Hairball (shard)
+        "DOTA_Tooltip_Ability_reimagined_bristleback_hairball"
+        "Hairball"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_hairball_Description"
+        "Coughs a quill-packed hairball towards the target location. Erupts at the location, hitting enemies in %radius% radius with %nasal_goo_count% Nasal Goos and %quill_spray_count% Quill Sprays."
+
         // Bristleback's Talents
         "DOTA_Tooltip_Ability_reimagined_bristleback_talent_1"
         "Mucus Goo"
@@ -3019,6 +3056,15 @@
 
         "DOTA_Tooltip_Ability_reimagined_bristleback_talent_7_Lore"
         "When Rigwarl gets angry, he mauls and maims everyone around him."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_8"
+        "Persistent Brawler"
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_8_Description"
+        "Simmer Down also grants %cooldown_reduction_per_stack%%% cooldown reduction per Warpath stack consumed, up to a maximum of %max_cooldown_reduction%%% cooldown reduction."
+
+        "DOTA_Tooltip_Ability_reimagined_bristleback_talent_8_Lore"
+        "Sometimes, it is when one is calm that it is the most fearsome."
 
 		// ITEMS
 		// Reimagined Enchanted Mango

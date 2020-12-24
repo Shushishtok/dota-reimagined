@@ -975,3 +975,8 @@ export function HasScepterShard(unit: CDOTA_BaseNPC): boolean
 {
     return unit.HasModifier("modifier_item_aghanims_shard");
 }
+
+export function SpawnDummyUnit(location: Vector, owner: CDOTA_BaseNPC): CDOTA_BaseNPC
+{
+    return CreateUnitByName("reimagined_npc_dummy_unit", location, false, owner, owner, owner.GetTeamNumber());
+}

@@ -29,7 +29,7 @@ export class modifier_reimagined_bristleback_quill_spray_needle_spreader extends
     OnIntervalThink(): void
     {
         // Fire a new Quill Spray
-        (this.ability as reimagined_bristleback_quill_spray).FireQuillSpray();
+        (this.ability as reimagined_bristleback_quill_spray).FireQuillSpray(this.caster);
     }
 
     CheckState(): Partial<Record<ModifierState, boolean>>

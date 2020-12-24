@@ -121,7 +121,7 @@ export class reimagined_bristleback_quill_spray extends BaseAbility
     OnSpellStart(): void
     {
         // Fire a spray
-        this.FireQuillSpray();
+        this.FireQuillSpray(this.caster);
 
         // Reimagined: Needle Spreader: Can be set to auto cast. When cast with auto cast on, Bristleback continually spraying quills around it for a few seconds. Has higher cooldown and mana cost.
         this.ReimaginedNeedleSpreader();
@@ -139,13 +139,13 @@ export class reimagined_bristleback_quill_spray extends BaseAbility
         this.caster.AddNewModifier(this.caster, this, this.modifier_needle_spreader, {duration: duration});
     }
 
-    FireQuillSpray(forced_radius?: number)
+    FireQuillSpray(source: CDOTA_BaseNPC, forced_radius?: number)
     {
         // Get caster's current position on cast
-        const source_pos = this.caster.GetAbsOrigin();
+        const source_pos = source.GetAbsOrigin();
 
         // Play cast sound
-        this.caster.EmitSound(this.sound_cast);
+        source.EmitSound(this.sound_cast);
 
         // Reimagined: Raging Quills: If Bristleback has at least x stacks of Warpath, Quill Spray's radius is multiplied by y, and the projectile speed increases by z%.
         let projectile_speed = this.projectile_speed!;
@@ -160,7 +160,7 @@ export class reimagined_bristleback_quill_spray extends BaseAbility
 
         let times = 0;
         // Create quills particle
-        this.particle_quills_projectile_fx = ParticleManager.CreateParticle(this.particle_quills_projectile, ParticleAttachment.ABSORIGIN, this.caster);
+        this.particle_quills_projectile_fx = ParticleManager.CreateParticle(this.particle_quills_projectile, ParticleAttachment.WORLDORIGIN, undefined);
         ParticleManager.SetParticleControl(this.particle_quills_projectile_fx, 0, source_pos);
         ParticleManager.SetParticleControl(this.particle_quills_projectile_fx, 1, Vector(projectile_speed * 0.85, projectile_speed, 0)); // Custom particle: made min/max speed assigned to CP1X/Y
         ParticleManager.ReleaseParticleIndex(this.particle_quills_projectile_fx);
@@ -249,7 +249,7 @@ export class reimagined_bristleback_quill_spray extends BaseAbility
                 if (this.enemies_hit_map.has(current_gametime))
                 {
                     // Talent: Quillgun: When there is only one enemy in the cast range, fires additional x tracking quills at that enemy. Those quills do not increase the debuff's stack count, but do bonus damage based on it.
-                    this.ReimaginedTalentQuillGun(this.enemies_hit_map.get(current_gametime)!, source_pos);
+                    this.ReimaginedTalentQuillGun(this.enemies_hit_map.get(current_gametime)!, source);
 
                     this.enemies_hit_map.delete(current_gametime);
                 }
@@ -345,7 +345,7 @@ export class reimagined_bristleback_quill_spray extends BaseAbility
         }
     }
 
-    ReimaginedTalentQuillGun(enemies_set: Set<CDOTA_BaseNPC>, caster_pos: Vector)
+    ReimaginedTalentQuillGun(enemies_set: Set<CDOTA_BaseNPC>, source: CDOTA_BaseNPC)
     {
         if (HasTalent(this.caster, BristlebackTalents.BristlebackTalent_3))
         {
@@ -356,6 +356,9 @@ export class reimagined_bristleback_quill_spray extends BaseAbility
             // Only apply if the set only has one enemy
             if (enemies_set.size != 1) return;
 
+            // Only applies if the source is the caster
+            if (source != this.caster) return;
+
             // Get the target
             const enemy: CDOTA_BaseNPC = enemies_set.values().next().value;
             let quills_fired = 0;
@@ -365,7 +368,8 @@ export class reimagined_bristleback_quill_spray extends BaseAbility
                 // Play fire sound
                 this.caster.EmitSoundParams(this.sound_cast, 0, 0.5, 0);
 
-                ProjectileManager.CreateTrackingProjectile(
+                ProjectileManager.CreateTrackingProjectile
+                (
                     {
                         Ability: this,
                         EffectName: this.talent_3_projectile,
@@ -374,7 +378,8 @@ export class reimagined_bristleback_quill_spray extends BaseAbility
                         bDodgeable: true,
                         bProvidesVision: false,
                         iMoveSpeed: this.projectile_speed!,
-                        vSourceLoc: RandomVector(this.caster.GetHullRadius()),
+                        vSourceLoc: RandomVector(source.GetHullRadius()),
+                        iSourceAttachment: ProjectileAttachment.HITLOCATION
                     }
                 )
 

@@ -854,7 +854,7 @@
             "02"
             {
                 "var_type"				"FIELD_INTEGER"
-                "trigger_immunity_duration"     "12"
+                "trigger_immunity_duration"     "14"
             }
         }
     }
@@ -988,4 +988,79 @@
             }
         }
     }
+
+    //=================================================================================================================
+	// Broodmother: Reimagined Silken Bola (shard ability)
+	//=================================================================================================================
+	"reimagined_broodmother_silken_bola"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+        "BaseClass"						"ability_lua"
+		"AbilityTextureName"			"broodmother_silken_bola"
+		"ScriptFile"					"abilities/heroes/broodmother/reimagined_broodmother_silken_bola"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+        "AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Tinker.Laser"
+		"MaxLevel"						"1"
+        "IsGrantedByShard"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"900"
+		"AbilityCastPoint"				"0.1"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"12"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.3"	// Primarily about the damageo
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"2"
+			}
+
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"projectile_speed"	"1200"
+			}
+
+            "03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"damage_per_second" 	"75"
+			}
+
+            "04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"damage_interval"    	"0.5"
+			}
+
+            "05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"spin_web_charges_spend"    	"1"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
 }

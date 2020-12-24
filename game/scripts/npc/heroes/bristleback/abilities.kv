@@ -691,4 +691,35 @@
             }
         }
     }
+
+    //=================================================================================================================
+    // Bristleback: Talent: Persistent Brawler: Simmer Down also grants x% cooldown reduction per Warpath stack consumed, up to a maximum of z% cooldown reduction.
+    //=================================================================================================================
+    "reimagined_bristleback_talent_8"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/bristleback/reimagined_bristleback_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"bristleback_warpath"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "cooldown_reduction_per_stack"		"8"
+            }
+
+            "02"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "max_cooldown_reduction"  		"40"
+            }
+        }
+    }
 }

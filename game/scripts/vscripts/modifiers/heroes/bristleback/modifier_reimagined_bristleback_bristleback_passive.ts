@@ -271,7 +271,7 @@ export class modifier_reimagined_bristleback_bristleback_passive extends BaseMod
         if (this.damage_counter >= this.quill_release_threshold!)
         {
             this.damage_counter = 0;
-            ability_quill_spray_handle.FireQuillSpray();
+            ability_quill_spray_handle.FireQuillSpray(this.caster);
         }
     }
 

@@ -1,5 +1,5 @@
 import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
-import { CalculateDirectionToPosition, CalculateDistanceBetweenPoints, HasScepterShard } from "../../../lib/util";
+import { CalculateDirectionToPosition, CalculateDistanceBetweenPoints, HasScepterShard, SpawnDummyUnit } from "../../../lib/util";
 import { reimagined_bristleback_quill_spray } from "./reimagined_bristleback_quill_spray";
 import { reimagined_bristleback_viscous_nasal_goo } from "./reimagined_bristleback_viscous_nasal_goo";
 
@@ -91,8 +91,7 @@ export class reimagined_bristleback_hairball extends BaseAbility
 
         if (!target) // Reached max distance
         {
-            const original_pos = this.caster.GetAbsOrigin();
-            this.caster.SetAbsOrigin(location);
+            const dummy = SpawnDummyUnit(location, this.caster);
 
             // Check for Nasal Goo ability
             if (this.caster.HasAbility(this.ability_nasal_goo))
@@ -111,13 +110,12 @@ export class reimagined_bristleback_hairball extends BaseAbility
                                                       FindOrder.ANY,
                                                       false);
 
-
                     // Fire Nasal Goos at all those enmies enemies
                     for (const enemy of enemies)
                     {
                         for (let index = 0; index < this.nasal_goo_count!; index++)
                         {
-                            ability_nasal_goo.FireNasalGoo(this.caster, enemy, false);
+                            ability_nasal_goo.FireNasalGoo(dummy, enemy, false);
                         }
                     }
                 }
@@ -130,14 +128,26 @@ export class reimagined_bristleback_hairball extends BaseAbility
                 if (ability_quill && ability_quill.IsTrained())
                 {
                     // Fire Quill Sprays at all enemies in radius
-                    for (let index = 0; index < this.quill_spray_count!; index++)
+                    let quill_fired = 0;
+                    Timers.CreateTimer(() =>
                     {
-                        ability_quill.FireQuillSpray(this.radius!);
-                    }
+                        ability_quill.FireQuillSpray(dummy, this.radius!);
+                        quill_fired++;
+
+                        if (quill_fired < this.quill_spray_count!)
+                        {
+                            return 0.1;
+                        }
+                        else return;
+                    })
                 }
             }
 
-            this.caster.SetAbsOrigin(original_pos);
+            // Remove the dummy after some time
+            Timers.CreateTimer(3, () =>
+            {
+                UTIL_Remove(dummy);
+            });
         }
     }
 }

@@ -15,7 +15,8 @@ export class modifier_reimagined_crystal_maiden_frostbite_debuff extends BaseMod
     first_tick: boolean = true;
 
     // Modifier specials
-    total_damage?: number;
+    damage_per_second?: number;
+    creep_damage_per_second?: number;
     tick_interval?: number;
     duration?: number;
 
@@ -38,7 +39,8 @@ export class modifier_reimagined_crystal_maiden_frostbite_debuff extends BaseMod
         this.ability = this.GetAbility()!;
 
         // Modifier specials
-        this.total_damage = this.ability.GetSpecialValueFor("total_damage");
+        this.damage_per_second = this.ability.GetSpecialValueFor("damage_per_second");
+        this.creep_damage_per_second = this.ability.GetSpecialValueFor("creep_damage_per_second");
         this.tick_interval = this.ability.GetSpecialValueFor("tick_interval");
         this.duration = this.ability.GetSpecialValueFor("duration")
 
@@ -47,16 +49,14 @@ export class modifier_reimagined_crystal_maiden_frostbite_debuff extends BaseMod
         this.frost_emanation_duration = this.ability.GetSpecialValueFor("frost_emanation_duration");
         this.eternal_cold_fixed_damage = this.ability.GetSpecialValueFor("eternal_cold_fixed_damage");
 
-        // If duration is infinite due to Eternal Cold, use fixed damage
-        if (this.GetDuration() == -1)
+        // Deal damage according to type of unit
+        if (this.parent.IsHero() || this.parent.IsConsideredHero())
         {
-            this.damage_per_tick = this.eternal_cold_fixed_damage!;
+            this.damage_per_tick = this.damage_per_second;
         }
         else
         {
-            // Calculate damage per tick
-            const ticks = Math.round(this.duration / this.tick_interval!);
-            this.damage_per_tick = this.total_damage / ticks;
+            this.damage_per_tick = this.creep_damage_per_second;
         }
 
         if (IsServer())

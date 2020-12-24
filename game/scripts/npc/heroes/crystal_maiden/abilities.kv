@@ -151,6 +151,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
+        "HasShardUpgrade"               "1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -176,28 +177,34 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"total_damage"		"150 200 250 300"
+				"damage_per_second"		"100"
 			}
 
-			"02"
+            "02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"creep_damage_per_second"		"100"
+			}
+
+			"03"
 			{
 				"var_type"				"FIELD_FLOAT"
 				"duration"				"1.5 2.0 2.5 3.0"
 			}
 
-			"03"
+			"04"
 			{
 				"var_type"			"FIELD_FLOAT"
-				"tick_interval"		"0.7"
+				"tick_interval"		"0.25"
 			}
 
-			"04"
+			"05"
 			{
 				"var_type"			"FIELD_INTEGER"
 				"frost_emanation_search_radius"		"180"
 			}
 
-			"05"
+			"06"
 			{
 				"var_type"			"FIELD_FLOAT"
 				"frost_emanation_duration"		"0.5"
@@ -209,10 +216,16 @@
 				"igloo_frosting_arcane_aura_multiplier"	"10"
 			}
 
-			"08"
+            "08"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"eternal_cold_fixed_damage"	"100"
+				"shard_cooldown_reudction"	"1"
+			}
+
+            "09"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"shard_damage_reduction_pct"	"70"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"

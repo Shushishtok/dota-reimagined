@@ -17,6 +17,7 @@ export class reimagined_broodmother_spin_web extends BaseAbility
     particle_web: string = "particles/units/heroes/hero_broodmother/broodmother_spin_web_cast.vpcf";
     particle_web_fx?: ParticleID;
     has_scepter: boolean = false;
+    ability_silken_bola: string = "reimagined_broodmother_silken_bola"
 
     // Ability specials
     radius?: number;
@@ -34,6 +35,12 @@ export class reimagined_broodmother_spin_web extends BaseAbility
     GetIntrinsicModifierName(): string
     {
         return GenericModifier.CHARGES;
+    }
+
+    GetAssociatedSecondaryAbilities(): string | undefined
+    {
+        if (util.HasScepterShard(this.caster)) return this.ability_silken_bola;
+        else return undefined;
     }
 
     OnInventoryContentsChanged()

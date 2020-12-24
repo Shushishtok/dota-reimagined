@@ -94,23 +94,8 @@ export class GameMode
         this.Game.SetModifyExperienceFilter(event => this.ExperienceModifiedFilter(event), this);
         this.Game.SetModifyGoldFilter(event => this.GoldModifiedFilter(event), this);
         this.Game.SetRuneSpawnFilter(event => this.RuneSpawnFilter(event), this);
+        this.Game.SetExecuteOrderFilter(event => this.ExecuteOrderFilter(event), this)
 
-        // NOT ACTUALLY USED right now! But a good example of a working filter.
-        //this.Game.SetModifierGainedFilter(event => this.ModifierGainedFilter(event), this);
-    }
-
-    ModifierGainedFilter(event: ModifierGainedFilterEvent): boolean
-    {
-        // Status resistance rules
-        // const caster = EntIndexToHScript(event.entindex_caster_const);
-        // const target = EntIndexToHScript(event.entindex_parent_const);
-
-        // if (caster && caster.IsBaseNPC() && target && target.IsBaseNPC())
-        // {
-        //     event.duration = GetAppliedDuration(caster, target, event.duration, event.name_const);
-        // }
-
-        return true;
     }
 
     ExperienceModifiedFilter(event: ModifyExperienceFilterEvent): boolean
@@ -158,6 +143,11 @@ export class GameMode
         // Generate a new location for the next rune
         this.power_runes_next_spawner = RandomInt(1, 2);
 
+        return true;
+    }
+
+    ExecuteOrderFilter(event: ExecuteOrderFilterEvent): boolean
+    {
         return true;
     }
 
@@ -650,6 +640,7 @@ export class GameMode
     {
         let unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
 
+        // Real heroes
         if (unit.IsRealHero())
         {
             // Initialize the talents ability map if it's not initialized yet
@@ -683,6 +674,20 @@ export class GameMode
                     unit.AddNewModifier(undefined, undefined, "modifier_reimagined_courier_passive_bonuses", {});
                 }
             })
+        }
+
+        // Dummies
+        if (unit.GetUnitName() == "reimagined_npc_dummy_unit")
+        {
+            // Find dummy ability
+            if (unit.HasAbility("reimagined_dummy_unit_state"))
+            {
+                const dummy_ability = unit.FindAbilityByName("reimagined_dummy_unit_state");
+                if (dummy_ability)
+                {
+                    dummy_ability.SetLevel(1);
+                }
+            }
         }
     }
 

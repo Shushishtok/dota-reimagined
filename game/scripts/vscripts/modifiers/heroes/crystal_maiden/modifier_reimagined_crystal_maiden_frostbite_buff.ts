@@ -1,6 +1,6 @@
 import { CrystalMaidenTalents } from "../../../abilities/heroes/crystal_maiden/reimagined_crystal_maiden_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
+import { GetTalentSpecialValueFor, HasScepterShard, HasTalent } from "../../../lib/util";
 import { modifier_reimagined_crystal_maiden_frostbite_debuff } from "./modifier_reimagined_crystal_maiden_frostbite_debuff"
 
 
@@ -13,9 +13,12 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
     parent: CDOTA_BaseNPC = this.GetParent();
     sound_cast: string = "Hero_Crystal.Frostbite";
     particle_frostbite: string = "particles/units/heroes/hero_crystalmaiden/maiden_frostbite_buff.vpcf";
+    particle_shard: string = "particles/units/heroes/hero_crystalmaiden/maiden_shard_frostbite.vpcf"
+    particle_shard_fx?: ParticleID;
 
     // Modifier specials
     tick_interval?: number;
+    shard_damage_reduction_pct?: number;
 
     // Reimagined specials
     frost_emanation_search_radius?: number;
@@ -38,11 +41,21 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
 
         // Modifier specials
         this.tick_interval = this.ability.GetSpecialValueFor("tick_interval");
+        this.shard_damage_reduction_pct = this.ability.GetSpecialValueFor("shard_damage_reduction_pct");
 
         // Reimagined specials
         this.frost_emanation_search_radius = this.ability.GetSpecialValueFor("frost_emanation_search_radius");
         this.frost_emanation_duration = this.ability.GetSpecialValueFor("frost_emanation_duration");
         this.igloo_frosting_arcane_aura_multiplier = this.ability.GetSpecialValueFor("igloo_frosting_arcane_aura_multiplier");
+
+        // Scepter shard: grants damage reduction when cast on self
+        if (HasScepterShard(this.caster) && this.caster == this.parent)
+        {
+            // Add the damage reduction particle
+            this.particle_shard_fx = ParticleManager.CreateParticle(this.particle_shard, ParticleAttachment.ABSORIGIN_FOLLOW, this.parent);
+            ParticleManager.SetParticleControl(this.particle_shard_fx, 0, this.parent.GetAbsOrigin());
+            this.AddParticle(this.particle_shard_fx, false, false, -1, false, false);
+        }
 
         if (IsServer())
         {
@@ -86,7 +99,8 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
     DeclareFunctions(): ModifierFunction[]
     {
         return [ModifierFunction.TOOLTIP,
-                ModifierFunction.CAST_RANGE_BONUS_STACKING]
+                ModifierFunction.CAST_RANGE_BONUS_STACKING,
+                ModifierFunction.INCOMING_DAMAGE_PERCENTAGE]
     }
 
     GetModifierCastRangeBonusStacking(): number
@@ -94,9 +108,21 @@ export class modifier_reimagined_crystal_maiden_frostbite_buff extends BaseModif
         return this.ReimaginedTalentBunkerOfIce(false);
     }
 
+
     OnTooltip(): number
     {
         return this.igloo_frosting_arcane_aura_multiplier!
+    }
+
+    GetModifierIncomingDamage_Percentage(): number
+    {
+        // Scepter Shard: when cast on self, grants damage reduction
+        if (HasScepterShard(this.caster) && this.parent == this.caster)
+        {
+            return this.shard_damage_reduction_pct!;
+        }
+
+        return 0;
     }
 
     GetEffectName(): string

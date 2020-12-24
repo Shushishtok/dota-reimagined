@@ -32,6 +32,8 @@ export class modifier_reimagined_charges extends BaseModifier
     {
         if (!IsServer()) return;
 
+        if (!IsValidEntity(this.ability)) this.Destroy();
+
         // Do not allow illusions to have this modifier
         if (this.parent.IsIllusion())
         {
@@ -44,6 +46,8 @@ export class modifier_reimagined_charges extends BaseModifier
 
     OnCasterEquippedScepter(): void
     {
+        if (!IsValidEntity(this.ability)) this.Destroy();
+
         // Find all charge modifiers
         const modifier = GetChargeModifierForAbility(this.ability as CDOTA_Ability_Lua);
         if (modifier)
@@ -68,6 +72,8 @@ export class modifier_reimagined_charges extends BaseModifier
     // Triggered by the ability when inventory content changed and caster doesn't have a scepter effect anymore
     OnCasterUnequippedScepter(): void
     {
+        if (!IsValidEntity(this.ability)) this.Destroy();
+
         // If the charges requires a scepter, destroy it
         if (this.ability.RequiresScepterForCharges && this.ability.RequiresScepterForCharges())
         {
@@ -92,6 +98,8 @@ export class modifier_reimagined_charges extends BaseModifier
     OnRefresh(params: {bonus_charges?: number})
     {
         if (!IsServer()) return;
+
+        if (!IsValidEntity(this.ability)) this.Destroy();
 
         let max_charges = this.ability.GetSpecialValueFor("max_charges");
         if (this.caster.HasScepter() && this.ability.GetSpecialValueFor("max_charges_scepter") != 0)
@@ -160,7 +168,7 @@ export class modifier_reimagined_charges extends BaseModifier
 
         if (event.ability == this.ability)
         {
-            // Ignore wtf mode
+            // Ignore cases where WTF mode is turned on
             if (!GameRules.Addon.wtf_mode_enabled)
             {
                 this.DecrementStackCount();
@@ -186,6 +194,8 @@ export class modifier_reimagined_charges extends BaseModifier
 
     CalculateCharge()
     {
+        if (!IsValidEntity(this.ability)) this.Destroy();
+
         if (this.caster.HasScepter() && this.ability.GetSpecialValueFor("max_charges_scepter") != 0 && this.GetStackCount() >= this.ability.GetSpecialValueFor("max_charges_scepter") || (!this.parent.HasScepter() && this.ability.GetSpecialValueFor("max_charges") > 0 && this.GetStackCount() >= this.ability.GetSpecialValueFor("max_charges")))
         {
             // stop charging
@@ -208,8 +218,12 @@ export class modifier_reimagined_charges extends BaseModifier
                 this.SetDuration(charge_time, true);
                 this.timer = Timers.CreateTimer(charge_time, () =>
                 {
-                    this.IncrementStackCount();
-                    this.CalculateCharge();
+                   // Verify the caster, the parent, the ability, and the modifier still exist as valid entities
+                   if (IsValidEntity(this.caster) && IsValidEntity(this.parent) && IsValidEntity(this.ability) && !CBaseEntity.IsNull.call(this as any))
+                   {
+                       this.IncrementStackCount();
+                       this.CalculateCharge();
+                   }
                 })
             }
 
@@ -236,5 +250,11 @@ export class modifier_reimagined_charges extends BaseModifier
         this.MaximizeChargeCount();
         this.RemoveCurrentTimer();
         this.SetDuration(-1, true);
+    }
+
+    SetCurrentCharges(charges: number)
+    {
+        this.SetStackCount(charges);
+        this.CalculateCharge();
     }
 }
