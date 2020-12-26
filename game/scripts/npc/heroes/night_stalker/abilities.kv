@@ -7,10 +7,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
         "AbilityTextureName"			"night_stalker_void"
         "ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_void"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
         "HasScepterUpgrade"			    "1"
 
 		// Unit Targeting
@@ -21,14 +21,14 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
-		
+
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"525"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 		"AbilityCooldown"				"11 10 9 8"
 		"AbilityManaCost"				"80 90 100 110"
-			
+
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityModifierSupportValue"	"0.5"	// applies 2 modifiers
@@ -40,7 +40,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage"			    "80 160 240 320"				
+				"damage"			    "80 160 240 320"
 			}
 
 			"02"
@@ -133,24 +133,24 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
         "AbilityTextureName"			"night_stalker_crippling_fear"
         "ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_crippling_fear"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
-		"FightRecapLevel"				"1"		
+		"FightRecapLevel"				"1"
 
 		// Unit Targeting
 		//-------------------------------------------------------------------------------------------------------------
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		
+
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"375"
 		"AbilityCastPoint"				"0.2"
 		"AbilityCooldown"				"30 25 20 15"
 		"AbilityManaCost"				"50"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -201,11 +201,13 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-        "BaseClass"             		"ability_lua"		
+        "BaseClass"             		"ability_lua"
         "AbilityTextureName"			"night_stalker_hunter_in_the_night"
         "ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_hunter_in_the_night"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-			
+        "HasShardUpgrade"               "1"
+        "AbilityCastRange"              "150"
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -213,46 +215,64 @@
 			"01"
 			{
 				"var_type"							"FIELD_INTEGER"
-				"bonus_movement_speed_pct_night"	"22 28 34 40"				
+				"bonus_movement_speed_pct_night"	"22 28 34 40"
 			}
 
 			"02"
 			{
 				"var_type"							"FIELD_INTEGER"
-				"bonus_attack_speed_night"			"20 40 60 80"				
+				"bonus_attack_speed_night"			"20 40 60 80"
 			}
 
             "03"
 			{
 				"var_type"							"FIELD_INTEGER"
-				"dead_of_night_interval"			"5"				
+				"dead_of_night_interval"			"5"
 			}
 
             "04"
 			{
 				"var_type"							"FIELD_INTEGER"
-				"dead_of_night_stats_per_stack" 	"1"				
+				"dead_of_night_stats_per_stack" 	"1"
 			}
 
             "05"
 			{
 				"var_type"							"FIELD_INTEGER"
-				"dead_of_night_bonuses_per_stack"  	"3"				
-			}            
+				"dead_of_night_bonuses_per_stack"  	"3"
+			}
 
             "06"
 			{
 				"var_type"							"FIELD_FLOAT"
-				"dead_of_night_durations_per_stack" "0.03"		
+				"dead_of_night_durations_per_stack" "0.03"
 			}
 
             "07"
 			{
 				"var_type"							"FIELD_INTEGER"
-				"everlasting_night_duration"        "20"		
+				"everlasting_night_duration"        "20"
+			}
+
+            "08"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"shard_max_hp_restore_pct"          "25"
+			}
+
+            "09"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"shard_max_mana_restore_pct"        "25"
+			}
+
+            "10"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"shard_cooldown"                    "20"
 			}
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_5"
 	}
 
 
@@ -263,12 +283,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
         "AbilityTextureName"			"night_stalker_darkness"
         "ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_dark_ascension"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"		
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -277,7 +297,7 @@
 
 		"AbilityCooldown"				"140 130 120"
 		"AbilityManaCost"				"125 175 225"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -315,12 +335,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"night_stalker_void"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -340,12 +360,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"night_stalker_void"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -365,12 +385,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"night_stalker_crippling_fear"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -396,12 +416,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"night_stalker_crippling_fear"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -427,12 +447,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"night_stalker_hunter_in_the_night"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -458,12 +478,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"night_stalker_hunter_in_the_night"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -483,12 +503,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"night_stalker_darkness"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -514,12 +534,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/night_stalker/reimagined_night_stalker_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"night_stalker_darkness"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"

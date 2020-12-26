@@ -114,7 +114,7 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
             can_proc_on_magic_immune: false,
             can_proc_on_wards: false,
             can_proc_while_silenced: false,
-            mana_cost: this.ability.GetManaCost(this.ability.GetLevel())
+            mana_cost: this.ability.GetManaCost(this.ability.GetLevel()),
         };
         const frost_arrow = util.CanOrbEffectBeCast(event, this.ability, orb_data);
 

@@ -1,6 +1,5 @@
-import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
-import * as util from "../../../lib/util";
-import "../../../modifiers/heroes/broodmother/spiderking/modifier_reimagined_broodmother_spiderking_hatch"
+import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
+import "../../../modifiers/heroes/broodmother/spiderking/modifier_reimagined_broodmother_spiderking_hatch";
 
 
 @registerAbility()
@@ -41,38 +40,38 @@ export class reimagined_broodmother_spawn_spiderking extends BaseAbility
         const spawn_position = (this.caster.GetAbsOrigin() + this.spawn_distance * direction) as Vector;
 
         // Spawn a new Spiderking
-        CreateUnitByNameAsync(this.unit_spiderking, spawn_position, true, this.caster, this.caster, this.caster.GetTeamNumber(), (spiderking) =>
+        const spiderking =  CreateUnitByName(this.unit_spiderking, spawn_position, true, this.caster, this.caster, this.caster.GetTeamNumber());
+
+        // Set its properties: controllable, owner, and abilities
+        spiderking.SetOwner(this.caster);
+        spiderking.SetControllableByPlayer(this.caster.GetPlayerOwnerID(), true);
+
+        for (let index = 0; index < spiderking.GetAbilityCount(); index++)
         {
-            // Set its properties: controllable, owner, and abilities
-            spiderking.SetOwner(this.caster);
-            spiderking.SetControllableByPlayer(this.caster.GetPlayerOwnerID(), true);
-
-            for (let index = 0; index < spiderking.GetAbilityCount(); index++)
+            const ability = spiderking.GetAbilityByIndex(index);
+            if (ability)
             {
-                const ability = spiderking.GetAbilityByIndex(index);
-                if (ability)
-                {
-                    ability.SetLevel(this.GetLevel());
-                }
-                else break;
+                ability.SetLevel(this.GetLevel());
             }
+            else break;
+        }
 
-            // Give it the hatch modifier
-            spiderking.AddNewModifier(this.caster, this, this.modifier_spiderking_hatch, {duration: this.hatch_duration});
+        // Give it the hatch modifier
+        spiderking.AddNewModifier(this.caster, this, this.modifier_spiderking_hatch, {duration: this.hatch_duration});
 
-            // Add into the array
-            this.spiderkings_array.push(spiderking);
+        // Add into the array
+        this.spiderkings_array.push(spiderking);
 
-            // Check if there are too many Spiderkings in the array now: if so, remove and kill the oldest one
-            if (this.spiderkings_array.length > this.max_spiderkings!)
+        // Check if there are too many Spiderkings in the array now: if so, remove and kill the oldest one
+        if (this.spiderkings_array.length > this.max_spiderkings!)
+        {
+            const old_spiderking = this.spiderkings_array.shift();
+            if (old_spiderking && IsValidEntity(old_spiderking) && !old_spiderking.IsNull())
             {
-                const old_spiderking = this.spiderkings_array.shift();
-                if (old_spiderking && IsValidEntity(old_spiderking) && !old_spiderking.IsNull())
-                {
-                    old_spiderking.ForceKill(false);
-                }
+                old_spiderking.ForceKill(false);
             }
-        });
+        }
+
     }
 
     OnUpgrade(): void

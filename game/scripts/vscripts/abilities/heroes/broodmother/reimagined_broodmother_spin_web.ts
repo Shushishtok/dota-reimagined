@@ -139,41 +139,40 @@ export class reimagined_broodmother_spin_web extends BaseAbility
         ParticleManager.ReleaseParticleIndex(this.particle_web_fx);
 
         // Create a new web in position
-        CreateUnitByNameAsync(this.unit_web, target_point, false, this.caster, this.caster, this.caster.GetTeamNumber(), (web: CDOTA_BaseNPC) =>
+        const web = CreateUnitByName(this.unit_web, target_point, false, this.caster, this.caster, this.caster.GetTeamNumber())
+
+        // Set the web to the user
+        web.SetOwner(this.caster);
+        web.SetControllableByPlayer((this.caster as CDOTA_BaseNPC_Hero).GetPlayerID(), true);
+
+        // Set level of all web abilities at 1
+        for (let index = 0; index < web.GetAbilityCount(); index++)
         {
-            // Set the web to the user
-            web.SetOwner(this.caster);
-            web.SetControllableByPlayer((this.caster as CDOTA_BaseNPC_Hero).GetPlayerID(), true);
-
-            // Set level of all web abilities at 1
-            for (let index = 0; index < web.GetAbilityCount(); index++)
+            const ability = web.GetAbilityByIndex(index);
+            if (ability)
             {
-                const ability = web.GetAbilityByIndex(index);
-                if (ability)
-                {
-                    ability.SetLevel(1);
-                }
+                ability.SetLevel(1);
             }
+        }
 
-            // Give the web the aura modifiers
-            web.AddNewModifier(this.caster, this, this.modifier_web_aura, {});
+        // Give the web the aura modifiers
+        web.AddNewModifier(this.caster, this, this.modifier_web_aura, {});
 
-            // Insert into web array
-            this.webs_array.push(web);
+        // Insert into web array
+        this.webs_array.push(web);
 
-            // Determine the max webs possible, taking the scepter into account
-            let max_webs;
-            if (this.caster.HasScepter()) max_webs = this.count_scepter!
-            else max_webs = this.count!;
+        // Determine the max webs possible, taking the scepter into account
+        let max_webs;
+        if (this.caster.HasScepter()) max_webs = this.count_scepter!
+        else max_webs = this.count!;
 
-            // Check if the web now has too many elements: remove the first element from it
-            if (this.webs_array.length > max_webs)
-            {
-                const removed_web = this.webs_array.shift()!;
-                removed_web.ForceKill(false);
-                removed_web.RemoveModifierByName(this.modifier_web_aura);
-            }
-        });
+        // Check if the web now has too many elements: remove the first element from it
+        if (this.webs_array.length > max_webs)
+        {
+            const removed_web = this.webs_array.shift()!;
+            removed_web.ForceKill(false);
+            removed_web.RemoveModifierByName(this.modifier_web_aura);
+        }
 
         // Talent: Silken Bind: Casting Spin Web in radius of an enemy unit causes it to become rooted and disarmed for x seconds. Each enemy can only be afflicted by this effect once every y seconds.
         this.ReimaginedTalentSilkenBind(target_point);

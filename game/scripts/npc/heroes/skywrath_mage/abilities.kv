@@ -1,5 +1,5 @@
 "DOTAAbilities"
-{	
+{
 	//=================================================================================================================
 	// Skywrath Mage: Arcane Bolt
 	//=================================================================================================================
@@ -7,25 +7,25 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
 		"AbilityTextureName"			"skywrath_mage_arcane_bolt"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_arcane_bolt"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_SkywrathMage.ArcaneBolt.Cast"
-		"HasScepterUpgrade"				"1"		
-		
+		"HasScepterUpgrade"				"1"
+
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"875"
-		"AbilityCastPoint"				"0.1 0.1 0.1 0.1"		
-		
-		// Time		
+		"AbilityCastPoint"				"0.1 0.1 0.1 0.1"
+
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"5.0 4.0 3.0 2.0"
 
@@ -133,11 +133,11 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
 		"AbilityTextureName"			"skywrath_mage_concussive_shot"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_concussive_shot"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
@@ -148,20 +148,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
 		"AbilityCastRange"				"1600"
-		
-		// Time		
+
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"18 16 14 12"
 
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"80 85 90 95" 
+		"AbilityManaCost"				"80 85 90 95"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
-		{ 
+		{
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
@@ -252,7 +252,7 @@
 				"var_type"				"FIELD_INTEGER"
 				"ghastly_eerie_radius_pct"		"50"
 			}
-			
+
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -264,7 +264,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
 		"AbilityTextureName"			"skywrath_mage_ancient_seal"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_ancient_seal"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
@@ -273,14 +273,15 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_SkywrathMage.AncientSeal.Target"
-		"HasScepterUpgrade"			"1"
+		"HasScepterUpgrade"			    "1"
+        "HasShardUpgrade"               "1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"700 750 800 850"
 		"AbilityCastPoint"				"0.1 0.1 0.1 0.1"
-		
-		// Time		
+
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"14"
 
@@ -295,7 +296,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"resist_debuff"			"30 35 40 45"				
+				"resist_debuff"			"30 35 40 45"
 			}
 
 			"02"
@@ -340,6 +341,12 @@
 				"var_type"				"FIELD_FLOAT"
 				"sealed_enmity_magic_reduction_increase"	"1.5"
 			}
+
+            "09"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"shard_status_resistance"	"40"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -351,7 +358,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"		
+		"BaseClass"             		"ability_lua"
 		"AbilityTextureName"			"skywrath_mage_mystic_flare"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_mystic_flare"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
@@ -368,15 +375,15 @@
 		"AbilityCastRange"				"1200"
 		"AbilityCastPoint"				"0.1 0.1 0.1 0.1"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-		
-		// Time		
+
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"60.0 40.0 20.0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"300 550 800"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -396,7 +403,7 @@
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage"				"750 1175 1600"				
+				"damage"				"750 1175 1600"
 			}
 
 			"04"
@@ -415,49 +422,49 @@
 			"06"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"mystical_bombardment_min_range"	"240"				
+				"mystical_bombardment_min_range"	"240"
 			}
 
 			"07"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"mystical_bombardment_max_range"	"800"				
+				"mystical_bombardment_max_range"	"800"
 			}
 
 			"08"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"mystical_bombardment_hits_per_interval"	"3"				
+				"mystical_bombardment_hits_per_interval"	"3"
 			}
 
 			"09"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"mystical_bombardment_radius"		"180"				
+				"mystical_bombardment_radius"		"180"
 			}
 
 			"10"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"flare_divinity_search_radius"		"800"				
+				"flare_divinity_search_radius"		"800"
 			}
 
 			"11"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"flare_divinity_move_speed"		"200"				
+				"flare_divinity_move_speed"		"200"
 			}
 
 			"12"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"high_mage_duration_per_int_pct"		"0.25"				
+				"high_mage_duration_per_int_pct"		"0.25"
 			}
 
 			"13"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"high_mage_max_duration_reduction_pct"		"75"				
+				"high_mage_max_duration_reduction_pct"		"75"
 			}
 		}
 	}
@@ -470,12 +477,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
-		"AbilityTextureName"			"skywrath_mage_arcane_bolt"		
-			
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityTextureName"			"skywrath_mage_arcane_bolt"
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -501,12 +508,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"skywrath_mage_arcane_bolt"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -526,12 +533,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"skywrath_mage_concussive_shot"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -557,12 +564,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"skywrath_mage_concussive_shot"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -582,12 +589,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"skywrath_mage_ancient_seal"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -607,12 +614,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"skywrath_mage_ancient_seal"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -638,12 +645,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"skywrath_mage_mystic_flare"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -663,12 +670,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"             		"ability_lua"				
+		"BaseClass"             		"ability_lua"
 		"ScriptFile"				    "abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"		
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityTextureName"			"skywrath_mage_mystic_flare"
-			
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"

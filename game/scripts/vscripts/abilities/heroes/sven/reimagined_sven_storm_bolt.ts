@@ -246,6 +246,12 @@ export class reimagined_sven_storm_bolt extends BaseAbility
 
             // Stun them!
             enemy.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: bolt_stun_duration});
+
+            // Scepter Shard effect: dispels enemies hit.
+            if (util.HasScepterShard(this.caster))
+            {
+                enemy.Purge(true, false, false, false, false);
+            }
         }
 
         // Fix positions of units that might have been moved due to the projectile
@@ -362,10 +368,10 @@ export class reimagined_sven_storm_bolt extends BaseAbility
                 ParticleManager.SetParticleControlEnt(this.particle_strong_right_fx, 3, enemy, ParticleAttachment.POINT_FOLLOW, "attach_hitloc", enemy.GetAbsOrigin(), true);
                 ParticleManager.ReleaseParticleIndex(this.particle_strong_right_fx);
 
-                // Scepter: Instant attacks all enemies the projectile goes through
-                if (this.caster.HasScepter())
+                // Scepter Shard effect: dispels enemies hit.
+                if (util.HasScepterShard(this.caster))
                 {
-                    util.PerformAttackNoCleave(this.caster, enemy, false, true, true, false, false, false, true);
+                    enemy.Purge(true, false, false, false, false);
                 }
             }
         }

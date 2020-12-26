@@ -43,3 +43,9 @@ declare const enum TalentStatus
     UNLEARNABLE = 2,
     CAN_BE_LEARNED = 3
 }
+
+declare const enum CustomCastErrorStrings
+{
+    CANNOT_CAST_ON_ROSHAN = "#DOTA_Tooltip_cast_error_cast_on_roshan",
+    CANNOT_CAST_ON_PLAYER_CONTROLLED = "#DOTA_Tooltip_cast_error_cast_on_player_controlled_units"
+}

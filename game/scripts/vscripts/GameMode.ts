@@ -604,7 +604,7 @@ export class GameMode
         {
             if (player)
             {
-                if (!player.GetAssignedHero())
+                if (!PlayerResource.HasSelectedHero(player.GetPlayerID()))
                 {
                     player.MakeRandomHeroSelection();
                     PlayerResource.SetHasRandomed(player.GetPlayerID());
@@ -621,6 +621,8 @@ export class GameMode
             {
                 if (PlayerResource.HasRandomed(player.GetPlayerID()))
                 {
+                    let attempts = 0;
+
                     Timers.CreateTimer(FrameTime(), () =>
                     {
                         if (player.GetAssignedHero())
@@ -631,6 +633,10 @@ export class GameMode
 
                             return undefined;
                         }
+
+                        // If you tried more than 100 times, just give up, that's not going to happen
+                        attempts++;
+                        if (attempts > 100) return undefined;
 
                         return FrameTime();
                     })

@@ -11,6 +11,25 @@
 		"DOTA_Reimagined_Talent_Ping_Enemy"			"Enemy"
 		"DOTA_Reimagined_Talent_Ping_Ally"			"Ally"
 
+        // Ability Cast Errors
+        "DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web"
+        "Caster doesn't have the Spin Web ability"
+
+        "DOTA_Tooltip_cast_error_broodmother_silken_bola_spin_web_unleveled"
+        "Spin Web is not yet leveled"
+
+        "DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web_charge_modifier"
+        "No charges modifier exists for Spin Web"
+
+        "DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web_charges"
+        "Not enough Spin Web charges to consume"
+
+        "DOTA_Tooltip_cast_error_cast_on_roshan"
+        "Ability cannot be cast on Roshan"
+
+        "DOTA_Tooltip_cast_error_cast_on_player_controlled_units"
+        "Ability cannot be cast on player controlled units"
+
         // Generic modifiers
         "DOTA_Tooltip_modifier_reimagined_charges"
         "Charges"
@@ -455,6 +474,9 @@
         "DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_rmg_description_3"
         "Each natural night lasts %everlasting_night_duration% seconds longer than the one before it."
 
+        "DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_shard_description"
+        "During night time, Night Stalker can cast Hunter in the Night to consumes a creature, instantly killing it and restoring %shard_max_hp_restore_pct%%% of Night Stalker's maximum health and %shard_max_mana_restore_pct%%% of Night Stalker's maximum mana. Can only be cast on non-player units. Has a %shard_cooldown% seconds cooldown."
+
 		"DOTA_Tooltip_Ability_reimagined_night_stalker_hunter_in_the_night_Note0"
 		"Dead of Night only triggers during natural nights. Nights caused by abilities such as Dark Ascension do not trigger Dead of Night."
 
@@ -640,6 +662,9 @@
 
 		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_scepter_description"
 		"Increases cast range and transports you along the Storm Hammer, attacking every enemy on impact. Strong Right instant attacks enemies you go through, and Gomu Gomu No Gatling Gun triggers after reaching the destination."
+
+        "DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_shard_description"
+        "Storm Hammer now applies a dispel on enemies hit. This also includes enemies hit by Strong Right."
 
 		"DOTA_Tooltip_Ability_reimagined_sven_storm_bolt_Lore"
 		"The Rogue Knight's iron gauntlet, taken from the school of his father, strikes his foes to their core."
@@ -1458,6 +1483,19 @@
 		"DOTA_Tooltip_modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike_Description"
 		"Slows attack speed by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%, but increases the critical hit chance by %dMODIFIER_PROPERTY_TOOLTIP%%%."
 
+        // Phantom Assassin's Shard ability: Fan of Knives
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_fan_of_knives"
+        "Fan of Knives"
+
+        "DOTA_Tooltip_Ability_reimagined_phantom_assassin_fan_of_knives_Description"
+        "Phantom Assassin releases sharp blades around her in a %radius% AoE, dealing %pct_health_damage%%% of a victim's max health on impact and applying break for %duration% seconds."
+
+        "DOTA_Tooltip_modifier_reimagined_phantom_assassin_fan_of_knives_debuff"
+        "Fan of Knives"
+
+        "DOTA_Tooltip_modifier_reimagined_phantom_assassin_fan_of_knives_debuff_Description"
+        "Broken."
+
         "DOTA_Tooltip_Ability_reimagined_phantom_assassin_talent_1"
         "Duo Daggers"
 
@@ -2043,7 +2081,10 @@
         "Sealed Enmity"
 
         "DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_rmg_description_3"
-        "Every %sealed_enmity_magic_damage_threshold% magical damage accumulated by the target during the debuff increases the magic reduction by %sealed_enmity_magic_reduction_increase%%% for the reminder of the duration."
+        "Every %sealed_enmity_magic_damage_threshold% magical damage accumulated by the target during the debuff increases the magic reduction by %sealed_enmity_magic_reduction_increase%%% for the remainder of the duration."
+
+        "DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_shard_description"
+        "Ancient Seal debuff now causes other debuffs applied to last %shard_status_resistance%%% longer. Grants vision over the target."
 
 		"DOTA_Tooltip_Ability_reimagined_skywrath_mage_ancient_seal_Lore"
 		"A holy incantation, whosoever finds themselves touched by Avilliva's sigil must suffer in penitent silence."
@@ -2653,18 +2694,6 @@
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_silken_bola_damage_interval"
         "DAMAGE INTERVAL:"
-
-        "DOTA_Tooltip_broodmother_silken_bola_no_spin_web"
-        "Caster doesn't have the Spin Web ability"
-
-        "DOTA_Tooltip_broodmother_silken_bola_spin_web_unleveled"
-        "Spin Web is not yet leveled"
-
-        "DOTA_Tooltip_broodmother_silken_bola_no_spin_web_charge_modifier"
-        "No charges modifier exists for Spin Web"
-
-        "DOTA_Tooltip_broodmother_silken_bola_no_spin_web_charges"
-        "Not enough Spin Web charges to consume"
 
         "DOTA_Tooltip_Ability_reimagined_broodmother_talent_1"
         "Poison Popper"

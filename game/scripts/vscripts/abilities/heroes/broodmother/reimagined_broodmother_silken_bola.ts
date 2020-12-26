@@ -90,12 +90,12 @@ export class reimagined_broodmother_silken_bola extends BaseAbility
         if (!IsServer()) return;
 
         // Find the Spin Web ability
-        if (!this.caster.HasAbility(this.ability_spin_web)) return "#DOTA_Tooltip_broodmother_silken_bola_no_spin_web";
+        if (!this.caster.HasAbility(this.ability_spin_web)) return "#DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web";
         const ability_spin_web = this.caster.FindAbilityByName(this.ability_spin_web);
 
         // Check that it is trained
-        if (!ability_spin_web) return "#DOTA_Tooltip_broodmother_silken_bola_no_spin_web";
-        if (!ability_spin_web.IsTrained()) return "#DOTA_Tooltip_broodmother_silken_bola_spin_web_unleveled";
+        if (!ability_spin_web) return "#DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web";
+        if (!ability_spin_web.IsTrained()) return "#DOTA_Tooltip_cast_error_broodmother_silken_bola_spin_web_unleveled";
 
         // Get all modifiers
         const modifiers = this.caster.FindAllModifiersByName(this.modifier_charges);
@@ -116,10 +116,10 @@ export class reimagined_broodmother_silken_bola extends BaseAbility
         }
 
         // Technically, this shouldn't ever happen. But just in case, so it can be reported if needed.
-        if (!spin_web_modifier) return "#DOTA_Tooltip_broodmother_silken_bola_no_spin_web_charge_modifier";
+        if (!spin_web_modifier) return "#DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web_charge_modifier";
 
         // Check that there is at least one charge
-        if (spin_web_modifier.GetStackCount() < this.spin_web_charges_spend!) return "#DOTA_Tooltip_broodmother_silken_bola_no_spin_web_charges";
+        if (spin_web_modifier.GetStackCount() < this.spin_web_charges_spend!) return "#DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web_charges";
     }
 
     OnSpellStart(): void

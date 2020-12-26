@@ -1,6 +1,6 @@
 import { SkywrathMageTalents } from "../../../abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents";
 import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
-import { HasTalent } from "../../../lib/util";
+import { HasScepterShard, HasTalent } from "../../../lib/util";
 
 @registerModifier()
 export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseModifier
@@ -14,6 +14,7 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
 
     // Modifier specials
     resist_debuff?: number;
+    shard_status_resistance?: number;
 
     // Reimagined properties
     sealed_enmity_bonus_reduction = 0;
@@ -32,6 +33,7 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
     {
         // Modifier specials
         this.resist_debuff = this.ability.GetSpecialValueFor("resist_debuff");
+        this.shard_status_resistance = this.ability.GetSpecialValueFor("shard_status_resistance");
 
         // reimagined specials
         this.rebound_seal_search_radius = this.ability.GetSpecialValueFor("rebound_seal_search_radius");
@@ -48,6 +50,9 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
     {
         return [ModifierFunction.MAGICAL_RESISTANCE_BONUS,
                 ModifierFunction.INCOMING_DAMAGE_PERCENTAGE,
+                // Scepter Shard effects
+                ModifierFunction.PROVIDES_FOW_POSITION,
+                ModifierFunction.STATUS_RESISTANCE_STACKING,
                 // Reimagined: Sealed Enmity: Every x magical damage accumulated by the target during the debuff increases the magic reduction by y% for the reminder of the duration.
                 ModifierFunction.ON_TAKEDAMAGE]
     }
@@ -69,7 +74,17 @@ export class modifier_reimagined_skywrath_mage_ancient_seal_debuff extends BaseM
     {
         // Talent: Seal of Amplification: Sealed Enmity now increases damage taken from all types of damage instead of only magical.
         return this.ReimaginedTalentSealOfAmplification(event);
+    }
 
+    GetModifierProvidesFOWVision(): 0 | 1
+    {
+        if (HasScepterShard(this.caster)) return 1;
+        return 0;
+    }
+
+    GetModifierStatusResistanceStacking(): number
+    {
+        if (HasScepterShard(this.caster)) return this.shard_status_resistance! * (-1);
         return 0;
     }
 

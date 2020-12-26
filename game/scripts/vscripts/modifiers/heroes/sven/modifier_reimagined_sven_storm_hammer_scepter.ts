@@ -70,11 +70,6 @@ export class modifier_reimagined_sven_storm_hammer_scepter extends BaseModifier
     {
         if (!IsServer()) return;
 
-        if (this.target)
-        {
-            this.parent.PerformAttack(this.target, false, true, true, true, false, false, false);
-        }
-
         this.parent.FadeGesture(GameActivity.DOTA_OVERRIDE_ABILITY_1);
 
         FindClearSpaceForUnit(this.parent, this.parent.GetAbsOrigin(), false);

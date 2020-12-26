@@ -1,6 +1,6 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import { modifier_reimagined_sven_gods_strength } from "../../../modifiers/heroes/sven/modifier_reimagined_sven_gods_strength"
-import "../../../modifiers/heroes/sven/modifier_reimagined_sven_gods_strength_buff_fish_counter"
+import "../../../modifiers/heroes/sven/modifier_reimagined_sven_gods_Strength_buff_fish_counter"
 
 @registerAbility()
 export class reimagined_sven_gods_strength extends BaseAbility
@@ -27,12 +27,12 @@ export class reimagined_sven_gods_strength extends BaseAbility
         // Ability specials
         this.duration = this.GetSpecialValueFor("duration");
 
-        // Play sound        
+        // Play sound
         EmitSoundOn(this.sound_cast, this.caster);
 
         // Play particle effect
         this.particle_cast_fx = ParticleManager.CreateParticle(this.particle_cast, ParticleAttachment.ABSORIGIN_FOLLOW, this.caster);
-        ParticleManager.SetParticleControlEnt(this.particle_cast_fx, 1, this.caster, ParticleAttachment.ABSORIGIN_FOLLOW, undefined, this.caster.GetAbsOrigin(), true)        
+        ParticleManager.SetParticleControlEnt(this.particle_cast_fx, 1, this.caster, ParticleAttachment.ABSORIGIN_FOLLOW, undefined, this.caster.GetAbsOrigin(), true)
         ParticleManager.ReleaseParticleIndex(this.particle_cast_fx);
 
         // Add modifier to self

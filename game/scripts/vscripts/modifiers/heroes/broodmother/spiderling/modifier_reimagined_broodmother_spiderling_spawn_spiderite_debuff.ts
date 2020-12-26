@@ -72,36 +72,36 @@ export class modifier_reimagined_broodmother_spiderling_spawn_spiderite_debuff e
     SummonSpiderUnit(unit_name: string, isSpiderite: boolean, position: Vector)
     {
         // Spawn unit
-        CreateUnitByNameAsync(unit_name, position, true, this.caster.GetOwner(), this.caster.GetOwner(), this.caster.GetTeamNumber(), (unit: CDOTA_BaseNPC) =>
+        const spiderite = CreateUnitByName(unit_name, position, true, this.caster.GetOwner(), this.caster.GetOwner(), this.caster.GetTeamNumber());
+
+        // Set unit in position
+        spiderite.SetOwner(this.caster.GetOwner());
+        spiderite.SetControllableByPlayer(this.caster.GetPlayerOwnerID(), false);
+        FindClearSpaceForUnit(spiderite, position, true);
+        ResolveNPCPositions(position, spiderite.GetHullRadius());
+
+        // Increase its ability levels
+        let ability_level = 1;
+        const spawn_spiderlings_ability_handle = (spiderite.GetOwner() as CDOTA_BaseNPC).FindAbilityByName(this.spawn_spiderlings_ability)
+        if (spawn_spiderlings_ability_handle && spawn_spiderlings_ability_handle.IsTrained())
         {
-            // Set unit in position
-            unit.SetOwner(this.caster.GetOwner());
-            unit.SetControllableByPlayer(this.caster.GetPlayerOwnerID(), false);
-            FindClearSpaceForUnit(unit, position, true);
-            ResolveNPCPositions(position, unit.GetHullRadius());
+            ability_level = spawn_spiderlings_ability_handle.GetLevel();
+        }
 
-            // Increase its ability levels
-            let ability_level = 1;
-            const spawn_spiderlings_ability_handle = (unit.GetOwner() as CDOTA_BaseNPC).FindAbilityByName(this.spawn_spiderlings_ability)
-            if (spawn_spiderlings_ability_handle && spawn_spiderlings_ability_handle.IsTrained())
+        for (let index = 0; index < spiderite.GetAbilityCount(); index++)
+        {
+            const ability_handle = spiderite.GetAbilityByIndex(index);
+            if (ability_handle)
             {
-                ability_level = spawn_spiderlings_ability_handle.GetLevel();
+                ability_handle.SetLevel(ability_level);
             }
+        }
 
-            for (let index = 0; index < unit.GetAbilityCount(); index++)
-            {
-                const ability_handle = unit.GetAbilityByIndex(index);
-                if (ability_handle)
-                {
-                    ability_handle.SetLevel(ability_level);
-                }
-            }
+        // Give it a kill timer
+        spiderite.AddNewModifier(this.caster.GetOwner() as CDOTA_BaseNPC, undefined, BuiltInModifier.KILL, {duration: this.spiderite_duration!});
 
-            // Give it a kill timer
-            unit.AddNewModifier(this.caster.GetOwner() as CDOTA_BaseNPC, undefined, BuiltInModifier.KILL, {duration: this.spiderite_duration!});
-
-            this.ReimaginedSpiderlingAcademy(unit, isSpiderite);
-        })
+        // Spiderling Academy: Spiderlings's damage, health, armor and magic resistance increase by x, y, z and t% respectively for each level Broodmother has earned.
+        this.ReimaginedSpiderlingAcademy(spiderite, isSpiderite);
     }
 
     OnAttackLanded(event: ModifierAttackEvent): void

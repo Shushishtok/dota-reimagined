@@ -60,30 +60,29 @@ export class modifier_reimagined_broodmother_spawn_spiderling_debuff extends Bas
         // Spawn Spiderling at the parent's location
         for (let index = 0; index < this.count!; index++)
         {
-            CreateUnitByNameAsync(this.spiderling_unit_name, death_position, true, this.caster, this.caster, this.caster.GetTeamNumber(), (unit: CDOTA_BaseNPC) =>
+            const spiderling = CreateUnitByName(this.spiderling_unit_name, death_position, true, this.caster, this.caster, this.caster.GetTeamNumber());
+
+            // Configure the spiderling
+            spiderling.SetOwner(this.caster);
+            spiderling.SetControllableByPlayer((this.caster as CDOTA_BaseNPC_Hero).GetPlayerID(), false);
+            FindClearSpaceForUnit(spiderling, death_position, true);
+            ResolveNPCPositions(death_position, spiderling.GetHullRadius());
+
+            // Set ability levels
+            for (let index = 0; index < spiderling.GetAbilityCount(); index++)
             {
-                // Configure the spiderling
-                unit.SetOwner(this.caster);
-                unit.SetControllableByPlayer((this.caster as CDOTA_BaseNPC_Hero).GetPlayerID(), false);
-                FindClearSpaceForUnit(unit, death_position, true);
-                ResolveNPCPositions(death_position, unit.GetHullRadius());
-
-                // Set ability levels
-                for (let index = 0; index < unit.GetAbilityCount(); index++)
+                const ability = spiderling.GetAbilityByIndex(index);
+                if (ability)
                 {
-                    const ability = unit.GetAbilityByIndex(index);
-                    if (ability)
-                    {
-                        ability.SetLevel(this.ability.GetLevel());
-                    }
+                    ability.SetLevel(this.ability.GetLevel());
                 }
+            }
 
-                // Spiderling Academy: Spiderlings's damage, health, armor and magic resistance increase by x, y, z and t% respectively for each level Broodmother has earned.
-                ((this.ability as reimagined_broodmother_spawn_spiderlings).ReimaginedSpiderlingAcademy(unit, false));
+            // Spiderling Academy: Spiderlings's damage, health, armor and magic resistance increase by x, y, z and t% respectively for each level Broodmother has earned.
+            ((this.ability as reimagined_broodmother_spawn_spiderlings).ReimaginedSpiderlingAcademy(spiderling, false));
 
-                // Add the kill timer modifier
-                unit.AddNewModifier(this.caster, this.ability, BuiltInModifier.KILL, {duration: this.spiderling_duration!});
-            });
+            // Add the kill timer modifier
+            spiderling.AddNewModifier(this.caster, this.ability, BuiltInModifier.KILL, {duration: this.spiderling_duration!});
         }
     }
 
