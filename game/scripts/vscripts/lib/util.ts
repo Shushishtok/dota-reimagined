@@ -980,3 +980,29 @@ export function SpawnDummyUnit(location: Vector, owner: CDOTA_BaseNPC): CDOTA_Ba
 {
     return CreateUnitByName("reimagined_npc_dummy_unit", location, false, owner, owner, owner.GetTeamNumber());
 }
+
+export function IsInRiver(unit: CDOTA_BaseNPC): boolean
+{
+    if (unit.GetAbsOrigin().z <= 15) return true;
+    if (unit.HasModifier("modifier_reimagined_slithreen_crush_puddle")) return true;
+    return false;
+}
+
+export function GetAttackDotProduct(attacker: CDOTA_BaseNPC, target: CDOTA_BaseNPC): number
+{
+    // Calculate direction from attacker to target
+    const attack_direction = CalculateDirectionToPosition(attacker.GetAbsOrigin(), target.GetAbsOrigin());
+
+    // Get forward vector of the target (parent)
+    const forward_vector = target.GetForwardVector();
+
+    // Calculate Dot product
+    const dot_product = forward_vector.Dot(attack_direction);
+
+    return dot_product;
+}
+
+export function IsTeleporting(unit: CDOTA_BaseNPC)
+{
+    return unit.HasModifier("modifier_teleporting");
+}

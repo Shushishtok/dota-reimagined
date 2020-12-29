@@ -1,7 +1,7 @@
 import { reimagined_bristleback_quill_spray } from "../../../abilities/heroes/bristleback/reimagined_bristleback_quill_spray";
 import { BristlebackTalents } from "../../../abilities/heroes/bristleback/reimagined_bristleback_talents";
 import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
-import { CalculateDirectionToPosition, ConvertDegreesToRadians, ConvertRadiansToEffectiveDotRange, GetTalentSpecialValueFor, HasBit, HasTalent } from "../../../lib/util";
+import { ConvertDegreesToRadians, ConvertRadiansToEffectiveDotRange, GetAttackDotProduct, GetTalentSpecialValueFor, HasBit, HasTalent } from "../../../lib/util";
 
 @registerModifier()
 export class modifier_reimagined_bristleback_bristleback_passive extends BaseModifier
@@ -110,7 +110,7 @@ export class modifier_reimagined_bristleback_bristleback_passive extends BaseMod
 
         let damage_reduction = 0;
 
-        const dot_product = this.GetAttackDotProduct(event.attacker, event.target);
+        const dot_product = GetAttackDotProduct(event.attacker, event.target);
 
         // Check if the damage was dealt from the back
         if (this.effective_dot_back && dot_product >= this.effective_dot_back)
@@ -224,7 +224,7 @@ export class modifier_reimagined_bristleback_bristleback_passive extends BaseMod
         if (event.damage <= 0) return;
 
         // Only apply if the damage was taken from the back
-        const dot_product = this.GetAttackDotProduct(event.attacker, event.unit);
+        const dot_product = GetAttackDotProduct(event.attacker, event.unit);
         if (dot_product >= this.effective_dot_back!)
         {
             this.IncreaseQuillTriggerCounter(event.damage);
@@ -242,20 +242,6 @@ export class modifier_reimagined_bristleback_bristleback_passive extends BaseMod
 
         // Talent: Barbed Exterior: Melee attackers that hit Bristleback on the back take x% of their own damage before reductions. Flagged as a reflection damage.
         this.ReimaginedTalentBarbedExterior(event);
-    }
-
-    GetAttackDotProduct(attacker: CDOTA_BaseNPC, target: CDOTA_BaseNPC): number
-    {
-        // Calculate direction from attacker to target
-        const attack_direction = CalculateDirectionToPosition(attacker.GetAbsOrigin(), target.GetAbsOrigin());
-
-        // Get forward vector of the target (parent)
-        const forward_vector = target.GetForwardVector();
-
-        // Calculate Dot product
-        const dot_product = forward_vector.Dot(attack_direction);
-
-        return dot_product;
     }
 
     IncreaseQuillTriggerCounter(increase_by: number)
@@ -323,7 +309,7 @@ export class modifier_reimagined_bristleback_bristleback_passive extends BaseMod
             if (HasBit(event.damage_flags, DamageFlag.HPLOSS) || HasBit(event.damage_flags, DamageFlag.REFLECTION)) return;
 
             // Check if the attack was on the Bristleback's back
-            const effectiveDot = this.GetAttackDotProduct(event.attacker, event.target);
+            const effectiveDot = GetAttackDotProduct(event.attacker, event.target);
             if (effectiveDot >= this.effective_dot_back!)
             {
                 // Get damage to reflect

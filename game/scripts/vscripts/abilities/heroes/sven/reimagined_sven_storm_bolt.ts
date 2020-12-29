@@ -228,7 +228,7 @@ export class reimagined_sven_storm_bolt extends BaseAbility
         for (const enemy of enemies)
         {
             // If this stopped the main target from teleporting, play line
-            if (enemy == target! && target!.HasModifier("modifier_teleporting"))
+            if (enemy == target! && util.IsTeleporting(target))
             {
                 EmitSoundOn(this.impact_responses[RandomInt(0, this.impact_responses.length-1)], this.caster);
             }

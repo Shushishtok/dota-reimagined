@@ -1,0 +1,141 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Ability: Slardar Guardian Sprint
+	//=================================================================================================================
+	"reimagined_slardar_sprint"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"
+    	"AbilityTextureName"			"slardar_sprint"
+    	"ScriptFile"				    "abilities/heroes/slardar/reimagined_slardar_sprint"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_Slardar.Sprint"
+		"HasScepterUpgrade"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"25"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"17"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"bonus_speed"				"16 24 32 40"
+			}
+
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"duration"					"10"
+			}
+
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"river_speed"				"10 20 30 40"
+			}
+
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"puddle_regen"				"30"
+				"RequiresScepter"			"1"
+
+			}
+
+			"05"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"puddle_armor"				"10"
+				"RequiresScepter"			"1"
+			}
+
+			"06"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"puddle_status_resistance"			"40"
+				"RequiresScepter"			"1"
+			}
+
+            "07"
+            {
+                "var_type"					"FIELD_INTEGER"
+                "river_speed_tooltip"		"26 44 62 80"
+            }
+
+            "08"
+            {
+                "var_type"					"FIELD_INTEGER"
+                "headstrong_damage_reduction"		"5 10 15 20"
+            }
+
+            "09"
+            {
+                "var_type"					"FIELD_INTEGER"
+                "headstrong_angle_front"	"140"
+            }
+
+            "10"
+            {
+                "var_type"					"FIELD_INTEGER"
+                "finish_strong_distance"	"300"
+            }
+
+            "11"
+            {
+                "var_type"					"FIELD_INTEGER"
+                "finish_strong_radius"  	"150"
+            }
+
+            "12"
+            {
+                "var_type"					"FIELD_INTEGER"
+                "finish_strong_damage"  	"90 120 150 180"
+            }
+
+            "13"
+            {
+                "var_type"					"FIELD_FLOAT"
+                "finish_strong_stun_duration"  	"1.5"
+            }
+
+            "14"
+            {
+                "var_type"					"FIELD_FLOAT"
+                "finish_strong_duration"  	"0.5"
+            }
+
+            "15"
+            {
+                "var_type"					"FIELD_FLOAT"
+                "watery_comfort_interval"  	"1"
+            }
+
+            "16"
+            {
+                "var_type"					"FIELD_FLOAT"
+                "watery_comfort_cd_redcution"  	"0.25"
+            }
+
+            "17"
+            {
+                "var_type"					"FIELD_INTEGER"
+                "watery_comfort_river_bonus_linger"  	"4"
+            }
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+}

@@ -47,7 +47,7 @@ export class modifier_reimagined_game_mechanics extends BaseModifier
             }
 
             // Calculate lifesteal multiplier
-            if (modifier.GetModifierLifestealRegenAmplify_Percentage && modifier.GetModifierLifestealRegenAmplify_Percentage)
+            if (modifier.GetModifierLifestealRegenAmplify_Percentage && modifier.GetModifierLifestealRegenAmplify_Percentage() > 0)
             {
                 lifesteal_multiplier += modifier.GetModifierLifestealRegenAmplify_Percentage();
             }

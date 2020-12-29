@@ -8,6 +8,7 @@
 #base heroes/skywrath_mage/abilities.kv
 #base heroes/broodmother/abilities.kv
 #base heroes/bristleback/abilities.kv
+#base heroes/slardar/abilities.kv
 
 "DOTAAbilities"
 {

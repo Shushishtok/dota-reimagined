@@ -1,7 +1,7 @@
 import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
 import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_frostbite_debuff";
 import "../../../modifiers/heroes/crystal_maiden/modifier_reimagined_crystal_maiden_frostbite_buff";
-import { HasScepterShard } from "../../../lib/util";
+import { HasScepterShard, IsTeleporting } from "../../../lib/util";
 
 @registerAbility()
 export class reimagined_crystal_maiden_frostbite extends BaseAbility
@@ -120,7 +120,7 @@ export class reimagined_crystal_maiden_frostbite extends BaseAbility
         {
             if (HasScepterShard(this.caster))
             {
-                if (this.caster.HasModifier("modifier_teleporting")) return false;
+                if (IsTeleporting(this.caster)) return false;
             }
         }
 
