@@ -73,64 +73,58 @@
             "07"
             {
                 "var_type"					"FIELD_INTEGER"
-                "river_speed_tooltip"		"26 44 62 80"
+                "headstrong_damage_reduction"		"5 10 15 20"
             }
 
             "08"
             {
                 "var_type"					"FIELD_INTEGER"
-                "headstrong_damage_reduction"		"5 10 15 20"
+                "headstrong_angle_front"	"140"
             }
 
             "09"
             {
                 "var_type"					"FIELD_INTEGER"
-                "headstrong_angle_front"	"140"
+                "finish_strong_distance"	"500"
             }
 
             "10"
             {
                 "var_type"					"FIELD_INTEGER"
-                "finish_strong_distance"	"300"
+                "finish_strong_radius"  	"225"
             }
 
             "11"
             {
                 "var_type"					"FIELD_INTEGER"
-                "finish_strong_radius"  	"150"
+                "finish_strong_damage"  	"90 160 230 300"
             }
 
             "12"
-            {
-                "var_type"					"FIELD_INTEGER"
-                "finish_strong_damage"  	"90 120 150 180"
-            }
-
-            "13"
             {
                 "var_type"					"FIELD_FLOAT"
                 "finish_strong_stun_duration"  	"1.5"
             }
 
-            "14"
+            "13"
             {
                 "var_type"					"FIELD_FLOAT"
                 "finish_strong_duration"  	"0.5"
             }
 
-            "15"
+            "14"
             {
                 "var_type"					"FIELD_FLOAT"
-                "watery_comfort_interval"  	"1"
+                "watery_comfort_interval"  	"0.5"
             }
 
-            "16"
+            "15"
             {
                 "var_type"					"FIELD_FLOAT"
                 "watery_comfort_cd_redcution"  	"0.25"
             }
 
-            "17"
+            "16"
             {
                 "var_type"					"FIELD_INTEGER"
                 "watery_comfort_river_bonus_linger"  	"4"
@@ -138,4 +132,74 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
+
+
+
+
+
+
+
+
+
+    //=================================================================================================================
+    // Slardar: Talent: Tail Whack: Finish Strong deals additional x physical damage on all enemies in z radius of the landing position. Enemies that weren't stunned by it are slowed by y% for the duration.
+    //=================================================================================================================
+    "reimagined_slardar_talent_1"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/slardar/reimagined_slardar_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"slardar_sprint"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "bonus_damage"		"100"
+            }
+
+            "02"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "radius"		    "500"
+            }
+
+            "03"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "slow_pct"		    "75"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Slardar: Talent: Land Adaptation: Allows Slardar to benefit from x% of the river move speed bonuses and unlocks the move speed limit while Slardar is not on a considered standing on a river terrain.
+    //=================================================================================================================
+    "reimagined_slardar_talent_2"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/slardar/reimagined_slardar_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"slardar_sprint"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "movespeed_pct"		"25"
+            }
+        }
+    }
 }

@@ -77,4 +77,6 @@ interface CDOTABaseAbility
 {
     RequiresScepterForCharges(): boolean;
     ExecuteOrderFilter(event: ExecuteOrderFilterEvent): boolean
+    SetFrozenCooldown(state: boolean): void;
+    SetCooldownSpeed(speed: number): void;
 }

@@ -2,6 +2,7 @@ import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
 import "../../../modifiers/heroes/slardar/modifier_reimagined_slardar_sprint_buff";
 import "../../../modifiers/heroes/slardar/modifier_reimagined_slardar_sprint_river";
 import "../../../modifiers/heroes/slardar/modifier_reimagined_slardar_sprint_finish_strong";
+import "../../../modifiers/heroes/slardar/modifier_reimagined_slardar_talent_1_slow_debuff";
 
 @registerAbility()
 export class reimagined_slardar_sprint extends BaseAbility
@@ -20,6 +21,9 @@ export class reimagined_slardar_sprint extends BaseAbility
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_slardar/slardar_sprint.vpcf", context);
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_slardar/slardar_sprint_river.vpcf", context);
         PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/slardar/slardar_headstrong.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/slardar/slardar_finish_strong_jump.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/slardar/slardar_finish_strong_landing.vpcf", context);
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/slardar/slardar_finish_strong_trail.vpcf", context);
     }
 
     OnUpgrade(): void

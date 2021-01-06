@@ -1,10 +1,10 @@
 import "../vscripts/modifiers/general_mechanics/modifier_reimagined_charges";
+import "../vscripts/modifiers/general_mechanics/modifier_reimagined_courier_passive_bonuses";
 import "../vscripts/modifiers/general_mechanics/modifier_reimagined_game_mechanics";
-import "../vscripts/modifiers/general_mechanics/modifier_reimagined_courier_passive_bonuses"
 import { BaseTalent } from "./lib/talents";
 import { reloadable } from "./lib/tstl-utils";
 import { GetAllChargesModifiersForUnit, GetAllPlayers, GetTalentAbilityFromNumber, GetTalentNumber, IsRoshan, IsTalentAbility, PrepareTalentList, RegisterFunctionOverrides } from "./lib/util";
-import { BaseAbility } from "./lib/dota_ts_adapter";
+import "../vscripts/lib/better_cooldown";
 
 declare global
 {
@@ -96,7 +96,6 @@ export class GameMode
         this.Game.SetModifyGoldFilter(event => this.GoldModifiedFilter(event), this);
         this.Game.SetRuneSpawnFilter(event => this.RuneSpawnFilter(event), this);
         this.Game.SetExecuteOrderFilter(event => this.ExecuteOrderFilter(event), this)
-
     }
 
     ExperienceModifiedFilter(event: ModifyExperienceFilterEvent): boolean
