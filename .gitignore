@@ -4,6 +4,7 @@ node_modules
 /game/scripts/vscripts/**/*.lua
 !/game/scripts/vscripts/lib/timers.lua
 !/game/scripts/vscripts/lib/binheap.lua
+/scripts/utils.js
 
 # Dota 2 stuff
 *.bin
