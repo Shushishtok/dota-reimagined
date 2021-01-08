@@ -1,6 +1,6 @@
 "lang"
 {
-	"Language" "english"
+	"Language" "schinese"
 	"Tokens"
 	{
 		"addon_game_name" "Dota Reimagined"
@@ -16,8 +16,8 @@
 		"DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web_charges" "Not enough Spin Web charges to consume"
 		"DOTA_Tooltip_cast_error_cast_on_roshan" "Ability cannot be cast on Roshan"
 		"DOTA_Tooltip_cast_error_cast_on_player_controlled_units" "Ability cannot be cast on player controlled units"
-		"DOTA_Tooltip_Ability_reimagined_antimage_mana_break" "Mana Break"
-		"DOTA_Tooltip_Ability_reimagined_antimage_mana_break_description" "Burns an opponent's mana on each attack based on a flat amount and the target's max mana. Mana Break deals %percent_damage_per_burn%%% of the mana burned as damage to the target."
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_break" "This is a name in Chinese"
+		"DOTA_Tooltip_Ability_reimagined_antimage_mana_break_description" "Blah blah blah"
 		"DOTA_Tooltip_Ability_reimagined_antimage_mana_break_rmg_title_1" "Mana Cleave"
 		"DOTA_Tooltip_Ability_reimagined_antimage_mana_break_rmg_description_1" "Also burns %mana_cleave_mana_burn% mana for all enemy units in %mana_cleave_distance% radius in a cone in front of Anti Mage, but does not deal damage."
 		"DOTA_Tooltip_Ability_reimagined_antimage_mana_break_rmg_title_2" "Mana Convergence"

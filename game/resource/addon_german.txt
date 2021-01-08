@@ -1,6 +1,6 @@
 "lang"
 {
-	"Language" "english"
+	"Language" "german"
 	"Tokens"
 	{
 		"addon_game_name" "Dota Reimagined"
