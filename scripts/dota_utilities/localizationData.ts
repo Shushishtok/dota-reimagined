@@ -1994,7 +1994,6 @@ export function GenerateLocalizationData(): LocalizationData
 
     //#endregion
 
-
     // Return data to compiler
     return localization_info;
 }

@@ -24,7 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = __importStar(require("fs"));
 var path_1 = __importDefault(require("path"));
-var filepath = path_1.default.join(__dirname, "/localizationCompiler.js");
+var filepath = path_1.default.join(__dirname, "/localizationData.js");
 var compiler = loadCompiler();
 doCompile();
 var fsWait = false;
@@ -48,6 +48,7 @@ function doCompile() {
 function loadCompiler() {
     // Clear require cache
     delete require.cache[require.resolve("./localizationCompiler")];
+    delete require.cache[require.resolve("./localizationData")];
     // Require latest compiler version
     var compilerClass = require("./localizationCompiler").LocalizationCompiler;
     return new compilerClass();

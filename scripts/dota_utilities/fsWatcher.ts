@@ -1,8 +1,9 @@
 import * as fs from 'fs';
 import path from 'path';
 import { LocalizationCompiler } from './localizationCompiler';
+import { GenerateLocalizationData } from "./localizationData";
 
-const filepath: string = path.join(__dirname, "/localizationCompiler.js");
+const filepath: string = path.join(__dirname, "/localizationData.js");
 
 let compiler = loadCompiler();
 doCompile();
@@ -35,6 +36,7 @@ function loadCompiler(): LocalizationCompiler
 {
     // Clear require cache
     delete require.cache[require.resolve("./localizationCompiler")]
+    delete require.cache[require.resolve("./localizationData")]
     // Require latest compiler version
     const compilerClass: new () => LocalizationCompiler = require("./localizationCompiler").LocalizationCompiler;
     return new compilerClass();
