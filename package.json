@@ -10,9 +10,9 @@
         "dev": "run-p dev:*",
         "dev:panorama": "tsc --project content/panorama/scripts/custom_game/tsconfig.json --watch",
         "dev:vscripts": "tstl --project game/scripts/vscripts/tsconfig.json --watch",
-        "dev:localizationCompiler": "tsc --project scripts/dota_utilities/tsconfig.json --watch",
-        "dev:localizationCompilerWatcher": "tsc --project scripts/dota_utilities/tsconfig.json",
-        "dev:runlocalizationWatcher": "node ./scripts/dota_utilities/fsWatcher.js --watch"
+        "dev:localizationCompiler": "tsc --project game/resource/tsconfig.json --watch",
+        "dev:localizationCompilerWatcher": "tsc --project game/resource/tsconfig.json",
+        "dev:runlocalizationWatcher": "node ./game/resource/fsWatcher.js --watch"
     },
     "devDependencies": {
         "@types/node": "^14.14.20",
