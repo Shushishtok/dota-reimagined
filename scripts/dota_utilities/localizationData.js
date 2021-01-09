@@ -6,29 +6,29 @@ function GenerateLocalizationData() {
     // This section can be safely ignored, as it is only logic.
     //#region Localization logic
     // Arrays
-    var AbilityArray = new Array();
-    var ModifierArray = new Array();
-    var StandardArray = new Array();
-    var TalentArray = new Array();
+    var Abilities = new Array();
+    var Modifiers = new Array();
+    var StandardTooltips = new Array();
+    var Talents = new Array();
     // Create object of arrays
     var localization_info = {
-        AbilityArray: AbilityArray,
-        ModifierArray: ModifierArray,
-        StandardArray: StandardArray,
-        TalentArray: TalentArray
+        AbilityArray: Abilities,
+        ModifierArray: Modifiers,
+        StandardArray: StandardTooltips,
+        TalentArray: Talents
     };
     //#endregion
     // Enter localization data below!
     //#region Generic localization
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "addon_game_name",
         name: "Dota Reimagined"
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Reimagined_Talent_Learned",
         name: "Talent learned",
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Reimagined_Talent_Can_Be_Learned",
         name: "Talent can be learned",
         language_overrides: [
@@ -38,49 +38,49 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Reimagined_Talent_Not_Learned",
         name: "Talent not yet learned"
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Reimagined_Talent_Cannot_Be_Learned",
         name: "Talent cannot be learned"
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Reimagined_Talent_Ping_Enemy",
         name: "Enemy"
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Reimagined_Talent_Ping_Ally",
         name: "Ally"
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web",
         name: "Caster doesn't have the Spin Web ability"
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Tooltip_cast_error_broodmother_silken_bola_spin_web_unleveled",
         name: "Spin Web is not yet leveled"
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web_charge_modifier",
         name: "No charges modifier exists for Spin Web"
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web_charges",
         name: "Not enough Spin Web charges to consume"
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Tooltip_cast_error_cast_on_roshan",
         name: "Ability cannot be cast on Roshan"
     });
-    StandardArray.push({
+    StandardTooltips.push({
         classname: "DOTA_Tooltip_cast_error_cast_on_player_controlled_units",
         name: "Ability cannot be cast on player controlled units"
     });
     //#endregion
     //#region Generic modifiers
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_charges",
         name: "Charges",
         description: "Can cast this ability whenever there are charges available. A charge is refreshed every {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "} seconds.",
@@ -93,7 +93,7 @@ function GenerateLocalizationData() {
     });
     //#endregion
     //#region Anti Mage
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_antimage_mana_break",
         name: "Mana Break",
         description: "Burns an opponent's mana on each attack based on a flat amount and the target's max mana. Mana Break deals ${percent_damage_per_burn}% of the mana burned as damage to the target.",
@@ -156,22 +156,22 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_antimage_mana_break_mana_convergence_counter",
         name: "Mana Convergence Counter",
         description: "Mana Convergence will be applied on you when the threshold is reached."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_antimage_mana_convergence_debuff",
         name: "Mana Convergence",
         description: "Manaloss Reduction reduced by {" + "MODIFIER_PROPERTY_MANACOST_PERCENTAGE_STACKING" /* MANACOST_PERCENTAGE_STACKING */ + "}%."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_antimage_mana_break_disable",
         name: "Mana Break Disabled",
         description: "Energy Blast was triggered, disabling Mana Break for the duration of this modifier."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_antimage_blink",
         name: "Blink",
         description: "Short distance teleportation that allows Anti-Mage to move in and out of combat.",
@@ -200,12 +200,12 @@ function GenerateLocalizationData() {
             }
         ],
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_antimage_blink_magic_nullity",
         name: "Magic Nullity",
         description: "Magic resistance increased by {" + "MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS" /* MAGICAL_RESISTANCE_BONUS */ + "}%."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_antimage_counterspell",
         name: "Counterspell",
         description: "Passively grants you magic resistance. Can be activated to create an anti-magic shell around you that sends any targeted spells back towards enemies instead of affecting you.",
@@ -241,12 +241,12 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_antimage_counterspell_active",
         name: "Counterspell Shield",
         description: "Causes all spells that target you to be blocked and reflected onto the enemy."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_antimage_mana_void",
         name: "Mana Void",
         description: "For each point of mana missing by the target unit, damage is dealt to it and surrounding enemies. The main target is also mini-stunned.",
@@ -284,12 +284,12 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_antimage_mana_overload",
         name: "Blink Fragment",
         description: "Blinks an illusion at the target enemy or location and attack them for ${duration} seconds. Counterspell is replicated on the Blink Fragment illusion."
     });
-    TalentArray.push({
+    Talents.push({
         talent_classname: "reimagined_antimage_talent",
         talents: [
             {
@@ -334,14 +334,14 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_antimage_talent_6_buff",
         name: "Magic Cannot Harm Me!",
         description: "Magic resistance increased by {" + "MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS" /* MAGICAL_RESISTANCE_BONUS */ + "}%."
     });
     //#endregion
     //#region Night Stalker
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_night_stalker_void",
         name: "Void",
         description: "Creates a damaging void that slows an enemy unit and deals damage. Void also mini-stuns, interrupting channeling abilities. The slowing effect lasts longer at night.",
@@ -394,17 +394,17 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_void_stalking",
         name: "Stalking",
         description: "Stalking an enemy. Grants {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}% bonus move speed."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_void_debuff",
         name: "Void",
         description: "Slows move speed by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}% and attack speed by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%. Vision is drastically reduced."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_night_stalker_crippling_fear",
         name: "Crippling Fear",
         description: "Night Stalker horrifies all nearby enemies, causing them to become silenced while near him. The effect lasts longer at night.",
@@ -443,22 +443,22 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_crippling_fear_aura",
         name: "Crippling Fear",
         description: "Silencing or fearing nearby enemies. The aura's radius constantly increases."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_crippling_fear_silence_debuff",
         name: "Crippling Fear Silence",
         description: "Silenced by Crippling Fear and missing {" + "MODIFIER_PROPERTY_MISS_PERCENTAGE" /* MISS_PERCENTAGE */ + "}% of attacks."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_crippling_fear_fear_debuff",
         name: "Night Terror",
         description: "Running away from the caster in terror due to Crippling Fear."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_night_stalker_hunter_in_the_night",
         name: "Hunter in the Night",
         description: "Night Stalker is in his element at night, attacking and moving with great swiftness.",
@@ -495,17 +495,17 @@ function GenerateLocalizationData() {
             },
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_hunter_in_the_night_dead_of_night",
         name: "Dead of Night",
         description: "Increases strength, agility and intelligence by {" + "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" /* STATS_STRENGTH_BONUS */ + "}, move speed, damage and attack speed by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT" /* MOVESPEED_BONUS_CONSTANT */ + "}, and Void's and Crippling Fear's durations by {f" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "} seconds."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_hunter_in_the_night_everlasting_nights",
         name: "Everlasting Nights",
         description: "Increases the duration of the next natural night by {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "} seconds."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_night_stalker_dark_ascension",
         name: "Dark Ascension",
         description: "Night Stalker smothers the sun and summons instant darkness, so that he might use his powers at their fullest. Nightstalker gains flight and bonus damage during this time. Has unobstructed vision.",
@@ -530,17 +530,17 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_dark_ascension_wings_out",
         name: "Wings Out",
         description: "Grants unobstructed vision, flying movement and {" + "MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE" /* PREATTACK_BONUS_DAMAGE */ + "} bonus damage."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_dark_ascension_active",
         name: "Dark Ascension",
         description: "Grants unobstructed vision, flying movement and {" + "MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE" /* PREATTACK_BONUS_DAMAGE */ + "} bonus damage."
     });
-    TalentArray.push({
+    Talents.push({
         talent_classname: "reimagined_night_stalker_talent",
         talents: [
             {
@@ -585,24 +585,24 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_talent_4_debuff",
         name: "Dreadful Creature",
         description: "Broken and taking {" + "MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE" /* INCOMING_DAMAGE_PERCENTAGE */ + "}% more damage from all sources until leaving Crippling Fear's aura."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_talent_6",
         name: "Sneak Through The Night",
         description: "Invisible until coming in vision range of nearby enemies heroes or getting too close to enemy units."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_night_stalker_talent_8",
         name: "Midnight Peak",
         description: "Damage reduction increased by {" + "MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE" /* INCOMING_DAMAGE_PERCENTAGE */ + "}%, status resistance increased by {" + "MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING" /* STATUS_RESISTANCE_STACKING */ + "}% and outgoing damage from all sources increased by {" + "MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE" /* DAMAGEOUTGOING_PERCENTAGE */ + "}%. Active as long as Dead of Night has at least {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "} stacks."
     });
     //#endregion
     //#region Sven
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_sven_storm_bolt",
         name: "Storm Hammer",
         description: "Sven unleashes his magical gauntlet that deals damage and stuns enemy units in a small area around the target.",
@@ -643,7 +643,7 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_sven_great_cleave",
         name: "Great Cleave",
         description: "Sven strikes with great force, cleaving all nearby enemy units with his attack.",
@@ -671,12 +671,12 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_sven_great_cleave_epic_cleave",
         name: "Epic Cleave",
         description: "After attacking {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "} times, next attack will be a devastating Epic Cleave."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_sven_warcry",
         name: "Warcry",
         description: "Sven's Warcry heartens his allied heroes for battle, increasing their armor and movement speed. Lasts ${duration} seconds.",
@@ -720,12 +720,12 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_sven_warcry_buff",
         name: "Warcry",
         description: "Armor increased by {" + "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS" /* PHYSICAL_ARMOR_BONUS */ + "} and movement speed increased by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}%. Blocks {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "} damage, and if the caster has God's Strength active, also increases your damage output by {" + "MODIFIER_PROPERTY_TOOLTIP2" /* TOOLTIP2 */ + "}%."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_sven_gods_strength",
         name: "God's Strength",
         description: "Sven channels his rogue strength, granting bonus damage for ${duration} seconds.",
@@ -756,17 +756,17 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_sven_gods_strength",
         name: "God's Strength",
         description: "Base damage increased by {" + "MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE" /* BASEDAMAGEOUTGOING_PERCENTAGE */ + "}%, strength increased by {" + "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" /* STATS_STRENGTH_BONUS */ + "}, and adds {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "}% bonus damage when attacking every {" + "MODIFIER_PROPERTY_TOOLTIP2" /* TOOLTIP2 */ + "} seconds. Gains additional bonus damage when killing enemy units."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_sven_gods_strength_buff_fish_counter",
         name: "Buff Fish Cooldown",
         description: "Buff Fish cannot be used while in cooldown."
     });
-    TalentArray.push({
+    Talents.push({
         talent_classname: "reimagined_sven_talent",
         talents: [
             {
@@ -811,14 +811,14 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_sven_talent_2_buff",
         name: "Fist Catcher",
         description: "Being dragged with Sven's Gauntlet."
     });
     //#endregion
     //#region Crystal Maiden
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_crystal_maiden_crystal_nova",
         name: "Crystal Nova",
         description: "A burst of damaging frost slows enemy movement and attack rate in the targeted area.",
@@ -866,22 +866,22 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_crystal_nova_slow",
         name: "Crystal Nova",
         description: "Move speed reduced by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}% and attack speed reduced by {" + "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" /* ATTACKSPEED_BONUS_CONSTANT */ + "}. Refreshes itself when you are afflicted by both Snowstorm Field and Frostbite."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow",
         name: "Hail Winds",
         description: "Move speed reduced by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}%."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_crystal_nova_snowstorm_buff",
         name: "Snowstorm",
         description: "Damage reduction increased by {" + "MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE" /* INCOMING_DAMAGE_PERCENTAGE */ + "}% and status resistance increased by {" + "MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING" /* STATUS_RESISTANCE_STACKING */ + "}%."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_crystal_maiden_frostbite",
         name: "Frostbite",
         description: "Encases an enemy unit in ice, prohibiting movement and attack, while dealing damage over time.",
@@ -922,17 +922,17 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_frostbite_debuff",
         name: "Frostbite",
         description: "Cannot move or attack. Taking {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "} damage every {f" + "MODIFIER_PROPERTY_TOOLTIP2" /* TOOLTIP2 */ + "} seconds. Spreading Frostbite to nearby allies."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_frostbite_buff",
         name: "Igloo Frosting",
         description: "Cannot move or attack. Arcane Aura's effects on you are multiplied by {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "}. Spreading Frosbite to nearby enemies."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_crystal_maiden_brilliance_aura",
         name: "Arcane Aura",
         description: "Gives additional mana regeneration to all friendly units on the map. This bonus is increased for Crystal Maiden.",
@@ -965,22 +965,22 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_arcane_aura_blueheart_mastery",
         name: "Blueheart Mastery",
         description: "Increases Arcane's Aura mana regeneration bonus by {f" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "}."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_arcane_aura_buff",
         name: "Arcane Aura",
         description: "Adds {f" + "MODIFIER_PROPERTY_MANA_REGEN_CONSTANT" /* MANA_REGEN_CONSTANT */ + "} mana regeneration. When Focused Arcane is active, magic resistance and spell amp are also increased by {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "}%."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_arcane_aura_focused_arcane",
         name: "Focused Arcane",
         description: "Limits Arcane Aura's radius to {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "} and increases magic resistance and spell amp for affected allies."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_crystal_maiden_freezing_field",
         name: "Freezing Field",
         description: "CHANNELED - Surrounds Crystal Maiden with random icy explosions that slow enemies and deal massive damage. Grants bonus armor while channeling. Lasts ${abilitychanneltime} seconds.",
@@ -1037,22 +1037,22 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_freezing_field_arcane_glacier",
         name: "Arcane Glacier",
         description: "Damage resistance is increased by {" + "MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE" /* INCOMING_DAMAGE_PERCENTAGE */ + "}%."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_freezing_field_aura",
         name: "Freezing Field",
         description: "Armor increased by {" + "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS" /* PHYSICAL_ARMOR_BONUS */ + "}."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_freezing_field_slow",
         name: "Freezing Field Slow",
         description: "Movement speed slowed by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}%, attack speed reduced by {" + "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" /* ATTACKSPEED_BONUS_CONSTANT */ + "}."
     });
-    TalentArray.push({
+    Talents.push({
         talent_classname: "reimagined_crystal_maiden_talent",
         talents: [
             {
@@ -1097,14 +1097,14 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_crystal_maiden_talent_1_debuff",
         name: "Charmed Ice",
         description: "Spell amp reduced by {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "}%."
     });
     //#endregion
     //#region Phantom Assassin
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_phantom_assassin_stifling_dagger",
         name: "Stifling Dagger",
         description: "Throws a dagger slowing the enemy unit's movement speed, dealing ${base_damage} + ${attack_factor_tooltip}% of Phantom Assassin's attack damage as physical damage and applying attack effects from items and abilities.",
@@ -1153,12 +1153,12 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_phantom_assassin_stifling_dagger_slow",
         name: "Stifling Dagger",
         description: "Movement speed reduced by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}% and total outgoing damage reduced by {" + "MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE" /* DAMAGEOUTGOING_PERCENTAGE */ + "}%."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_phantom_assassin_phantom_strike",
         name: "Phantom Strike",
         description: "Teleports to a unit, friendly or enemy, and grants bonus attack speed while attacking if it's an enemy unit.",
@@ -1197,17 +1197,17 @@ function GenerateLocalizationData() {
             },
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_phantom_assassin_phantom_strike_buff",
         name: "Phantom Strike",
         description: "Attack speed increased by {" + "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" /* ATTACKSPEED_BONUS_CONSTANT */ + "}. Refreshes itself when attacking the main target."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_phantom_assassin_phantom_strike_escape_plan",
         name: "Escape Plan",
         description: "Move speed increased by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}%."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_phantom_assassin_blur",
         name: "Blur",
         description: "Phantom Assassin focuses inward, increasing her ability to evade enemy attacks. Can be activated to blur her body, causing her to be impossible to see until near enemy heroes.",
@@ -1256,17 +1256,17 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_phantom_assassin_blur_active",
         name: "Blur",
         description: "Blurring out to disappear from the enemy's sight. Procs bonus pure damage while active."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_phantom_assassin_blur_quick_and_quiet",
         name: "Quiet and Quiet",
         description: "Increases move speed by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}%. Lingers for {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "} seconds after Blur is dispelled."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_phantom_assassin_coup_de_grace",
         name: "Coup de Grace",
         description: "Phantom Assassin refines her combat abilities, gaining a chance of delivering a devastating critical strike to enemy units. Stifling Dagger shares the same critical strike chance.",
@@ -1301,22 +1301,22 @@ function GenerateLocalizationData() {
             },
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike",
         name: "Decisive Strike",
         description: "Slows attack speed by {" + "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" /* ATTACKSPEED_BONUS_CONSTANT */ + "}, but increases the critical hit chance by {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "}%."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_phantom_assassin_fan_of_knives",
         name: "Fan of Knives",
         description: "Phantom Assassin releases sharp blades around her in a ${radius} AoE, dealing ${pct_health_damage}% of a victim's max health on impact and applying break for ${duration} seconds.",
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_phantom_assassin_fan_of_knives_debuff",
         name: "Fan of Knives",
         description: "Broken."
     });
-    TalentArray.push({
+    Talents.push({
         talent_classname: "reimagined_phantom_assassin_talent",
         talents: [
             {
@@ -1361,24 +1361,24 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_phantom_assassin_talent_5_debuff",
         name: "Immaterial Girl",
         description: "Phantom Assassin has {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "}% evasion against your attacks for the duration of the debuff."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_phantom_assassin_talent_6_cooldown",
         name: "Soft on the Eye Cooldown",
         description: "Soft on the Eye would not trigger while this modifier is in effect."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_phantom_assassin_talent_7_cooldown",
         name: "Mercy Killing Cooldown",
         description: "Cannot proc Mercy Killing's guaranteed critical strike on weakened enemies for the duration."
     });
     //#endregion
     //#region Drow Ranger
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_drow_ranger_frost_arrows",
         name: "Frost Arrows",
         description: "Adds a freezing effect to Drow's attacks, slowing enemy movement and dealing bonus damage. Slow lasts ${duration} seconds.",
@@ -1414,27 +1414,27 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_drow_ranger_frost_arrows_slow",
         name: "Frost Arrow Slow",
         description: "Movement speed reduced by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}%."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_drow_ranger_frost_arrows_brittle",
         name: "Brittle as the Cold",
         description: "Attack speed reduced by {" + "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" /* ATTACKSPEED_BONUS_CONSTANT */ + "} and armor reduced by {" + "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS" /* PHYSICAL_ARMOR_BONUS */ + "}."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_drow_ranger_hypothermia",
         name: "Hypothermia",
         description: "Health regeneration reduced by {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "}%. On death, burst and deals damage to nearby allies."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_drow_ranger_hypothermia_slow",
         name: "Hypothermia Slow",
         description: "Slowed by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}%."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_drow_ranger_wave_of_silence",
         name: "Gust",
         description: "Releases a wave that silences and knocks back enemy units. Knockback distance is relative to how close they are to you.",
@@ -1482,17 +1482,17 @@ function GenerateLocalizationData() {
             }
         ],
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_drow_ranger_gust_freeze",
         name: "Wave Chill",
         description: "Frozen and cannot act."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_drow_ranger_gust_tailwind",
         name: "Tailwind",
         description: "Being pushed forward. Enemies around you become silenced."
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_drow_ranger_multishot",
         name: "Multishot",
         description: "Drow releases a flurry of arrows in continuous salvos, hitting enemies for extra damage and applying longer duration Frost Arrows. Lasts up to ${abilitychanneltime} seconds.",
@@ -1536,7 +1536,7 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    AbilityArray.push({
+    Abilities.push({
         ability_classname: "reimagined_drow_ranger_marksmanship",
         name: "Marksmanship",
         description: "Drow's experience in battle grant her a chance to launch arrows with incredible accuracy and effectiveness. Pierces through the enemy's defenses, ignoring their base armor. Grants Drow and nearby ranged heroes with bonus agility based on Drow's current agility. This ability is disabled if there is an enemy hero within ${disable_range} range.",
@@ -1589,22 +1589,22 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_drow_ranger_marksmanship_pride_drow",
         name: "Pride of the Drow",
         description: "Prevents Marksmanship for being disabled for the duration of this modifier."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_drow_ranger_marksmanship_ranger_of_frost",
         name: "Ranger of Frost",
         description: "Increases attack speed by {" + "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT" /* ATTACKSPEED_BONUS_CONSTANT */ + "} and projectile speed by {" + "MODIFIER_PROPERTY_PROJECTILE_SPEED_BONUS" /* PROJECTILE_SPEED_BONUS */ + "}. Also decreases the range Marksmanship is disabled by {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "}."
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_drow_ranger_marksmanship_agility_buff",
         name: "Marksmanship",
         description: "Increases agility by {" + "MODIFIER_PROPERTY_STATS_AGILITY_BONUS" /* STATS_AGILITY_BONUS */ + "}."
     });
-    TalentArray.push({
+    Talents.push({
         talent_classname: "reimagined_drow_ranger_talent",
         talents: [
             {
@@ -1649,15 +1649,277 @@ function GenerateLocalizationData() {
             }
         ]
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_drow_ranger_gust_root",
         name: "Frozen Bind",
         description: "Rooted.",
     });
-    ModifierArray.push({
+    Modifiers.push({
         modifier_classname: "modifier_reimagined_drow_ranger_talent_7_counter",
         name: "Prideful Ranger Cooldown",
         description: "Prideful Ranger is on cooldown until this modifier's duration ends."
+    });
+    //#endregion
+    //#region Skywrath Mage
+    Abilities.push({
+        ability_classname: "reimagined_skywrath_mage_arcane_bolt",
+        name: "Arcane Bolt",
+        description: "Skywrath Mage launches a slow-moving bolt of arcane magic, dealing damage to an enemy unit based on Skywrath Mage's intelligence.",
+        reimagined_effects: [
+            {
+                title: "Arcane Infusion",
+                description: "Grants bonus ${arcane_infusion_speed_per_int} projectile speed for each point of intelligence Skywrath has when casting Arcane Bolt."
+            },
+            {
+                title: "Wrath of Dragonus",
+                description: "After Skywrath Mage casts ${wrath_arcane_bolt_casts} Arcane Bolts, the next Arcane Bolt cast will become a Wrath Bolt, which travels ${wrath_bolt_speed_multiplier} times as fast, the damage includes the intelligence of nearby allied heroes in ${wrath_int_calculate_range} range, and Skywrath's intelligence is calculated ${wrath_caster_calculations} times. The counter modifier lasts ${wrath_duration} seconds."
+            },
+            {
+                title: "Blank Bolt",
+                description: "Arcane Bolt can be cast on spell immune enemies. When the projectile hits a spell immune enemy, it deals no damage, and instead sets a debuff that has a stack count equal to ${blank_bolt_damage_pct}% of the damage the unit would've taken. When the unit takes magic damage with an ability and it is not spell immune, the debuff is consumed and the damage it had stored is dealt in a separate instance. The debuff lasts ${blank_bolt_duration} seconds."
+            }
+        ],
+        lore: "Within the Ghastly Eyrie's endless intrigue, only the clever and calm can hope to survive.",
+        notes: [
+            "While the projectile is moving, it provides ${bolt_vision} vision around it. Upon impact, it will reveal the target area for ${vision_duration} seconds.",
+            "Wrath Bolts do not multiply the intelligence of nearby allies by the multiplier.",
+            "Blank Bolt can refresh itself with additional Arcane Bolt hits on a spell immune enemy. The damage will be adjusted if the new cast deals more damage."
+        ],
+        scepter_description: "When Skywrath Mage casts Arcane Bolt, a different random target within ${scepter_radius} range will be hit with the same ability. Heroes will take priority.",
+        ability_specials: [
+            {
+                ability_special: "bolt_damage",
+                text: "BASE DAMAGE"
+            },
+            {
+                ability_special: "int_multiplier",
+                text: "INT DAMAGE MULTIPLIER"
+            },
+            {
+                ability_special: "scepter_radius",
+                text: "SCEPTER RADIUS"
+            }
+        ]
+    });
+    Modifiers.push({
+        modifier_classname: "modifier_reimagined_skywrath_mage_arcane_bolt_wrath",
+        name: "Wrath Bolt Counter",
+        description: "After {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "} Arcane Bolts were fired, the next Arcane Bolt will be a Wrath Bolt."
+    });
+    Modifiers.push({
+        modifier_classname: "modifier_reimagined_skywrath_mage_arcane_bolt_blank_bolt",
+        name: "Blank Bolt",
+        description: "When not spell immune and taking magical damage from an ability, the modifier is consumed and deals magical damage equal to the stack count."
+    });
+    Modifiers.push({
+        modifier_classname: "modifier_reimagined_skywrath_mage_talent_1_buff",
+        name: "Unending Proficiency",
+        description: "Increases intelligence by {" + "MODIFIER_PROPERTY_STATS_INTELLECT_BONUS" /* STATS_INTELLECT_BONUS */ + "}."
+    });
+    Modifiers.push({
+        modifier_classname: "modifier_reimagined_skywrath_mage_talent_3_buff",
+        name: "Trapped Energy",
+        description: "Automatically fires Concussive Shot at the closest enemy unit in range."
+    });
+    Abilities.push({
+        ability_classname: "reimagined_skywrath_mage_concussive_shot",
+        name: "Concussive Shot",
+        description: "Skywrath Mage sets off a long range shot that hits the closest hero within a long range. Upon impact, it deals damage and slows in an area of effect.",
+        reimagined_effects: [
+            {
+                title: "Conjured Relay",
+                description: "Concussive Shot bounces ${conjured_relay_bounce_count} times towards the closest enemy that was not hit by Concussive Shot this cast. Looks in ${conjured_relay_search_radius} units around the last bounce target."
+            },
+            {
+                title: "Brain Concussion",
+                description: "The main target hit by Concussive Shot is also affected by a ${brain_concussion_spell_amp_rdct}% spell amp reduction for the duration of the slow."
+            },
+            {
+                title: "Ghastly Eerie",
+                description: "If the main target of Concussive Shot is afflicted by Ancient Seal's debuff when the projectile hits, the radius of Concussive Shot increases by ${ghastly_eerie_radius_pct}% and the slow duration increases by ${ghastly_eerie_duration_pct}% for all enemies in the blast range."
+            }
+        ],
+        lore: "Those who serve the court of the Ghastly Eyrie are ever locked in covert war. One must always know where danger lurks nearest.",
+        notes: [
+            "If no enemy heroes are in range or they are in fog, Concussive Shot targets the nearest enemy creep.",
+            "Damages creeps around the impact area.",
+            "Provides ${shot_vision} vision around the projectile, and reveals the target area for ${vision_duration} seconds upon impact."
+        ],
+        scepter_description: "When Skywrath Mage casts Concussive Shot, a different random target within cast range will be hit with the same ability. Heroes will take priority.",
+        ability_specials: [
+            {
+                ability_special: "launch_radius",
+                text: "SHOT RANGE"
+            },
+            {
+                ability_special: "slow_radius",
+                text: "RADIUS"
+            },
+            {
+                ability_special: "damage",
+                text: "DAMAGE"
+            },
+            {
+                ability_special: "slow_duration",
+                text: "SLOW DURATION"
+            },
+            {
+                ability_special: "movement_speed_pct",
+                text: "SLOW",
+                percentage: true
+            }
+        ]
+    });
+    Modifiers.push({
+        modifier_classname: "modifier_reimagined_skywrath_mage_concussive_shot_slow",
+        name: "Concussive Shot",
+        description: "Slowed by {" + "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" /* MOVESPEED_BONUS_PERCENTAGE */ + "}%."
+    });
+    Abilities.push({
+        ability_classname: "reimagined_skywrath_mage_ancient_seal",
+        name: "Ancient Seal",
+        description: "Skywrath Mage seals the targeted unit with an ancient rune, silencing it and causing it to take additional damage from spells.",
+        reimagined_effects: [
+            {
+                title: "Seal of Scree'auk",
+                description: "Can be cast on an ally to set the seal within it, granting it a ${seal_screeauk_spell_amp}% spell amp, and causes it to emit an aura that applies Ancient Seal's debuff on any enemy in ${seal_screeauk_radius} radius near it."
+            },
+            {
+                title: "Rebounding Seal",
+                description: "When the seal expires prematurely, it is applied to the closest enemy in ${rebound_seal_search_radius} radius around it with its remaining duration. This effects also applies on allies affected by Seal of the Scree'auk seals. This process can repeat infinitely."
+            },
+            {
+                title: "Sealed Enmity",
+                description: "Every ${sealed_enmity_magic_damage_threshold} magical damage accumulated by the target during the debuff increases the magic reduction by ${sealed_enmity_magic_reduction_increase}% for the remainder of the duration."
+            }
+        ],
+        shard_description: "Ancient Seal debuff now causes other debuffs applied to last ${shard_status_resistance}% longer. Grants vision over the target.",
+        scepter_description: "Anytime Skywrath Mage casts Ancient Seal, a different random target within ${scepter_radius} range will be affected by the same ability. Heroes will take priority.",
+        lore: "A holy incantation, whosoever finds themselves touched by Avilliva's sigil must suffer in penitent silence.",
+        notes: [
+            "The magic damage resistance reduction doesn't affect creeps.",
+            "Scepter effect will also also be applied when casting Seal of Scree'auk on an ally, casting it on a random ally in its range."
+        ],
+        ability_specials: [
+            {
+                ability_special: "resist_debuff",
+                text: "INCREASED MAGIC DAMAGE",
+                percentage: true
+            },
+            {
+                ability_special: "seal_duration",
+                text: "DURATION"
+            },
+            {
+                ability_special: "scepter_radius",
+                text: "SCEPTER RADIUS"
+            }
+        ]
+    });
+    Modifiers.push({
+        modifier_classname: "modifier_reimagined_skywrath_mage_ancient_seal_debuff",
+        name: "Ancient Seal",
+        description: "Silenced. Magic damage is increased by {" + "MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS" /* MAGICAL_RESISTANCE_BONUS */ + "}%."
+    });
+    Modifiers.push({
+        modifier_classname: "modifier_reimagined_skywrath_mage_ancient_seal_screeauk",
+        name: "Seal of Scree'auk",
+        description: "Spell amp increased by {" + "MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE" /* SPELL_AMPLIFY_PERCENTAGE */ + "}%, and all enemies in {" + "MODIFIER_PROPERTY_TOOLTIP" /* TOOLTIP */ + "} radius of you will be affected by Ancient Seal."
+    });
+    Abilities.push({
+        ability_classname: "reimagined_skywrath_mage_mystic_flare",
+        name: "Mystic Flare",
+        description: "Skywrath Mage uses his ultimate magical ability to conjure a precise and violent mystical field that lays waste to his adversaries. Deals massive damage distributed evenly among any Heroes in the area over ${duration%} seconds.",
+        reimagined_effects: [
+            {
+                title: "Mystical Bombardment",
+                description: "Every interval also fires ${mystical_bombardment_hits_per_interval} small instances of Mystic Flare in random locations around the target point up between ${mystical_bombardment_min_range} and ${mystical_bombardment_max_range} units away from it, dealing an instance damage to all enemies in a ${mystical_bombardment_radius} radius where it landed. Damage is distributed evenly between enemies in the hit radius."
+            },
+            {
+                title: "Flare of Divinity",
+                description: "Mystic Flare automatically moves towards the closest enemy in ${flare_divinity_search_radius%} range of its center, moving at ${flare_divinity_move_speed} speed."
+            },
+            {
+                title: "Skywrath's High Mage",
+                description: "Each point of intelligence the caster has reduces the duration of Mystic Flare by ${high_mage_duration_per_int_pct}%, up to ${high_mage_max_duration_reduction_pct}% duration reduction. The damage scales accordingly."
+            }
+        ],
+        lore: "Only the most practiced of Skywrath sorcerers could hope to shape the skies into such a storm.",
+        notes: [
+            "Mystic Flare only affects Heroes; it does not damage illusions or creep heroes.",
+            "Spell immune enemies do not count toward the damage distribution.",
+            "Mystic Flare will damage enemy creeps if no enemy heroes are present."
+        ],
+        scepter_description: "When Skywrath Mage casts Mystic Flare, another Mystic Flare will be created on the position of a different random target enemy within ${scepter_radius} range. Heroes will take priority.",
+        ability_specials: [
+            {
+                ability_special: "radius",
+                text: "RADIUS"
+            },
+            {
+                ability_special: "duration",
+                text: "DURATION"
+            },
+            {
+                ability_special: "damage",
+                text: "DAMAGE"
+            }
+        ]
+    });
+    Modifiers.push({
+        modifier_classname: "modifier_reimagined_skywrath_mage_talent_7_debuff",
+        name: "Null Field",
+        description: "Cannot use movement abilities until moving away from the center of the field."
+    });
+    Modifiers.push({
+        modifier_classname: "modifier_reimagined_skywrath_mage_talent_8_buff",
+        name: "Divine Flight",
+        description: "Grants flying movement."
+    });
+    Talents.push({
+        talent_classname: "reimagined_skywrath_mage_talent",
+        talents: [
+            {
+                name: "Unending Proficiency",
+                description: "Casting Arcane Bolt increases your intelligence by ${int_bonus} for ${duration} seconds. Has independent stacks.",
+                lore: "Skywrath Mage's proficiency with magic allows him to constantly gain knowledge through battle."
+            },
+            {
+                name: "Wrathful Incantation",
+                description: "Wrath Bolts now also calculate the target's main attribute as bonus magical damage.\nThis bonus damage is not multiplied by Arcane Bolt's intelligence multiplier.",
+                lore: "Concentrating enormous Skywrath magic in his Wrath Bolts, Dragonus is capable of combusting his target's magical energies on impact."
+            },
+            {
+                name: "Trapped Energy",
+                description: "Fizzling a Concussive Shot grants a buff that automatically fires Concussive Shot at a nearby enemy hero that comes into range. Lasts ${duration} seconds.",
+                lore: "Instead of letting arcane energies go to waste, Dragonus traps them until a worthy opponent comes in its range."
+            },
+            {
+                name: "Motor Dysfunction",
+                description: "Brain Concussion now also decreases turn rate by ${turn_rate_reduction}%.",
+                lore: "The immense impact of the Concussive Shot shatters the motoric capabilities of its unfortunate target."
+            },
+            {
+                name: "Seal of Amplification",
+                description: "Sealed Enmity now increases damage taken from all types of damage instead of only magical.",
+                lore: "Dragonus employs a legendary seal, capable of making any target extremely vulnerable."
+            },
+            {
+                name: "Scree'auk's Screech",
+                description: "Seal of Scree'auk now pulses every ${pulse_interval} seconds, applying its effect to all enemies in ${radius} range.",
+                lore: "Utilizing Scree'auk's special technique, Skywrath Mage causes the seal to pulse in sheer force, reaching enemies far beyond its usual range."
+            },
+            {
+                name: "Null Field",
+                description: "Mystic Flare now adds the Leashed state to all enemy units in the initial area of effect, preventing usage of movement abilities until leaving they leave the flare's radius.\nThe radius is centered on the flare's current location.",
+                lore: "Binding enemies into a nullity field reduces their escape options severly."
+            },
+            {
+                name: "Divine Flight",
+                description: "When casting Mystic Flare, Skywrath Mage gains flying movement for ${duration} seconds. Doesn't grant flying vision.",
+                lore: "When Dragonus unleashes his ultimate power, the left over energies propel his wings upwards, allowing him to fly over terrain for a short while."
+            }
+        ]
     });
     //#endregion
     // Return data to compiler
