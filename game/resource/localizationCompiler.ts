@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import { fileURLToPath } from 'url';
 import { GenerateLocalizationData } from "./localizationData";
 import { LocalizationData, Language } from "./localizationInterfaces";
 
@@ -226,7 +227,7 @@ export class LocalizationCompiler
         // Go over talents for that language
         for (const hero_talent_list of localized_data.TalentArray)
         {
-            const talent_classname = `\t\t"DOTA_Tooltip_${hero_talent_list.talent_classname}`;
+            const talent_classname = `\t\t"DOTA_Tooltip_Ability_${hero_talent_list.talent_classname}`;
             let talent_counter = 1;
 
             for (const talent of hero_talent_list.talents)
@@ -331,7 +332,8 @@ export class LocalizationCompiler
         const filepath = this.addon_filepath + language.toString() + this.filepath_format;
 
         // Remove file contents, or create a fresh one if it doesn't exists yet.
-        fs.openSync(filepath, 'w');
+        const fd = fs.openSync(filepath, 'w');
+        fs.closeSync(fd);
 
         // Add the opening tokens
         let localization_intro = `"lang"\n{\n\t"Language" "${language}"\n\t"Tokens"\n\t{\n`;
@@ -341,6 +343,6 @@ export class LocalizationCompiler
         let write_string = localization_intro + localization_content + localization_ending;
 
         // Write to the file
-        fs.writeFile(filepath, write_string, ()=>{console.log(`Finished writing tooltips for language ${language} in file ${filepath}`)});
+        fs.writeFile(filepath, write_string, {encoding: 'utf-8'} , ()=>{console.log(`Finished writing tooltips for language ${language} in file ${filepath}`)});
     }
 }

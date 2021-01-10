@@ -192,7 +192,7 @@ var LocalizationCompiler = /** @class */ (function () {
         // Go over talents for that language
         for (var _l = 0, _m = localized_data.TalentArray; _l < _m.length; _l++) {
             var hero_talent_list = _m[_l];
-            var talent_classname = "\t\t\"DOTA_Tooltip_" + hero_talent_list.talent_classname;
+            var talent_classname = "\t\t\"DOTA_Tooltip_Ability_" + hero_talent_list.talent_classname;
             var talent_counter = 1;
             for (var _o = 0, _p = hero_talent_list.talents; _o < _p.length; _o++) {
                 var talent = _p[_o];
@@ -270,14 +270,15 @@ var LocalizationCompiler = /** @class */ (function () {
         // Set based on language
         var filepath = this.addon_filepath + language.toString() + this.filepath_format;
         // Remove file contents, or create a fresh one if it doesn't exists yet.
-        fs.openSync(filepath, 'w');
+        var fd = fs.openSync(filepath, 'w');
+        fs.closeSync(fd);
         // Add the opening tokens
         var localization_intro = "\"lang\"\n{\n\t\"Language\" \"" + language + "\"\n\t\"Tokens\"\n\t{\n";
         // Add the closing token
         var localization_ending = '\t}\n}';
         var write_string = localization_intro + localization_content + localization_ending;
         // Write to the file
-        fs.writeFile(filepath, write_string, function () { console.log("Finished writing tooltips for language " + language + " in file " + filepath); });
+        fs.writeFile(filepath, write_string, { encoding: 'utf-8' }, function () { console.log("Finished writing tooltips for language " + language + " in file " + filepath); });
     };
     return LocalizationCompiler;
 }());

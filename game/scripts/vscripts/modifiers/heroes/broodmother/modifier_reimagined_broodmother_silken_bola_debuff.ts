@@ -52,6 +52,16 @@ export class modifier_reimagined_broodmother_silken_bola_debuff extends BaseModi
         });
     }
 
+    DeclareFunctions(): ModifierFunction[]
+    {
+        return [ModifierFunction.TOOLTIP]
+    }
+
+    OnTooltip(): number
+    {
+        return this.damage_per_second!;
+    }
+
     CheckState(): Partial<Record<ModifierState, boolean>>
     {
         return {[ModifierState.ROOTED]: true,
