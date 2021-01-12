@@ -10,23 +10,23 @@ export class reimagined_skywrath_mage_ancient_seal extends BaseAbility
     caster: CDOTA_BaseNPC = this.GetCaster();
     cast_responses = ["skywrath_mage_drag_ancient_seal_01, skywrath_mage_drag_ancient_seal_03"];
 	rare_cast_response = "skywrath_mage_drag_ancient_seal_02";
-	sound_cast = "Hero_SkywrathMage.AncientSeal.Target";    
+	sound_cast = "Hero_SkywrathMage.AncientSeal.Target";
 
     // Ability specials
     seal_duration?: number;
-    scepter_radius?: number;    
+    scepter_radius?: number;
 
     Precache(context: CScriptPrecacheContext)
     {
         PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_skywrath_mage/skywrath_mage_ancient_seal_debuff.vpcf", context);
         PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/ancient_seal_buff.vpcf", context);
-        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/talent_seal_of_screeauk_pulse.vpcf", context);        
+        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/skywrath_mage/talent_seal_of_screeauk_pulse.vpcf", context);
     }
 
     OnSpellStart(): void
     {
         // Ability properties
-        const target = this.GetCursorTarget()!;        
+        const target = this.GetCursorTarget()!;
 
         // Ability specials
         this.seal_duration = this.GetSpecialValueFor("seal_duration");
@@ -62,7 +62,7 @@ export class reimagined_skywrath_mage_ancient_seal extends BaseAbility
 
         // Scepter: Secondary effect around the target. Prioritizes heroes
         if (this.caster.HasScepter())
-        {                    
+        {
             let target_found = false;
             const enemy_heroes = util.FindUnitsAroundUnit(this.caster,
                                                           target,
@@ -74,12 +74,12 @@ export class reimagined_skywrath_mage_ancient_seal extends BaseAbility
             for (const enemy_hero of enemy_heroes)
             {
                 // Ignore the main target
-                if (enemy_hero == target) continue;    
+                if (enemy_hero == target) continue;
 
-                // Apply Ancient Seal on the first enemy and stop                
+                // Apply Ancient Seal on the first enemy and stop
                 enemy_hero.AddNewModifier(this.caster, this, "modifier_reimagined_skywrath_mage_ancient_seal_debuff", {duration: this.seal_duration});
                 target_found = true;
-                break;                
+                break;
             }
 
             // If we didn't find any hero, then cast it on a nearby creep instead
@@ -96,7 +96,7 @@ export class reimagined_skywrath_mage_ancient_seal extends BaseAbility
                 {
                     enemy_creeps[0].AddNewModifier(this.caster, this, "modifier_reimagined_skywrath_mage_ancient_seal_debuff", {duration: this.seal_duration});
                     return;
-                }                                                              
+                }
             }
         }
     }
@@ -107,10 +107,10 @@ export class reimagined_skywrath_mage_ancient_seal extends BaseAbility
         if (target.GetTeamNumber() == this.caster.GetTeamNumber())
         {
             target.AddNewModifier(this.caster, this, "modifier_reimagined_skywrath_mage_ancient_seal_screeauk", {duration: this.seal_duration})
-            
+
             // Scepter: Secondary effect around the target. Prioritizes heroes
             if (this.caster.HasScepter())
-            {                    
+            {
                 let target_found = false;
                 const friendly_heroes = util.FindUnitsAroundUnit(this.caster,
                                                             target,
@@ -122,12 +122,12 @@ export class reimagined_skywrath_mage_ancient_seal extends BaseAbility
                 for (const friendly_hero of friendly_heroes)
                 {
                     // Ignore the main target
-                    if (friendly_hero == target) continue;    
+                    if (friendly_hero == target) continue;
 
-                    // Apply Ancient Seal on the first enemy and stop                
+                    // Apply Ancient Seal on the first enemy and stop
                     friendly_hero.AddNewModifier(this.caster, this, "modifier_reimagined_skywrath_mage_ancient_seal_screeauk", {duration: this.seal_duration});
                     target_found = true;
-                    break;                
+                    break;
                 }
 
                 // If we didn't find any hero, then cast it on a nearby creep instead
@@ -143,7 +143,7 @@ export class reimagined_skywrath_mage_ancient_seal extends BaseAbility
                     if (friendly_creeps.length > 0)
                     {
                         friendly_creeps[0].AddNewModifier(this.caster, this, "modifier_reimagined_skywrath_mage_ancient_seal_screeauk", {duration: this.seal_duration});
-                    }                                                              
+                    }
                 }
             }
             return true;

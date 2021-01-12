@@ -26,6 +26,7 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
     damage?: number;
     shard_hypothermia_duration?: number;
     shard_max_stacks?: number;
+    shard_bonus_damage_per_stack?: number;
 
     // Reimagined properties
     sound_cryo: string = "DrowRanger.FrostArrow.CryoArrowhead";
@@ -75,6 +76,7 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
         this.damage = this.ability.GetSpecialValueFor("damage");
         this.shard_hypothermia_duration = this.ability.GetSpecialValueFor("shard_hypothermia_duration");
         this.shard_max_stacks = this.ability.GetSpecialValueFor("shard_max_stacks");
+        this.shard_bonus_damage_per_stack = this.ability.GetSpecialValueFor("shard_bonus_damage_per_stack");
 
         // Reimagined specials
         this.brittle_cold_duration = this.ability.GetSpecialValueFor("brittle_cold_duration");
@@ -257,7 +259,20 @@ export class modifier_reimagined_drow_ranger_frost_arrows_handler extends BaseMo
         {
             if (this.projectile_map.get(event.record))
             {
-                return this.damage!;
+                let damage = this.damage!;
+
+                // Hypothermia stacks grants bonus damage per stack
+                if (event.target.HasModifier(this.modifier_hypothermia))
+                {
+                    const modifier = event.target.FindModifierByName(this.modifier_hypothermia);
+                    if (modifier)
+                    {
+                        const stacks = modifier.GetStackCount();
+                        damage += (stacks * this.shard_bonus_damage_per_stack!);
+                    }
+                }
+
+                return damage;
             }
         }
 

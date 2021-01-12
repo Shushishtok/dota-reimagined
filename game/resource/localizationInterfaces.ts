@@ -1,9 +1,9 @@
 export enum Language
 {
     English = 'english',
-    Russian = 'russian',
-    SChinese = 'schinese',
-    German = "german"
+    German = "german",
+    Russian = "russian",
+    SChinese = "schinese"
 }
 
 export interface AbilityLocalization
@@ -99,8 +99,23 @@ export interface TalentLocalizationOverrides
 
 export interface LocalizationData
 {
-    AbilityArray: Array<AbilityLocalization>;
-    ModifierArray: Array<ModifierLocalization>;
-    StandardArray: Array<StandardLocalization>;
-    TalentArray: Array<HeroTalents>;
+    AbilityArray?: Array<AbilityLocalization>;
+    ModifierArray?: Array<ModifierLocalization>;
+    StandardArray?: Array<StandardLocalization>;
+    TalentArray?: Array<HeroTalents>;
+}
+
+export interface Weapons
+{
+   class_name: string;
+   name: string;
+   description: string;
+   language_overrides?: WeaponsLanguageOverrides[] // if you're interested in more than one version
+}
+
+export interface WeaponsLanguageOverrides
+{
+   language: Language;
+   name_override?: string;
+   description?: string;
 }

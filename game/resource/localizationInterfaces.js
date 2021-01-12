@@ -4,7 +4,7 @@ exports.Language = void 0;
 var Language;
 (function (Language) {
     Language["English"] = "english";
+    Language["German"] = "german";
     Language["Russian"] = "russian";
     Language["SChinese"] = "schinese";
-    Language["German"] = "german";
 })(Language = exports.Language || (exports.Language = {}));

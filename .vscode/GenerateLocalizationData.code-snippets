@@ -1,0 +1,35 @@
+{
+	"Generates a tooltip localization signature": {
+        "prefix": "GenerateLocalizationData",
+        "body": [
+        "import { AbilityLocalization, HeroTalents, Language, LocalizationData, ModifierLocalization, StandardLocalization } from \"../../localizationInterfaces\";",
+        "",
+        "export function GenerateLocalizationData(): LocalizationData",
+        "{",
+        "\t// This section can be safely ignored, as it is only logic.",
+        "\t//#region Localization logic",
+        "\t// Arrays",
+        "\tconst Abilities: Array<AbilityLocalization> = new Array<AbilityLocalization>();",
+        "\tconst Modifiers: Array<ModifierLocalization> = new Array<ModifierLocalization>();",
+        "\tconst StandardTooltips: Array<StandardLocalization> = new Array<StandardLocalization>();",
+        "\tconst Talents: Array<HeroTalents> = new Array<HeroTalents>();",
+        "",
+        "\t// Create object of arrays",
+        "\tconst localization_info: LocalizationData =",
+        "\t{",
+        "\t\tAbilityArray: Abilities,",
+        "\t\tModifierArray: Modifiers,",
+        "\t\tStandardArray: StandardTooltips,",
+        "\t\tTalentArray: Talents",
+        "\t};",
+        "\t//#endregion",
+        "",
+        "\t// Enter localization data below!",
+        "\t$1",
+        "\treturn localization_info;",
+        "",
+        "}"
+        ],
+        "description": "Generates a tooltip localization signature"
+      }
+}
