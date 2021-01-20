@@ -104,18 +104,3 @@ export interface LocalizationData
     StandardArray?: Array<StandardLocalization>;
     TalentArray?: Array<HeroTalents>;
 }
-
-export interface Weapons
-{
-   class_name: string;
-   name: string;
-   description: string;
-   language_overrides?: WeaponsLanguageOverrides[] // if you're interested in more than one version
-}
-
-export interface WeaponsLanguageOverrides
-{
-   language: Language;
-   name_override?: string;
-   description?: string;
-}
