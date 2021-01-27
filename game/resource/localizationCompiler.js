@@ -97,7 +97,7 @@ var LocalizationCompiler = /** @class */ (function () {
             for (var _d = 0, _e = localized_data.AbilityArray; _d < _e.length; _d++) {
                 var ability = _e[_d];
                 // Class name is identical for all languages, so we would always use it
-                var ability_string = "DOTA_Tooltip_Ability_" + ability.ability_classname;
+                var ability_string = "\t\t\"DOTA_Tooltip_Ability_" + ability.ability_classname;
                 // Name
                 var ability_name = ability.name;
                 var ability_description = ability.description;
@@ -267,7 +267,7 @@ var LocalizationCompiler = /** @class */ (function () {
         if (localized_data.ModifierArray) {
             for (var _s = 0, _t = localized_data.ModifierArray; _s < _t.length; _s++) {
                 var modifier = _t[_s];
-                var modifier_string = "DOTA_Tooltip_" + modifier.modifier_classname;
+                var modifier_string = "\t\t\"DOTA_Tooltip_" + modifier.modifier_classname;
                 // Name
                 var modifier_name = modifier.name;
                 var modifier_description = modifier.description;

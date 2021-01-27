@@ -93,7 +93,7 @@ export class LocalizationCompiler
             for (const ability of localized_data.AbilityArray)
             {
                 // Class name is identical for all languages, so we would always use it
-                const ability_string = `DOTA_Tooltip_Ability_${ability.ability_classname}`;
+                const ability_string = `\t\t"DOTA_Tooltip_Ability_${ability.ability_classname}`;
 
                 // Name
                 let ability_name = ability.name;
@@ -319,7 +319,7 @@ export class LocalizationCompiler
         if (localized_data.ModifierArray) {
             for (const modifier of localized_data.ModifierArray)
             {
-                const modifier_string = `DOTA_Tooltip_${modifier.modifier_classname}`;
+                const modifier_string = `\t\t"DOTA_Tooltip_${modifier.modifier_classname}`;
 
                 // Name
                 let modifier_name = modifier.name;
