@@ -1,4 +1,5 @@
 #base items/enchanted_mango.kv
+#base items/skull_basher.kv
 
 "DOTAAbilities"
 {

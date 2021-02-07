@@ -21,26 +21,30 @@ export function GenerateLocalizationData(): LocalizationData
     //#endregion
 
     // Enter localization data below!
-
     Abilities.push({
-        ability_classname: "item_reimagined_enchanted_mango",
-        name: "Enchanted Mango",
-        description: "<h1>Use: Eat Mango</h1> Instantly restores ${replenish_amount} mana.<br><br>Range: ${abilitycastrange}",
-        lore: "The bittersweet flavors of Jidi Isle are irresistible to amphibians.",
+        ability_classname: "item_reimagined_skull_basher",
+        name: "Skull Basher",
+        description: "<h1>Passive: Bash</h1> Grants melee heroes a ${bash_chance_melee}% chance on hit to stun the target for ${bash_duration} seconds and deal ${bonus_chance_damage} bonus physical damage.  Bash chance for ranged heroes is ${bash_chance_ranged}%.",
+        lore: "A feared weapon in the right hands, this maul's ability to shatter the defenses of its opponents should not be underestimated.",
+        notes:
+        [
+            "Does not stack with other sources of Bash, however it will stack with Mini-Bash.",
+            "The following heroes cannot trigger Bash on this item: Spirit Breaker, Faceless Void, and Slardar."
+        ],
         ability_specials:
         [
             {
-                ability_special: "hp_regen",
-                text: "hp_regen",
+                ability_special: "bonus_damage",
+                text: "damage",
+                item_stat: true
+            },
+
+            {
+                ability_special: "bonus_strength",
+                text: "str",
                 item_stat: true
             }
         ]
-    })
-
-    Modifiers.push({
-        modifier_classname: "modifier_reimagined_enchanted_mango_passive",
-        name: "Enchanted Mango",
-        description: `Health regeneration increased by {f${LocalizationModifierProperty.HEALTH_REGEN_CONSTANT}}`
     });
 
     return localization_info;

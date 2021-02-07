@@ -637,7 +637,14 @@
 		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango" "Enchanted Mango"
 		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango_description" "<h1>Use: Eat Mango</h1> Instantly restores %replenish_amount% mana.<br><br>Range: %abilitycastrange%"
 		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango_Lore" "The bittersweet flavors of Jidi Isle are irresistible to amphibians."
-		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango_hp_regen" "+$hp_regen:"
+		"DOTA_Tooltip_Ability_item_reimagined_enchanted_mango_hp_regen" "+$hp_regen"
+		"DOTA_Tooltip_Ability_item_reimagined_skull_basher" "Skull Basher"
+		"DOTA_Tooltip_Ability_item_reimagined_skull_basher_description" "<h1>Passive: Bash</h1> Grants melee heroes a %bash_chance_melee%%% chance on hit to stun the target for %bash_duration% seconds and deal %bonus_chance_damage% bonus physical damage.  Bash chance for ranged heroes is %bash_chance_ranged%%%."
+		"DOTA_Tooltip_Ability_item_reimagined_skull_basher_Lore" "A feared weapon in the right hands, this maul's ability to shatter the defenses of its opponents should not be underestimated."
+		"DOTA_Tooltip_Ability_item_reimagined_skull_basher_Note0" "Does not stack with other sources of Bash, however it will stack with Mini-Bash."
+		"DOTA_Tooltip_Ability_item_reimagined_skull_basher_Note1" "The following heroes cannot trigger Bash on this item: Spirit Breaker, Faceless Void, and Slardar."
+		"DOTA_Tooltip_Ability_item_reimagined_skull_basher_bonus_damage" "+$damage"
+		"DOTA_Tooltip_Ability_item_reimagined_skull_basher_bonus_strength" "+$str"
 		"DOTA_Tooltip_Ability_reimagined_antimage_talent_1" "Feedback Pulse"
 		"DOTA_Tooltip_Ability_reimagined_antimage_talent_1_Description" "Energy Blast now triggers a total of %total_waves% waves, each being applied %wave_interval% seconds one after another. All waves after the initial wave only deal and burn %mana_burn_pct_wave%%% the regular amount."
 		"DOTA_Tooltip_Ability_reimagined_antimage_talent_1_Lore" "Knowing that causing feedback on his enemies can turn the tides of battle, Magina mastered a technique that allows him to release even the smallest pockets of energies that reside within his body."
@@ -1056,5 +1063,7 @@
 		"DOTA_Tooltip_modifier_reimagined_sven_gods_strength_buff_fish_counter_description" "Buff Fish cannot be used while in cooldown."
 		"DOTA_Tooltip_modifier_reimagined_sven_talent_2_buff" "Fist Catcher"
 		"DOTA_Tooltip_modifier_reimagined_sven_talent_2_buff_description" "Being dragged with Sven's Gauntlet."
+		"DOTA_Tooltip_modifier_reimagined_enchanted_mango_passive" "Enchanted Mango"
+		"DOTA_Tooltip_modifier_reimagined_enchanted_mango_passive_description" "Health regeneration increased by %fMODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT%"
 	}
 }

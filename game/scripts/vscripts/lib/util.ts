@@ -1,6 +1,6 @@
 import { modifier_reimagined_charges } from "../modifiers/general_mechanics/modifier_reimagined_charges";
 import "../modifiers/general_mechanics/modifier_reimagined_no_outgoing_damage";
-import { BaseAbility, BaseModifier } from "./dota_ts_adapter";
+import { BaseAbility, BaseItem, BaseModifier } from "./dota_ts_adapter";
 import { BaseTalent } from "./talents";
 import { reloadable } from "./tstl-utils";
 
@@ -1005,4 +1005,58 @@ export function GetAttackDotProduct(attacker: CDOTA_BaseNPC, target: CDOTA_BaseN
 export function IsTeleporting(unit: CDOTA_BaseNPC)
 {
     return unit.HasModifier("modifier_teleporting");
+}
+
+export function AddActiveItemModifierArray(item: CDOTA_Item)
+{
+    const item_name = item.GetName();
+    const wielder = item.GetCaster() as CDOTA_BaseNPC;
+
+    if (!wielder.active_item_modifiers) wielder.active_item_modifiers = new Map();
+
+    if (wielder.active_item_modifiers.has(item_name))
+    {
+        const active_item_modifier_array = wielder.active_item_modifiers.get(item_name);
+        if (active_item_modifier_array)
+        {
+            active_item_modifier_array.push(item);
+        }
+    }
+    else
+    {
+        wielder.active_item_modifiers.set(item_name, [item]);
+    }
+}
+
+export function IsActiveModifierItem(item: CDOTA_Item): boolean
+{
+    const item_name = item.GetName();
+    const wielder = item.GetCaster() as CDOTA_BaseNPC;
+
+    if (!wielder.active_item_modifiers) return false;
+    if (!wielder.active_item_modifiers.has(item_name)) return false;
+
+    const item_modifier_array = wielder.active_item_modifiers.get(item_name);
+    if (!item_modifier_array) return false;
+
+    return item_modifier_array[0] == item;
+}
+
+export function RemoveActiveModifierItem(item: CDOTA_Item)
+{
+    const item_name = item.GetName();
+    const wielder = item.GetCaster() as CDOTA_BaseNPC;
+    if (!wielder.active_item_modifiers || !wielder.active_item_modifiers.has(item_name)) return;
+    const item_modifier_array = wielder.active_item_modifiers.get(item_name);
+    if (item_modifier_array)
+    {
+        if (item_modifier_array.length > 1)
+        {
+            item_modifier_array.splice(item_modifier_array.indexOf(item), 1);
+        }
+        else
+        {
+            wielder.active_item_modifiers.delete(item_name);
+        }
+    }
 }

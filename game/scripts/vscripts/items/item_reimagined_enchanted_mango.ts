@@ -1,5 +1,4 @@
 import { BaseItem , registerAbility } from "../lib/dota_ts_adapter";
-import * as util from "../lib/util";
 import { modifier_reimagined_enchanted_mango_passive } from "../modifiers/items/enchanted_mango/modifier_reimagined_enchanted_mango_passive";
 
 @registerAbility()
@@ -7,7 +6,7 @@ export class item_reimagined_enchanted_mango extends BaseItem
 {
     // Ability properties
     caster?: CDOTA_BaseNPC;
-    sound_cast: string = "DOTA_Item.Mango.Activate";    
+    sound_cast: string = "DOTA_Item.Mango.Activate";
     particle_cast: string = "particles/items3_fx/mango_active.vpcf";
     particle_fx?: ParticleID;
 
@@ -56,4 +55,3 @@ export class item_reimagined_enchanted_mango extends BaseItem
         target.GiveMana(this.replenish_amount);
     }
 }
-

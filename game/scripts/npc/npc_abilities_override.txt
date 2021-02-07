@@ -2,9 +2,10 @@
 {
 	"Version"		"1"
 
-    // Default item removal 
+    // Default item removal
 	// -----------------------------------------------------------
     "item_enchanted_mango"							"REMOVE"
+    "item_basher"                                   "REMOVE"
 
     "special_bonus_unique_axe"
     {

@@ -246,8 +246,12 @@ export class LocalizationCompiler
                         }
 
                         ability_special_text += ability_special.text;
+                        if (!ability_special.item_stat)
+                        {
+                            ability_special_text += ":";
+                        }
 
-                        localization_content += `${ability_string}_${ability_special.ability_special}" "${ability_special_text}:"`;
+                        localization_content += `${ability_string}_${ability_special.ability_special}" "${ability_special_text}"`;
                         localization_content += "\n";
                     }
                 }

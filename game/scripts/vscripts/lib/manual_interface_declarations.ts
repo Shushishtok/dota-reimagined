@@ -34,6 +34,7 @@ declare interface OrbData
 interface CDOTA_BaseNPC
 {
     oldAddNewModifier: <TThis>(this: TThis, caster: CDOTA_BaseNPC | undefined, ability: CDOTABaseAbility | undefined, modifierName: string, modifierTable: object | undefined) => CDOTA_Buff;
+    active_item_modifiers: Map<string, CDOTA_Item[]>;
 }
 
 interface NewModifierProperties
