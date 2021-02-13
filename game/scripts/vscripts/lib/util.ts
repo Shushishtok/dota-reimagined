@@ -185,6 +185,25 @@ export function FindUnitsAroundUnit(caster: CDOTA_BaseNPC, around_unit: CDOTA_Ba
     return units;
 }
 
+export function FindUnitsInRadiusOuterRing(caster: CDOTA_BaseNPC, position: Vector, radius: number, findTeam: UnitTargetTeam, findtypes: UnitTargetType, findFlags: UnitTargetFlags, min_distance: number): CDOTA_BaseNPC[]
+{
+    let units: CDOTA_BaseNPC[] = [];
+    units = FindUnitsInRadius(caster.GetTeamNumber(),
+                              position,
+                              undefined,
+                              radius,
+                              findTeam,
+                              findtypes,
+                              findFlags,
+                              FindOrder.ANY,
+                              false);
+
+    // Only include the units that are at least the minimum distance
+    units = units.filter((unit) => CalculateDistanceBetweenPoints(position, unit.GetAbsOrigin()) > min_distance);
+
+    return units;
+}
+
 export function CanUnitGetOrders(unit: CDOTA_BaseNPC)
 {
     if (unit.IsStunned() || unit.IsCommandRestricted() || unit.IsOutOfGame() || unit.IsHexed() || unit.IsFrozen())
@@ -566,6 +585,15 @@ export function HasBit(checker: number, value: number)
 export function GenerateRandomPositionAroundPosition(position: Vector, min_distance: number, max_distance: number): Vector
 {
     return (position + RandomVector(min_distance + Math.sqrt(RandomFloat(0, 1)) * (max_distance! - min_distance!))) as Vector;
+}
+
+export function GenerateRandomPositionAroundPositionAngled(position: Vector, direction: Vector, min_distance: number, max_distance: number, min_angle: number, max_angle: number): Vector
+{
+    let random_pos = position + direction * (RandomInt(min_distance, max_distance)) as Vector;
+    const qangle = QAngle(0, RandomInt(min_angle, max_angle), 0);
+    let final_pos: Vector = RotatePosition(position, qangle, random_pos);
+
+    return final_pos;
 }
 
 // Serverside talent utility functions
@@ -984,7 +1012,7 @@ export function SpawnDummyUnit(location: Vector, owner: CDOTA_BaseNPC): CDOTA_Ba
 export function IsInRiver(unit: CDOTA_BaseNPC): boolean
 {
     if (unit.GetAbsOrigin().z <= 15) return true;
-    if (unit.HasModifier("modifier_reimagined_slithreen_crush_puddle")) return true;
+    if (unit.HasModifier("modifier_reimagined_slardar_puddle")) return true;
     return false;
 }
 

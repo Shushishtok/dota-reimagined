@@ -133,13 +133,143 @@
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 
+    //=================================================================================================================
+	// Ability: Slardar Slithereen Crush
+	//=================================================================================================================
+	"reimagined_slardar_slithereen_crush"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"
+    	"AbilityTextureName"			"slardar_slithereen_crush"
+    	"ScriptFile"				    "abilities/heroes/slardar/reimagined_slardar_slithereen_crush"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Slardar.Slithereen_Crush"
+        "HasScepterUpgrade"			"1"
 
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0.35 0.35 0.35 0.35"
 
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"8"
 
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"80 140 200 260"
 
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"90 100 110 120"
 
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.5"	// Applies multiple modifiers
 
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"crush_radius"				"350"
+			}
 
+			"02"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"crush_extra_slow"				"20 25 30 35"
+			}
+
+			"03"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"crush_attack_slow_tooltip"		"20 25 30 35"
+			}
+
+			"04"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"crush_extra_slow_duration"		"3 4 5 6"
+			}
+
+			"05"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"stun_duration"					"1"
+			}
+
+			"06"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"puddle_duration"		"25"
+				"RequiresScepter"			"1"
+			}
+
+			"07"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"puddle_radius"		"600"
+				"RequiresScepter"	"1"
+			}
+
+            "08"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"splash_attack_radius"			"600"
+			}
+
+            "09"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"splash_attack_puddle_count"	"4"
+			}
+
+            "10"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"splash_attack_puddle_search_radius"	"1200"
+			}
+
+            "11"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"splash_attack_puddle_radius"	"300"
+			}
+
+            "12"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"splash_attack_puddle_duration"	"15"
+			}
+
+            "13"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"splash_attack_projectile_speed"	"1800"
+			}
+
+            "14"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"splash_attack_projectile_vision"	"300"
+			}
+
+            "14"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"brine_breeze_range"	        "150 175 200 225"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
 
     //=================================================================================================================
     // Slardar: Talent: Tail Whack: Finish Strong deals additional x physical damage on all enemies in z radius of the landing position. Enemies that weren't stunned by it are slowed by y% for the duration.
@@ -199,6 +329,56 @@
             {
                 "var_type"			"FIELD_INTEGER"
                 "movespeed_pct"		"25"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Slardar: Talent: Hydro Pump: When Splash Attack projectiles land at their target position, a Slithereen Crush is cast on their location, utilizing river values. Those projectiles cannot create additional puddles.
+    //=================================================================================================================
+    "reimagined_slardar_talent_3"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/slardar/reimagined_slardar_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"slardar_slithereen_crush"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "value"             "1"
+            }
+        }
+    }
+
+    //=================================================================================================================
+    // Slardar: Talent: Naga Instincts: Allows Slithereen Crush to be immediately cast while stunned. If Slardar casts Slithereen Crush while stunned, he is also Strong Dispelled.
+    //=================================================================================================================
+    "reimagined_slardar_talent_4"
+    {
+        // General
+        //-------------------------------------------------------------------------------------------------------------
+        "BaseClass"					"ability_lua"
+        "ScriptFile"				"abilities/heroes/slardar/reimagined_slardar_talents"
+        "AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityType"				"DOTA_ABILITY_TYPE_BASIC"
+        "AbilityTextureName"		"slardar_slithereen_crush"
+
+        // Special
+        //-------------------------------------------------------------------------------------------------------------
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"			"FIELD_INTEGER"
+                "value"             "1"
             }
         }
     }

@@ -186,6 +186,7 @@ export class modifier_reimagined_slardar_sprint_river extends BaseModifier
 
     GetModifierConstantHealthRegen(): number
     {
+        if (!IsValidEntity(this.caster) || this.caster.IsNull()) return 0;
         if (this.caster.HasScepter() && this.GetStackCount() == 0) return this.puddle_regen!;
 
         return 0;
@@ -193,6 +194,7 @@ export class modifier_reimagined_slardar_sprint_river extends BaseModifier
 
     GetModifierPhysicalArmorBonus(): number
     {
+        if (!IsValidEntity(this.caster) || this.caster.IsNull()) return 0;
         if (this.caster.HasScepter() && this.GetStackCount() == 0) return this.puddle_armor!;
 
         return 0;
