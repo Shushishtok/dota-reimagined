@@ -21,7 +21,6 @@ export function GenerateLocalizationData(): LocalizationData
     //#endregion
 
     // Enter localization data below!
-
     Abilities.push({
         ability_classname: "reimagined_slardar_sprint",
         name: "Guardian Sprint",
@@ -197,7 +196,53 @@ export function GenerateLocalizationData(): LocalizationData
     Modifiers.push({
         modifier_classname: "modifier_reimagined_slardar_slithereen_crush_slow",
         name: "Slithereen Crush",
-        description: `Affected by Slardar's Slithereen Crush. Move speed slowed by {${LocalizationModifierProperty.MOVESPEED_BONUS_PERCENTAGE}}% and attack speed slowed by {${LocalizationModifierProperty.ATTACKSPEED_BONUS_CONSTANT}}."`
+        description: `Affected by Slardar's Slithereen Crush. Move speed slowed by {${LocalizationModifierProperty.MOVESPEED_BONUS_PERCENTAGE}}% and attack speed slowed by {${LocalizationModifierProperty.ATTACKSPEED_BONUS_CONSTANT}}.`
+    });
+
+    Abilities.push({
+        ability_classname: "reimagined_slardar_bash",
+        name: "Bash of the Deep",
+        description: "After ${attack_count} attacks, your next attack will bash the target.",
+        lore: "Thieves of the wealth of the Deep Ones meet the brutality of the Slithereen Guard in melee combat.",
+        notes: ["Does not stack with Skull Basher.",
+                "Crusher will only accumlate stacks if the caster has Slithereen Crush and it is trained.",
+                "Basher Chain will not extend if the longest stun's duration is lower than Bash of the Deep's duration."],
+        reimagined_effects:
+        [
+            {
+                title: "Crusher",
+                description: "Every ${crusher_proc_count} Bash of the Deep procs, casts Slithereen Crush for free."
+            },
+
+            {
+                title: "Basher Chain",
+                description: "If the target is already stunned when proccing a bash, Bash of the Deep's stun duration is extended by the longest current stun duration."
+            }
+        ],
+        ability_specials:
+        [
+            {
+                ability_special: "bonus_damage",
+                text: "BONUS DAMAGE"
+            },
+
+            {
+                ability_special: "duration",
+                text: "BASH DURATION"
+            }
+        ]
+    });
+
+    Modifiers.push({
+        modifier_classname: "modifier_reimagined_slardar_bash_passive",
+        name: "Bash of the Deep",
+        description: `Applies a bash every {${LocalizationModifierProperty.TOOLTIP}} attacks.`
+    });
+
+    Modifiers.push({
+        modifier_classname: "modifier_reimagined_slardar_bash_crusher_counter",
+        name: "Crusher",
+        description: `Casts Slithereen Crush for free every {${LocalizationModifierProperty.TOOLTIP}} Bash of the Deep procs.`
     });
 
     return localization_info;

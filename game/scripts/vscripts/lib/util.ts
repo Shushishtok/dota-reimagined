@@ -1088,3 +1088,120 @@ export function RemoveActiveModifierItem(item: CDOTA_Item)
         }
     }
 }
+
+export function IsStunModifier(modifier_name: string, include_bashes: boolean): boolean
+{
+    if (include_bashes && modifier_name == "modifier_bashed") return true;
+    if (modifier_name.indexOf("_stun") != -1) return true;
+
+    // This only includes stuns that are not channeling based (which mean they can end earlier than expected)
+    const stun_modifier_names =
+    [
+        "modifier_ancientapparition_coldfeet_freeze",
+        "modifier_bane_nightmare",
+        "modifier_rattletrap_cog_push",
+        "modifier_dark_seer_vacuum",
+        "modifier_earthspirit_petrify",
+        "modifier_faceless_void_timelock_freeze",
+        "modifier_faceless_void_chronosphere_freeze",
+        "modifier_invoker_cold_snap_freeze",
+        "modifier_hoodwink_bushwhack_trap",
+        "modifier_lion_impale",
+        "modifier_kunkka_torrent",
+        "modifier_magnataur_skewer_impact",
+        "modifier_medusa_stone_gaze_stone",
+        "modifier_morphling_adaptive_strike",
+        "modifier_necrolyte_reapers_scythe",
+        "modifier_nyx_assassin_impale",
+        "modifier_sandking_impale",
+        "modifier_tidehunter_ravage",
+        "modifier_storm_spirit_electric_vortex_pull",
+        "modifier_windrunner_shackle_shot",
+        "modifier_winter_wyvern_winters_curse_aura"
+    ]
+
+    if (stun_modifier_names.includes(modifier_name)) return true;
+    return false;
+}
+
+export function GenerateRandomConsumableItem(rare_consumables_chance: number): string
+{
+    const consumables =
+    [
+        "item_faerie_fire",
+        "item_infused_raindrop",
+        "item_clarity",
+        "item_reimagined_enchanted_mango",
+        "item_flask",
+        "item_dust",
+        "item_ward_observer",
+        "item_ward_sentry",
+        "item_tango",
+        "item_tpscroll",
+    ]
+
+    const very_rare_consumables =
+    [
+        "item_cheese",
+        "item_refresher_shard",
+        "item_tome_of_knowledge"
+    ];
+
+    if (rare_consumables_chance > 0)
+    {
+        // Roll for a rare consumable
+        if (RollPercentage(rare_consumables_chance))
+        {
+            // Return a random rare consumable
+            return GenerateRandomArrayElement(very_rare_consumables);
+        }
+    }
+
+    // Roll for a standard consumable
+    return GenerateRandomArrayElement(consumables);
+}
+
+export function GenerateRandomArrayElement(array: Array<any>): any
+{
+    return array[RandomInt(0, array.length -1)];
+}
+
+export function CreateBagOfGoldInPosition(gold_min: number, gold_max: number, position: Vector, lifetime?: number)
+{
+    const gold_bag = CreateItem("item_bag_of_gold", undefined, undefined) as CDOTA_Item_BagOfGold;
+    if (gold_bag)
+    {
+        gold_bag.SetPurchaseTime(0);
+        gold_bag.SetCurrentCharges(RandomInt(gold_min, gold_max));
+
+        CreateItemOnPositionSync(position, gold_bag);
+        gold_bag.LaunchLoot( true, 300, 0.75, position);
+        if (lifetime)
+        {
+            gold_bag.SetLifeTime(lifetime);
+        }
+    }
+}
+
+export function CreateItemInPosition(item_name: string, position: Vector, lifetime?: number)
+{
+    const item = CreateItem(item_name, undefined, undefined);
+    if (item)
+    {
+        item.SetPurchaseTime(0);
+        const item_physical = CreateItemOnPositionSync(position, item);
+        item.LaunchLoot(true, 300, 0.75, position);
+
+        if (lifetime)
+        {
+            Timers.CreateTimer(lifetime, () =>
+            {
+                if (IsValidEntity(item_physical) && !item_physical.IsNull())
+                {
+                    UTIL_Remove(item_physical.GetContainedItem());
+                    UTIL_Remove(item_physical);
+                }
+            });
+        }
+    }
+}

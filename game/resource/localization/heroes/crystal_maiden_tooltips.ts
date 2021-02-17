@@ -106,7 +106,7 @@ export function GenerateLocalizationData(): LocalizationData
         [
             {
                 title: "Eternal Cold",
-                description: "Lasts infinitely on creeps, dealing ${eternal_cold_fixed_damage%} damage per tick. Can still be dispellable."
+                description: "Lasts infinitely on creeps, dealing ${eternal_cold_fixed_damage} damage per tick. Can still be dispellable."
             },
 
             {
