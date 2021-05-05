@@ -72,7 +72,7 @@ export class modifier_reimagined_phantom_assassin_coup_de_grace_passive extends 
                 ]
     }
 
-    GetModifierPreAttack_CriticalStrike(event: ModifierAttackEvent): number | void
+    GetModifierPreAttack_CriticalStrike(event: ModifierAttackEvent): number | undefined
     {
         // Does not apply on allies, buildings or wards
         if (event.target.GetTeamNumber() == this.parent.GetTeamNumber() || event.target.IsBuilding() || event.target.IsOther()) return;

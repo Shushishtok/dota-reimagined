@@ -236,7 +236,6 @@ export class GameMode
         this.Game.SetRuneEnabled(RuneType.ILLUSION, true);
         this.Game.SetRuneEnabled(RuneType.INVISIBILITY, true);
         this.Game.SetRuneEnabled(RuneType.REGENERATION, true);
-        this.Game.SetRuneEnabled(RuneType.XP, false);
         this.Game.SetMaximumAttackSpeed(1400);
         this.Game.SetMinimumAttackSpeed(75);
         this.Game.SetCustomScanCooldown(120);
