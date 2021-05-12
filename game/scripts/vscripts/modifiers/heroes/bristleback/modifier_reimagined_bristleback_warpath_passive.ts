@@ -13,22 +13,22 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
 	modifier_simmer_down: string = "modifier_reimagined_bristleback_warpath_simmer_down";
 
 	// Modifier specials
-	stack_duration?: number;
+	stack_duration: number = 0;
 
 	// Reimagined properties
 	particle_anger_burst: string = "particles/heroes/bristleback/bristleback_warpath_anger_burst_trigger.vpcf";
 	particle_anger_burst_fx?: ParticleID;
 
 	// Reimagined specials
-	anger_burst_damage_threshold?: number;
-	anger_burst_reset_time?: number;
-	tantrum_stack_duration?: number;
+	anger_burst_damage_threshold: number = 0;
+	anger_burst_reset_time: number = 0;
+	tantrum_stack_duration: number = 0;
 
 	// Reimagined talent properties
 	talent_7_modifier = "modifier_reimagined_bristleback_talent_7_buff";
 
 	// Reimagined talent specials
-	talent_7_duration?: number;
+	talent_7_duration: number = 0;
 
 	IsHidden() {
 		return false;
@@ -47,7 +47,7 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
 	}
 
 	OnCreated(): void {
-		this.GetAbilitySpecials();
+		this.FetchAbilitySpecials();
 
 		if (!IsServer()) return;
 
@@ -70,10 +70,10 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
 	}
 
 	OnRefresh(): void {
-		this.GetAbilitySpecials();
+		this.FetchAbilitySpecials();
 	}
 
-	GetAbilitySpecials() {
+	FetchAbilitySpecials() {
 		// Modifier specials
 		this.stack_duration = this.ability.GetSpecialValueFor("stack_duration");
 
@@ -93,9 +93,7 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
 		];
 	}
 
-	OnAbilityFullyCast(event: ModifierAbilityEvent): void {
-		if (!IsServer()) return;
-
+	OnParentCastAbility(event: ModifierAbilityEvent): void {
 		// Only apply if the caster is the parent, or, if it is an illusion, the caster is the one casting the ability
 		if (!this.IsValidCasterForWarpath(event)) return;
 
@@ -127,7 +125,7 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
 		}
 	}
 
-	OnTakeDamage(event: ModifierInstanceEvent): void {
+	OnParentTakeDamage(event: ModifierInstanceEvent) {
 		// Reimagined: Anger Burst: When Bristleback accumulates over x damage after reductions, generates a Warpath stack. Resets after not taking any damage over y seconds.
 		this.ReimaginedAngerBurst(event);
 	}

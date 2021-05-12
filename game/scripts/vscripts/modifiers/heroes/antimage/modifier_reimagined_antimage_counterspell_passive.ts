@@ -1,6 +1,5 @@
-import { BaseModifier, registerModifier, BaseAbility } from "../../../lib/dota_ts_adapter";
+import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
-import { modifier_reimagined_antimage_counterspell_active } from "./modifier_reimagined_antimage_counterspell_active";
 
 @registerModifier()
 export class modifier_reimagined_antimage_counterspell_passive extends BaseModifier {
@@ -12,10 +11,10 @@ export class modifier_reimagined_antimage_counterspell_passive extends BaseModif
 	currently_reflecting: boolean = false;
 
 	// Modifier specials
-	magic_resistance?: number;
+	magic_resistance: number = 0;
 
 	// Reimagined specials
-	instinctive_counter_trigger_multiplier?: number;
+	instinctive_counter_trigger_multiplier: number = 0;
 
 	IsHidden() {
 		return true;
@@ -28,11 +27,7 @@ export class modifier_reimagined_antimage_counterspell_passive extends BaseModif
 	}
 
 	OnCreated(): void {
-		// Modifier specials
-		this.magic_resistance = this.ability.GetSpecialValueFor("magic_resistance");
-
-		// Reimagined specials
-		this.instinctive_counter_trigger_multiplier = this.ability.GetSpecialValueFor("instinctive_counter_trigger_multiplier");
+		this.FetchAbilitySpecials();
 
 		// Initialize reflection table for Counterspell's active
 		this.reflected_abilities = [];
@@ -43,6 +38,10 @@ export class modifier_reimagined_antimage_counterspell_passive extends BaseModif
 	}
 
 	OnRefresh(): void {
+		this.FetchAbilitySpecials();
+	}
+
+	FetchAbilitySpecials() {
 		// Modifier specials
 		this.magic_resistance = this.ability.GetSpecialValueFor("magic_resistance");
 
@@ -67,7 +66,7 @@ export class modifier_reimagined_antimage_counterspell_passive extends BaseModif
 		if (this.parent.IsIllusion()) return 0;
 		if (this.parent.PassivesDisabled()) return 0;
 
-		return this.magic_resistance!;
+		return this.magic_resistance;
 	}
 
 	GetAbsorbSpell(event: ModifierAbilityEvent): 0 | 1 {
@@ -93,10 +92,10 @@ export class modifier_reimagined_antimage_counterspell_passive extends BaseModif
 		if (this.parent.IsIllusion()) return false;
 
 		// Does not trigger if the active portion is currently working
-		if (this.parent.HasModifier(modifier_reimagined_antimage_counterspell_active.name)) return false;
+		if (this.parent.HasModifier("modifier_reimagined_antimage_counterspell_active")) return false;
 
-		const manacost: number = this.ability.GetManaCost(this.ability.GetLevel() - 1) * this.instinctive_counter_trigger_multiplier!;
-		const cooldown: number = this.ability.GetCooldown(this.ability.GetLevel() - 1) * this.instinctive_counter_trigger_multiplier!;
+		const manacost: number = this.ability.GetManaCost(this.ability.GetLevel() - 1) * this.instinctive_counter_trigger_multiplier;
+		const cooldown: number = this.ability.GetCooldown(this.ability.GetLevel() - 1) * this.instinctive_counter_trigger_multiplier;
 
 		// Check if the ability is set to auto cast and it is ready to be used
 		if (this.ability.GetAutoCastState() && this.ability.IsCooldownReady() && manacost <= this.parent.GetMana()) {

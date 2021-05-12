@@ -8,9 +8,9 @@ export class modifier_reimagined_bristleback_bristleback_moving_fortress extends
 	parent: CDOTA_BaseNPC = this.GetParent();
 
 	// Modifier specials
-	moving_fortress_move_slow_pct?: number;
-	moving_fortress_attack_speed_slow?: number;
-	moving_fortress_damage_reduction_bonus?: number;
+	moving_fortress_move_slow_pct: number = 0;
+	moving_fortress_attack_speed_slow: number = 0;
+	moving_fortress_damage_reduction_bonus: number = 0;
 
 	IsHidden() {
 		return false;
@@ -23,6 +23,10 @@ export class modifier_reimagined_bristleback_bristleback_moving_fortress extends
 	}
 
 	OnCreated(): void {
+		this.FetchAbilitySpecials();
+	}
+
+	FetchAbilitySpecials() {
 		// Modifier specials
 		this.moving_fortress_move_slow_pct = this.ability.GetSpecialValueFor("moving_fortress_move_slow_pct");
 		this.moving_fortress_attack_speed_slow = this.ability.GetSpecialValueFor("moving_fortress_attack_speed_slow");
@@ -34,14 +38,14 @@ export class modifier_reimagined_bristleback_bristleback_moving_fortress extends
 	}
 
 	GetModifierMoveSpeedBonus_Percentage(): number {
-		return this.moving_fortress_move_slow_pct! * -1;
+		return this.moving_fortress_move_slow_pct * -1;
 	}
 
 	GetModifierAttackSpeedBonus_Constant(): number {
-		return this.moving_fortress_attack_speed_slow! * -1;
+		return this.moving_fortress_attack_speed_slow * -1;
 	}
 
 	OnTooltip(): number {
-		return this.moving_fortress_damage_reduction_bonus!;
+		return this.moving_fortress_damage_reduction_bonus;
 	}
 }

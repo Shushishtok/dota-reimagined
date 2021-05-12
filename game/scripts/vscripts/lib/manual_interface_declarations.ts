@@ -19,7 +19,13 @@ declare interface KnockbackProperties {
 }
 
 interface CDOTA_BaseNPC {
-	oldAddNewModifier: <TThis>(this: TThis, caster: CDOTA_BaseNPC | undefined, ability: CDOTABaseAbility | undefined, modifierName: string, modifierTable: object | undefined) => CDOTA_Buff;
+	oldAddNewModifier: <TThis>(
+		this: TThis,
+		caster: CDOTA_BaseNPC | undefined,
+		ability: CDOTABaseAbility | undefined,
+		modifierName: string,
+		modifierTable: object | undefined
+	) => CDOTA_Buff;
 	active_item_modifiers: Map<string, CDOTA_Item[]>;
 }
 
@@ -39,6 +45,13 @@ interface CDOTA_BaseNPC_Hero {
 interface CDOTA_Buff {
 	GetModifierLifeStealStacking(): number;
 	GetModifierStatusAmp(): number;
+	OnParentDeath(event: ModifierInstanceEvent): void;
+	OnParentTakeDamage(event: ModifierInstanceEvent): void;
+	OnParentDealDamage(event: ModifierInstanceEvent): void;
+	OnParentKilledUnit(event: ModifierInstanceEvent): void;
+	OnParentAttackLanded(event: ModifierAttackEvent): void;
+	OnParentCastAbility(event: ModifierAbilityEvent): void;
+	FetchAbilitySpecials(): void;
 }
 
 interface CDOTABaseAbility {

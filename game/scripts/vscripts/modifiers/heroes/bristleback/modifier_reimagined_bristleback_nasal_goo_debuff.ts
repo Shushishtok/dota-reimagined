@@ -6,7 +6,7 @@ import { FindUnitsAroundUnit } from "../../../lib/util";
 export class modifier_reimagined_bristleback_nasal_goo_debuff extends BaseModifier {
 	// Modifier properties
 	caster: CDOTA_BaseNPC = this.GetCaster()!;
-	ability: CDOTABaseAbility = this.GetAbility()!;
+	ability: reimagined_bristleback_viscous_nasal_goo = this.GetAbility() as reimagined_bristleback_viscous_nasal_goo;
 	parent: CDOTA_BaseNPC = this.GetParent();
 	particle_effect: string = "particles/units/heroes/hero_bristleback/bristleback_viscous_nasal_goo_debuff.vpcf";
 	particle_status_effect: string = "particles/status_fx/status_effect_goo.vpcf";
@@ -14,15 +14,15 @@ export class modifier_reimagined_bristleback_nasal_goo_debuff extends BaseModifi
 	particle_debuff_counter_fx?: ParticleID;
 
 	// Modifier specials
-	base_armor?: number;
-	armor_per_stack?: number;
-	base_move_slow?: number;
-	move_slow_per_stack?: number;
+	base_armor: number = 0;
+	armor_per_stack: number = 0;
+	base_move_slow: number = 0;
+	move_slow_per_stack: number = 0;
 
 	// Reimagined specials
-	running_nose_sneeze_interval?: number;
-	running_nose_stacks_threshold?: number;
-	running_nose_radius?: number;
+	running_nose_sneeze_interval: number = 0;
+	running_nose_stacks_threshold: number = 0;
+	running_nose_radius: number = 0;
 
 	IsHidden() {
 		return false;
@@ -38,6 +38,13 @@ export class modifier_reimagined_bristleback_nasal_goo_debuff extends BaseModifi
 	}
 
 	OnCreated(): void {
+		// Add particle
+		this.particle_debuff_counter_fx = ParticleManager.CreateParticle(this.particle_debuff_counter, ParticleAttachment.OVERHEAD_FOLLOW, this.parent);
+		ParticleManager.SetParticleControl(this.particle_debuff_counter_fx, 1, Vector(0, this.GetStackCount(), 0));
+		this.AddParticle(this.particle_debuff_counter_fx, false, false, -1, false, false);
+	}
+
+	FetchAbilitySpecials() {
 		// Modifier specials
 		this.base_armor = this.ability.GetSpecialValueFor("base_armor");
 		this.armor_per_stack = this.ability.GetSpecialValueFor("armor_per_stack");
@@ -48,11 +55,6 @@ export class modifier_reimagined_bristleback_nasal_goo_debuff extends BaseModifi
 		this.running_nose_sneeze_interval = this.ability.GetSpecialValueFor("running_nose_sneeze_interval");
 		this.running_nose_stacks_threshold = this.ability.GetSpecialValueFor("running_nose_stacks_threshold");
 		this.running_nose_radius = this.ability.GetSpecialValueFor("running_nose_radius");
-
-		// Add particle
-		this.particle_debuff_counter_fx = ParticleManager.CreateParticle(this.particle_debuff_counter, ParticleAttachment.OVERHEAD_FOLLOW, this.parent);
-		ParticleManager.SetParticleControl(this.particle_debuff_counter_fx, 1, Vector(0, this.GetStackCount(), 0));
-		this.AddParticle(this.particle_debuff_counter_fx, false, false, -1, false, false);
 	}
 
 	OnStackCountChanged() {
@@ -69,8 +71,8 @@ export class modifier_reimagined_bristleback_nasal_goo_debuff extends BaseModifi
 		if (!IsServer()) return;
 
 		// Check if the stack count is at the threshold
-		if (this.GetStackCount() >= this.running_nose_stacks_threshold!) {
-			this.StartIntervalThink(this.running_nose_sneeze_interval!);
+		if (this.GetStackCount() >= this.running_nose_stacks_threshold) {
+			this.StartIntervalThink(this.running_nose_sneeze_interval);
 		}
 	}
 
@@ -78,19 +80,26 @@ export class modifier_reimagined_bristleback_nasal_goo_debuff extends BaseModifi
 		if (!IsServer()) return;
 
 		// Find the parent's allies in radius
-		let enemies = FindUnitsAroundUnit(this.caster, this.parent, this.running_nose_radius!, UnitTargetTeam.ENEMY, UnitTargetType.HERO + UnitTargetType.BASIC, UnitTargetFlags.NO_INVIS);
+		let enemies = FindUnitsAroundUnit(
+			this.caster,
+			this.parent,
+			this.running_nose_radius,
+			UnitTargetTeam.ENEMY,
+			UnitTargetType.HERO + UnitTargetType.BASIC,
+			UnitTargetFlags.NO_INVIS
+		);
 
 		// Remove self from the table
-		enemies = enemies.filter((enemy) => enemy != this.parent);
+		enemies = enemies.filter((enemy) => enemy !== this.parent);
 
 		// If at least one enemy exists, emit sound
 		if (enemies.length > 1) {
-			EmitSoundOn((this.ability as reimagined_bristleback_viscous_nasal_goo).sound_cast, this.parent);
+			EmitSoundOn(this.ability.sound_cast, this.parent);
 		}
 
 		// Fire a Nasal Goo particle towards them
 		for (const enemy of enemies) {
-			(this.ability as reimagined_bristleback_viscous_nasal_goo).FireNasalGoo(this.parent, enemy, false);
+			this.ability.FireNasalGoo(this.parent, enemy, false);
 		}
 	}
 
@@ -99,11 +108,11 @@ export class modifier_reimagined_bristleback_nasal_goo_debuff extends BaseModifi
 	}
 
 	GetModifierPhysicalArmorBonus(): number {
-		return (this.base_armor! + this.armor_per_stack! * this.GetStackCount()) * -1;
+		return (this.base_armor + this.armor_per_stack * this.GetStackCount()) * -1;
 	}
 
 	GetModifierMoveSpeedBonus_Percentage(): number {
-		return (this.base_move_slow! + this.move_slow_per_stack! * this.GetStackCount()) * -1;
+		return (this.base_move_slow + this.move_slow_per_stack * this.GetStackCount()) * -1;
 	}
 
 	GetEffectName(): string {

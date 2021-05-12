@@ -1,9 +1,9 @@
-import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
-import { modifier_reimagined_antimage_mana_break_mana_convergence_counter } from "./modifier_reimagined_antimage_mana_break_mana_convergence_counter";
-import { modifier_reimagined_antimage_mana_break_disable } from "./modifier_reimagined_antimage_mana_break_disable";
-import { modifier_reimagined_antimage_mana_convergence_debuff } from "./modifier_reimagined_antimage_mana_convergence_debuff";
-import * as util from "../../../lib/util";
 import { AntiMageTalents } from "../../../abilities/heroes/antimage/reimagined_antimage_talents";
+import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
+import * as util from "../../../lib/util";
+import { modifier_reimagined_antimage_mana_break_disable } from "./modifier_reimagined_antimage_mana_break_disable";
+import { modifier_reimagined_antimage_mana_break_mana_convergence_counter } from "./modifier_reimagined_antimage_mana_break_mana_convergence_counter";
+import { modifier_reimagined_antimage_mana_convergence_debuff } from "./modifier_reimagined_antimage_mana_convergence_debuff";
 
 @registerModifier()
 export class modifier_reimagined_antimage_mana_break extends BaseModifier {
@@ -20,20 +20,20 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier {
 	particle_mana_cleave_burn_fx?: ParticleID;
 
 	// Modifier specials
-	percent_damage_per_burn?: number;
-	mana_per_hit?: number;
-	mana_per_hit_pct?: number;
-	illusion_percentage?: number;
+	percent_damage_per_burn: number = 0;
+	mana_per_hit: number = 0;
+	mana_per_hit_pct: number = 0;
+	illusion_percentage: number = 0;
 
 	// Reimagined specials
-	mana_cleave_distance?: number;
-	mana_cleave_starting_width?: number;
-	mana_cleave_end_width?: number;
-	mana_cleave_mana_burn?: number;
-	mana_convergence_hit_duration?: number;
+	mana_cleave_distance: number = 0;
+	mana_cleave_starting_width: number = 0;
+	mana_cleave_end_width: number = 0;
+	mana_cleave_mana_burn: number = 0;
+	mana_convergence_hit_duration: number = 0;
 
 	// Reimagined talent specials
-	talent_2_pure_dmg_pct?: number;
+	talent_2_pure_dmg_pct: number = 0;
 
 	IsHidden() {
 		return true;
@@ -46,26 +46,26 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier {
 	}
 
 	OnCreated(): void {
-		// Modifier properties
-
-		this.ability = this.GetAbility()!;
-
-		// Modifier specials
-		this.percent_damage_per_burn = this.ability?.GetSpecialValueFor("percent_damage_per_burn");
-		this.mana_per_hit = this.ability?.GetSpecialValueFor("mana_per_hit");
-		this.mana_per_hit_pct = this.ability?.GetSpecialValueFor("mana_per_hit_pct");
-		this.illusion_percentage = this.ability?.GetSpecialValueFor("illusion_percentage");
-
-		// Reimagined specials
-		this.mana_cleave_distance = this.ability?.GetSpecialValueFor("mana_cleave_distance");
-		this.mana_cleave_starting_width = this.ability?.GetSpecialValueFor("mana_cleave_starting_width");
-		this.mana_cleave_end_width = this.ability?.GetSpecialValueFor("mana_cleave_end_width");
-		this.mana_cleave_mana_burn = this.ability?.GetSpecialValueFor("mana_cleave_mana_burn");
-		this.mana_convergence_hit_duration = this.ability?.GetSpecialValueFor("mana_convergence_hit_duration");
+		this.FetchAbilitySpecials();
 	}
 
 	OnRefresh(): void {
-		this.OnCreated();
+		this.FetchAbilitySpecials();
+	}
+
+	FetchAbilitySpecials() {
+		// Modifier specials
+		this.percent_damage_per_burn = this.ability.GetSpecialValueFor("percent_damage_per_burn");
+		this.mana_per_hit = this.ability.GetSpecialValueFor("mana_per_hit");
+		this.mana_per_hit_pct = this.ability.GetSpecialValueFor("mana_per_hit_pct");
+		this.illusion_percentage = this.ability.GetSpecialValueFor("illusion_percentage");
+
+		// Reimagined specials
+		this.mana_cleave_distance = this.ability.GetSpecialValueFor("mana_cleave_distance");
+		this.mana_cleave_starting_width = this.ability.GetSpecialValueFor("mana_cleave_starting_width");
+		this.mana_cleave_end_width = this.ability.GetSpecialValueFor("mana_cleave_end_width");
+		this.mana_cleave_mana_burn = this.ability.GetSpecialValueFor("mana_cleave_mana_burn");
+		this.mana_convergence_hit_duration = this.ability.GetSpecialValueFor("mana_convergence_hit_duration");
 	}
 
 	DeclareFunctions(): ModifierFunction[] {
@@ -84,25 +84,25 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier {
 		if (event.target.IsMagicImmune()) return 0;
 
 		// Do nothing if the target is an ally
-		if (event.target.GetTeamNumber() == this.parent.GetTeamNumber()) return 0;
+		if (event.target.GetTeamNumber() === this.parent.GetTeamNumber()) return 0;
 
 		// Do nothing if the passive Mana Break is disabled by Energy Blast
-		if (this.parent.HasModifier(modifier_reimagined_antimage_mana_break_disable.name)) return 0;
+		if (this.parent.HasModifier("modifier_reimagined_antimage_mana_break_disable")) return 0;
 
 		// Do nothing if the target is a building
 		if (event.target.IsBuilding()) return 0;
 
 		// Do nothing if the target has no mana
-		if (event.target.GetMaxMana() == 0) return 0;
+		if (event.target.GetMaxMana() === 0) return 0;
 
 		let damage: number;
 
 		// Calculate the mana burn amount for that target
-		let mana_burn_amount = this.mana_per_hit! + this.mana_per_hit_pct! * event.target.GetMaxMana() * 0.01;
+		let mana_burn_amount = this.mana_per_hit + this.mana_per_hit_pct * event.target.GetMaxMana() * 0.01;
 
 		// Check if parent is an illusion; if so, calculate damage percentage of illusion reduction
 		if (this.parent.IsIllusion()) {
-			mana_burn_amount = mana_burn_amount * this.illusion_percentage! * 0.01;
+			mana_burn_amount = mana_burn_amount * this.illusion_percentage * 0.01;
 		}
 
 		// Check if target has enough mana to burn; otherwise, burn all its mana and adjust damage accordingly
@@ -117,7 +117,7 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier {
 		event.target.ReduceMana(actual_mana_burned);
 
 		// Calculate damage percentage of mana burned
-		damage = actual_mana_burned * this.percent_damage_per_burn! * 0.01;
+		damage = actual_mana_burned * this.percent_damage_per_burn * 0.01;
 
 		// Play sound
 		EmitSoundOn(this.sound_mana_break, event.target);
@@ -135,20 +135,17 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier {
 		return this.ReimaginedTalentFlowingVoid(event);
 	}
 
-	OnAttackLanded(event: ModifierAttackEvent): void {
-		// Ignore client
-		if (!IsServer()) return;
-
+	OnParentAttackLanded(event: ModifierAttackEvent): void {
 		// Only apply if the attacker is the caster
-		if (this.parent == event.attacker) {
+		if (this.parent === event.attacker) {
 			// If the caster's passives are disabled, do nothing
 			if (this.parent.PassivesDisabled()) return;
 
 			// If the target is an ally, do nothing
-			if (this.parent.GetTeamNumber() == event.target.GetTeamNumber()) return;
+			if (this.parent.GetTeamNumber() === event.target.GetTeamNumber()) return;
 
 			// Do nothing if the passive Mana Break is disabled by Energy Blast
-			if (this.parent.HasModifier(modifier_reimagined_antimage_mana_break_disable.name)) return;
+			if (this.parent.HasModifier("modifier_reimagined_antimage_mana_break_disable")) return;
 
 			// Reimagined: Mana Cleave. Causes Anti Mage's attacks to burn mana in a cleave-like pattern
 			this.ReimaginedManaCleave(event);
@@ -157,7 +154,7 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier {
 			if (event.target.IsBuilding()) return;
 
 			// Do nothing if the target has no mana
-			if (event.target.GetMaxMana() == 0) return;
+			if (event.target.GetMaxMana() === 0) return;
 
 			// Reimagined: Mana Convergence. After a few attacks on an enemy unit, trigger Mana Convergence on the enemy for a few seconds, which reduces mana loss reduction
 			this.ReimaginedManaConvergence(event);
@@ -170,9 +167,9 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier {
 			this.parent.GetTeamNumber(),
 			this.parent.GetForwardVector(),
 			this.parent.GetAbsOrigin(),
-			this.mana_cleave_starting_width!,
-			this.mana_cleave_end_width!,
-			this.mana_cleave_distance!,
+			this.mana_cleave_starting_width,
+			this.mana_cleave_end_width,
+			this.mana_cleave_distance,
 			undefined,
 			UnitTargetTeam.ENEMY,
 			UnitTargetType.HERO + UnitTargetType.BASIC,
@@ -192,25 +189,25 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier {
 
 		// Cycle enemies
 		for (const enemy of enemies) {
-			let mana_burn = this.mana_cleave_mana_burn!;
+			let mana_burn = this.mana_cleave_mana_burn;
 
 			// Ignore main target of the attack
-			if (enemy == event.target) {
+			if (enemy === event.target) {
 				continue;
 			}
 
 			// Ignore targets that have no mana
-			if (enemy.GetMaxMana() == 0) {
+			if (enemy.GetMaxMana() === 0) {
 				continue;
 			}
 
 			// If the attacker is an illusion, reduce mana burn potency
 			if (this.parent.IsIllusion()) {
-				mana_burn = mana_burn * this.illusion_percentage! * 0.01;
+				mana_burn = mana_burn * this.illusion_percentage * 0.01;
 			}
 
 			// Check if enemy has enough mana to burn
-			if (enemy.GetMana() < mana_burn!) {
+			if (enemy.GetMana() < mana_burn) {
 				mana_burn = enemy.GetMana();
 			}
 
@@ -228,13 +225,13 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier {
 		let modifier_mana_convergence;
 
 		// If the target alreayd has the mana convergence *debuff* modifier, do nothing
-		if (event.target.HasModifier(modifier_reimagined_antimage_mana_convergence_debuff.name)) return;
+		if (event.target.HasModifier("modifier_reimagined_antimage_mana_convergence_debuff")) return;
 
 		// If target already has the mana convergence modifier, fetch it
-		if (event.target.HasModifier(modifier_reimagined_antimage_mana_break_mana_convergence_counter.name)) {
-			modifier_mana_convergence = event.target.FindModifierByName(modifier_reimagined_antimage_mana_break_mana_convergence_counter.name);
+		if (event.target.HasModifier("modifier_reimagined_antimage_mana_break_mana_convergence_counter")) {
+			modifier_mana_convergence = event.target.FindModifierByName("modifier_reimagined_antimage_mana_break_mana_convergence_counter");
 		} else {
-			modifier_mana_convergence = event.target.AddNewModifier(this.parent, this.ability, modifier_reimagined_antimage_mana_break_mana_convergence_counter.name, {
+			modifier_mana_convergence = event.target.AddNewModifier(this.parent, this.ability, "modifier_reimagined_antimage_mana_break_mana_convergence_counter", {
 				duration: this.mana_convergence_hit_duration,
 			});
 		}
@@ -250,8 +247,8 @@ export class modifier_reimagined_antimage_mana_break extends BaseModifier {
 	ReimaginedTalentFlowingVoid(event: ModifierAttackEvent): number {
 		if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_2)) {
 			if (!this.talent_2_pure_dmg_pct) this.talent_2_pure_dmg_pct = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_2, "pure_dmg_pct");
-			if (event.target.GetMana() == 0) {
-				const pure_damage = (this.mana_per_hit! + this.mana_per_hit_pct! * event.target.GetMaxMana() * 0.01) * this.talent_2_pure_dmg_pct * 0.01;
+			if (event.target.GetMana() === 0) {
+				const pure_damage = (this.mana_per_hit + this.mana_per_hit_pct * event.target.GetMaxMana() * 0.01) * this.talent_2_pure_dmg_pct * 0.01;
 				SendOverheadEventMessage(undefined, OverheadAlert.DAMAGE, event.target, pure_damage, undefined);
 				return pure_damage;
 			}

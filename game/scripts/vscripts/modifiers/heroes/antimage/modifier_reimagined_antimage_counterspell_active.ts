@@ -16,18 +16,18 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
 	particle_absorb_fx?: ParticleID;
 
 	// Modifier specials
-	shard_illusion_duration?: number;
-	shard_illusion_incoming_damage?: number;
-	shard_illusion_outgoing_damage?: number;
+	shard_illusion_duration: number = 0;
+	shard_illusion_incoming_damage: number = 0;
+	shard_illusion_outgoing_damage: number = 0;
 
 	// Reimagined specials
-	magic_ends_mana_burn?: number;
-	anti_magic_duration_inc?: number;
-	instinctive_counter_trigger_multiplier?: number;
+	magic_ends_mana_burn: number = 0;
+	anti_magic_duration_inc: number = 0;
+	instinctive_counter_trigger_multiplier: number = 0;
 
 	// Reimagined talent specials
-	silence_duration?: number;
-	magic_cannot_harm_me_duration?: number;
+	silence_duration: number = 0;
+	magic_cannot_harm_me_duration: number = 0;
 
 	IsHidden() {
 		return false;
@@ -40,24 +40,25 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
 	}
 
 	OnCreated(): void {
-		// Modifier properties
-		this.ability = this.GetAbility()!;
-
-		// Modifier specials
-		this.shard_illusion_duration = this.ability.GetSpecialValueFor("shard_illusion_duration");
-		this.shard_illusion_incoming_damage = this.ability.GetSpecialValueFor("shard_illusion_incoming_damage");
-		this.shard_illusion_outgoing_damage = this.ability.GetSpecialValueFor("shard_illusion_outgoing_damage");
-
-		// Reimagined specials
-		this.magic_ends_mana_burn = this.ability?.GetSpecialValueFor("magic_ends_mana_burn");
-		this.anti_magic_duration_inc = this.ability?.GetSpecialValueFor("anti_magic_duration_inc");
-		this.instinctive_counter_trigger_multiplier = this.ability?.GetSpecialValueFor("instinctive_counter_trigger_multiplier");
+		this.FetchAbilitySpecials();
 
 		// Play particle
 		this.particle_shield_fx = ParticleManager.CreateParticle(this.particle_shield, ParticleAttachment.ABSORIGIN_FOLLOW, this.parent);
 		ParticleManager.SetParticleControl(this.particle_shield_fx, 0, this.parent.GetAbsOrigin());
 		ParticleManager.SetParticleControl(this.particle_shield_fx, 1, Vector(150, 150, 150));
 		this.AddParticle(this.particle_shield_fx, false, false, -1, false, false);
+	}
+
+	FetchAbilitySpecials() {
+		// Modifier specials
+		this.shard_illusion_duration = this.ability.GetSpecialValueFor("shard_illusion_duration");
+		this.shard_illusion_incoming_damage = this.ability.GetSpecialValueFor("shard_illusion_incoming_damage");
+		this.shard_illusion_outgoing_damage = this.ability.GetSpecialValueFor("shard_illusion_outgoing_damage");
+
+		// Reimagined specials
+		this.magic_ends_mana_burn = this.ability.GetSpecialValueFor("magic_ends_mana_burn");
+		this.anti_magic_duration_inc = this.ability.GetSpecialValueFor("anti_magic_duration_inc");
+		this.instinctive_counter_trigger_multiplier = this.ability.GetSpecialValueFor("instinctive_counter_trigger_multiplier");
 	}
 
 	DeclareFunctions(): ModifierFunction[] {
@@ -72,7 +73,7 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
 
 		// Play absorb effect
 		this.particle_absorb_fx = ParticleManager.CreateParticle(this.particle_absorb, ParticleAttachment.CUSTOMORIGIN_FOLLOW, this.parent);
-		ParticleManager.SetParticleControlEnt(this.particle_absorb_fx, 0, this.parent, ParticleAttachment.POINT_FOLLOW, "attach_hitloc", this.parent.GetAbsOrigin(), true);
+		ParticleManager.SetParticleControlEnt(this.particle_absorb_fx, 0, this.parent, ParticleAttachment.POINT_FOLLOW, AttachLocation.HITLOC, this.parent.GetAbsOrigin(), true);
 		ParticleManager.ReleaseParticleIndex(this.particle_absorb_fx);
 
 		return 1;
@@ -123,14 +124,14 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
 	}
 
 	ReimaginedTheMagicEndsHere(original_caster: CDOTA_BaseNPC): void {
-		original_caster.ReduceMana(this.magic_ends_mana_burn!);
+		original_caster.ReduceMana(this.magic_ends_mana_burn);
 
 		// Talent: Abolish Magic: Counterspell's The Magic Ends Here now also silences the caster for x seconds after reflecting a spell towards it.
 		this.ReimaginedTalentAbolishMagic(original_caster);
 	}
 
 	ReimaginedAntiMagicShell(): void {
-		this.SetDuration(this.GetRemainingTime() + this.anti_magic_duration_inc!, true);
+		this.SetDuration(this.GetRemainingTime() + this.anti_magic_duration_inc, true);
 	}
 
 	ReimaginedTalentAbolishMagic(original_caster: CDOTA_BaseNPC) {
@@ -145,7 +146,9 @@ export class modifier_reimagined_antimage_counterspell_active extends BaseModifi
 			if (!this.magic_cannot_harm_me_duration) this.magic_cannot_harm_me_duration = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_6, "duration");
 			let talent_modifier;
 			if (!this.caster.HasModifier("modifier_reimagined_antimage_talent_6_buff")) {
-				talent_modifier = this.caster.AddNewModifier(this.caster, this.ability, "modifier_reimagined_antimage_talent_6_buff", { duration: this.magic_cannot_harm_me_duration });
+				talent_modifier = this.caster.AddNewModifier(this.caster, this.ability, "modifier_reimagined_antimage_talent_6_buff", {
+					duration: this.magic_cannot_harm_me_duration,
+				});
 			} else {
 				talent_modifier = this.caster.FindModifierByName("modifier_reimagined_antimage_talent_6_buff");
 			}

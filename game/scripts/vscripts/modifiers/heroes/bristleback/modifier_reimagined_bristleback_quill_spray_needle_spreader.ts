@@ -5,11 +5,11 @@ import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_bristleback_quill_spray_needle_spreader extends BaseModifier {
 	// Modifier properties
 	caster: CDOTA_BaseNPC = this.GetCaster()!;
-	ability: CDOTABaseAbility = this.GetAbility()!;
+	ability: reimagined_bristleback_quill_spray = this.GetAbility()! as reimagined_bristleback_quill_spray;
 	parent: CDOTA_BaseNPC = this.GetParent();
 
 	// Modifier specials
-	needle_spreader_interval?: number;
+	needle_spreader_interval: number = 0;
 
 	IsHidden() {
 		return false;
@@ -22,17 +22,21 @@ export class modifier_reimagined_bristleback_quill_spray_needle_spreader extends
 	}
 
 	OnCreated(): void {
-		// Modifier specials
-		this.needle_spreader_interval = this.ability.GetSpecialValueFor("needle_spreader_interval");
+		this.FetchAbilitySpecials();
 
 		// Start thinking
 		if (!IsServer()) return;
 		this.StartIntervalThink(this.needle_spreader_interval);
 	}
 
+	FetchAbilitySpecials() {
+		// Modifier specials
+		this.needle_spreader_interval = this.ability.GetSpecialValueFor("needle_spreader_interval");
+	}
+
 	OnIntervalThink(): void {
 		// Fire a new Quill Spray
-		(this.ability as reimagined_bristleback_quill_spray).FireQuillSpray(this.caster);
+		this.ability.FireQuillSpray(this.caster);
 	}
 
 	CheckState(): Partial<Record<ModifierState, boolean>> {
@@ -44,6 +48,6 @@ export class modifier_reimagined_bristleback_quill_spray_needle_spreader extends
 	}
 
 	OnTooltip(): number {
-		return this.needle_spreader_interval!;
+		return this.needle_spreader_interval;
 	}
 }

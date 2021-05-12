@@ -10,7 +10,7 @@ export class modifier_reimagined_bristleback_talent_7_buff extends BaseModifier 
 	parent: CDOTA_BaseNPC = this.GetParent();
 
 	// Modifier specials
-	attack_speed_bonus?: number;
+	attack_speed_bonus: number = 0;
 
 	IsHidden() {
 		return false;
@@ -23,6 +23,10 @@ export class modifier_reimagined_bristleback_talent_7_buff extends BaseModifier 
 	}
 
 	OnCreated(): void {
+		this.FetchAbilitySpecials();
+	}
+
+	FetchAbilitySpecials() {
 		// Modifier specials
 		this.attack_speed_bonus = GetTalentSpecialValueFor(this.caster, BristlebackTalents.BristlebackTalent_7, "attack_speed_bonus");
 	}
@@ -32,6 +36,6 @@ export class modifier_reimagined_bristleback_talent_7_buff extends BaseModifier 
 	}
 
 	GetModifierAttackSpeedBonus_Constant(): number {
-		return this.attack_speed_bonus!;
+		return this.attack_speed_bonus;
 	}
 }

@@ -17,15 +17,64 @@ export class modifier_reimagined_game_mechanics extends BaseModifier {
 	}
 
 	DeclareFunctions(): ModifierFunction[] {
-		return [ModifierFunction.ON_ATTACK_LANDED, ModifierFunction.ON_DEATH, ModifierFunction.ON_ORDER];
+		return [ModifierFunction.ON_ATTACK_LANDED, ModifierFunction.ON_DEATH, ModifierFunction.ON_ORDER, ModifierFunction.ON_ABILITY_FULLY_CAST, ModifierFunction.ON_TAKEDAMAGE];
+	}
+
+	OnAbilityFullyCast(event: ModifierAbilityEvent) {
+		if (!IsServer()) return;
+		const modifiers = event.unit.FindAllModifiers() as CDOTA_Modifier_Lua[];
+		this.ApplyOnAbilityFullyCast(event, modifiers);
+	}
+
+	ApplyOnAbilityFullyCast(event: ModifierAbilityEvent, modifiers: CDOTA_Modifier_Lua[]) {
+		for (const modifier of modifiers) {
+			if (modifier.OnParentCastAbility) {
+				modifier.OnParentCastAbility(event);
+			}
+		}
+	}
+
+	OnTakeDamage(event: ModifierInstanceEvent) {
+		if (!IsServer()) return;
+		this.ApplyOnParentTakeDamage(event);
+		this.ApplyOnParentDealDamage(event);
+	}
+
+	ApplyOnParentTakeDamage(event: ModifierInstanceEvent) {
+		const modifiers = event.unit.FindAllModifiers() as CDOTA_Modifier_Lua[];
+		for (const modifier of modifiers) {
+			if (modifier.OnParentTakeDamage) {
+				modifier.OnParentTakeDamage(event);
+			}
+		}
+	}
+
+	ApplyOnParentDealDamage(event: ModifierInstanceEvent) {
+		const modifiers = event.attacker.FindAllModifiers() as CDOTA_Modifier_Lua[];
+		for (const modifier of modifiers) {
+			if (modifier.OnParentDealDamage) {
+				modifier.OnParentDealDamage(event);
+			}
+		}
 	}
 
 	OnAttackLanded(event: ModifierAttackEvent): void {
 		if (!IsServer()) return;
-		this.ApplyLifesteal(event);
+		this.ApplyOnAttackLanded(event);
 	}
 
-	ApplyLifesteal(event: ModifierAttackEvent): void {
+	ApplyOnAttackLanded(event: ModifierAttackEvent): void {
+		const modifiers = event.attacker.FindAllModifiers() as CDOTA_Modifier_Lua[];
+		for (const modifier of modifiers) {
+			if (modifier.OnParentAttackLanded) {
+				modifier.OnParentAttackLanded(event);
+			}
+		}
+
+		this.ApplyLifesteal(event, modifiers);
+	}
+
+	ApplyLifesteal(event: ModifierAttackEvent, modifiers: CDOTA_Modifier_Lua[]): void {
 		// If there was no damage done, or somehow it's negative, do nothing
 		if (event.damage <= 0) return;
 
@@ -36,7 +85,6 @@ export class modifier_reimagined_game_mechanics extends BaseModifier {
 		let lifesteal_pct = 0;
 		let lifesteal_multiplier = 0;
 		let lifesteal = 0;
-		const modifiers = event.attacker.FindAllModifiers() as CDOTA_Modifier_Lua[];
 
 		for (const modifier of modifiers) {
 			// Calculate lifesteal percentage on attacker
@@ -72,6 +120,8 @@ export class modifier_reimagined_game_mechanics extends BaseModifier {
 
 	OnDeath(event: ModifierInstanceEvent) {
 		if (!IsServer()) return;
+
+		// Play
 
 		// Play death sounds for custom units
 		if (event.unit) {

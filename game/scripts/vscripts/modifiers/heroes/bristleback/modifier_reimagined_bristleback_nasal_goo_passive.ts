@@ -6,11 +6,11 @@ import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 export class modifier_reimagined_bristleback_nasal_goo_passive extends BaseModifier {
 	// Modifier properties
 	caster: CDOTA_BaseNPC = this.GetCaster()!;
-	ability: CDOTABaseAbility = this.GetAbility()!;
+	ability: reimagined_bristleback_viscous_nasal_goo = this.GetAbility()! as reimagined_bristleback_viscous_nasal_goo;
 	parent: CDOTA_BaseNPC = this.GetParent();
 
 	// Modifier specials
-	sneezer_pound_chance?: number;
+	sneezer_pound_chance: number = 0;
 
 	IsHidden() {
 		return true;
@@ -26,14 +26,14 @@ export class modifier_reimagined_bristleback_nasal_goo_passive extends BaseModif
 	}
 
 	OnCreated(): void {
-		this.GetAbilitySpecialValues();
+		this.FetchAbilitySpecials();
 	}
 
 	OnRefresh(): void {
-		this.GetAbilitySpecialValues();
+		this.FetchAbilitySpecials();
 	}
 
-	GetAbilitySpecialValues(): void {
+	FetchAbilitySpecials(): void {
 		this.sneezer_pound_chance = this.ability.GetSpecialValueFor("sneezer_pound_chance");
 	}
 
@@ -45,7 +45,7 @@ export class modifier_reimagined_bristleback_nasal_goo_passive extends BaseModif
 		if (!IsServer()) return;
 
 		// Only apply on attacks done by the parent
-		if (event.attacker != this.parent) return;
+		if (event.attacker !== this.parent) return;
 
 		// Do nothing if target is a building or a ward
 		if (event.target.IsBuilding() || event.target.IsOther()) return;
@@ -60,8 +60,8 @@ export class modifier_reimagined_bristleback_nasal_goo_passive extends BaseModif
 		if (event.target.IsMagicImmune()) return;
 
 		// Calculate chance
-		if (RollPseudoRandomPercentage(this.sneezer_pound_chance!, PseudoRandom.CUSTOM_GAME_1, this.parent)) {
-			(this.ability as reimagined_bristleback_viscous_nasal_goo).FireNasalGoo(this.parent, event.target, true);
+		if (RollPseudoRandomPercentage(this.sneezer_pound_chance, PseudoRandom.CUSTOM_GAME_1, this.parent)) {
+			this.ability.FireNasalGoo(this.parent, event.target, true);
 		}
 	}
 }

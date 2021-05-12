@@ -12,8 +12,8 @@ export class modifier_reimagined_bristleback_quill_spray_stacks extends BaseModi
 	particle_quill_stacks_fx_table: ParticleID[] = [];
 
 	// Modifier specials
-	quill_stack_duration?: number;
-	quill_stack_damage?: number;
+	quill_stack_duration: number = 0;
+	quill_stack_damage: number = 0;
 
 	IsHidden() {
 		return false;
@@ -26,6 +26,10 @@ export class modifier_reimagined_bristleback_quill_spray_stacks extends BaseModi
 	}
 
 	OnCreated(): void {
+		this.FetchAbilitySpecials();
+	}
+
+	FetchAbilitySpecials() {
 		// Modifier specials
 		this.quill_stack_duration = this.ability.GetSpecialValueFor("quill_stack_duration");
 		this.quill_stack_damage = this.ability.GetSpecialValueFor("quill_stack_damage");
@@ -57,7 +61,7 @@ export class modifier_reimagined_bristleback_quill_spray_stacks extends BaseModi
 		if (this.ReimaginedTalentDrillQuills()) return;
 
 		// Add a new timer for those stack(s)
-		Timers.CreateTimer(this.quill_stack_duration!, () => {
+		Timers.CreateTimer(this.quill_stack_duration, () => {
 			// Verify the caster, the parent, and the modifier still exist as valid entities
 			if (IsValidEntity(this.caster) && IsValidEntity(this.parent) && !CBaseEntity.IsNull.call(this as any)) {
 				// Remove particle for each removed stack
@@ -70,7 +74,7 @@ export class modifier_reimagined_bristleback_quill_spray_stacks extends BaseModi
 				}
 
 				// Decrement stacks, or destroy modifier is there are no more stacks
-				if (this.GetStackCount() == new_stacks) {
+				if (this.GetStackCount() === new_stacks) {
 					this.Destroy();
 				} else {
 					this.SetStackCount(this.GetStackCount() - new_stacks);
@@ -88,7 +92,7 @@ export class modifier_reimagined_bristleback_quill_spray_stacks extends BaseModi
 	}
 
 	OnTooltip(): number {
-		return this.quill_stack_damage! * this.GetStackCount();
+		return this.quill_stack_damage * this.GetStackCount();
 	}
 
 	OnDestroy(): void {

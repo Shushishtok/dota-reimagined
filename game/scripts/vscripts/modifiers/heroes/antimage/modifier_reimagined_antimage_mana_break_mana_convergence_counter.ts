@@ -9,8 +9,8 @@ export class modifier_reimagined_antimage_mana_break_mana_convergence_counter ex
 	parent: CDOTA_BaseNPC = this.GetParent();
 
 	// Modifier specials
-	mana_convergence_hit_threshold?: number;
-	mana_convergence_debuff_duration?: number;
+	mana_convergence_hit_threshold: number = 0;
+	mana_convergence_debuff_duration: number = 0;
 
 	IsHidden() {
 		return false;
@@ -23,21 +23,22 @@ export class modifier_reimagined_antimage_mana_break_mana_convergence_counter ex
 	}
 
 	OnCreated(): void {
-		// Modifier properties
-		this.ability = this.GetAbility()!;
+		this.FetchAbilitySpecials();
+	}
 
+	FetchAbilitySpecials() {
 		// Modifier specials
-		this.mana_convergence_hit_threshold = this.ability?.GetSpecialValueFor("mana_convergence_hit_threshold");
-		this.mana_convergence_debuff_duration = this.ability?.GetSpecialValueFor("mana_convergence_debuff_duration");
+		this.mana_convergence_hit_threshold = this.ability.GetSpecialValueFor("mana_convergence_hit_threshold");
+		this.mana_convergence_debuff_duration = this.ability.GetSpecialValueFor("mana_convergence_debuff_duration");
 	}
 
 	OnStackCountChanged(): void {
 		if (!IsServer()) return;
 
 		// Check if stacks are currently on the threshold
-		if (this.GetStackCount() >= this.mana_convergence_hit_threshold!) {
+		if (this.GetStackCount() >= this.mana_convergence_hit_threshold) {
 			// Apply Mana Convergence debuff on the enemy
-			this.parent.AddNewModifier(this.caster!, this.ability, modifier_reimagined_antimage_mana_convergence_debuff.name, { duration: this.mana_convergence_debuff_duration });
+			this.parent.AddNewModifier(this.caster, this.ability, "modifier_reimagined_antimage_mana_convergence_debuff", { duration: this.mana_convergence_debuff_duration });
 
 			// Destroy self
 			this.Destroy();

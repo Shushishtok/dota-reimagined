@@ -9,7 +9,7 @@ export class modifier_reimagined_antimage_mana_convergence_debuff extends BaseMo
 	particle_debuff: string = "particles/heroes/anti_mage/antimage_mana_convergence_debuff.vpcf";
 
 	// Modifier specials
-	mana_convergence_manaloss_reduction_pct?: number;
+	mana_convergence_manaloss_reduction_pct: number = 0;
 
 	IsHidden() {
 		return false;
@@ -22,10 +22,10 @@ export class modifier_reimagined_antimage_mana_convergence_debuff extends BaseMo
 	}
 
 	OnCreated(): void {
-		// Modifier properties
+		this.FetchAbilitySpecials();
+	}
 
-		this.ability = this.GetAbility()!;
-
+	FetchAbilitySpecials() {
 		// Modifier specials
 		this.mana_convergence_manaloss_reduction_pct = this.ability?.GetSpecialValueFor("mana_convergence_manaloss_reduction_pct");
 	}
@@ -35,7 +35,7 @@ export class modifier_reimagined_antimage_mana_convergence_debuff extends BaseMo
 	}
 
 	GetModifierPercentageManacostStacking(): number {
-		return -this.mana_convergence_manaloss_reduction_pct!;
+		return -this.mana_convergence_manaloss_reduction_pct;
 	}
 
 	GetEffectName(): string {

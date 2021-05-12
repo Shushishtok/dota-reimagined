@@ -10,7 +10,7 @@ export class modifier_reimagined_antimage_talent_6_buff extends BaseModifier {
 	parent: CDOTA_BaseNPC = this.GetParent();
 
 	// Modifier specials
-	magic_resist_stack?: number;
+	magic_resist_stack: number = 0;
 
 	IsHidden() {
 		return false;
@@ -23,6 +23,10 @@ export class modifier_reimagined_antimage_talent_6_buff extends BaseModifier {
 	}
 
 	OnCreated(): void {
+		this.FetchAbilitySpecials();
+	}
+
+	FetchAbilitySpecials() {
 		// Modifier specials
 		this.magic_resist_stack = GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_6, "magic_resist_stack");
 	}

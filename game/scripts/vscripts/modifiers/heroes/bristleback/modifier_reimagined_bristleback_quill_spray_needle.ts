@@ -31,13 +31,13 @@ export class modifier_reimagined_bristleback_quill_spray_needle extends BaseModi
 		if (!IsServer()) return;
 
 		// Only apply if the unit doing the order is the parent
-		if (event.unit != this.parent) return;
+		if (event.unit !== this.parent) return;
 
 		// Only apply if the order on this ability
-		if (event.ability != this.ability) return;
+		if (event.ability !== this.ability) return;
 
 		// Only apply if the order was to toggle Autocast
-		if (event.order_type != UnitOrder.CAST_TOGGLE_AUTO) return;
+		if (event.order_type !== UnitOrder.CAST_TOGGLE_AUTO) return;
 
 		// Wait a frame, then check the auto cast state of the ability
 		Timers.CreateTimer(FrameTime(), () => {
