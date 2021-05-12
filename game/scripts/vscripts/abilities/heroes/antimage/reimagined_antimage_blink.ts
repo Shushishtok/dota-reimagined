@@ -1,12 +1,10 @@
-import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
+import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
 import { modifier_reimagined_antimage_blink_magic_nullity } from "../../../modifiers/heroes/antimage/modifier_reimagined_antimage_blink_magic_nullity";
 import { AntiMageTalents } from "./reimagined_antimage_talents";
 
-
 @registerAbility()
-export class reimagined_antimage_blink extends BaseAbility
-{
+export class reimagined_antimage_blink extends BaseAbility {
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
     sound_blink_out: string = "Hero_Antimage.Blink_out";
@@ -15,7 +13,8 @@ export class reimagined_antimage_blink extends BaseAbility
     particle_blink_start_fx?: ParticleID;
     particle_blink_end: string = "particles/units/heroes/hero_antimage/antimage_blink_end.vpcf";
     particle_blink_end_fx?: ParticleID;
-    particle_interference: string = "particles/econ/items/antimage/antimage_weapon_basher_ti5/am_manaburn_basher_ti_5.vpcf";
+    particle_interference: string =
+        "particles/econ/items/antimage/antimage_weapon_basher_ti5/am_manaburn_basher_ti_5.vpcf";
     particle_interference_fx?: ParticleID;
 
     // Ability specials
@@ -33,29 +32,38 @@ export class reimagined_antimage_blink extends BaseAbility
     stun_per_units?: number;
     units_interval?: number;
 
-
-    Precache(context: CScriptPrecacheContext)
-    {
-        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_antimage/antimage_blink_start.vpcf", context);
-        PrecacheResource(PrecacheType.PARTICLE, "particles/units/heroes/hero_antimage/antimage_blink_end.vpcf", context);
-        PrecacheResource(PrecacheType.PARTICLE, "particles/econ/items/antimage/antimage_weapon_basher_ti5/am_manaburn_basher_ti_5.vpcf", context);
-        PrecacheResource(PrecacheType.PARTICLE, "particles/heroes/anti_mage/antimage_magic_nullity_shield.vpcf", context);
+    Precache(context: CScriptPrecacheContext) {
+        PrecacheResource(
+            PrecacheType.PARTICLE,
+            "particles/units/heroes/hero_antimage/antimage_blink_start.vpcf",
+            context
+        );
+        PrecacheResource(
+            PrecacheType.PARTICLE,
+            "particles/units/heroes/hero_antimage/antimage_blink_end.vpcf",
+            context
+        );
+        PrecacheResource(
+            PrecacheType.PARTICLE,
+            "particles/econ/items/antimage/antimage_weapon_basher_ti5/am_manaburn_basher_ti_5.vpcf",
+            context
+        );
+        PrecacheResource(
+            PrecacheType.PARTICLE,
+            "particles/heroes/anti_mage/antimage_magic_nullity_shield.vpcf",
+            context
+        );
     }
 
-    GetBehavior(): number | Uint64
-    {
-        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4))
-        {
+    GetBehavior(): number | Uint64 {
+        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4)) {
             return AbilityBehavior.POINT + AbilityBehavior.ROOT_DISABLES + AbilityBehavior.AUTOCAST;
-        }
-        else
-        {
+        } else {
             return super.GetBehavior();
         }
     }
 
-    OnSpellStart(): void
-    {
+    OnSpellStart(): void {
         // Ability properties
         const target_position = this.GetCursorPosition();
         const direction = util.CalculateDirectionToPosition(this.caster.GetAbsOrigin(), target_position);
@@ -81,12 +89,9 @@ export class reimagined_antimage_blink extends BaseAbility
         blink_range = this.ReimaginedTalentOverblink(blink_range);
 
         let blink_pos: Vector;
-        if (distance <= blink_range)
-        {
+        if (distance <= blink_range) {
             blink_pos = target_position;
-        }
-        else
-        {
+        } else {
             blink_pos = (this.caster.GetAbsOrigin() + direction * blink_range) as Vector;
         }
 
@@ -94,7 +99,11 @@ export class reimagined_antimage_blink extends BaseAbility
         EmitSoundOn(this.sound_blink_out, this.caster);
 
         // Play blink start particle
-        this.particle_blink_start_fx = ParticleManager.CreateParticle(this.particle_blink_start, ParticleAttachment.WORLDORIGIN, undefined);
+        this.particle_blink_start_fx = ParticleManager.CreateParticle(
+            this.particle_blink_start,
+            ParticleAttachment.WORLDORIGIN,
+            undefined
+        );
         ParticleManager.SetParticleControl(this.particle_blink_start_fx, 0, original_caster_position);
         ParticleManager.ReleaseParticleIndex(this.particle_blink_start_fx);
 
@@ -107,7 +116,11 @@ export class reimagined_antimage_blink extends BaseAbility
         EmitSoundOn(this.sound_blink_in, this.caster);
 
         // Play blink end particle
-        this.particle_blink_end_fx = ParticleManager.CreateParticle(this.particle_blink_end, ParticleAttachment.ABSORIGIN_FOLLOW, this.caster);
+        this.particle_blink_end_fx = ParticleManager.CreateParticle(
+            this.particle_blink_end,
+            ParticleAttachment.ABSORIGIN_FOLLOW,
+            this.caster
+        );
         ParticleManager.SetParticleControl(this.particle_blink_end_fx, 0, this.caster.GetAbsOrigin());
         ParticleManager.ReleaseParticleIndex(this.particle_blink_end_fx);
 
@@ -121,90 +134,98 @@ export class reimagined_antimage_blink extends BaseAbility
         this.ReimaginationMagicNullity();
 
         // Talent: Overblink: Blink can now be set to auto cast. Triples Blink's max range, but causes Anti Mage to be stunned for up to y seconds after blinking. Scales by z for each x units above the regular cast range.
-       this.ReimaginedTalentOverblinkStun(original_caster_position, blink_pos);
+        this.ReimaginedTalentOverblinkStun(original_caster_position, blink_pos);
     }
 
-    ReimaginationReaction()
-    {
+    ReimaginationReaction() {
         // Find enemies around the caster
-        const enemies = util.FindUnitsAroundUnit(this.caster,
-                                                 this.caster,
-                                                 this.reaction_radius!,
-                                                 UnitTargetTeam.ENEMY,
-                                                 UnitTargetType.HERO + UnitTargetType.BASIC,
-                                                 UnitTargetFlags.NONE)
+        const enemies = util.FindUnitsAroundUnit(
+            this.caster,
+            this.caster,
+            this.reaction_radius!,
+            UnitTargetTeam.ENEMY,
+            UnitTargetType.HERO + UnitTargetType.BASIC,
+            UnitTargetFlags.NONE
+        );
 
         // Issue a stop command for every enemy
-        for (const enemy of enemies)
-        {
+        for (const enemy of enemies) {
             enemy.Stop();
         }
     }
 
-    ReimaginationInterference(start_pos: Vector)
-    {
+    ReimaginationInterference(start_pos: Vector) {
         // Find enemies in both start and end positions
-        const enemies_start = FindUnitsInRadius(this.caster.GetTeamNumber(),
-                                                start_pos,
-                                                undefined,
-                                                this.interference_radius!,
-                                                UnitTargetTeam.ENEMY,
-                                                UnitTargetType.HERO + UnitTargetType.BASIC,
-                                                UnitTargetFlags.MANA_ONLY,
-                                                FindOrder.ANY,
-                                                false);
+        const enemies_start = FindUnitsInRadius(
+            this.caster.GetTeamNumber(),
+            start_pos,
+            undefined,
+            this.interference_radius!,
+            UnitTargetTeam.ENEMY,
+            UnitTargetType.HERO + UnitTargetType.BASIC,
+            UnitTargetFlags.MANA_ONLY,
+            FindOrder.ANY,
+            false
+        );
 
-        const enemies_end = FindUnitsInRadius(this.caster.GetTeamNumber(),
-                                                this.caster.GetAbsOrigin(),
-                                                undefined,
-                                                this.interference_radius!,
-                                                UnitTargetTeam.ENEMY,
-                                                UnitTargetType.HERO + UnitTargetType.BASIC,
-                                                UnitTargetFlags.MANA_ONLY,
-                                                FindOrder.ANY,
-                                                false);
+        const enemies_end = FindUnitsInRadius(
+            this.caster.GetTeamNumber(),
+            this.caster.GetAbsOrigin(),
+            undefined,
+            this.interference_radius!,
+            UnitTargetTeam.ENEMY,
+            UnitTargetType.HERO + UnitTargetType.BASIC,
+            UnitTargetFlags.MANA_ONLY,
+            FindOrder.ANY,
+            false
+        );
 
         // Combine the arrays
         const enemies = enemies_start.concat(enemies_end);
 
-        for (const enemy of enemies)
-        {
+        for (const enemy of enemies) {
             // Play particle effect on enemies
-            this.particle_interference_fx = ParticleManager.CreateParticle(this.particle_interference, ParticleAttachment.ABSORIGIN_FOLLOW, enemy);
+            this.particle_interference_fx = ParticleManager.CreateParticle(
+                this.particle_interference,
+                ParticleAttachment.ABSORIGIN_FOLLOW,
+                enemy
+            );
             ParticleManager.SetParticleControl(this.particle_interference_fx, 0, enemy.GetAbsOrigin());
             ParticleManager.ReleaseParticleIndex(this.particle_interference_fx);
 
             // Remove a portion of the current mana that the enemy has, if any
-            if (enemy.GetMana() > 0)
-            {
+            if (enemy.GetMana() > 0) {
                 const mana_burn = enemy.GetMana() * this.interference_curr_mana_rdct_pct! * 0.01;
                 enemy.ReduceMana(mana_burn);
 
                 // Deal mana burn as physical damage
-                ApplyDamage(
-                {
+                ApplyDamage({
                     attacker: this.caster,
                     damage: mana_burn,
                     damage_type: this.GetAbilityDamageType(),
                     victim: enemy,
                     ability: this,
-                    damage_flags: DamageFlag.NONE
+                    damage_flags: DamageFlag.NONE,
                 });
             }
         }
     }
 
-    ReimaginationMagicNullity()
-    {
+    ReimaginationMagicNullity() {
         // Apply magic resistance modifier to caster
-        this.caster.AddNewModifier(this.caster, this, modifier_reimagined_antimage_blink_magic_nullity.name, {duration: this.magic_nullity_duration!});
+        this.caster.AddNewModifier(this.caster, this, modifier_reimagined_antimage_blink_magic_nullity.name, {
+            duration: this.magic_nullity_duration!,
+        });
     }
 
-    ReimaginedTalentOverblink(blink_range: number): number
-    {
-        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4) && this.GetAutoCastState())
-        {
-            if (!this.cast_range_increase) this.cast_range_increase = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "cast_range_increase");
+    ReimaginedTalentOverblink(blink_range: number): number {
+        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4) && this.GetAutoCastState()) {
+            if (!this.cast_range_increase)
+                this.cast_range_increase = util.GetTalentSpecialValueFor(
+                    this.caster,
+                    AntiMageTalents.AntiMageTalents_4,
+                    "cast_range_increase"
+                );
 
             return blink_range * this.cast_range_increase;
         }
@@ -212,29 +233,40 @@ export class reimagined_antimage_blink extends BaseAbility
         return blink_range;
     }
 
-    ReimaginedTalentOverblinkStun(original_caster_position: Vector, blink_pos: Vector)
-    {
-        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4) && this.GetAutoCastState())
-        {
+    ReimaginedTalentOverblinkStun(original_caster_position: Vector, blink_pos: Vector) {
+        if (util.HasTalent(this.caster, AntiMageTalents.AntiMageTalents_4) && this.GetAutoCastState()) {
             // Check if the Blink was over the regular cast range
             const blink_distance = util.CalculateDistanceBetweenPoints(original_caster_position, blink_pos);
-            if (blink_distance > this.blink_range!)
-            {
+            if (blink_distance > this.blink_range!) {
                 // Get variables
-                if (!this.max_stun) this.max_stun = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "max_stun");
-                if (!this.stun_per_units) this.stun_per_units = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "stun_per_units");
-                if (!this.units_interval) this.units_interval = util.GetTalentSpecialValueFor(this.caster, AntiMageTalents.AntiMageTalents_4, "units_interval");
+                if (!this.max_stun)
+                    this.max_stun = util.GetTalentSpecialValueFor(
+                        this.caster,
+                        AntiMageTalents.AntiMageTalents_4,
+                        "max_stun"
+                    );
+                if (!this.stun_per_units)
+                    this.stun_per_units = util.GetTalentSpecialValueFor(
+                        this.caster,
+                        AntiMageTalents.AntiMageTalents_4,
+                        "stun_per_units"
+                    );
+                if (!this.units_interval)
+                    this.units_interval = util.GetTalentSpecialValueFor(
+                        this.caster,
+                        AntiMageTalents.AntiMageTalents_4,
+                        "units_interval"
+                    );
 
                 // Calculate stun
-                const overblink_range = (blink_distance - this.blink_range!);
-                let overblink_stun = overblink_range / this.units_interval * this.stun_per_units
-                if (overblink_stun > this.max_stun)
-                {
+                const overblink_range = blink_distance - this.blink_range!;
+                let overblink_stun = (overblink_range / this.units_interval) * this.stun_per_units;
+                if (overblink_stun > this.max_stun) {
                     overblink_stun = this.max_stun;
                 }
 
                 // Stun self
-                this.caster.AddNewModifier(this.caster, this, BuiltInModifier.STUN, {duration: overblink_stun});
+                this.caster.AddNewModifier(this.caster, this, BuiltInModifier.STUN, { duration: overblink_stun });
             }
         }
     }

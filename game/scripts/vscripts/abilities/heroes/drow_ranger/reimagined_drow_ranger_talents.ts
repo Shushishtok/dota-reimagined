@@ -2,8 +2,7 @@ import { registerModifier } from "../../../lib/dota_ts_adapter";
 import { BaseTalent, BaseTalentModifier, registerTalent } from "../../../lib/talents";
 import { GetTalentSpecialValueFor } from "../../../lib/util";
 
-export const enum DrowRangerTalents
-{
+export const enum DrowRangerTalents {
     DrowRangerTalent_1 = "reimagined_drow_ranger_talent_1",
     DrowRangerTalent_2 = "reimagined_drow_ranger_talent_2",
     DrowRangerTalent_3 = "reimagined_drow_ranger_talent_3",
@@ -11,7 +10,7 @@ export const enum DrowRangerTalents
     DrowRangerTalent_5 = "reimagined_drow_ranger_talent_5",
     DrowRangerTalent_6 = "reimagined_drow_ranger_talent_6",
     DrowRangerTalent_7 = "reimagined_drow_ranger_talent_7",
-    DrowRangerTalent_8 = "reimagined_drow_ranger_talent_8"
+    DrowRangerTalent_8 = "reimagined_drow_ranger_talent_8",
 }
 
 @registerTalent()
@@ -33,8 +32,7 @@ export class reimagined_drow_ranger_talent_5 extends BaseTalent {}
 export class reimagined_drow_ranger_talent_6 extends BaseTalent {}
 
 @registerModifier()
-export class modifier_reimagined_drow_ranger_talent_7 extends BaseTalentModifier
-{
+export class modifier_reimagined_drow_ranger_talent_7 extends BaseTalentModifier {
     // Talent properties
     parent = this.GetParent() as CDOTA_BaseNPC_Hero;
     ability = this.GetAbility()!;
@@ -44,34 +42,50 @@ export class modifier_reimagined_drow_ranger_talent_7 extends BaseTalentModifier
     talent_7_pride_duration?: number;
     talent_7_internal_cd?: number;
 
-    IsHidden() {return true}
-    IsDebuff() {return false}
-    IsPurgable() {return false}
-    IsPermanent() {return true}
-    RemoveOnDeath() {return false}
+    IsHidden() {
+        return true;
+    }
+    IsDebuff() {
+        return false;
+    }
+    IsPurgable() {
+        return false;
+    }
+    IsPermanent() {
+        return true;
+    }
+    RemoveOnDeath() {
+        return false;
+    }
 
-    OnCreated()
-    {
+    OnCreated() {
         if (!IsServer()) return;
 
         // Initialize variables
-        if (!this.talent_7_pride_duration) this.talent_7_pride_duration = GetTalentSpecialValueFor(this.parent, DrowRangerTalents.DrowRangerTalent_7, "talent_7_pride_duration");
-        if (!this.talent_7_internal_cd) this.talent_7_internal_cd = GetTalentSpecialValueFor(this.parent, DrowRangerTalents.DrowRangerTalent_7, "talent_7_internal_cd");
+        if (!this.talent_7_pride_duration)
+            this.talent_7_pride_duration = GetTalentSpecialValueFor(
+                this.parent,
+                DrowRangerTalents.DrowRangerTalent_7,
+                "talent_7_pride_duration"
+            );
+        if (!this.talent_7_internal_cd)
+            this.talent_7_internal_cd = GetTalentSpecialValueFor(
+                this.parent,
+                DrowRangerTalents.DrowRangerTalent_7,
+                "talent_7_internal_cd"
+            );
 
         // Attempt to get the Marksmanship ability handle
-        if (this.parent.HasAbility("reimagined_drow_ranger_marksmanship"))
-        {
+        if (this.parent.HasAbility("reimagined_drow_ranger_marksmanship")) {
             this.marskmanship_ability_handle = this.parent.FindAbilityByName("reimagined_drow_ranger_marksmanship");
         }
     }
 
-    DeclareFunctions(): ModifierFunction[]
-    {
-        return [ModifierFunction.ON_TAKEDAMAGE]
+    DeclareFunctions(): ModifierFunction[] {
+        return [ModifierFunction.ON_TAKEDAMAGE];
     }
 
-    OnTakeDamage(event: ModifierAttackEvent)
-    {
+    OnTakeDamage(event: ModifierInstanceEvent) {
         if (!IsServer()) return;
 
         // Only applies if the unit taking damage is the parent
@@ -84,16 +98,24 @@ export class modifier_reimagined_drow_ranger_talent_7 extends BaseTalentModifier
         if (!this.marskmanship_ability_handle) return;
 
         // Check if we are not prevented from using this talent
-        if (!this.parent.HasModifier("modifier_reimagined_drow_ranger_talent_7_counter"))
-        {
+        if (!this.parent.HasModifier("modifier_reimagined_drow_ranger_talent_7_counter")) {
             // Check if Pride of the Drow is not currently active
-            if (!this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_pride_drow"))
-            {
+            if (!this.parent.HasModifier("modifier_reimagined_drow_ranger_marksmanship_pride_drow")) {
                 // Add the counter modifier
-                this.parent.AddNewModifier(this.parent, this.ability, "modifier_reimagined_drow_ranger_talent_7_counter", {duration: this.talent_7_internal_cd});
+                this.parent.AddNewModifier(
+                    this.parent,
+                    this.ability,
+                    "modifier_reimagined_drow_ranger_talent_7_counter",
+                    { duration: this.talent_7_internal_cd }
+                );
 
                 // Apply the modifier
-                this.parent.AddNewModifier(this.parent, this.marskmanship_ability_handle!, "modifier_reimagined_drow_ranger_marksmanship_pride_drow", {duration: this.talent_7_pride_duration});
+                this.parent.AddNewModifier(
+                    this.parent,
+                    this.marskmanship_ability_handle!,
+                    "modifier_reimagined_drow_ranger_marksmanship_pride_drow",
+                    { duration: this.talent_7_pride_duration }
+                );
             }
         }
     }

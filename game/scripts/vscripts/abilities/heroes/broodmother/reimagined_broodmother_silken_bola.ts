@@ -1,57 +1,49 @@
-import { BaseAbility , registerAbility } from "../../../lib/dota_ts_adapter";
+import { BaseAbility, registerAbility } from "../../../lib/dota_ts_adapter";
 import * as util from "../../../lib/util";
 import { modifier_reimagined_charges } from "../../../modifiers/general_mechanics/modifier_reimagined_charges";
-import "../../../modifiers/heroes/broodmother/modifier_reimagined_broodmother_silken_bola_debuff"
+import "../../../modifiers/heroes/broodmother/modifier_reimagined_broodmother_silken_bola_debuff";
 
 @registerAbility()
-export class reimagined_broodmother_silken_bola extends BaseAbility
-{
+export class reimagined_broodmother_silken_bola extends BaseAbility {
     // Ability properties
     caster: CDOTA_BaseNPC = this.GetCaster();
     sound_cast: string = "Hero_Broodmother.SilkenBola.Cast";
     sound_impact: string = "Hero_Broodmother.SilkenBola.Target";
     projectile_bola: string = "particles/units/heroes/hero_broodmother/broodmother_silken_bola_projectile.vpcf";
     particle_fx?: ParticleID;
-    ability_spin_web: string = "reimagined_broodmother_spin_web"
+    ability_spin_web: string = "reimagined_broodmother_spin_web";
     modifier_charges: string = "modifier_reimagined_charges";
-    modifier_debuff: string = "modifier_reimagined_broodmother_silken_bola_debuff"
+    modifier_debuff: string = "modifier_reimagined_broodmother_silken_bola_debuff";
 
     // Ability specials
     duration?: number;
     projectile_speed?: number;
     spin_web_charges_spend?: number;
 
-    GetAssociatedPrimaryAbilities(): string
-    {
+    GetAssociatedPrimaryAbilities(): string {
         return this.ability_spin_web;
     }
 
-    OnInventoryContentsChanged(): void
-    {
-        if (util.HasScepterShard(this.caster))
-        {
+    OnInventoryContentsChanged(): void {
+        if (util.HasScepterShard(this.caster)) {
             this.SetHidden(false);
             this.SetLevel(1);
-        }
-        else
-        {
+        } else {
             this.SetHidden(true);
         }
     }
 
-    OnUpgrade(): void
-    {
+    OnUpgrade(): void {
         this.duration = this.GetSpecialValueFor("duration");
         this.projectile_speed = this.GetSpecialValueFor("projectile_speed");
         this.spin_web_charges_spend = this.GetSpecialValueFor("spin_web_charges_spend");
     }
 
-    CastFilterResultTarget(target: CDOTA_BaseNPC): UnitFilterResult | undefined
-    {
+    CastFilterResultTarget(target: CDOTA_BaseNPC): UnitFilterResult | undefined {
         if (!IsServer()) return;
 
         // Find the Spin Web ability
-        if (!this.caster.HasAbility(this.ability_spin_web)) return UnitFilterResult.FAIL_CUSTOM
+        if (!this.caster.HasAbility(this.ability_spin_web)) return UnitFilterResult.FAIL_CUSTOM;
         const ability_spin_web = this.caster.FindAbilityByName(this.ability_spin_web);
 
         // Check that it is trained
@@ -63,13 +55,10 @@ export class reimagined_broodmother_silken_bola extends BaseAbility
 
         // Find modifier charges with the Spin Web ability (if we can't, throw error)
         let spin_web_charges_modifier;
-        for (const modifier of modifiers)
-        {
-            const modifier_ability = modifier.GetAbility()
-            if (modifier_ability)
-            {
-                if (modifier_ability == ability_spin_web)
-                {
+        for (const modifier of modifiers) {
+            const modifier_ability = modifier.GetAbility();
+            if (modifier_ability) {
+                if (modifier_ability == ability_spin_web) {
                     spin_web_charges_modifier = modifier;
                     break;
                 }
@@ -79,18 +68,25 @@ export class reimagined_broodmother_silken_bola extends BaseAbility
         if (!spin_web_charges_modifier) return UnitFilterResult.FAIL_CUSTOM;
 
         // Check that there is at least one charge
-        if (spin_web_charges_modifier.GetStackCount() < this.spin_web_charges_spend!) return UnitFilterResult.FAIL_CUSTOM;
+        if (spin_web_charges_modifier.GetStackCount() < this.spin_web_charges_spend!)
+            return UnitFilterResult.FAIL_CUSTOM;
 
         // Verify cast filter results
-        return UnitFilter(target, this.GetAbilityTargetTeam(), this.GetAbilityTargetType(), this.GetAbilityTargetFlags(), this.caster.GetTeamNumber());
+        return UnitFilter(
+            target,
+            this.GetAbilityTargetTeam(),
+            this.GetAbilityTargetType(),
+            this.GetAbilityTargetFlags(),
+            this.caster.GetTeamNumber()
+        );
     }
 
-    GetCustomCastErrorTarget(target: CDOTA_BaseNPC): string | undefined
-    {
+    GetCustomCastErrorTarget(target: CDOTA_BaseNPC): string | undefined {
         if (!IsServer()) return;
 
         // Find the Spin Web ability
-        if (!this.caster.HasAbility(this.ability_spin_web)) return "#DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web";
+        if (!this.caster.HasAbility(this.ability_spin_web))
+            return "#DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web";
         const ability_spin_web = this.caster.FindAbilityByName(this.ability_spin_web);
 
         // Check that it is trained
@@ -102,13 +98,10 @@ export class reimagined_broodmother_silken_bola extends BaseAbility
 
         // Find modifier charges with the Spin Web ability (if we can't, throw error)
         let spin_web_modifier;
-        for (const modifier of modifiers)
-        {
-            const modifier_ability = modifier.GetAbility()
-            if (modifier_ability)
-            {
-                if (modifier_ability.GetAbilityName() == this.ability_spin_web)
-                {
+        for (const modifier of modifiers) {
+            const modifier_ability = modifier.GetAbility();
+            if (modifier_ability) {
+                if (modifier_ability.GetAbilityName() == this.ability_spin_web) {
                     spin_web_modifier = modifier;
                     break;
                 }
@@ -119,11 +112,11 @@ export class reimagined_broodmother_silken_bola extends BaseAbility
         if (!spin_web_modifier) return "#DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web_charge_modifier";
 
         // Check that there is at least one charge
-        if (spin_web_modifier.GetStackCount() < this.spin_web_charges_spend!) return "#DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web_charges";
+        if (spin_web_modifier.GetStackCount() < this.spin_web_charges_spend!)
+            return "#DOTA_Tooltip_cast_error_broodmother_silken_bola_no_spin_web_charges";
     }
 
-    OnSpellStart(): void
-    {
+    OnSpellStart(): void {
         // Get target
         const target = this.GetCursorTarget();
         if (!target) return;
@@ -136,13 +129,10 @@ export class reimagined_broodmother_silken_bola extends BaseAbility
         const modifiers = this.caster.FindAllModifiersByName(this.modifier_charges);
 
         // Find the Spin Web charges modifier
-        for (const modifier of modifiers)
-        {
+        for (const modifier of modifiers) {
             const modifier_ability = modifier.GetAbility();
-            if (modifier_ability)
-            {
-                if (modifier_ability.GetAbilityName() == this.ability_spin_web)
-                {
+            if (modifier_ability) {
+                if (modifier_ability.GetAbilityName() == this.ability_spin_web) {
                     modifier_charges = modifier;
                 }
             }
@@ -151,11 +141,12 @@ export class reimagined_broodmother_silken_bola extends BaseAbility
         if (!modifier_charges) return;
 
         // Spend charge(s)
-        (modifier_charges as modifier_reimagined_charges).SetCurrentCharges(modifier_charges.GetStackCount() - this.spin_web_charges_spend!);
+        (modifier_charges as modifier_reimagined_charges).SetCurrentCharges(
+            modifier_charges.GetStackCount() - this.spin_web_charges_spend!
+        );
 
         // Fire projectile on target
-        ProjectileManager.CreateTrackingProjectile(
-        {
+        ProjectileManager.CreateTrackingProjectile({
             Ability: this,
             EffectName: this.projectile_bola,
             Source: this.caster,
@@ -165,12 +156,11 @@ export class reimagined_broodmother_silken_bola extends BaseAbility
             bVisibleToEnemies: true,
             iMoveSpeed: this.projectile_speed,
             iSourceAttachment: ProjectileAttachment.HITLOCATION,
-            vSourceLoc: this.caster.GetAbsOrigin()
+            vSourceLoc: this.caster.GetAbsOrigin(),
         });
     }
 
-    OnProjectileHit(target: CDOTA_BaseNPC | undefined, location: Vector): boolean | void
-    {
+    OnProjectileHit(target: CDOTA_BaseNPC | undefined, location: Vector): boolean | void {
         if (!target) return;
 
         // Does not if magic immune
@@ -180,12 +170,13 @@ export class reimagined_broodmother_silken_bola extends BaseAbility
         target.EmitSound(this.sound_impact);
 
         // Trigger Spell Absorb; do nothing else if triggered
-        if (target.GetTeamNumber() != this.caster.GetTeamNumber())
-        {
+        if (target.GetTeamNumber() != this.caster.GetTeamNumber()) {
             if (target.TriggerSpellAbsorb(this)) return;
         }
 
         // Add the debuff
-        target.AddNewModifier(this.caster, this, this.modifier_debuff, {duration: this.duration!});
+        target.AddNewModifier(this.caster, this, this.modifier_debuff, {
+            duration: this.duration!,
+        });
     }
 }

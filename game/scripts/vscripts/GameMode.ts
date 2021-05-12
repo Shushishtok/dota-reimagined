@@ -3,20 +3,26 @@ import "../vscripts/modifiers/general_mechanics/modifier_reimagined_courier_pass
 import "../vscripts/modifiers/general_mechanics/modifier_reimagined_game_mechanics";
 import { BaseTalent } from "./lib/talents";
 import { reloadable } from "./lib/tstl-utils";
-import { GetAllChargesModifiersForUnit, GetAllPlayers, GetTalentAbilityFromNumber, GetTalentNumber, IsRoshan, IsTalentAbility, PrepareTalentList, RegisterFunctionOverrides } from "./lib/util";
+import {
+    GetAllChargesModifiersForUnit,
+    GetAllPlayers,
+    GetTalentAbilityFromNumber,
+    GetTalentNumber,
+    IsRoshan,
+    IsTalentAbility,
+    PrepareTalentList,
+    RegisterFunctionOverrides,
+} from "./lib/util";
 import "../vscripts/lib/better_cooldown";
 
-declare global
-{
-    interface CDOTAGamerules
-    {
+declare global {
+    interface CDOTAGamerules {
         Addon: GameMode;
     }
 }
 
 @reloadable
-export class GameMode
-{
+export class GameMode {
     // Game Properties
     Game: CDOTABaseGameMode = GameRules.GetGameModeEntity();
     wtf_mode_enabled: boolean = false;
@@ -41,33 +47,29 @@ export class GameMode
     buyback_respawn_timer_increase = 15;
 
     // Rune rules
-    bounty_runes_spawn_interval = 5 // Minutes
-    power_runes_spawn_interval = 2 // Minutes
+    bounty_runes_spawn_interval = 5; // Minutes
+    power_runes_spawn_interval = 2; // Minutes
     power_runes_next_spawner: number = RandomInt(1, 2);
-    first_power_runes_time: number = 4 // Minutes
+    first_power_runes_time: number = 4; // Minutes
     runespawnerMap: Map<EntityIndex, number> = new Map();
 
     // Buyback rules
     buyback_cooldown: number = 240;
 
-    public static Precache(this: void, context: CScriptPrecacheContext)
-    {
+    public static Precache(this: void, context: CScriptPrecacheContext) {
         print("Precaching sounds");
         PrecacheResource("soundfile", "soundevents/custom_sounds.vsndevts", context);
     }
 
-    public static Activate(this: void)
-    {
+    public static Activate(this: void) {
         GameRules.Addon = new GameMode();
     }
 
-    constructor()
-    {
+    constructor() {
         this.configure();
     }
 
-    public configure()
-    {
+    public configure() {
         this.RegisterEvents();
         this.RmgGameRules();
         this.AssignMechanicsModifier();
@@ -76,44 +78,51 @@ export class GameMode
         RegisterFunctionOverrides();
     }
 
-    RegisterEvents()
-    {
+    RegisterEvents() {
         ListenToGameEvent("game_rules_state_change", () => this.OnStateChange(), undefined);
-        ListenToGameEvent("npc_spawned", event => this.OnNpcSpawned(event), undefined);
-        ListenToGameEvent("dota_player_gained_level", event => this.OnPlayerLevelUp(event), undefined);
-        ListenToGameEvent("player_chat", event => this.OnPlayerChat(event), undefined);
-        ListenToGameEvent("server_pre_shutdown", event => this.OnServerPreShutdown(event), undefined);
-        ListenToGameEvent("server_shutdown", event => this.OnServerShutdown(event), undefined);
-        ListenToGameEvent("entity_killed", event => this.OnEntityKilled(event), undefined);
+        ListenToGameEvent("npc_spawned", (event) => this.OnNpcSpawned(event), undefined);
+        ListenToGameEvent("dota_player_gained_level", (event) => this.OnPlayerLevelUp(event), undefined);
+        ListenToGameEvent("player_chat", (event) => this.OnPlayerChat(event), undefined);
+        ListenToGameEvent("server_pre_shutdown", (event) => this.OnServerPreShutdown(event), undefined);
+        ListenToGameEvent("server_shutdown", (event) => this.OnServerShutdown(event), undefined);
+        ListenToGameEvent("entity_killed", (event) => this.OnEntityKilled(event), undefined);
         CustomGameEventManager.RegisterListener("learn_talent_event", (_, event) => this.OnLearnTalent(event, 0));
-        CustomGameEventManager.RegisterListener("send_currently_selected_unit", (_,event) => this.OnSentCurrentlySelectedUnit(event))
-        CustomGameEventManager.RegisterListener("ping_talent", (_,event) => this.OnPingTalent(event))
+        CustomGameEventManager.RegisterListener("send_currently_selected_unit", (_, event) =>
+            this.OnSentCurrentlySelectedUnit(event)
+        );
+        CustomGameEventManager.RegisterListener("ping_talent", (_, event) => this.OnPingTalent(event));
     }
 
-    RegisterFilters()
-    {
-        this.Game.SetModifyExperienceFilter(event => this.ExperienceModifiedFilter(event), this);
-        this.Game.SetModifyGoldFilter(event => this.GoldModifiedFilter(event), this);
-        this.Game.SetRuneSpawnFilter(event => this.RuneSpawnFilter(event), this);
-        this.Game.SetExecuteOrderFilter(event => this.ExecuteOrderFilter(event), this)
+    RegisterFilters() {
+        this.Game.SetModifyExperienceFilter((event) => this.ExperienceModifiedFilter(event), this);
+        this.Game.SetModifyGoldFilter((event) => this.GoldModifiedFilter(event), this);
+        this.Game.SetRuneSpawnFilter((event) => this.RuneSpawnFilter(event), this);
+        this.Game.SetExecuteOrderFilter((event) => this.ExecuteOrderFilter(event), this);
     }
 
-    ExperienceModifiedFilter(event: ModifyExperienceFilterEvent): boolean
-    {
+    ExperienceModifiedFilter(event: ModifyExperienceFilterEvent): boolean {
         // Only multiply XP given by kills
-        if (event.reason_const == ModifyXpReason.CREEP_KILL || event.reason_const == ModifyXpReason.HERO_KILL || event.reason_const == ModifyXpReason.ROSHAN_KILL)
-        {
+        if (
+            event.reason_const == ModifyXpReason.CREEP_KILL ||
+            event.reason_const == ModifyXpReason.HERO_KILL ||
+            event.reason_const == ModifyXpReason.ROSHAN_KILL
+        ) {
             event.experience = event.experience * this.xp_multiplier * 0.01;
         }
 
         return true;
     }
 
-    GoldModifiedFilter(event: ModifyGoldFilterEvent): boolean
-    {
+    GoldModifiedFilter(event: ModifyGoldFilterEvent): boolean {
         // Only multiply gold given by kills
-        if (event.reason_const == ModifyGoldReason.HERO_KILL || event.reason_const == ModifyGoldReason.WARD_KILL || event.reason_const == ModifyGoldReason.CREEP_KILL || event.reason_const == ModifyGoldReason.ROSHAN_KILL || event.reason_const == ModifyGoldReason.COURIER_KILL || event.reason_const == ModifyGoldReason.NEUTRAL_KILL)
-        {
+        if (
+            event.reason_const == ModifyGoldReason.HERO_KILL ||
+            event.reason_const == ModifyGoldReason.WARD_KILL ||
+            event.reason_const == ModifyGoldReason.CREEP_KILL ||
+            event.reason_const == ModifyGoldReason.ROSHAN_KILL ||
+            event.reason_const == ModifyGoldReason.COURIER_KILL ||
+            event.reason_const == ModifyGoldReason.NEUTRAL_KILL
+        ) {
             event.gold = event.gold * this.gold_multiplier * 0.01;
         }
 
@@ -121,15 +130,13 @@ export class GameMode
     }
 
     // This actually seems to completely ignore bounty runes, which sucks
-    RuneSpawnFilter(event: RuneSpawnFilterEvent): boolean
-    {
+    RuneSpawnFilter(event: RuneSpawnFilterEvent): boolean {
         const spawner = EntIndexToHScript(event.spawner_entindex_const);
         let classname;
         if (spawner) classname = spawner.GetClassname();
 
         // Map the power rune spawners
-        if (!this.runespawnerMap.has(event.spawner_entindex_const))
-        {
+        if (!this.runespawnerMap.has(event.spawner_entindex_const)) {
             this.runespawnerMap.set(event.spawner_entindex_const, this.runespawnerMap.size + 1);
         }
 
@@ -146,30 +153,24 @@ export class GameMode
         return true;
     }
 
-    ExecuteOrderFilter(event: ExecuteOrderFilterEvent): boolean
-    {
-        const units: CDOTA_BaseNPC[] = []
-        for (const [string, entityIndex] of Object.entries(event.units))
-        {
+    ExecuteOrderFilter(event: ExecuteOrderFilterEvent): boolean {
+        const units: CDOTA_BaseNPC[] = [];
+        for (const [string, entityIndex] of Object.entries(event.units)) {
             const unit = EntIndexToHScript(entityIndex) as CDOTA_BaseNPC;
-            if (unit)
-            {
+            if (unit) {
                 units.push(unit);
             }
         }
 
         // Abilities: Check if ability exists in the order
-        if (event.entindex_ability)
-        {
+        if (event.entindex_ability) {
             // Ability-specific orders - only triggerd on single units
-            if (units.length == 1)
-            {
+            if (units.length == 1) {
                 // Transform into ability entity
                 const ability = EntIndexToHScript(event.entindex_ability) as CDOTABaseAbility;
 
                 // Check if the ability has ExecuteOrderFilter defined, if so, return its result
-                if (ability && ability.ExecuteOrderFilter)
-                {
+                if (ability && ability.ExecuteOrderFilter) {
                     return ability.ExecuteOrderFilter(event);
                 }
             }
@@ -178,53 +179,50 @@ export class GameMode
         return true;
     }
 
-    RmgGameRules()
-    {
+    RmgGameRules() {
         // Max level!
-        this.Game.SetCustomXPRequiredToReachNextLevel(
-            {
-                [0]: 0,
-                [1]: 230, // total XP to level up to level 2
-                [2]: 600,  // total XP to level up to level 3, etc...
-                [3]: 1080,
-                [4]: 1660,
-                [5]: 2260,
-                [6]: 2980,
-                [7]: 3730,
-                [8]: 4620,
-                [9]: 5550,
-                [10]: 6520,
-                [11]: 7530,
-                [12]: 8580,
-                [13]: 9805,
-                [14]: 11055,
-                [15]: 12330,
-                [16]: 13630,
-                [17]: 14955,
-                [18]: 16455,
-                [19]: 18045,
-                [20]: 19645,
-                [21]: 21495,
-                [22]: 23595,
-                [23]: 25945,
-                [24]: 28545,
-                [25]: 32045,
-                [26]: 36545,
-                [27]: 42045,
-                [28]: 48545,
-                [29]: 56045,
-                [30]: 66045,
-                [31]: 76045,
-                [32]: 86045,
-                [33]: 96045,
-                [34]: 106045,
-                [35]: 116045,
-                [36]: 126045,
-                [37]: 136045,
-                [38]: 146045,
-                [39]: 156045,
-            }
-        );
+        this.Game.SetCustomXPRequiredToReachNextLevel({
+            [0]: 0,
+            [1]: 230, // total XP to level up to level 2
+            [2]: 600, // total XP to level up to level 3, etc...
+            [3]: 1080,
+            [4]: 1660,
+            [5]: 2260,
+            [6]: 2980,
+            [7]: 3730,
+            [8]: 4620,
+            [9]: 5550,
+            [10]: 6520,
+            [11]: 7530,
+            [12]: 8580,
+            [13]: 9805,
+            [14]: 11055,
+            [15]: 12330,
+            [16]: 13630,
+            [17]: 14955,
+            [18]: 16455,
+            [19]: 18045,
+            [20]: 19645,
+            [21]: 21495,
+            [22]: 23595,
+            [23]: 25945,
+            [24]: 28545,
+            [25]: 32045,
+            [26]: 36545,
+            [27]: 42045,
+            [28]: 48545,
+            [29]: 56045,
+            [30]: 66045,
+            [31]: 76045,
+            [32]: 86045,
+            [33]: 96045,
+            [34]: 106045,
+            [35]: 116045,
+            [36]: 126045,
+            [37]: 136045,
+            [38]: 146045,
+            [39]: 156045,
+        });
 
         this.Game.SetUseCustomHeroLevels(true);
         this.Game.SetCustomDireScore(0);
@@ -259,20 +257,16 @@ export class GameMode
         GameRules.SetTreeRegrowTime(240);
     }
 
-    AssignMechanicsModifier(): void
-    {
+    AssignMechanicsModifier(): void {
         // Find the good team's fountain
         const fountain = Entities.FindAllByName("ent_dota_fountain_good")[0] as CDOTA_BaseNPC;
-        if (fountain)
-        {
+        if (fountain) {
             fountain.AddNewModifier(fountain, undefined, "modifier_reimagined_game_mechanics", {});
         }
     }
 
-    PrepareRespawnTimers()
-    {
-        const level_respawn_times =
-        [
+    PrepareRespawnTimers() {
+        const level_respawn_times = [
             3, // level 1
             4, // level 2
             5, // level 3
@@ -312,24 +306,21 @@ export class GameMode
             60, // level 37
             60, // level 38
             60, // level 39
-            60 // level 40
-        ]
+            60, // level 40
+        ];
 
         // Set the map
-        for (let level = 1; level <= level_respawn_times.length; level++)
-        {
+        for (let level = 1; level <= level_respawn_times.length; level++) {
             const respawn_time = level_respawn_times[level - 1];
             this.level_respawn_time.set(level, respawn_time);
         }
     }
 
-    GetTimeToRespawn(level: number): number
-    {
+    GetTimeToRespawn(level: number): number {
         let respawn_time: number = 3;
 
         // Fetch value based on level
-        if (this.level_respawn_time.has(level))
-        {
+        if (this.level_respawn_time.has(level)) {
             respawn_time = this.level_respawn_time.get(level)!;
         }
 
@@ -350,8 +341,7 @@ export class GameMode
         return respawn_time;
     }
 
-    SetRespawnTimeForHero(hero: CDOTA_BaseNPC_Hero, attacker: EntityIndex)
-    {
+    SetRespawnTimeForHero(hero: CDOTA_BaseNPC_Hero, attacker: EntityIndex) {
         // If hero is going to reincarnate, leave it alone
         if (hero.IsReincarnating()) return;
 
@@ -361,22 +351,18 @@ export class GameMode
 
         // Check if the death was due to a neutral creep: if so, set the minimum value
         let killer;
-        if (attacker)
-        {
+        if (attacker) {
             killer = EntIndexToHScript(attacker);
 
-            if (killer && killer.IsBaseNPC())
-            {
-                if (killer.IsNeutralUnitType() || IsRoshan(killer))
-                {
+            if (killer && killer.IsBaseNPC()) {
+                if (killer.IsNeutralUnitType() || IsRoshan(killer)) {
                     respawn_time = math.max(respawn_time, this.minimum_respawn_timer_neutral_death);
                 }
             }
         }
 
         // If the hero recently bought back, increase timer and remove the tag
-        if (hero.recently_buyback)
-        {
+        if (hero.recently_buyback) {
             respawn_time += this.buyback_respawn_timer_increase;
             hero.recently_buyback = false;
         }
@@ -384,33 +370,25 @@ export class GameMode
         hero.SetTimeUntilRespawn(respawn_time);
     }
 
-    OnEntityKilled(event: EntityKilledEvent)
-    {
-        if (event.entindex_killed)
-        {
+    OnEntityKilled(event: EntityKilledEvent) {
+        if (event.entindex_killed) {
             const killed_unit = EntIndexToHScript(event.entindex_killed);
             if (!killed_unit) return;
 
-            if (killed_unit.IsBaseNPC())
-            {
-                if (killed_unit.IsRealHero())
-                {
+            if (killed_unit.IsBaseNPC()) {
+                if (killed_unit.IsRealHero()) {
                     this.SetRespawnTimeForHero(killed_unit, event.entindex_attacker);
                 }
             }
         }
 
-        if (event.entindex_attacker)
-        {
-            const killing_unit = EntIndexToHScript(event.entindex_attacker)
+        if (event.entindex_attacker) {
+            const killing_unit = EntIndexToHScript(event.entindex_attacker);
             if (!killing_unit) return;
 
-            if (killing_unit.IsBaseNPC())
-            {
-                if (killing_unit.IsRealHero())
-                {
-                    if (killing_unit.GetTeamNumber() == DotaTeam.BADGUYS)
-                    {
+            if (killing_unit.IsBaseNPC()) {
+                if (killing_unit.IsRealHero()) {
+                    if (killing_unit.GetTeamNumber() == DotaTeam.BADGUYS) {
                         GameRules.GetGameModeEntity().SetCustomDireScore(GetTeamHeroKills(DotaTeam.BADGUYS));
                     }
                 }
@@ -418,10 +396,9 @@ export class GameMode
         }
     }
 
-    private OnLearnTalent(event: {ability: EntityIndex; PlayerID: PlayerID}, learned_by_force: 0 | 1)
-    {
+    private OnLearnTalent(event: { ability: EntityIndex; PlayerID: PlayerID }, learned_by_force: 0 | 1) {
         const ability_handle = EntIndexToHScript(event.ability) as CDOTABaseAbility;
-        const caster = (ability_handle.GetCaster() as CDOTA_BaseNPC_Hero)
+        const caster = ability_handle.GetCaster() as CDOTA_BaseNPC_Hero;
         const player = PlayerResource.GetPlayer(event.PlayerID)!;
 
         // Serverside verification check. Networking 101: don't trust your client
@@ -438,8 +415,11 @@ export class GameMode
         if (!talent_num) return;
 
         // Only allow to level up talents for yourself, unless this is a forced level, or it is cheat mode
-        if (learned_by_force == 1 || ability_handle.GetCaster() == player.GetAssignedHero() || GameRules.IsCheatMode())
-        {
+        if (
+            learned_by_force == 1 ||
+            ability_handle.GetCaster() == player.GetAssignedHero() ||
+            GameRules.IsCheatMode()
+        ) {
             // If caster doesn't have any ability points to spend, do nothing
             if (learned_by_force == 0 && caster.GetAbilityPoints() == 0) return;
 
@@ -448,63 +428,58 @@ export class GameMode
             ability_handle.SetLevel(1);
 
             // Do not spend an ability point if talent was learned by force
-            if (learned_by_force == 0)
-            {
+            if (learned_by_force == 0) {
                 // Otherwise reduce as usual
-                caster.SetAbilityPoints(caster.GetAbilityPoints() -1);
+                caster.SetAbilityPoints(caster.GetAbilityPoints() - 1);
             }
 
             // Add talent that was legitimately leveled to the set
             caster.talents_learned.add(ability_handle);
 
             // Send confirmation event to the client
-            CustomGameEventManager.Send_ServerToPlayer(player, "confirm_talent_learned", {talent_num: talent_num, learned_by_force: learned_by_force})
+            CustomGameEventManager.Send_ServerToPlayer(player, "confirm_talent_learned", {
+                talent_num: talent_num,
+                learned_by_force: learned_by_force,
+            });
         }
     }
 
-    private ForceLearnTalent(hero: CDOTA_BaseNPC_Hero, talent_num: number, playerID: PlayerID)
-    {
-        let event: {ability: EntityIndex; PlayerID: PlayerID};
+    private ForceLearnTalent(hero: CDOTA_BaseNPC_Hero, talent_num: number, playerID: PlayerID) {
+        let event: { ability: EntityIndex; PlayerID: PlayerID };
 
         // Get ability as talent
         const ability = GetTalentAbilityFromNumber(hero, talent_num);
-        if (ability)
-        {
+        if (ability) {
             // Form the event call
-            event = {ability: ability.GetEntityIndex(), PlayerID: playerID};
+            event = { ability: ability.GetEntityIndex(), PlayerID: playerID };
 
             // Call talent
             this.OnLearnTalent(event, 1);
         }
     }
 
-    private ForceUnlearnTalent(hero: CDOTA_BaseNPC_Hero, talent_num: number)
-    {
+    private ForceUnlearnTalent(hero: CDOTA_BaseNPC_Hero, talent_num: number) {
         // Unlearning talents can only be done in cheats mode!
         if (!GameRules.IsCheatMode()) return;
 
         // Get ability as talent
-        const ability = GetTalentAbilityFromNumber(hero, talent_num) as BaseTalent
-        if (ability && ability.IsTrained() && ability.isTalentAbility)
-        {
+        const ability = GetTalentAbilityFromNumber(hero, talent_num) as BaseTalent;
+        if (ability && ability.IsTrained() && ability.isTalentAbility) {
             // Remove the ability
             ability.SetLevel(0);
 
             // Remove its associated modifier
             const modifier_name: string = "modifier_" + ability.GetAbilityName();
-            if (modifier_name)
-            {
+            if (modifier_name) {
                 const modifier_handle = hero.FindModifierByName(modifier_name);
-                if (modifier_handle)
-                {
+                if (modifier_handle) {
                     modifier_handle.Destroy();
                 }
             }
         }
     }
 
-    OnSentCurrentlySelectedUnit(event: {unit: EntityIndex, PlayerID: PlayerID})
-    {
+    OnSentCurrentlySelectedUnit(event: { unit: EntityIndex; PlayerID: PlayerID }) {
         const unit = EntIndexToHScript(event.unit) as CDOTA_BaseNPC_Hero;
 
         // Verification
@@ -513,28 +488,22 @@ export class GameMode
         if (!this.last_waiting_talent_num) return;
 
         // 10 signals "learn all talents"
-        if (this.last_waiting_talent_num == 10)
-        {
-            for (let index = 1; index <= this.talent_count; index++)
-            {
+        if (this.last_waiting_talent_num == 10) {
+            for (let index = 1; index <= this.talent_count; index++) {
                 this.ForceLearnTalent(unit, index, event.PlayerID);
             }
         }
         // -10 signals "unlearn all talents"
-        else if (this.last_waiting_talent_num == -10)
-        {
-            for (let index = 1; index < this.talent_count; index++)
-            {
+        else if (this.last_waiting_talent_num == -10) {
+            for (let index = 1; index < this.talent_count; index++) {
                 this.ForceUnlearnTalent(unit, index);
             }
         }
         // Negative talent number signals "unlearn this talent"
-        else if (this.last_waiting_talent_num < 0)
-        {
-            this.ForceUnlearnTalent(unit, this.last_waiting_talent_num! * (-1))
-        }
-        else // Learn a single talent
-        {
+        else if (this.last_waiting_talent_num < 0) {
+            this.ForceUnlearnTalent(unit, this.last_waiting_talent_num! * -1);
+        } // Learn a single talent
+        else {
             this.ForceLearnTalent(unit, this.last_waiting_talent_num!, event.PlayerID);
         }
 
@@ -542,68 +511,54 @@ export class GameMode
         this.last_waiting_talent_num = undefined;
     }
 
-    public OnStateChange(): void
-    {
+    public OnStateChange(): void {
         const state = GameRules.State_Get();
 
-        if (state == GameState.TEAM_SHOWCASE)
-        {
+        if (state == GameState.TEAM_SHOWCASE) {
             this.ForceRandomHeroForPlayersWithoutHeroes();
         }
 
-        if (state == GameState.PRE_GAME)
-        {
+        if (state == GameState.PRE_GAME) {
             this.BuybackRules();
             this.GrantItemsForRandomHeroes();
         }
 
-        if (state == GameState.GAME_IN_PROGRESS)
-        {
+        if (state == GameState.GAME_IN_PROGRESS) {
             this.Game.SetBountyRuneSpawnInterval(this.bounty_runes_spawn_interval * 60);
             this.Game.SetPowerRuneSpawnInterval(this.power_runes_spawn_interval * 60);
 
             // Rune reveal
-            Timers.CreateTimer(() =>
-            {
+            Timers.CreateTimer(() => {
                 this.RevealBountyRunes();
                 return this.bounty_runes_spawn_interval;
-            })
+            });
 
             // Gold Tick system
             this.StartGoldTick();
         }
     }
 
-    StartGoldTick()
-    {
-        Timers.CreateTimer(this.gold_interval, () =>
-        {
+    StartGoldTick() {
+        Timers.CreateTimer(this.gold_interval, () => {
             const players = GetAllPlayers();
-            const heroes = players.map(player => player.GetAssignedHero());
-            for (const hero of heroes)
-            {
+            const heroes = players.map((player) => player.GetAssignedHero());
+            for (const hero of heroes) {
                 // Just some verifications, can't be too sure
-                if (hero && IsValidEntity(hero) && hero.IsRealHero() && !hero.IsNull())
-                {
-                    if (hero.courier && hero.courier.IsAlive())
-                    {
+                if (hero && IsValidEntity(hero) && hero.IsRealHero() && !hero.IsNull()) {
+                    if (hero.courier && hero.courier.IsAlive()) {
                         hero.ModifyGold(this.gold_per_tick, true, ModifyGoldReason.GAME_TICK);
                     }
                 }
             }
 
             return this.gold_interval;
-        })
+        });
     }
 
-    ForceRandomHeroForPlayersWithoutHeroes(): void
-    {
-        for (const player of GetAllPlayers())
-        {
-            if (player)
-            {
-                if (!PlayerResource.HasSelectedHero(player.GetPlayerID()))
-                {
+    ForceRandomHeroForPlayersWithoutHeroes(): void {
+        for (const player of GetAllPlayers()) {
+            if (player) {
+                if (!PlayerResource.HasSelectedHero(player.GetPlayerID())) {
                     player.MakeRandomHeroSelection();
                     PlayerResource.SetHasRandomed(player.GetPlayerID());
                 }
@@ -611,20 +566,14 @@ export class GameMode
         }
     }
 
-    GrantItemsForRandomHeroes(): void
-    {
-        for (const player of GetAllPlayers())
-        {
-            if (player)
-            {
-                if (PlayerResource.HasRandomed(player.GetPlayerID()))
-                {
+    GrantItemsForRandomHeroes(): void {
+        for (const player of GetAllPlayers()) {
+            if (player) {
+                if (PlayerResource.HasRandomed(player.GetPlayerID())) {
                     let attempts = 0;
 
-                    Timers.CreateTimer(FrameTime(), () =>
-                    {
-                        if (player.GetAssignedHero())
-                        {
+                    Timers.CreateTimer(FrameTime(), () => {
+                        if (player.GetAssignedHero()) {
                             player.GetAssignedHero().AddItemByName("item_reimagined_enchanted_mango");
                             player.GetAssignedHero().AddItemByName("item_reimagined_enchanted_mango");
                             player.GetAssignedHero().AddItemByName("item_faerie_fire");
@@ -637,44 +586,38 @@ export class GameMode
                         if (attempts > 100) return undefined;
 
                         return FrameTime();
-                    })
+                    });
                 }
             }
         }
     }
 
-    RevealBountyRunes(): void
-    {
+    RevealBountyRunes(): void {
         const bounty_spawners = Entities.FindAllByClassname("dota_item_rune_spawner_bounty");
-        for (const bounty_spawner of bounty_spawners)
-        {
+        for (const bounty_spawner of bounty_spawners) {
             AddFOWViewer(DotaTeam.GOODGUYS, bounty_spawner.GetAbsOrigin(), 100, FrameTime(), true);
             AddFOWViewer(DotaTeam.BADGUYS, bounty_spawner.GetAbsOrigin(), 100, FrameTime(), true);
         }
     }
 
-    private StartGame(): void
-    {
+    private StartGame(): void {
         print("Game starting!");
 
         // Do some stuff here
     }
 
     // Called on script_reload
-    public Reload()
-    {
+    public Reload() {
         print("Script reloaded!");
 
         // Do some stuff here
     }
 
-    private OnNpcSpawned(event: NpcSpawnedEvent)
-    {
+    private OnNpcSpawned(event: NpcSpawnedEvent) {
         let unit = EntIndexToHScript(event.entindex) as CDOTA_BaseNPC;
 
         // Real heroes
-        if (unit.IsRealHero())
-        {
+        if (unit.IsRealHero()) {
             // Initialize the talents ability map if it's not initialized yet
             if (!(unit as CDOTA_BaseNPC_Hero).talentMap) unit.talentMap = PrepareTalentList(unit);
 
@@ -683,65 +626,50 @@ export class GameMode
         }
 
         // Couriers
-        if (unit.IsCourier())
-        {
-            Timers.CreateTimer(FrameTime(), () =>
-            {
+        if (unit.IsCourier()) {
+            Timers.CreateTimer(FrameTime(), () => {
                 // Assign to hero of the same player
                 const playerID = unit.GetPlayerOwnerID();
-                if (playerID && PlayerResource.IsValidTeamPlayer(playerID))
-                {
+                if (playerID && PlayerResource.IsValidTeamPlayer(playerID)) {
                     const player = PlayerResource.GetPlayer(playerID);
-                    if (player)
-                    {
+                    if (player) {
                         const hero = player.GetAssignedHero();
-                        if (!hero.courier) hero.courier = unit;
+                        if (!hero.courier) hero.courier = unit as CDOTA_Unit_Courier;
                     }
                 }
 
                 // Replace the passive bonuses modifiers with the reimagined modifier
-                if (unit.HasModifier("modifier_courier_passive_bonus"))
-                {
+                if (unit.HasModifier("modifier_courier_passive_bonus")) {
                     unit.RemoveModifierByName("modifier_courier_passive_bonus");
                     unit.AddNewModifier(undefined, undefined, "modifier_reimagined_courier_passive_bonuses", {});
                 }
-            })
+            });
         }
 
         // Dummies
-        if (unit.GetUnitName() == "reimagined_npc_dummy_unit")
-        {
+        if (unit.GetUnitName() == "reimagined_npc_dummy_unit") {
             // Find dummy ability
-            if (unit.HasAbility("reimagined_dummy_unit_state"))
-            {
+            if (unit.HasAbility("reimagined_dummy_unit_state")) {
                 const dummy_ability = unit.FindAbilityByName("reimagined_dummy_unit_state");
-                if (dummy_ability)
-                {
+                if (dummy_ability) {
                     dummy_ability.SetLevel(1);
                 }
             }
         }
     }
 
-    private OnPlayerLevelUp(event: DotaPlayerGainedLevelEvent)
-    {
+    private OnPlayerLevelUp(event: DotaPlayerGainedLevelEvent) {
         // Handle the stupid automatic level 30 "HAVE ALL TALENTS FOR FREE" talents. Fucking bullshit I swear
-        Timers.CreateTimer(FrameTime(), () =>
-        {
-            if (event.level == 30)
-            {
+        Timers.CreateTimer(FrameTime(), () => {
+            if (event.level == 30) {
                 const caster = EntIndexToHScript(event.hero_entindex) as CDOTA_BaseNPC_Hero;
 
                 // Iterate between all caster's abilities
-                for (let index = 0; index < caster.GetAbilityCount(); index++)
-                {
+                for (let index = 0; index < caster.GetAbilityCount(); index++) {
                     const ability = caster.GetAbilityByIndex(index);
-                    if (ability)
-                    {
-                        if (ability.GetAbilityName().indexOf("special_bonus") !== -1)
-                        {
-                            if (ability.IsTrained() && !caster.talents_learned.has(ability))
-                            {
+                    if (ability) {
+                        if (ability.GetAbilityName().indexOf("special_bonus") !== -1) {
+                            if (ability.IsTrained() && !caster.talents_learned.has(ability)) {
                                 ability.SetLevel(0);
                             }
                         }
@@ -749,48 +677,37 @@ export class GameMode
                 }
 
                 // Iterate between all caster's modifiers
-                for (const modifier of caster.FindAllModifiers())
-                {
-                    if (modifier.GetName().indexOf("special_bonus") !== -1)
-                    {
-                        if (!caster.talents_learned.has(modifier.GetAbility()!))
-                        {
+                for (const modifier of caster.FindAllModifiers()) {
+                    if (modifier.GetName().indexOf("special_bonus") !== -1) {
+                        if (!caster.talents_learned.has(modifier.GetAbility()!)) {
                             modifier.Destroy();
                         }
                     }
                 }
             }
-        })
+        });
 
         // Refresh the modifier of the courier assigned to the hero
         const hero = EntIndexToHScript(event.hero_entindex) as CDOTA_BaseNPC;
-        if (hero.IsRealHero())
-        {
-            if (hero.courier)
-            {
+        if (hero.IsRealHero()) {
+            if (hero.courier) {
                 const modifier = hero.courier.FindModifierByName("modifier_reimagined_courier_passive_bonuses");
-                if (modifier)
-                {
+                if (modifier) {
                     modifier.ForceRefresh();
                 }
             }
         }
     }
 
-    OnPlayerChat(event: PlayerChatEvent)
-    {
+    OnPlayerChat(event: PlayerChatEvent) {
         if (!GameRules.IsCheatMode()) return;
 
-        if (event.text.indexOf("-learntalent") !== -1)
-        {
-            const numText = event.text.substr(event.text.length-1);
-            if (numText !== "" && numText !== undefined && numText !== null)
-            {
+        if (event.text.indexOf("-learntalent") !== -1) {
+            const numText = event.text.substr(event.text.length - 1);
+            if (numText !== "" && numText !== undefined && numText !== null) {
                 const talent_num = Number(numText);
-                if (!isNaN(talent_num))
-                {
-                    if (talent_num >= 1 && talent_num <= this.talent_count)
-                    {
+                if (!isNaN(talent_num)) {
+                    if (talent_num >= 1 && talent_num <= this.talent_count) {
                         const player = PlayerResource.GetPlayer(event.playerid)!;
                         this.last_waiting_talent_num = talent_num;
 
@@ -800,8 +717,7 @@ export class GameMode
             }
         }
         // For learning all talents, we use 10 as code
-        else if (event.text.indexOf("-learnalltalents") !== -1)
-        {
+        else if (event.text.indexOf("-learnalltalents") !== -1) {
             const player = PlayerResource.GetPlayer(event.playerid)!;
             this.last_waiting_talent_num = 10;
 
@@ -809,18 +725,14 @@ export class GameMode
         }
 
         // For unlearning a talent, we use negative talent number values
-        else if (event.text.indexOf("-unlearntalent") !== -1)
-        {
-            const numText = event.text.substr(event.text.length-1);
-            if (numText !== "" && numText !== undefined && numText !== null)
-            {
+        else if (event.text.indexOf("-unlearntalent") !== -1) {
+            const numText = event.text.substr(event.text.length - 1);
+            if (numText !== "" && numText !== undefined && numText !== null) {
                 const talent_num = Number(numText);
-                if (!isNaN(talent_num))
-                {
-                    if (talent_num >= 1 && talent_num <= this.talent_count)
-                    {
+                if (!isNaN(talent_num)) {
+                    if (talent_num >= 1 && talent_num <= this.talent_count) {
                         const player = PlayerResource.GetPlayer(event.playerid)!;
-                        this.last_waiting_talent_num = talent_num * (-1);
+                        this.last_waiting_talent_num = talent_num * -1;
 
                         CustomGameEventManager.Send_ServerToPlayer(player, "request_currently_selected_unit", {});
                     }
@@ -828,34 +740,29 @@ export class GameMode
             }
         }
         // For unlearning all talents, we use negative talents -10 as code
-        else if (event.text.indexOf("-unlearnalltalents") !== -1)
-        {
+        else if (event.text.indexOf("-unlearnalltalents") !== -1) {
             const player = PlayerResource.GetPlayer(event.playerid)!;
             this.last_waiting_talent_num = -10;
 
             CustomGameEventManager.Send_ServerToPlayer(player, "request_currently_selected_unit", {});
         }
         // Refresh - extend to charges
-        else if (event.text === "-refresh")
-        {
+        else if (event.text === "-refresh") {
             // Get the player's hero
             const player = PlayerResource.GetPlayer(event.playerid)!;
             const hero = player.GetAssignedHero();
 
             // Find all its charges modifiers, if any
             const charge_modifiers = GetAllChargesModifiersForUnit(hero);
-            if (charge_modifiers)
-            {
-                for (const charge_modifier of charge_modifiers)
-                {
+            if (charge_modifiers) {
+                for (const charge_modifier of charge_modifiers) {
                     // Refresh them
                     charge_modifier.MaximizeChargeCount();
                 }
             }
         }
         // Apply the flag for wtf mode
-        else if (event.text === "-wtf")
-        {
+        else if (event.text === "-wtf") {
             if (this.wtf_mode_enabled) return;
 
             this.wtf_mode_enabled = true;
@@ -866,25 +773,20 @@ export class GameMode
 
             // Find all its charges modifiers, if any
             const charge_modifiers = GetAllChargesModifiersForUnit(hero);
-            if (charge_modifiers)
-            {
-                for (const charge_modifier of charge_modifiers)
-                {
+            if (charge_modifiers) {
+                for (const charge_modifier of charge_modifiers) {
                     // Trigger WTF mode on charges
                     charge_modifier.OnWTFModeTriggered();
                 }
             }
-        }
-        else if (event.text === "-unwtf")
-        {
+        } else if (event.text === "-unwtf") {
             if (!this.wtf_mode_enabled) return;
 
             this.wtf_mode_enabled = false;
         }
     }
 
-    OnPingTalent(event: {ability: EntityIndex, status: TalentStatus, PlayerID: PlayerID}): void
-    {
+    OnPingTalent(event: { ability: EntityIndex; status: TalentStatus; PlayerID: PlayerID }): void {
         // Get information
         const ability_handle = EntIndexToHScript(event.ability) as CDOTABaseAbility;
         const caster = ability_handle.GetCaster() as CDOTA_BaseNPC_Hero;
@@ -894,36 +796,27 @@ export class GameMode
         if (!IsValidEntity(ability_handle)) return;
 
         // Spam prevention
-        if (this.talent_ping_map.has(event.PlayerID))
-        {
+        if (this.talent_ping_map.has(event.PlayerID)) {
             let spam_times = this.talent_ping_map.get(event.PlayerID)!;
-            if (spam_times >= 3)
-            {
+            if (spam_times >= 3) {
                 return;
-            }
-            else
-            {
+            } else {
                 spam_times++;
                 this.talent_ping_map.set(event.PlayerID, spam_times);
-                if (spam_times >= 3)
-                {
-                    Timers.CreateTimer(3, () =>
-                    {
+                if (spam_times >= 3) {
+                    Timers.CreateTimer(3, () => {
                         this.talent_ping_map.set(event.PlayerID, 0);
-                    })
+                    });
                 }
             }
-        }
-        else
-        {
+        } else {
             this.talent_ping_map.set(event.PlayerID, 1);
         }
 
         // Make the text based on the type of the ability form
         const ability_name = ability_handle.GetAbilityName();
         let talent_status_string;
-        switch (event.status)
-        {
+        switch (event.status) {
             case TalentStatus.LEARNED:
                 talent_status_string = "#DOTA_Reimagined_Talent_Learned";
                 break;
@@ -945,40 +838,44 @@ export class GameMode
 
         // In the custom chat message event, everything in "%%x%%" will be localized clientside
         let text = "";
-        if (caster != player.GetAssignedHero())
-        {
-            if (caster.GetTeamNumber() != player.GetTeamNumber())
-            {
+        if (caster != player.GetAssignedHero()) {
+            if (caster.GetTeamNumber() != player.GetTeamNumber()) {
                 text = "%%#DOTA_Reimagined_Talent_Ping_Enemy%% " + "%%" + caster.GetUnitName() + "%%" + "'s talent ";
-            }
-            else
-            {
+            } else {
                 text = "%%#DOTA_Reimagined_Talent_Ping_Ally%% " + "%%" + caster.GetUnitName() + "%%" + "'s talent ";
             }
         }
 
         // Form the final text and send
-        text += "%%#DOTA_Tooltip_Ability_" + ability_name + "%% " + '<img src="file://{images}/control_icons/chat_wheel_icon.png" style="margin-top: 4px; width:10px;height:10px" width="10" height="10" > ' + " %%" + talent_status_string + "%%";
-        CustomGameEventManager.Send_ServerToTeam(player.GetTeamNumber(), "custom_chat_message", {textData: text, playerID: event.PlayerID, isTeam: true, ability_name: ability_name});
+        text +=
+            "%%#DOTA_Tooltip_Ability_" +
+            ability_name +
+            "%% " +
+            '<img src="file://{images}/control_icons/chat_wheel_icon.png" style="margin-top: 4px; width:10px;height:10px" width="10" height="10" > ' +
+            " %%" +
+            talent_status_string +
+            "%%";
+        CustomGameEventManager.Send_ServerToTeam(player.GetTeamNumber(), "custom_chat_message", {
+            textData: text,
+            playerID: event.PlayerID,
+            isTeam: true,
+            ability_name: ability_name,
+        });
     }
 
-    OnServerPreShutdown(event: ServerPreShutdownEvent)
-    {
+    OnServerPreShutdown(event: ServerPreShutdownEvent) {
         print(event.reason);
     }
 
-    OnServerShutdown(event: ServerShutdownEvent)
-    {
+    OnServerShutdown(event: ServerShutdownEvent) {
         print(event.reason);
     }
 
-    BuybackRules()
-    {
+    BuybackRules() {
         this.Game.SetBuybackEnabled(true);
         this.Game.SetCustomBuybackCooldownEnabled(true);
 
-        for (const player of GetAllPlayers())
-        {
+        for (const player of GetAllPlayers()) {
             PlayerResource.SetCustomBuybackCooldown(player.GetPlayerID(), this.buyback_cooldown);
         }
     }

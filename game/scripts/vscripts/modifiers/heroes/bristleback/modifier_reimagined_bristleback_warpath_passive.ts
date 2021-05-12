@@ -1,11 +1,10 @@
 import { BristlebackTalents } from "../../../abilities/heroes/bristleback/reimagined_bristleback_talents";
 import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 import { GetIllusionOwner, GetTalentSpecialValueFor, HasBit, HasTalent } from "../../../lib/util";
-import "../../../modifiers/heroes/bristleback/modifier_reimagined_bristleback_talent_7_buff"
+import "../../../modifiers/heroes/bristleback/modifier_reimagined_bristleback_talent_7_buff";
 
 @registerModifier()
-export class modifier_reimagined_bristleback_warpath_passive extends BaseModifier
-{
+export class modifier_reimagined_bristleback_warpath_passive extends BaseModifier {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
     ability: CDOTABaseAbility = this.GetAbility()!;
@@ -31,33 +30,43 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
     // Reimagined talent specials
     talent_7_duration?: number;
 
-    IsHidden() {return false}
-    IsDebuff() {return false}
-    IsPurgable() {return false}
-    IsPermanent() {return true}
-    DestroyOnExpire() {return false}
+    IsHidden() {
+        return false;
+    }
+    IsDebuff() {
+        return false;
+    }
+    IsPurgable() {
+        return false;
+    }
+    IsPermanent() {
+        return true;
+    }
+    DestroyOnExpire() {
+        return false;
+    }
 
-    OnCreated(): void
-    {
+    OnCreated(): void {
         this.GetAbilitySpecials();
 
         if (!IsServer()) return;
 
         // Illusions immediately gain the same amount of Warpath stacks of their caster.
-        if (this.parent.IsIllusion())
-        {
+        if (this.parent.IsIllusion()) {
             const illusion_owner = GetIllusionOwner(this.parent);
-            if (illusion_owner)
-            {
-                if (illusion_owner.HasModifier(this.modifier_warpath_stacks))
-                {
+            if (illusion_owner) {
+                if (illusion_owner.HasModifier(this.modifier_warpath_stacks)) {
                     const modifier = illusion_owner.FindModifierByName(this.modifier_warpath_stacks);
-                    if (modifier)
-                    {
+                    if (modifier) {
                         const stacks = modifier.GetStackCount();
 
                         // Technically it doesn't follow the caster's exact timings, but come on, nobody goes this far to check illusions this way, this isn't TeamLiquid shit
-                        const illusion_modifier = this.parent.AddNewModifier(this.parent, this.ability, this.modifier_warpath_stacks, {duration: this.stack_duration});
+                        const illusion_modifier = this.parent.AddNewModifier(
+                            this.parent,
+                            this.ability,
+                            this.modifier_warpath_stacks,
+                            { duration: this.stack_duration }
+                        );
                         illusion_modifier.SetStackCount(stacks);
                     }
                 }
@@ -65,13 +74,11 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
         }
     }
 
-    OnRefresh(): void
-    {
+    OnRefresh(): void {
         this.GetAbilitySpecials();
     }
 
-    GetAbilitySpecials()
-    {
+    GetAbilitySpecials() {
         // Modifier specials
         this.stack_duration = this.ability.GetSpecialValueFor("stack_duration");
 
@@ -81,17 +88,17 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
         this.tantrum_stack_duration = this.ability.GetSpecialValueFor("tantrum_stack_duration");
     }
 
-    DeclareFunctions(): ModifierFunction[]
-    {
-        return [ModifierFunction.ON_ABILITY_FULLY_CAST,
+    DeclareFunctions(): ModifierFunction[] {
+        return [
+            ModifierFunction.ON_ABILITY_FULLY_CAST,
 
-                // Reimagined: Anger Burst: When Bristleback accumulates over x damage after reductions, generates a Warpath stack. Resets after not taking any damage over y seconds.
-                ModifierFunction.ON_TAKEDAMAGE,
-                ModifierFunction.TOOLTIP]
+            // Reimagined: Anger Burst: When Bristleback accumulates over x damage after reductions, generates a Warpath stack. Resets after not taking any damage over y seconds.
+            ModifierFunction.ON_TAKEDAMAGE,
+            ModifierFunction.TOOLTIP,
+        ];
     }
 
-    OnAbilityFullyCast(event: ModifierAbilityEvent): void
-    {
+    OnAbilityFullyCast(event: ModifierAbilityEvent): void {
         if (!IsServer()) return;
 
         // Only apply if the caster is the parent, or, if it is an illusion, the caster is the one casting the ability
@@ -109,38 +116,32 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
         this.AddWarpathStack();
     }
 
-    AddWarpathStack(): void
-    {
+    AddWarpathStack(): void {
         // Add a stack to Warpath
         let modifier;
-        if (!this.parent.HasModifier(this.modifier_warpath_stacks))
-        {
-            modifier = this.parent.AddNewModifier(this.parent, this.ability, this.modifier_warpath_stacks, {duration: this.stack_duration});
-        }
-        else
-        {
+        if (!this.parent.HasModifier(this.modifier_warpath_stacks)) {
+            modifier = this.parent.AddNewModifier(this.parent, this.ability, this.modifier_warpath_stacks, {
+                duration: this.stack_duration,
+            });
+        } else {
             modifier = this.parent.FindModifierByName(this.modifier_warpath_stacks);
         }
 
-        if (modifier)
-        {
+        if (modifier) {
             modifier.IncrementStackCount();
         }
     }
 
-    OnTakeDamage(event: ModifierAttackEvent): void
-    {
+    OnTakeDamage(event: ModifierInstanceEvent): void {
         // Reimagined: Anger Burst: When Bristleback accumulates over x damage after reductions, generates a Warpath stack. Resets after not taking any damage over y seconds.
         this.ReimaginedAngerBurst(event);
     }
 
-    OnTooltip(): number
-    {
+    OnTooltip(): number {
         return this.anger_burst_damage_threshold!;
     }
 
-    ReimaginedAngerBurst(event: ModifierAttackEvent): void
-    {
+    ReimaginedAngerBurst(event: ModifierInstanceEvent): void {
         if (!IsServer()) return;
 
         // Only apply if the unit taking damage is the parent
@@ -165,8 +166,7 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
         this.SetStackCount(this.GetStackCount() + event.damage);
 
         // Check if the accumulated damage is past the threshold
-        if (this.GetStackCount() >= this.anger_burst_damage_threshold!)
-        {
+        if (this.GetStackCount() >= this.anger_burst_damage_threshold!) {
             // Grant a Warpath stack
             this.AddWarpathStack();
 
@@ -174,7 +174,11 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
             this.SetStackCount(this.GetStackCount() - this.anger_burst_damage_threshold!);
 
             // Play particle
-            this.particle_anger_burst_fx = ParticleManager.CreateParticle(this.particle_anger_burst, ParticleAttachment.ABSORIGIN_FOLLOW, this.parent);
+            this.particle_anger_burst_fx = ParticleManager.CreateParticle(
+                this.particle_anger_burst,
+                ParticleAttachment.ABSORIGIN_FOLLOW,
+                this.parent
+            );
             ParticleManager.SetParticleControl(this.particle_anger_burst_fx, 0, this.parent.GetAbsOrigin());
             ParticleManager.ReleaseParticleIndex(this.particle_anger_burst_fx);
 
@@ -185,24 +189,21 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
         // (Re)start the timer
         this.StartIntervalThink(this.anger_burst_reset_time!);
 
-        if (this.GetDuration() != this.anger_burst_reset_time)
-        {
+        if (this.GetDuration() != this.anger_burst_reset_time) {
             this.SetDuration(this.anger_burst_reset_time!, true);
         }
 
         this.ForceRefresh();
     }
 
-    OnIntervalThink(): void
-    {
+    OnIntervalThink(): void {
         if (!IsServer()) return;
 
         // Reimagined: Anger Burst: When Bristleback accumulates over x damage after reductions, generates a Warpath stack. Resets after not taking any damage over y seconds.
         this.ReimaginedAngerBurstReset();
     }
 
-    ReimaginedAngerBurstReset(): void
-    {
+    ReimaginedAngerBurstReset(): void {
         // Reset damage to 0
         this.SetStackCount(0);
 
@@ -211,15 +212,11 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
         this.SetDuration(-1, true);
     }
 
-    IsValidCasterForWarpath(event: ModifierAbilityEvent): boolean
-    {
-        if (event.unit != this.parent)
-        {
+    IsValidCasterForWarpath(event: ModifierAbilityEvent): boolean {
+        if (event.unit != this.parent) {
             // Check if the unit is an illusion
-            if (this.parent.IsIllusion())
-            {
-                if (GetIllusionOwner(this.parent) && event.unit == GetIllusionOwner(this.parent))
-                {
+            if (this.parent.IsIllusion()) {
+                if (GetIllusionOwner(this.parent) && event.unit == GetIllusionOwner(this.parent)) {
                     return true;
                 }
             }
@@ -230,17 +227,13 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
         return true;
     }
 
-    ReimaginedSimmerDownCheck(): boolean
-    {
+    ReimaginedSimmerDownCheck(): boolean {
         // If the caster has the Simmer Down modifier, do not grant Warpath stacks
-        if (this.parent.HasModifier(this.modifier_simmer_down))
-        {
+        if (this.parent.HasModifier(this.modifier_simmer_down)) {
             // Illusion check
-            if (this.parent.IsIllusion())
-            {
+            if (this.parent.IsIllusion()) {
                 const illusion_owner = GetIllusionOwner(this.parent);
-                if (illusion_owner && illusion_owner.HasModifier(this.modifier_simmer_down))
-                {
+                if (illusion_owner && illusion_owner.HasModifier(this.modifier_simmer_down)) {
                     return true;
                 }
             }
@@ -252,17 +245,22 @@ export class modifier_reimagined_bristleback_warpath_passive extends BaseModifie
         return false;
     }
 
-    ReimaginedTalentHotTemper()
-    {
+    ReimaginedTalentHotTemper() {
         if (!IsServer()) return;
 
-        if (HasTalent(this.caster, BristlebackTalents.BristlebackTalent_7))
-        {
+        if (HasTalent(this.caster, BristlebackTalents.BristlebackTalent_7)) {
             // Initialize variables
-            if (!this.talent_7_duration) this.talent_7_duration = GetTalentSpecialValueFor(this.caster, BristlebackTalents.BristlebackTalent_7, "duration");
+            if (!this.talent_7_duration)
+                this.talent_7_duration = GetTalentSpecialValueFor(
+                    this.caster,
+                    BristlebackTalents.BristlebackTalent_7,
+                    "duration"
+                );
 
             // Add the Hot Temper modifier
-            this.caster.AddNewModifier(this.caster, this.ability, this.talent_7_modifier, {duration: this.talent_7_duration});
+            this.caster.AddNewModifier(this.caster, this.ability, this.talent_7_modifier, {
+                duration: this.talent_7_duration,
+            });
         }
     }
 }

@@ -1,16 +1,15 @@
 import { reimagined_broodmother_spawn_spiderlings } from "../../../../abilities/heroes/broodmother/reimagined_broodmother_spawn_spiderlings";
-import { BaseModifier, registerModifier, } from "../../../../lib/dota_ts_adapter";
+import { BaseModifier, registerModifier } from "../../../../lib/dota_ts_adapter";
 import { IsSpiderling } from "../../../../lib/util";
 
 @registerModifier()
-export class modifier_reimagined_broodmother_spiderling_spawn_spiderite_debuff extends BaseModifier
-{
+export class modifier_reimagined_broodmother_spiderling_spawn_spiderite_debuff extends BaseModifier {
     // Modifier properties
     caster: CDOTA_BaseNPC = this.GetCaster()!;
     ability: CDOTABaseAbility = this.GetAbility()!;
     parent: CDOTA_BaseNPC = this.GetParent();
     unit_spiderite_name: string = "npc_dota_broodmother_spiderite";
-    unit_spiderling_name: string = "npc_dota_broodmother_spiderling"
+    unit_spiderling_name: string = "npc_dota_broodmother_spiderling";
     spawn_spiderlings_ability: string = "reimagined_broodmother_spawn_spiderlings";
 
     // Modifier specials
@@ -22,12 +21,17 @@ export class modifier_reimagined_broodmother_spiderling_spawn_spiderite_debuff e
     // Reimagined specials
     spider_genes_stacks?: number;
 
-    IsHidden() {return false}
-    IsDebuff() {return true}
-    IsPurgable() {return true}
+    IsHidden() {
+        return false;
+    }
+    IsDebuff() {
+        return true;
+    }
+    IsPurgable() {
+        return true;
+    }
 
-    OnCreated(): void
-    {
+    OnCreated(): void {
         // Modifier specials
         this.spiderite_duration = this.ability.GetSpecialValueFor("spiderite_duration");
 
@@ -39,25 +43,24 @@ export class modifier_reimagined_broodmother_spiderling_spawn_spiderite_debuff e
         this.ReimaginedSpiderGenes(undefined);
     }
 
-    DeclareFunctions(): ModifierFunction[]
-    {
-        return [ModifierFunction.ON_DEATH,
-                // Reimagined: Spider Genes: attacks from different Spiderlings accumulate stacks on the target. If the target dies with at least x stacks, a Spiderling is spawned instead of a Spiderite.
-                ModifierFunction.ON_ATTACK_LANDED,
-                ModifierFunction.TOOLTIP]
+    DeclareFunctions(): ModifierFunction[] {
+        return [
+            ModifierFunction.ON_DEATH,
+            // Reimagined: Spider Genes: attacks from different Spiderlings accumulate stacks on the target. If the target dies with at least x stacks, a Spiderling is spawned instead of a Spiderite.
+            ModifierFunction.ON_ATTACK_LANDED,
+            ModifierFunction.TOOLTIP,
+        ];
     }
 
-    OnTooltip(): number
-    {
+    OnTooltip(): number {
         return this.spider_genes_stacks!;
     }
 
-    OnDeath(event: ModifierAttackEvent): void
-    {
+    OnDeath(event: ModifierInstanceEvent): void {
         if (!IsServer()) return;
 
         // Only apply when the unit is the parent
-        if (event.unit! != this.parent) return;
+        if (event.unit != this.parent) return;
 
         const death_position = this.parent.GetAbsOrigin();
 
@@ -69,10 +72,16 @@ export class modifier_reimagined_broodmother_spiderling_spawn_spiderite_debuff e
         this.SummonSpiderUnit(this.unit_spiderite_name, true, death_position);
     }
 
-    SummonSpiderUnit(unit_name: string, isSpiderite: boolean, position: Vector)
-    {
+    SummonSpiderUnit(unit_name: string, isSpiderite: boolean, position: Vector) {
         // Spawn unit
-        const spiderite = CreateUnitByName(unit_name, position, true, this.caster.GetOwner(), this.caster.GetOwner(), this.caster.GetTeamNumber());
+        const spiderite = CreateUnitByName(
+            unit_name,
+            position,
+            true,
+            this.caster.GetOwner(),
+            this.caster.GetOwner(),
+            this.caster.GetTeamNumber()
+        );
 
         // Set unit in position
         spiderite.SetOwner(this.caster.GetOwner());
@@ -82,41 +91,39 @@ export class modifier_reimagined_broodmother_spiderling_spawn_spiderite_debuff e
 
         // Increase its ability levels
         let ability_level = 1;
-        const spawn_spiderlings_ability_handle = (spiderite.GetOwner() as CDOTA_BaseNPC).FindAbilityByName(this.spawn_spiderlings_ability)
-        if (spawn_spiderlings_ability_handle && spawn_spiderlings_ability_handle.IsTrained())
-        {
+        const spawn_spiderlings_ability_handle = (spiderite.GetOwner() as CDOTA_BaseNPC).FindAbilityByName(
+            this.spawn_spiderlings_ability
+        );
+        if (spawn_spiderlings_ability_handle && spawn_spiderlings_ability_handle.IsTrained()) {
             ability_level = spawn_spiderlings_ability_handle.GetLevel();
         }
 
-        for (let index = 0; index < spiderite.GetAbilityCount(); index++)
-        {
+        for (let index = 0; index < spiderite.GetAbilityCount(); index++) {
             const ability_handle = spiderite.GetAbilityByIndex(index);
-            if (ability_handle)
-            {
+            if (ability_handle) {
                 ability_handle.SetLevel(ability_level);
             }
         }
 
         // Give it a kill timer
-        spiderite.AddNewModifier(this.caster.GetOwner() as CDOTA_BaseNPC, undefined, BuiltInModifier.KILL, {duration: this.spiderite_duration!});
+        spiderite.AddNewModifier(this.caster.GetOwner() as CDOTA_BaseNPC, undefined, BuiltInModifier.KILL, {
+            duration: this.spiderite_duration!,
+        });
 
         // Spiderling Academy: Spiderlings's damage, health, armor and magic resistance increase by x, y, z and t% respectively for each level Broodmother has earned.
         this.ReimaginedSpiderlingAcademy(spiderite, isSpiderite);
     }
 
-    OnAttackLanded(event: ModifierAttackEvent): void
-    {
+    OnAttackLanded(event: ModifierAttackEvent): void {
         // Reimagined: Spider Genes: attacks from different Spiderlings accumulate stacks on the target. If the target dies with at least x stacks, a Spiderling is spawned instead of a Spiderite.
         this.ReimaginedSpiderGenes(event);
     }
 
-    ReimaginedSpiderGenes(event: ModifierAttackEvent | undefined): void
-    {
+    ReimaginedSpiderGenes(event: ModifierAttackEvent | undefined): void {
         if (!IsServer()) return;
 
         // On creation, adds the caster to the set and sets stacks at 1
-        if (!event)
-        {
+        if (!event) {
             this.spiderlings_set.add(this.caster);
             this.IncrementStackCount();
             return;
@@ -138,11 +145,9 @@ export class modifier_reimagined_broodmother_spiderling_spawn_spiderite_debuff e
         this.spiderlings_set.add(event.attacker);
     }
 
-    ReimaginedSpiderGenesCheckStacks(position: Vector): boolean
-    {
+    ReimaginedSpiderGenesCheckStacks(position: Vector): boolean {
         // Check if there are enough stacks to turn the unit into a Spiderling instead
-        if (this.GetStackCount() >= this.spider_genes_stacks!)
-        {
+        if (this.GetStackCount() >= this.spider_genes_stacks!) {
             // Summon a spiderling instead
             this.SummonSpiderUnit(this.unit_spiderling_name, false, position);
             return true;
@@ -151,17 +156,16 @@ export class modifier_reimagined_broodmother_spiderling_spawn_spiderite_debuff e
         return false;
     }
 
-    ReimaginedSpiderlingAcademy(unit: CDOTA_BaseNPC, isSpiderite: boolean)
-    {
+    ReimaginedSpiderlingAcademy(unit: CDOTA_BaseNPC, isSpiderite: boolean) {
         // Find the ability handle of the caster
         const owner = this.caster.GetOwnerEntity() as CDOTA_BaseNPC;
-        if (owner)
-        {
+        if (owner) {
             const spawn_spiderling_ability_handle = owner.FindAbilityByName(this.spawn_spiderlings_ability);
-            if (spawn_spiderling_ability_handle)
-            {
+            if (spawn_spiderling_ability_handle) {
                 // Apply the Spiderling Academy Reimagination from the caster
-                (spawn_spiderling_ability_handle as reimagined_broodmother_spawn_spiderlings).ReimaginedSpiderlingAcademy(unit, isSpiderite);
+                (
+                    spawn_spiderling_ability_handle as reimagined_broodmother_spawn_spiderlings
+                ).ReimaginedSpiderlingAcademy(unit, isSpiderite);
             }
         }
     }
