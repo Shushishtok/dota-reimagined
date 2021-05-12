@@ -2,10 +2,10 @@
 
 A template for Dota 2 Custom Games built with modern technologies. It includes
 
-- [TypeScript for Panorama](https://moddota.com/panorama/introduction-to-panorama-ui-with-typescript)
-- [TypeScript for VScripts](https://typescripttolua.github.io/)
-- Simple commands to build and launch your custom game
-- [Continuous Integration](#continuous-integration) support
+-   [TypeScript for Panorama](https://moddota.com/panorama/introduction-to-panorama-ui-with-typescript)
+-   [TypeScript for VScripts](https://typescripttolua.github.io/)
+-   Simple commands to build and launch your custom game
+-   [Continuous Integration](#continuous-integration) support
 
 ## Getting Started
 

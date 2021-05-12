@@ -1,89 +1,82 @@
 import { SkywrathMageTalents } from "../../../abilities/heroes/skywrath_mage/reimagined_skywrath_mage_talents";
-import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
+import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 import { GetTalentSpecialValueFor, HasTalent } from "../../../lib/util";
 
 @registerModifier()
-export class modifier_reimagined_skywrath_mage_concussive_shot_slow extends BaseModifier
-{
-    // Modifier properties
-    caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
-    parent: CDOTA_BaseNPC = this.GetParent();
-    particle_slow: string = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot_slow_debuff.vpcf";
+export class modifier_reimagined_skywrath_mage_concussive_shot_slow extends BaseModifier {
+	// Modifier properties
+	caster: CDOTA_BaseNPC = this.GetCaster()!;
+	ability: CDOTABaseAbility = this.GetAbility()!;
+	parent: CDOTA_BaseNPC = this.GetParent();
+	particle_slow: string = "particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot_slow_debuff.vpcf";
 
-    // Reimagined properties
-    brain_concussion: boolean = false;
+	// Reimagined properties
+	brain_concussion: boolean = false;
 
-    // Modifier specials
-    movement_speed_pct?: number;
+	// Modifier specials
+	movement_speed_pct?: number;
 
-    // Reimagined specials
-    brain_concussion_spell_amp_rdct?: number;
-    
-    // Reimagined talent specials
-    turn_rate_reduction?: number;
+	// Reimagined specials
+	brain_concussion_spell_amp_rdct?: number;
 
-    IsHidden() {return false}
-    IsDebuff() {return true}
-    IsPurgable() {return true}
+	// Reimagined talent specials
+	turn_rate_reduction?: number;
 
-    OnCreated(): void
-    {
-        // Modifier specials
-        this.movement_speed_pct = this.ability.GetSpecialValueFor("movement_speed_pct");
+	IsHidden() {
+		return false;
+	}
+	IsDebuff() {
+		return true;
+	}
+	IsPurgable() {
+		return true;
+	}
 
-        // Reimagined specials
-        this.brain_concussion_spell_amp_rdct = this.ability.GetSpecialValueFor("brain_concussion_spell_amp_rdct");
-    }
+	OnCreated(): void {
+		// Modifier specials
+		this.movement_speed_pct = this.ability.GetSpecialValueFor("movement_speed_pct");
 
-    DeclareFunctions(): ModifierFunction[]
-    {
-        return [ModifierFunction.MOVESPEED_BONUS_PERCENTAGE,
-                ModifierFunction.SPELL_AMPLIFY_PERCENTAGE,
-                ModifierFunction.TURN_RATE_PERCENTAGE]
-    }
+		// Reimagined specials
+		this.brain_concussion_spell_amp_rdct = this.ability.GetSpecialValueFor("brain_concussion_spell_amp_rdct");
+	}
 
-    GetModifierMoveSpeedBonus_Percentage(): number
-    {
-        return this.movement_speed_pct! * (-1);
-    }
+	DeclareFunctions(): ModifierFunction[] {
+		return [ModifierFunction.MOVESPEED_BONUS_PERCENTAGE, ModifierFunction.SPELL_AMPLIFY_PERCENTAGE, ModifierFunction.TURN_RATE_PERCENTAGE];
+	}
 
-    GetModifierSpellAmplify_Percentage(): number
-    {
-        if (this.brain_concussion)
-        {
-            return this.brain_concussion_spell_amp_rdct! * (-1);
-        }
+	GetModifierMoveSpeedBonus_Percentage(): number {
+		return this.movement_speed_pct! * -1;
+	}
 
-        return 0;
-    }
+	GetModifierSpellAmplify_Percentage(): number {
+		if (this.brain_concussion) {
+			return this.brain_concussion_spell_amp_rdct! * -1;
+		}
 
-    GetModifierTurnRate_Percentage(): number
-    {
-        // Talent: Motor Dysfunction: Brain Concussion now also decreases turn rate by x%
-        return this.ReimaginedTalentMotorDysfunction();
+		return 0;
+	}
 
-        return 0;
-    }    
+	GetModifierTurnRate_Percentage(): number {
+		// Talent: Motor Dysfunction: Brain Concussion now also decreases turn rate by x%
+		return this.ReimaginedTalentMotorDysfunction();
 
-    GetEffectName(): string
-    {
-        return this.particle_slow;        
-    }
+		return 0;
+	}
 
-    GetEffectAttachType(): ParticleAttachment
-    {
-        return ParticleAttachment.ABSORIGIN_FOLLOW;
-    }
+	GetEffectName(): string {
+		return this.particle_slow;
+	}
 
-    ReimaginedTalentMotorDysfunction(): number
-    {
-        if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_4))
-        {   
-            if (!this.turn_rate_reduction) this.turn_rate_reduction = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_4, "turn_rate_reduction")
-            return this.turn_rate_reduction * (-1);            
-        }
+	GetEffectAttachType(): ParticleAttachment {
+		return ParticleAttachment.ABSORIGIN_FOLLOW;
+	}
 
-        return 0;
-    }
+	ReimaginedTalentMotorDysfunction(): number {
+		if (HasTalent(this.caster, SkywrathMageTalents.SkywrathMageTalent_4)) {
+			if (!this.turn_rate_reduction) this.turn_rate_reduction = GetTalentSpecialValueFor(this.caster, SkywrathMageTalents.SkywrathMageTalent_4, "turn_rate_reduction");
+			return this.turn_rate_reduction * -1;
+		}
+
+		return 0;
+	}
 }

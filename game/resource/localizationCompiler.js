@@ -30,7 +30,11 @@ var LocalizationCompiler = /** @class */ (function () {
     // Helper functions
     LocalizationCompiler.prototype.TransformForLocalization = function (text, modifier) {
         if (modifier) {
-            return text.replace(/\{([^f]\w+)\}($|[^%])/g, "%d$1%$2").replace(/\{([^f]\w+)\}%/g, "%d$1%%%").replace(/\{f(\w+)\}($|[^%])/g, "%f$1%$2").replace(/\{f(\w+)\}%/g, "%f$1%%%");
+            return text
+                .replace(/\{([^f]\w+)\}($|[^%])/g, "%d$1%$2")
+                .replace(/\{([^f]\w+)\}%/g, "%d$1%%%")
+                .replace(/\{f(\w+)\}($|[^%])/g, "%f$1%$2")
+                .replace(/\{f(\w+)\}%/g, "%f$1%%%");
         }
         else {
             return text.replace(/\${(\w*)}($|[^%])/g, "%$1%$2").replace(/\${(\w*)}%/g, "%$1%%%");
@@ -304,15 +308,17 @@ var LocalizationCompiler = /** @class */ (function () {
         // Set based on language
         var filepath = this.addon_filepath + language.toString() + this.filepath_format;
         // Remove file contents, or create a fresh one if it doesn't exists yet.
-        var fd = fs.openSync(filepath, 'w');
+        var fd = fs.openSync(filepath, "w");
         fs.closeSync(fd);
         // Add the opening tokens
         var localization_intro = "\"lang\"\n{\n\t\"Language\" \"" + language + "\"\n\t\"Tokens\"\n\t{\n";
         // Add the closing token
-        var localization_ending = '\t}\n}';
+        var localization_ending = "\t}\n}";
         var write_string = localization_intro + localization_content + localization_ending;
         // Write to the file
-        fs.writeFile(filepath, write_string, function () { console.log("Finished writing tooltips for language " + language + " in file " + filepath); });
+        fs.writeFile(filepath, write_string, function () {
+            console.log("Finished writing tooltips for language " + language + " in file " + filepath);
+        });
     };
     return LocalizationCompiler;
 }());

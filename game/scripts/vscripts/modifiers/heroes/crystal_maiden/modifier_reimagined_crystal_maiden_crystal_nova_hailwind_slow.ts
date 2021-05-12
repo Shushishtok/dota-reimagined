@@ -1,48 +1,48 @@
-import { BaseModifier, registerModifier, } from "../../../lib/dota_ts_adapter";
+import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 
 @registerModifier()
-export class modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow extends BaseModifier
-{
-    // Modifier properties
-    caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
-    parent: CDOTA_BaseNPC = this.GetParent();
-    particle_slowed = "particles/generic_gameplay/generic_slowed_cold.vpcf";
+export class modifier_reimagined_crystal_maiden_crystal_nova_hailwind_slow extends BaseModifier {
+	// Modifier properties
+	caster: CDOTA_BaseNPC = this.GetCaster()!;
+	ability: CDOTABaseAbility = this.GetAbility()!;
+	parent: CDOTA_BaseNPC = this.GetParent();
+	particle_slowed = "particles/generic_gameplay/generic_slowed_cold.vpcf";
 
-    // Reimagined specials
-    hailwind_slow_pct?: number;
+	// Reimagined specials
+	hailwind_slow_pct?: number;
 
-    IsHidden() {return false}
-    IsDebuff() {return true}
-    IsPurgable() {return true}
+	IsHidden() {
+		return false;
+	}
+	IsDebuff() {
+		return true;
+	}
+	IsPurgable() {
+		return true;
+	}
 
-    OnCreated(): void
-    {
-        // Modifier properties
-        
-        this.ability = this.GetAbility()!;
+	OnCreated(): void {
+		// Modifier properties
 
-        // Reimagined specials
-        this.hailwind_slow_pct = this.ability.GetSpecialValueFor("hailwind_slow_pct");
-    }
+		this.ability = this.GetAbility()!;
 
-    DeclareFunctions(): ModifierFunction[]
-    {
-        return [ModifierFunction.MOVESPEED_BONUS_PERCENTAGE]
-    }
+		// Reimagined specials
+		this.hailwind_slow_pct = this.ability.GetSpecialValueFor("hailwind_slow_pct");
+	}
 
-    GetModifierMoveSpeedBonus_Percentage(): number
-    {
-        return this.hailwind_slow_pct! * (-1);
-    }
+	DeclareFunctions(): ModifierFunction[] {
+		return [ModifierFunction.MOVESPEED_BONUS_PERCENTAGE];
+	}
 
-    GetEffectName(): string
-    {
-        return this.particle_slowed;
-    }
+	GetModifierMoveSpeedBonus_Percentage(): number {
+		return this.hailwind_slow_pct! * -1;
+	}
 
-    GetEffectAttachType(): ParticleAttachment
-    {
-        return ParticleAttachment.ABSORIGIN_FOLLOW;
-    }
+	GetEffectName(): string {
+		return this.particle_slowed;
+	}
+
+	GetEffectAttachType(): ParticleAttachment {
+		return ParticleAttachment.ABSORIGIN_FOLLOW;
+	}
 }

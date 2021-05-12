@@ -1,13 +1,13 @@
-import * as fs from 'fs';
-const path = require('path');
-import { LocalizationCompiler } from './game/resource/localizationCompiler';
-import { LocalizationData} from './game/resource/localizationInterfaces';
+import * as fs from "fs";
+const path = require("path");
+import { LocalizationCompiler } from "./game/resource/localizationCompiler";
+import { LocalizationData } from "./game/resource/localizationInterfaces";
 const watch = require("node-watch");
 
-let completeData: {[path: string]: LocalizationData} = {};
+let completeData: { [path: string]: LocalizationData } = {};
 
-let watcher = watch(["./game/resource/localization", "./game/resource/localizationCompiler.js"], {recursive: true})
-watcher.on("change", (eventType ?: 'update' | 'remove' | undefined, filePath ?: string) => {
+let watcher = watch(["./game/resource/localization", "./game/resource/localizationCompiler.js"], { recursive: true });
+watcher.on("change", (eventType?: "update" | "remove" | undefined, filePath?: string) => {
 	if (!filePath) return;
 	if (filePath.includes("localizationCompiler.js")) {
 		compiler = loadCompiler();
@@ -26,25 +26,25 @@ watcher.on("change", (eventType ?: 'update' | 'remove' | undefined, filePath ?: 
 			combineData();
 		}
 	}
-})
+});
 
 // not really neccessarry:
 watcher.on("error", (error: Error) => {
 	console.log("Something went wrong!");
 	console.log(error);
-})
+});
 
 watcher.on("ready", () => {
 	console.log("Ready!");
-})
+});
 
 let compiler = loadCompiler();
 
 function getDataFromFile(filePath: string): LocalizationData | undefined {
-	if (!fs.existsSync(filePath)){
+	if (!fs.existsSync(filePath)) {
 		return;
 	}
-	delete require.cache[require.resolve(filePath)]
+	delete require.cache[require.resolve(filePath)];
 	let file = require(filePath);
 	if (file["GenerateLocalizationData"]) {
 		const localizationArr: LocalizationData = file["GenerateLocalizationData"]();
@@ -57,11 +57,10 @@ function combineData() {
 	compiler.OnLocalizationDataChanged(completeData);
 }
 
-function loadCompiler(): LocalizationCompiler
-{
-    // Clear require cache
-    delete require.cache[require.resolve("./game/resource/localizationCompiler")]
-    // Require latest compiler version
-    const compilerClass: new () => LocalizationCompiler = require("./game/resource/localizationCompiler").LocalizationCompiler;
-    return new compilerClass();
+function loadCompiler(): LocalizationCompiler {
+	// Clear require cache
+	delete require.cache[require.resolve("./game/resource/localizationCompiler")];
+	// Require latest compiler version
+	const compilerClass: new () => LocalizationCompiler = require("./game/resource/localizationCompiler").LocalizationCompiler;
+	return new compilerClass();
 }

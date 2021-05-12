@@ -1,35 +1,36 @@
-import { BaseModifier, registerModifier, } from "../../lib/dota_ts_adapter";
+import { BaseModifier, registerModifier } from "../../lib/dota_ts_adapter";
 
 @registerModifier()
-export class modifier_reimagined_negate_armor extends BaseModifier
-{
-    // Modifier properties
-    caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
-    parent: CDOTA_BaseNPC = this.GetParent();    
-    armor?: number;
+export class modifier_reimagined_negate_armor extends BaseModifier {
+	// Modifier properties
+	caster: CDOTA_BaseNPC = this.GetCaster()!;
+	ability: CDOTABaseAbility = this.GetAbility()!;
+	parent: CDOTA_BaseNPC = this.GetParent();
+	armor?: number;
 
-    IsHidden() {return true}
-    IsDebuff() {return true}
-    IsPurgable() {return false}
-    
-    OnCreated()
-    {
-        this.armor = this.parent.GetPhysicalArmorBaseValue();
-    }
+	IsHidden() {
+		return true;
+	}
+	IsDebuff() {
+		return true;
+	}
+	IsPurgable() {
+		return false;
+	}
 
-    DeclareFunctions(): ModifierFunction[]
-    {
-        return [ModifierFunction.PHYSICAL_ARMOR_BONUS]
-    }
+	OnCreated() {
+		this.armor = this.parent.GetPhysicalArmorBaseValue();
+	}
 
-    GetModifierPhysicalArmorBonus(): number
-    {
-        if (this.armor && this.armor > 0)
-        {
-            return this.armor! * (-1);        
-        }
-        
-        return 0;
-    }
+	DeclareFunctions(): ModifierFunction[] {
+		return [ModifierFunction.PHYSICAL_ARMOR_BONUS];
+	}
+
+	GetModifierPhysicalArmorBonus(): number {
+		if (this.armor && this.armor > 0) {
+			return this.armor! * -1;
+		}
+
+		return 0;
+	}
 }

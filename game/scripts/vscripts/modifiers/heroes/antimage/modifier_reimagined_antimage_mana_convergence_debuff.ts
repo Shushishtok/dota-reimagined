@@ -1,48 +1,48 @@
-import { BaseModifier, registerModifier} from "../../../lib/dota_ts_adapter";
+import { BaseModifier, registerModifier } from "../../../lib/dota_ts_adapter";
 
 @registerModifier()
-export class modifier_reimagined_antimage_mana_convergence_debuff extends BaseModifier
-{
-    // Modifier properties
-    caster: CDOTA_BaseNPC = this.GetCaster()!;
-    ability: CDOTABaseAbility = this.GetAbility()!; 
-    parent: CDOTA_BaseNPC = this.GetParent();
-    particle_debuff: string = "particles/heroes/anti_mage/antimage_mana_convergence_debuff.vpcf";
+export class modifier_reimagined_antimage_mana_convergence_debuff extends BaseModifier {
+	// Modifier properties
+	caster: CDOTA_BaseNPC = this.GetCaster()!;
+	ability: CDOTABaseAbility = this.GetAbility()!;
+	parent: CDOTA_BaseNPC = this.GetParent();
+	particle_debuff: string = "particles/heroes/anti_mage/antimage_mana_convergence_debuff.vpcf";
 
-    // Modifier specials
-    mana_convergence_manaloss_reduction_pct?: number;
+	// Modifier specials
+	mana_convergence_manaloss_reduction_pct?: number;
 
-    IsHidden() {return false}
-    IsDebuff() {return true}
-    IsPurgable() {return true}
+	IsHidden() {
+		return false;
+	}
+	IsDebuff() {
+		return true;
+	}
+	IsPurgable() {
+		return true;
+	}
 
-    OnCreated(): void
-    {
-        // Modifier properties
-        
-        this.ability = this.GetAbility()!;
+	OnCreated(): void {
+		// Modifier properties
 
-        // Modifier specials
-        this.mana_convergence_manaloss_reduction_pct = this.ability?.GetSpecialValueFor("mana_convergence_manaloss_reduction_pct");        
-    }
+		this.ability = this.GetAbility()!;
 
-    DeclareFunctions(): ModifierFunction[]
-    {
-        return [ModifierFunction.MANACOST_PERCENTAGE_STACKING]
-    }
+		// Modifier specials
+		this.mana_convergence_manaloss_reduction_pct = this.ability?.GetSpecialValueFor("mana_convergence_manaloss_reduction_pct");
+	}
 
-    GetModifierPercentageManacostStacking(): number
-    {
-        return -this.mana_convergence_manaloss_reduction_pct!;
-    }
+	DeclareFunctions(): ModifierFunction[] {
+		return [ModifierFunction.MANACOST_PERCENTAGE_STACKING];
+	}
 
-    GetEffectName(): string
-    {
-        return this.particle_debuff;
-    }
+	GetModifierPercentageManacostStacking(): number {
+		return -this.mana_convergence_manaloss_reduction_pct!;
+	}
 
-    GetEffectAttachType(): ParticleAttachment
-    {
-        return ParticleAttachment.ABSORIGIN_FOLLOW;
-    }
+	GetEffectName(): string {
+		return this.particle_debuff;
+	}
+
+	GetEffectAttachType(): ParticleAttachment {
+		return ParticleAttachment.ABSORIGIN_FOLLOW;
+	}
 }
