@@ -128,12 +128,12 @@ export class modifier_reimagined_night_stalker_talent_6 extends BaseTalentModifi
 		}
 	}
 
-	CheckState(): Partial<Record<ModifierState, boolean>> | undefined {
+	CheckState(): Partial<Record<ModifierState, boolean>> {
 		if (this.GetStackCount() == 0) {
 			return { [ModifierState.INVISIBLE]: true };
 		}
 
-		return undefined;
+		return {};
 	}
 
 	DeclareFunctions(): ModifierFunction[] {
@@ -190,7 +190,12 @@ export class modifier_reimagined_night_stalker_talent_8 extends BaseTalentModifi
 	}
 
 	DeclareFunctions(): ModifierFunction[] {
-		return [ModifierFunction.INCOMING_DAMAGE_PERCENTAGE, ModifierFunction.STATUS_RESISTANCE_STACKING, ModifierFunction.TOTALDAMAGEOUTGOING_PERCENTAGE, ModifierFunction.TOOLTIP];
+		return [
+			ModifierFunction.INCOMING_DAMAGE_PERCENTAGE,
+			ModifierFunction.STATUS_RESISTANCE_STACKING,
+			ModifierFunction.TOTALDAMAGEOUTGOING_PERCENTAGE,
+			ModifierFunction.TOOLTIP,
+		];
 	}
 
 	GetModifierIncomingDamage_Percentage(): number {
