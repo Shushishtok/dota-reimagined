@@ -71,7 +71,7 @@ export class modifier_reimagined_phantom_assassin_coup_de_grace_passive extends 
 	}
 
 	DeclareFunctions(): ModifierFunction[] {
-		return [ModifierFunction.PREATTACK_CRITICALSTRIKE, ModifierFunction.ON_ATTACK_RECORD_DESTROY];
+		return [ModifierFunction.PREATTACK_CRITICALSTRIKE, ModifierFunction.ON_ATTACK_RECORD_DESTROY, ModifierFunction.INCOMING_PHYSICAL_DAMAGE_CONSTANT];
 	}
 
 	GetModifierPreAttack_CriticalStrike(event: ModifierAttackEvent): number | undefined {
@@ -145,7 +145,13 @@ export class modifier_reimagined_phantom_assassin_coup_de_grace_passive extends 
 			this.particle_crit_fx = ParticleManager.CreateParticle(this.particle_crit, ParticleAttachment.ABSORIGIN_FOLLOW, event.target);
 			ParticleManager.SetParticleControlEnt(this.particle_crit_fx, 0, event.target, ParticleAttachment.POINT_FOLLOW, "attach_hitloc", event.target.GetAbsOrigin(), true);
 			ParticleManager.SetParticleControl(this.particle_crit_fx, 1, event.target.GetAbsOrigin());
-			ParticleManager.SetParticleControlOrientation(this.particle_crit_fx, 1, (this.parent.GetForwardVector() * -1) as Vector, this.parent.GetRightVector(), this.parent.GetUpVector());
+			ParticleManager.SetParticleControlOrientation(
+				this.particle_crit_fx,
+				1,
+				(this.parent.GetForwardVector() * -1) as Vector,
+				this.parent.GetRightVector(),
+				this.parent.GetUpVector()
+			);
 			ParticleManager.ReleaseParticleIndex(this.particle_crit_fx);
 		}
 	}
@@ -180,7 +186,9 @@ export class modifier_reimagined_phantom_assassin_coup_de_grace_passive extends 
 		let has_modifier = this.parent.HasModifier(modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike.name);
 		let modifier: modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike;
 		if (has_modifier) {
-			modifier = this.parent.FindModifierByName(modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike.name) as modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike;
+			modifier = this.parent.FindModifierByName(
+				modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike.name
+			) as modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike;
 		} else {
 			return 0;
 		}
@@ -231,8 +239,10 @@ export class modifier_reimagined_phantom_assassin_coup_de_grace_passive extends 
 
 	ReimaginedTalentMercyKillingCritical(crit_chance: number, target: CDOTA_BaseNPC): number {
 		if (HasTalent(this.caster, PhantomAssassinTalents.PhantomAssassinTalent_7)) {
-			if (!this.talent_7_health_threshold) this.talent_7_health_threshold = GetTalentSpecialValueFor(this.caster, PhantomAssassinTalents.PhantomAssassinTalent_7, "talent_7_health_threshold");
-			if (!this.talent_7_proc_cooldown) this.talent_7_proc_cooldown = GetTalentSpecialValueFor(this.caster, PhantomAssassinTalents.PhantomAssassinTalent_7, "talent_7_proc_cooldown");
+			if (!this.talent_7_health_threshold)
+				this.talent_7_health_threshold = GetTalentSpecialValueFor(this.caster, PhantomAssassinTalents.PhantomAssassinTalent_7, "talent_7_health_threshold");
+			if (!this.talent_7_proc_cooldown)
+				this.talent_7_proc_cooldown = GetTalentSpecialValueFor(this.caster, PhantomAssassinTalents.PhantomAssassinTalent_7, "talent_7_proc_cooldown");
 
 			// If the parent has the cooldown modifier, return the regular crit chance
 			if (this.parent.HasModifier("modifier_reimagined_phantom_assassin_talent_7_cooldown")) return crit_chance;
@@ -253,7 +263,8 @@ export class modifier_reimagined_phantom_assassin_coup_de_grace_passive extends 
 	ReimaginedTalentCleanStreak(crit_damage: number, target: CDOTA_BaseNPC): number {
 		if (HasTalent(this.caster, PhantomAssassinTalents.PhantomAssassinTalent_8)) {
 			// Initialize variables
-			if (!this.talent_8_crit_damage_bonus) this.talent_8_crit_damage_bonus = GetTalentSpecialValueFor(this.caster, PhantomAssassinTalents.PhantomAssassinTalent_8, "talent_8_crit_damage_bonus");
+			if (!this.talent_8_crit_damage_bonus)
+				this.talent_8_crit_damage_bonus = GetTalentSpecialValueFor(this.caster, PhantomAssassinTalents.PhantomAssassinTalent_8, "talent_8_crit_damage_bonus");
 
 			// Only apply if the caster has Decisive Strike active
 			if (this.parent.HasModifier(modifier_reimagined_phantom_assassin_coup_de_grace_decisive_strike.name)) {
